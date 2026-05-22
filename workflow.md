@@ -1,8 +1,22 @@
 # Workflow — End-to-End Research System
 
-This is the workflow layer. Phases describe the sequence of work a research run goes through. The **capability layer** (what jobs the system performs) lives in `capability_inventory.md`. The **vocabulary** lives in `definitions.md`. Agents are a downstream construct — they cluster capabilities. Workflow ≠ agents.
+This is the workflow layer. Phases describe the sequence of work a research run goes through, **and the research questions answered at each**. The **capability layer** (what jobs the system performs) lives in `capability_inventory.md`. The **vocabulary** lives in `definitions.md`. The **data each capability produces/consumes** lives in `map/data_inventory.md`. Agents are a downstream construct — they cluster capabilities. Workflow ≠ agents.
 
-Phases below are stages of work, not agent boundaries. Many capabilities are reused across phases (e.g., per-brand extractor runs in Phase 0 and Phase 2; VOC chain runs in Phase 1, Phase 2, and Phase 3).
+Phases below are stages of work, not agent boundaries. Many capabilities are reused across phases (e.g. per-brand extractor runs in Phase 0 and Phase 2; the VOC chain runs in Phase 1, 2 and 3).
+
+Each phase carries its **research questions** — what a run must answer there. These were merged back from Kam's original planning doc; an earlier workflow draft had compressed or dropped them. Where the two sources conflicted: **phase structure and the gap formula** follow the newer draft; **research-question depth** follows the planning doc. The phase structure and `definitions.md` vocabulary are locked. See the reconciliation note at the bottom.
+
+---
+
+## Phase −1 — Operator self-assessment
+
+Precedes "sketch a space." A run needs a space to map; this is how you choose one, grounded in what the operator brings. Human work.
+
+**Research questions:**
+- What am I good at? What am I knowledgeable about that people will pay for?
+- What products can I sell? What is my moat?
+- What kinds of **niches** do I know deeply?
+- The drill: pick a **transformation category** (e.g. wellness) → what **niches** sit under it? Pick a **product category** (e.g. tech) → what **transformations** can it serve? → name a candidate **niche**.
 
 ---
 
@@ -11,6 +25,7 @@ Phases below are stages of work, not agent boundaries. Many capabilities are reu
 Goal: produce a populated map of a space so you can spot opportunity. Output is a map, not a hypothesis.
 
 1. **Sketch a space.** Inputs: transformation category, product category, niche — at whatever specificity is available. May be partial. (Partial-seed handling = Under, deferred.)
+   - *Narrowing NTP from broad to exact:* what transformations can I create? What spaces will I know? What avatars will I know?
 2. **Collect per-brand info** across players in the space:
    - Transformation(s)
    - Product
@@ -20,15 +35,15 @@ Goal: produce a populated map of a space so you can spot opportunity. Output is 
    - Claim count + types
    - Trend velocity
    - Mechanisms played
-4. **Can you solve any of these problems?** D2C feasibility scan: intuition, mechanism research, commercializability check.
+4. **Can you solve any of these problems?** D2C feasibility scan: intuition, mechanism/science research, general web search, commercializability check.
 5. **Gap analysis (Gate 1).** Formula:
    ```
    Gap Score = [(Desire to Solve × D2C Feasibility) − Market Sophistication] × Market Growth
    ```
-   - **Desire to Solve:** proven spend, core driver proximity, severity, frequency
-   - **D2C Feasibility:** mechanism efficacy, believability (self-evident UM / authority proof / social proof), economics
-   - **Market Sophistication:** claim count, enhanced claim count, competitor sophistication, UM availability
-   - **Market Growth:** trend velocity, adjacent trend signals
+   - **Desire to Solve:** proven spend (existing brands making money in adjacent transformations is evidence), core driver proximity, severity, frequency
+   - **D2C Feasibility:** mechanism efficacy (does it actually work — science, reviews, evidence), believability (self-evident UM / authority proof / social proof), economics (COGS, margins, shippability)
+   - **Market Sophistication:** claim count, enhanced claim count, competitor sophistication, estimated revenue, distribution sophistication, unique identifiers / massive social proof, UM availability (can you actually differentiate on mechanism)
+   - **Market Growth:** trend velocity (growing or stagnant), adjacent trend signals (TikTok virality, search trends, early-adopter behavior)
 
    Subtraction (not division) on sophistication: strong UM + persuasion can win at any stage. Growth multiplies what's left.
 
@@ -44,38 +59,114 @@ Human work. Read the populated map, pick a bet (specific T × P × N to pursue).
 
 ## Phase 1 — Theorize
 
-Goal: given a hypothesis, solve the unsolved variables.
+Goal: given a hypothesis, solve the unsolved variables. A **market** is niche × transformation — you must solve *who sells the transformation* and *who sells to the niche*. You usually start with one, not both.
 
-Pipelines describe the variable-solving order based on what you already have:
+Pipelines describe the variable-solving order based on what you already have. Each composes existing capabilities — per-brand extractor, market aggregator, transformation-from-product expander, transformation-from-niche expander, mechanism research, VOC chain (see `capability_inventory.md`). Phase tags below show where each sub-question routes.
 
-- **Pipeline A — Transformation first.** You have T, need to pick N and P.
-- **Pipeline B — Product first.** You have P (and its T(s)), need to pick N.
-- **Pipeline C — Niche first.** You have N, need to pick T and P.
+**Pipeline A — Transformation first.** You have T, need N and P.
+1. Transformation (given).
+2. Who sells the transformation, with what mechanism, to which niche, at what price, and how (what does their marketing look like)? → Phase 2.
+3. Who wants this transformation, and what do we know about them (the niche)? → Phase 3a.
+4. Who sells similar transformations to the niche(s) of interest — with what mechanism, to whom, at what price, how? → Phase 2.
+5. VOC. → Phase 3b.
+6. What can achieve this transformation? Evaluate on D2C feasibility, economics, novelty, believability (niche-specific). → Phase 3c.
+7. Test design. → Phase 4.
 
-Each pipeline composes existing capabilities — per-brand extractor, market aggregator, transformation-from-product expander, transformation-from-niche expander, mechanism research, VOC chain. See `capability_inventory.md` for what each does.
+**Pipeline B — Product first.** You have P (and its T(s)), need N.
+1. What transformations can this product serve? → Phase 1 / 3b.
+2. Who sells the transformation(s)/product, with what mechanism, to which niche(s), at what price, how? → Phase 2.
+3. Who wants this transformation, and what do we know about them? → Phase 3a.
+4. Who sells similar transformations to the niche(s) of interest? → Phase 2.
+5. VOC. → Phase 3b.
+6. Test design. → Phase 4.
 
-Filter questions inside each pipeline (strong desire / proven spend, evergreen, why now, emerging, underserved + hungry, solvable UM, describable buyer) consume capability outputs. Threshold application is Human until thresholds calibrate.
+**Pipeline C — Niche first.** You have N, need T and P.
+1. What do we know about this niche? → Phase 3a.
+2. What transformations do they want? → Phase 1.
+3. Who sells similar transformation(s), with what mechanism, to your niche, at what price, how? → Phase 2.
+4. VOC. → Phase 3b.
+5. What can achieve this transformation? Evaluate on D2C feasibility, economics, novelty, believability. → Phase 3c.
+6. Test design. → Phase 4.
+
+**Pipeline D — Product variation for a new transformation.** Take a variation of an existing product and point it at a new transformation.
+
+### Filter questions — Pipeline A / B (transformation/product candidates)
+
+Each filter consumes capability outputs. Threshold application is Human until thresholds calibrate (downstream Under).
+
+- Strong desire / proven spend? (either-or)
+- Core driver proximity (proven in VOC) × severity × frequency
+- Evergreen?
+- Why now?
+- Emerging transformation? (trends, Glimpse, human read, early-adopter watching)
+- Underserved + hungry? (likely specific — human, reviews/VOC)
+- Solvable / believable UM? (AI)
+
+### Pipeline B — product-specific questions
+
+- What can your product believably do? Transformation change? Hidden transformation? Multi-benefit and trending?
+- Change buyer? (gift-buying, changing demographic/psychographic)
+- Format change possible? (likely invention)
+- Emerging? (Glimpse, trends, human, early-adopter watching)
+- Believable? (AI, human)
+- Overlooked? (likely ultra-specific, or for an emerging transformation)
+
+### Pipeline C — niche-specific questions
+
+- Describable? (e.g. "older women's beauty," "older women's wellness")
+- Specific, distinct, describable buyer? (Mintel, Reddit)
 
 ---
 
 ## Phase 2 — Competition (deep market study)
 
-Goal: study the chosen market with full depth. Same per-brand extractor used in Phase 0, plus additional capabilities composing around each brand:
+Goal: study the chosen market with full depth. Two framing questions:
+- Who is selling to your niche, what transformations, in the same general space?
+- Who is selling your transformation, to what niches?
+
+> **Niche-competition definition.** "Who is marketing to your niche?" is *not* everything they buy. It is the general **category** level (e.g. beauty), not the specific transformation (e.g. less-saggy eye bags). Who is selling in your category to which niche. Thus **niche** here = similar person × similar transformation.
+
+Same per-brand extractor used in Phase 0, plus additional capabilities composing around each brand:
 
 - Ad creative + visual extraction (Foreplay, Meta Ad Library, GetHookd, websites)
 - Offer/bundle structure extraction
 - Channel analysis (SimilarWeb, ad library presence/absence)
 - Review mining (VOC chain scoped to competitor reviews)
 
-Depth comes from composition, not from the extractor being smarter.
+Depth comes from composition, not from the extractor being smarter. Sources: web, GetHookd, Meta Ad Library.
 
 ### Sophistication & landscape evaluation
 
-Read the aggregated outputs. Count claims per type. Identify enhanced claims. Map sophistication levels per competitor (revenue, distribution, unique identifiers, massive social proof). Assess UM availability.
+Ideally: proven spending but easy competition.
 
-### Critical Decision Point — Gate 2
+- How many of the same **claims** are made to the market? (Keep base claims under 5 — the 5+ rule discounts a claim regardless of copy quality.)
+- **Evaluate each competitor:**
+  - What claims are they making? (transformation)
+  - What products are they selling? (mechanisms)
+  - Who are they selling to? (niche)
+  - What is their framing in ads and on the website? (angles)
+  - What awareness levels are they selling to?
+  - Extraordinary identifier on their website? (sophistication)
+  - Tons of UGC reviews? Press coverage? Celebrity endorsement?
+  - Estimated revenue of your niche & transformation competitors.
+  - What are they bundling? What do their offers look like?
+  - Brand loyalty?
+- **Analyze their reviews:** hidden use cases? what do they like? what don't they like? who are they?
+- What does their marketing physically look like? (GetHookd, Ads Manager, website)
+- Where are they getting customers? Competitors NOT scaling on Meta? → opportunity to be first on that channel.
 
-Now that the market is studied, the avatar is understood, and the science is mapped: do you still think you can win here?
+### Evaluate the market
+
+- Saturation (count) for each individual claim you see.
+- Multiple huge / sophisticated players?
+- What are the products in the space? How many brands with the same product?
+- What are the common / winning variables in this space?
+- What do people pay for this transformation? Proven demand / market?
+- How do you think you'll differentiate? Did you find anything in the reviews?
+
+### Critical Decision Point — Gate 2: Winnable?
+
+Now that the market is studied, the avatar understood, the science mapped: do you still think you can win here? Ideally proven spend but easy competition. You *can* win a competitive market with a great / convincing / extraordinary mechanism or product (Human judgment) — strong UM + easy competition / gap are the biggest difference-makers.
 
 Gate 2 is judgment against a framework. Framework structure: differentiation is structurally a Product UM play 95% of the time, gated by gap analysis, with proven variables stolen from competition. Scoring methodology Under — calibrate alongside Gate 1.
 
@@ -83,29 +174,72 @@ Gate 2 is judgment against a framework. Framework structure: differentiation is 
 
 ## Phase 3a — Structural map of themes
 
-Goal: identify which themes, frames, emotions, beliefs, behaviors, pains, dreams, and drivers are frequent in the avatar.
+Goal: identify which themes, frames, emotions, beliefs, behaviors, pains, dreams, and drivers are frequent in the avatar. Output: ranked themes by prevalence. Drives angle selection in Phase 4 (frequency × intensity scoring on candidate angles).
 
-Output: ranked themes by prevalence. The structural map of "what patterns are common."
+**Two-phase VOC approach:**
+1. **Broad pattern discovery** — frequency tables across the market: which characteristics are probable. Also which answers **co-occur in clusters** (they mention X *and* Y in the context of problem Z) — build this into the pattern. Mintel × demographic × science is the friend here: large, non-noisy datasets alongside VOC clustering.
+2. **Deep language analysis** — take the high-frequency patterns and dig into the actual words used around them.
 
-Drives angle selection in Phase 4 (frequency × intensity scoring on candidate angles).
+**Avatar definition problem.** Searching only by transformation frankensteins a fake avatar by combining traits from different people who share one pain. Fix: anchor the search to a niche identifier *other than the pain*, then layer the transformation on top — use venues where avatar traits are pre-filtered (subreddits anchored on age, life stage, identity).
 
-Three VOC search lanes, all feeding the same chain:
+**Three search lanes** — all feed the same VOC chain. Run all three to triangulate.
 
-- **Lane 1 — Transformation only (population-wide).** No niche filter.
-- **Lane 2 — Transformation inside the niche.** Niche-anchored venue + transformation query.
-- **Lane 3 — Adjacent context inside the niche.** Niche venue + broader category beyond the transformation. Surfaces beliefs/identity/PMBD layers.
+- **Lane 1 — Transformation only (population-wide).** No niche filter. How anyone with this problem talks about it.
+- **Lane 2 — Transformation inside the niche.** Niche-anchored venue + transformation query. Isolates niche-specific language; compare against Lane 1.
+- **Lane 3 — Adjacent context inside the niche.** Niche venue + the broader category the transformation sits inside. Surfaces the surrounding belief system, identity, worldview. Mintel and other institutional databases supplement Lane 3.
 
-Mintel and other institutional databases supplement Lane 3.
+### Research questions — core differentiators
+
+**Beliefs**
+- What do they believe (about themselves and their situation)?
+- What do they trust (sources, brands, people)?
+- Where do they get their information?
+- What do they believe / feel about other products and the category?
+- What specifically about your category would they agree or disagree with? ("all-natural good, processed bad")
+- Are they loyal to specific brands?
+- What do they believe are the barriers to the outcome — about other products, themselves, or the transformation? ("it's just genetics," "all those supplements are crap")
+
+**Experiences**
+- Experiences with other products: what have they bought in this category, what did they expect, where did it fall short, what did they like?
+- Other life experiences relevant to the transformation.
+
+**Behaviors / actions**
+- Behaviors related to the problem — coping strategies, habits in any relation to the desired transformation (including adjacent contexts).
+- What they have bought / what they currently do around the problem.
+
+**Pains** (laddered)
+- Physical & symptom-related: what happens to their body.
+- Surface pain point: the symptom they notice.
+- Pain of pain: what happens *because* of the pain.
+- Pain of pain of pain: the true root.
+- Core human driver: status / survival / reproduction / belonging.
+
+**Dreams** (laddered)
+- Immediate relief.
+- Outcome of the dream.
+- Dream of the dream of the dream.
+- Core human driver.
+
+### Evaluation
+
+- What words will they use about the probable characteristics? (some make good sub-niches)
+- What framings of the situation are dominant? Nail their exact emotions — articulate *their* feelings so it feels like talking to themselves.
+- For what reasons / motivations do they want the transformation, or would pick you over alternatives? Focus on recurring PMBDs likely to drive purchase. (Frequency surfaces angles; intensity is Kam's call.)
+- They buy on emotion and justify with logic — what do they believe, trust, and emotionally resonate with?
+- Who are you selling to, broadly? What do they think about your general category?
+- How aware do they get? Estimate education requirements / possible awareness levels.
 
 ---
 
 ## Phase 3b — Verbatim language bank
 
-Goal: capture the actual words the avatar uses around each theme. The copy bank.
+Goal: capture the actual words the avatar uses around each theme. The copy bank. Same raw material as 3a; different operation — where 3a counts frequencies, 3b extracts verbatim quotes indexed to themes.
 
-Same raw material as Phase 3a. Different operation: where 3a counts frequencies, 3b extracts verbatim quotes indexed to themes.
+Output: copy bank organized by theme / sub-niche / PMBD layer, with source metadata preserved (platform, venue, author, link, engagement). Source-aware: queries can filter to purchase-anchored language (Amazon reviews) vs community language (Reddit). Sources: Amazon reviews, TikTok, Facebook, Reddit, Quora, YouTube.
 
-Output: copy bank organized by theme / sub-niche / PMBD layer, with source metadata preserved (platform, venue, author, link, engagement). Source-aware: queries can filter to purchase-anchored language (Amazon reviews) vs community language (Reddit) etc.
+It runs the same research questions as 3a, but for verbatim copy capture rather than frequency.
+
+**Purchase signal / strong desire:** large (high prevalence/frequency) · specific (VOC) · purchasing power (demographics / type of transformation) · reachability · growing? · new? · what are problems that used to not be problems?
 
 ### Sub-niche validation (strict)
 
@@ -115,19 +249,37 @@ PMBD clusters must be observed in single individuals (not assembled across peopl
 
 ## Phase 3c — UM research
 
-Goal: understand the transformation factually. Causes, biological pathways, existing solutions, evidence quality. Surface product candidates.
+Goal: understand the transformation factually. Causes, biological pathways, existing solutions, evidence quality. Surface product candidates. Factual standpoint, not customer standpoint.
 
 Two main capabilities (see inventory):
-- Mechanism research (scite, web of science, web search, IP/regulatory/COGS signals, format candidates)
-- Product candidate discovery (Alibaba AI, emerging product scanning, format-change ideation seeded by Human heuristics)
+- Mechanism research (scite, Web of Science, web search, Google Trends / Glimpse, IP/regulatory/COGS signals, format candidates)
+- Product candidate discovery (Alibaba AI, emerging-product scanning, format-change ideation seeded by Human heuristics)
 
-Filtering against avatar fit, believability, IP, regulatory, economics, LTV is Human (some pieces Op-supported).
+**Generation heuristics — Feature UM:**
+- Only one player for a mechanism? Can we format-change? (e.g. a gummy)
+- Regular household items related to the problem (pillowcases & skin, towels & skin) — could they be causing the problem, or be a novel way to fix it?
+- Adherence issues to a routine people want to keep — how do I make it easier? (AG1)
+
+**Generation heuristics — Product UM / market change** (Pipeline B/D territory):
+- Start with an emerging product booming in one market — does it solve other permanent desires?
+- What can your product believably do? Transformation change? Hidden transformation? Multi-benefit and trending?
+- Change buyer? (gift-buying, changing demographic/psychographic)
+
+**Filters — apply to any candidate** (filtering is Human, some pieces Op-supported):
+- Aligns with your customer avatar?
+- Believable? (AI, human)
+- Not used by competitors?
+- Overlooked? (likely ultra-specific / niche, or for an emerging transformation)
+- Consumable with high LTV?
+- Economics: COGS floor, margins, shippability.
+- Patentability / IP barriers. Regulatory barriers.
+- Does your market already understand your mechanism? How aware is the market of what you're about to tell them?
 
 ---
 
 ## Phase 3d — Loop back
 
-Revise Phase 0 and Phase 1 based on what was learned. Orchestration step, not new work.
+Revise Phase 0 and Phase 1 based on what was learned. Orchestration step, not new work. Then either move to test design, or re-evaluate and do more research.
 
 ---
 
@@ -145,13 +297,14 @@ Goal: define what you're going to test and why.
 
 ### Test design
 
-1. **Define dependent (proven) variables** from competitor data — what's been validated.
-2. **Define test variables** — what you're changing relative to proven.
-3. **Macro test selection** — same product to new markets, or same market with new products. Decided by which lever gap analysis pointed at + which one the Product UM hypothesis supports.
-4. **Reason awareness levels** given the macro test.
-5. **Micro tests / angles** — sub-avatar by sub-avatar. Pick angles by frequency × intensity. Angle types: pain, desire, authority, objection handle, offer (offer angle for warm traffic).
-6. **Pull exact language** from the Phase 3b copy bank for each test variable.
-7. **ToT through** why the test would or wouldn't work before committing.
+1. **Review competitor data.** How will you differentiate, and can you win this market?
+2. **Define dependent (proven) variables** from competitor data — what's been validated.
+3. **Define test variables** — what you're changing relative to proven.
+4. **ToT through** why the test would or wouldn't work, before committing.
+5. **Macro test selection** — same product to new markets, or same market with new products. Decided by which lever gap analysis pointed at + which one the Product UM hypothesis supports.
+6. **Reason awareness levels** given the macro test (market × product).
+7. **Micro tests / angles** — sub-avatar by sub-avatar, maximum diversity. Pick angles by frequency × intensity. Why would they pick you over alternatives? Angle types: pain (shameful behavior), desire (aspirations), authority, objection-handle, offer (offer angle for warm traffic).
+8. **Pull exact language** from the Phase 3b copy bank for each test variable.
 
 Target: 7–12 creatives covering as much surface area as possible across as many levers as can be identified.
 
@@ -159,12 +312,46 @@ Target: 7–12 creatives covering as much surface area as possible across as man
 
 ## Phases 5–8 — Deferred
 
-Hook test, build-a-brand, eval, iterate. Not in current scope. Downstream of the research system working at all.
+Downstream of the research system working at all. Not in current scope; detail preserved for when it opens.
+
+- **5 — Hook test.** White-square test preview. Test hooks — preferably hooks from titles of high-engagement VOC posts.
+- **6 — Build-a-brand.** 7–12 creatives · funnel build · belief architecture · run the test.
+- **7 — Eval.** What are your kill gates? When do you rotate creatives out? When do you push through after the first test vs. kill?
+- **8 — Iterate or destroy.**
 
 ---
 
-## Cross-cutting
+## Cross-cutting — Execution principles
 
-- **Map / persistence layer:** every capability writes to and reads from a shared store. Foundational Under — has to be designed before capability specs. See `capability_inventory.md`.
-- **Source metadata** (platform, venue, author, link, engagement) is preserved through every capability in the VOC chain. Non-negotiable. Enables the 5+ co-occurrence rule, the source-aware copy bank, and downstream analysis (Reddit vs Amazon vs TikTok comparisons).
+- **Become your customer.** Relate via behaviors, beliefs, situations. Be on their side. To convince them is to speak their language — a biohacker reasons toward a purchase differently than a menopausal woman.
+- **UM externalization.** Tell them it's not their fault — that is how people justify purchases to themselves.
+- **Play out the purchase.** Walk through how this specific person justifies buying, the logic they use, the journey they take if eventually convinced. Think their thoughts.
+
+## Cross-cutting — System
+
+- **Map / persistence layer:** every capability writes to and reads from a shared store. Foundational Under — has to be designed before capability specs. See `capability_inventory.md` and `map/data_inventory.md`.
+- **Source metadata** (platform, venue, author, link, engagement) is preserved through every capability in the VOC chain. Non-negotiable. Enables the 5+ co-occurrence rule, the source-aware copy bank, and downstream analysis.
 - **3a and 3b are distinct operations on the same raw material.** 3a is structural (frequency). 3b is linguistic (verbatim quotes). Both consume classified VOC; they branch downstream of the classifier.
+
+---
+
+## Open meta-questions
+
+Project-level questions Kam flagged. Settled items live in `definitions.md` / this doc / `capability_inventory.md`; the rest are open and map onto the Unders in `capability_inventory.md` and `handoff.md`.
+
+**Settled:** what the variables are · what they mean (optimal market characteristics) · what data to collect and in what order · what data to collect depending on starting point · what questions to answer from which sources.
+
+**Open — not started:**
+- How do we collect good data? What are all our sources? Quantitative then qualitative? What agents do we make? How do we write the prompts?
+- How will we organize the data?
+- What are our outputs / synthesis pipeline? What should AI read? What should the Human read?
+- What are our criteria for judging the data?
+- How do Human and AI work together — what role does each have?
+- What do we do with the data (design tests)?
+- How will we actually implement: test design → funnel architecture → ads → media buying / kill criteria → evaluating test results?
+
+---
+
+## Reconciliation note
+
+This doc merges two sources: an earlier workflow draft (newer; clean phase structure, corrected gap formula) and Kam's original project planning doc (older; deeper research questions). Restored from the planning doc: Phase −1, Pipeline D, the niche-competition definition, the laddered VOC research questions (pain-of-pain ladder, dream ladder, the six belief surfaces), the Phase 2 sophistication/market checklists, the Phase 3c generation heuristics and filters, the execution principles, and the open meta-questions. The gap formula and phase structure are the newer draft's. `definitions.md` vocabulary and the phase structure are locked.

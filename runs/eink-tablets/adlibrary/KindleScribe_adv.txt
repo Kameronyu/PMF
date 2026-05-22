@@ -1,0 +1,1530 @@
+# KindleScribe
+brand_query: Amazon Kindle
+status: ok
+resolved_advertiser: Amazon Kindle (pageID 14408401557, 3500000 followers)
+active_ad_count: 1,100
+
+TYPEAHEAD CANDIDATES:
+  14408401557 | score=118.5 | Amazon Kindle / @kindle  /  · 3.5M follow this · Product/service / @amazonkindle  /  · 566.4K followers
+  401216590272929 | score=25.4 | Amazon Kindle Direct Publishing - SP / @KDPespanol  /  · 445.5K follow this · Media/News Company · Argentina
+  105806127934254 | score=25.4 | Amazon Kindle Direct Publishing / @KindleDirectPublishingItaly  /  · 445.5K follow this · Media/News Company · Italy
+  398390603852834 | score=60.2 | Amazon Kindle Brasil / @brkindle  /  · 190K follow this · Product/service / @kindle.brasil  /  · 258.4K followers
+  459310987442679 | score=61.1 | Amazon Kindle India / @KindleIndia  /  · 1.1M follow this · Product/service / @kindleindia  /  · 29.3K followers
+  887954541249607 | score=25.4 | Amazon Kindle Direct Publishing / @KindleDirectPublishingUK  /  · 445.5K follow this · Media/News Company · Australia
+  777224225737048 | score=25.4 | Amazon Kindle Direct Publishing / @KindleDirectPublishingBR  /  · 445.5K follow this · Media/News Company · Brazil
+  134796679934670 | score=25.4 | Amazon Kindle Direct Publishing / @KindleDirectPublishing  /  · 445.5K follow this · Media/News Company / @amazonkdp  /  · 36.5K followers
+  1048900334977642 | score=60.0 | Amazon Kindle Pro / 0 follow this · Product/service
+  1531330140484064 | score=25.4 | Amazon Kindle Direct Publishing / @KindleDirectPublishingDE  /  · 445.5K follow this · Media/News Company · Germany
+
+--- ADS DUMP ---
+Meta Ad Library
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+​
+All
+​
+​
+​
+​
+All ads
+​
+Search by keyword or advertiser
+​
+​
+Amazon Kindle
+Ads
+About
+Log in
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+System status
+Subscribe to email updates
+FAQ
+About ads and data use
+Privacy
+Terms
+Cookies
+~1,100 results
+Filters
+Sort
+​
+Sort by
+Active status: Active ads
+Remove
+​
+​
+Active
+Library ID: 1624484593015097
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+One tap to summarize your handwritten notes on the new Kindle Scribe
+0:00 / 0:06
+AMAZON.COM
+What are you working on?
+Learn More
+​
+Active
+Library ID: 1628799005073470
+Started running on May 5, 2026
+Platforms
+​
+​
+​
+3 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+One tap to summarize your handwritten notes on the new Kindle Scribe
+0:00 / 0:06
+​
+Active
+Library ID: 1664764934866953
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+The one who 'owns' the meeting, is the one who's fully in it.
+0:00 / 0:06
+AMAZON.COM
+What are you working on?
+Learn More
+​
+Active
+Library ID: 1311226583779451
+Started running on Sep 12, 2025
+Platforms
+​
+13 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Check if you are eligible for a discounted Kindle Unlimited membership. Enjoy unlimited reading and listening on any device.
+0:00 / 0:06
+​
+Active
+Library ID: 1691284578560957
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+4 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+The one who 'owns' the meeting, is the one who's fully in it.
+0:00 / 0:06
+​
+Active
+Library ID: 819882587437433
+Started running on May 7, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Recap your handwritten notes with just one touch on the new Kindle Scribe.
+0:00 / 0:07
+AMAZON.COM
+Powerful AI features.
+Learn More
+​
+Active
+Library ID: 537565985820154
+Started running on May 2, 2025
+Platforms
+​
+EU transparency
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Kindle eBooks starting at $0.99
+AMAZON.COM
+Kindle Monthly Deal
+Shop now
+​
+Active
+Library ID: 1173274864579749
+Started running on May 2, 2025
+Platforms
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Kindle eBooks starting at $0.99
+AMAZON.COM
+Kindle Monthly Deal
+Shop now
+​
+Active
+Library ID: 805543835571879
+Started running on Apr 23, 2026
+Platforms
+​
+​
+This ad has multiple versions
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Nie wieder drucken. Markiere PDFs direkt auf deinem Gerät.
+0:00 / 0:06
+Woran arbeitest du?
+Learn More
+​
+Active
+Library ID: 3929487457188525
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+This one's for the messy handwriters. The new Kindle Scribe converts handwritten notes into clean, readable text.
+0:00 / 0:15
+AMAZON.COM
+What are you working on?
+Learn More
+​
+Active
+Library ID: 2030892484488652
+Started running on May 8, 2026
+Platforms
+​
+​
+​
+5 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Recap your handwritten notes with just one touch on the new Kindle Scribe.
+0:00 / 0:07
+​
+Active
+Library ID: 991727520044742
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+This one's for the messy handwriters. The new Kindle Scribe converts handwritten notes into clean, readable text.
+0:00 / 0:08
+AMAZON.COM
+A new kind of notebook.
+Learn More
+​
+Active
+Library ID: 27303744202543929
+Started running on May 3, 2026
+Platforms
+​
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Nie wieder drucken. Markiere PDFs direkt auf deinem Gerät.
+0:00 / 0:06
+​
+Active
+Library ID: 1745041179811748
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+This one's for the messy handwriters. The new Kindle Scribe converts handwritten notes into clean, readable text.
+0:00 / 0:15
+​
+Active
+Library ID: 1488204199515561
+Started running on Apr 23, 2026
+Platforms
+​
+​
+This ad has multiple versions
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+A device designed for focus — no apps, no pings, just deep work.
+0:00 / 0:06
+What are you working on?
+Learn More
+​
+Active
+Library ID: 1477896397261973
+Started running on Apr 26, 2026
+Platforms
+​
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+A device designed for focus — no apps, no pings, just deep work.
+0:00 / 0:06
+​
+Active
+Library ID: 961651493348695
+Started running on May 6, 2026
+Platforms
+​
+​
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+One tap to summarize your handwritten notes on the new Kindle Scribe
+0:00 / 0:06
+AMAZON.COM
+What are you working on?
+Learn more
+​
+Active
+Library ID: 1335218347588831
+Started running on May 2, 2025
+Platforms
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Kindle eBooks starting at $0.99
+AMAZON.COM
+Kindle Monthly Deal
+Shop now
+​
+Active
+Library ID: 1079602277142264
+Started running on Aug 5, 2025
+Platforms
+​
+8 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Comprueba si eres elegible para obtener hasta un 95% de descuento en una suscripción a Kindle Unlimited. Disfruta de lectura ilimitada en cualquier dispositivo.
+​
+Active
+Library ID: 1497713341724710
+Started running on Apr 23, 2026
+Platforms
+​
+​
+This ad has multiple versions
+​
+EU transparency
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Never print again. Mark up PDFs right on your device.
+0:00 / 0:06
+What are you working on?
+Learn More
+​
+Active
+Library ID: 944635065212077
+Started running on Apr 23, 2026
+Platforms
+​
+​
+This ad has multiple versions
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Never print again. Mark up PDFs right on your device.
+0:00 / 0:06
+What are you working on?
+Learn More
+​
+Active
+Library ID: 1474201107780722
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+3 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+This one's for the messy handwriters. The new Kindle Scribe converts handwritten notes into clean, readable text.
+0:00 / 0:08
+​
+Active
+Library ID: 1631735918102186
+Started running on May 1, 2026
+Platforms
+​
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Never print again. Mark up PDFs right on your device.
+0:00 / 0:06
+​
+Active
+Library ID: 678874331776441
+Started running on May 21, 2025
+Platforms
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Kindle eBooks starting at $0.99
+AMAZON.COM
+Kindle Monthly Deal
+Shop now
+​
+Active
+Library ID: 1210900623821558
+Started running on May 2, 2025
+Platforms
+​
+3 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Kindle eBooks starting at $0.99
+​
+Active
+Library ID: 3317126645132105
+Started running on Apr 23, 2026
+Platforms
+​
+​
+This ad has multiple versions
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Recap your handwritten notes with just one touch on the new Kindle Scribe.
+0:00 / 0:06
+What are you working on?
+Learn More
+​
+Active
+Library ID: 1272891418390771
+Started running on Apr 30, 2026
+Platforms
+​
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Never print again. Mark up PDFs right on your device.
+0:00 / 0:06
+​
+Active
+Library ID: 840240162455332
+Started running on May 5, 2026
+Platforms
+​
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Recap your handwritten notes with just one touch on the new Kindle Scribe.
+0:00 / 0:06
+WWW.AMAZON.CO.UK
+What are you working on?
+Learn more
+​
+Active
+Library ID: 956408094053091
+Started running on May 12, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+The one who 'owns' the meeting, is the one who's fully in it.
+0:00 / 0:06
+AMAZON.COM
+What are you working on?
+Learn More
+​
+Active
+Library ID: 1293022592245469
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+6 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Never print again. Mark up PDFs right on your device.
+0:00 / 0:06
+AMAZON.COM
+What are you working on?
+Learn More
+​
+Active
+Library ID: 1661235298247211
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+6 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Introducing the NEW Kindle Scribe. The feel of paper and the power of AI.
+0:00 / 0:15
+AMAZON.COM
+What are you working on?
+Learn More
+​
+Active
+Library ID: 2073233363612470
+Started running on May 19, 2026
+Platforms
+​
+​
+​
+4 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+The one who 'owns' the meeting, is the one who's fully in it.
+0:00 / 0:06
+​
+Active
+Library ID: 708425095037116
+Started running on Nov 3, 2025
+Platforms
+​
+15 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Check if you are eligible for a discounted Kindle Unlimited membership. Enjoy unlimited reading on any device.
+0:00 / 0:06
+​
+Active
+Library ID: 1310582414470661
+Started running on May 7, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+5 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Recap your handwritten notes with just one touch on the new Kindle Scribe.
+0:00 / 0:07
+AMAZON.COM
+Powerful AI features.
+Learn More
+​
+Active
+Library ID: 1452518710240096
+Started running on May 8, 2026
+Platforms
+​
+​
+​
+5 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Recap your handwritten notes with just one touch on the new Kindle Scribe.
+0:00 / 0:07
+​
+Active
+Library ID: 1478464130343481
+Started running on Mar 20, 2026
+Platforms
+​
+EU transparency
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Scopri milioni di titoli e riviste selezionate su qualsiasi dispositivo.
+AMAZON.IT
+Periodo d’uso gratuito di 30 giorni
+Get offer
+​
+Active
+Library ID: 1851016435611819
+Started running on Mar 3, 2026
+Platforms
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+0:00 / 0:06
+​
+Active
+Library ID: 1244689823801663
+Started running on Jul 16, 2025
+Platforms
+​
+13 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Check if you are eligible for a discounted Kindle Unlimited membership. Enjoy unlimited reading and listening on any device.
+0:00 / 0:06
+​
+Active
+Library ID: 1171742388197675
+Started running on Oct 17, 2025
+Platforms
+​
+5 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Load your library with Kindle Books from 99p
+​
+Active
+Library ID: 1334347961879576
+Started running on May 7, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+6 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Search your thoughts. No, literally. AI-powered search on the new Kindle Scribe lets you scan your notes in seconds.
+0:00 / 0:08
+AMAZON.COM
+Powerful AI features.
+Learn More
+​
+Active
+Library ID: 734751692297138
+Started running on Jul 15, 2025
+Platforms
+​
+5 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Check if you are eligible for a discounted Kindle Unlimited membership. Enjoy unlimited reading on any device.
+​
+Active
+Library ID: 885082091075662
+Started running on Feb 14, 2026
+Platforms
+​
+7 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Load your library with Kindle Books from 99p
+​
+Active
+Library ID: 806264925486582
+Started running on Oct 23, 2025
+Platforms
+​
+4 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Reveal your special discount for Kindle Unlimited! Enjoy unlimited reading and listening with access to over 5 million books. Read and listen anytime, anywhere on any device.
+0:00 / 0:13
+​
+Active
+Library ID: 1582089759446745
+Started running on Nov 3, 2025
+Platforms
+​
+8 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Explore millions of titles on any device.
+0:00 / 0:06
+​
+Active
+Library ID: 1929135631055769
+Started running on Apr 23, 2026
+Platforms
+​
+​
+This ad has multiple versions
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Für konzentriertes Arbeiten entwickelt – ohne Apps, ohne Ablenkung.
+0:00 / 0:06
+Woran arbeitest du?
+Learn More
+​
+Active
+Library ID: 1300551622049977
+Started running on May 12, 2026
+Platforms
+​
+​
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Search your thoughts. No, literally. AI-powered search on the new Kindle Scribe lets you scan your notes in seconds.
+0:00 / 0:08
+AMAZON.COM
+Powerful AI features.
+Learn more
+​
+Active
+Library ID: 1749188779317845
+Started running on Aug 6, 2025
+Platforms
+​
+13 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Check if you are eligible for a discounted Kindle Unlimited membership. Enjoy unlimited reading and listening on any device.
+0:00 / 0:06
+​
+Active
+Library ID: 1682011999607149
+Started running on May 8, 2026
+Platforms
+​
+​
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Recap your handwritten notes with just one touch on the new Kindle Scribe.
+0:00 / 0:07
+AMAZON.COM
+Powerful AI features.
+Learn more
+​
+Active
+Library ID: 2174425046649191
+Started running on Mar 25, 2026
+Platforms
+​
+7 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Explore millions of titles, thousands of audiobooks and selected magazines on any device.
+​
+Active
+Library ID: 1749303639840754
+Started running on Apr 23, 2026
+Platforms
+​
+​
+This ad has multiple versions
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+A device designed for focus — no apps, no pings, just deep work.
+0:00 / 0:06
+What are you working on?
+Learn More
+​
+Active
+Library ID: 944028345348003
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+3 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Never print again. Mark up PDFs right on your device.
+0:00 / 0:06
+AMAZON.COM
+What are you working on?
+Learn More
+​
+Active
+Library ID: 998348285986779
+Started running on May 5, 2026
+Platforms
+​
+​
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+This one's for the messy handwriters. The new Kindle Scribe converts handwritten notes into clean, readable text.
+0:00 / 0:15
+AMAZON.COM
+What are you working on?
+Learn more
+​
+Active
+Library ID: 950508180905660
+Started running on Apr 23, 2026
+Platforms
+​
+​
+This ad has multiple versions
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Notizen mit einer Berührung auf dem neuen Kindle Scribe zusammenfassen.
+0:00 / 0:06
+Woran arbeitest du?
+Learn More
+​
+Active
+Library ID: 804460212530865
+Started running on Sep 13, 2025
+Platforms
+​
+13 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Check if you are eligible for a discounted Kindle Unlimited membership. Enjoy unlimited reading and listening on any device.
+0:00 / 0:06
+​
+Active
+Library ID: 1477831350410434
+Started running on May 5, 2026
+Platforms
+​
+​
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+The one who 'owns' the meeting, is the one who's fully in it.
+0:00 / 0:06
+​
+Active
+Library ID: 3251925374958174
+Started running on Jul 15, 2025
+Platforms
+​
+5 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Check if you are eligible for a discounted Kindle Unlimited membership. Enjoy unlimited reading on any device.
+​
+Active
+Library ID: 4496927537260671
+Started running on May 18, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+6 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+The hardest workers need hard-working tools.
+AMAZON.COM
+A new kind of notebook.
+Learn More
+​
+Active
+Library ID: 1695835314717814
+Started running on Feb 14, 2026
+Platforms
+​
+4 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Oltre 700 eBook Kindle a partire da 1,50€
+​
+Active
+Library ID: 2356467321507741
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+The hardest workers need a hard-working device.
+0:00 / 0:15
+AMAZON.COM
+What are you working on?
+Learn More
+​
+Active
+Library ID: 1675067337083777
+Started running on May 21, 2026
+Platforms
+​
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+This one's for the messy handwriters. The new Kindle Scribe converts handwritten notes into clean, readable text.
+0:00 / 0:06
+WWW.AMAZON.CO.UK
+What are you working on?
+Learn more
+​
+Active
+Library ID: 1514193280413947
+Started running on May 7, 2026
+Platforms
+​
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Für konzentriertes Arbeiten entwickelt – ohne Apps, ohne Ablenkung.
+0:00 / 0:06
+​
+Active
+Library ID: 1109011541219364
+Started running on Oct 17, 2025
+Platforms
+​
+EU transparency
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Oltre 700 eBook Kindle a partire da 1,50€
+AMAZON.IT
+Offerte eBook Kindle del mese
+Shop now
+​
+Active
+Library ID: 1287087193055090
+Started running on Aug 5, 2025
+Platforms
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Check if you are eligible for a discounted Kindle Unlimited membership. Enjoy unlimited reading on any device.
+AMAZON.CA
+Kindle Unlimited - See Your Best Offer
+Join Kindle Unlimited to unlock a seamless digital reading experience with unlimited access to popular series, best sellers, classics and more.
+Get offer
+​
+Active
+Library ID: 1301444884766074
+Started running on Oct 17, 2025
+Platforms
+​
+EU transparency
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Plus de 800 Ebooks Kindle à partir de 1,99 €
+AMAZON.FR
+Découvrez les offres du Mois
+Shop now
+​
+Active
+Library ID: 911235468319438
+Started running on Mar 17, 2026
+Platforms
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Kindle eBooks starting at $0.99
+AMAZON.COM
+Kindle Monthly Deal
+Shop now
+​
+Active
+Library ID: 2132126714280830
+Started running on Oct 15, 2025
+Platforms
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Explore millions of titles on any device.
+AMAZON.COM.AU
+Kindle Unlimited - See Your Best Offer
+Get offer
+​
+Active
+Library ID: 884908603923373
+Started running on Jan 20, 2026
+Platforms
+​
+21 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Scopri milioni di titoli e riviste selezionate su qualsiasi dispositivo.
+0:00 / 0:06
+​
+Active
+Library ID: 1715909172876620
+Started running on Apr 25, 2026
+Platforms
+​
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Für konzentriertes Arbeiten entwickelt – ohne Apps, ohne Ablenkung.
+0:00 / 0:06
+​
+Active
+Library ID: 994467509584945
+Started running on May 6, 2026
+Platforms
+​
+​
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Introducing the NEW Kindle Scribe. The feel of paper and the power of AI.
+0:00 / 0:15
+AMAZON.COM
+What are you working on?
+Learn more
+​
+Active
+Library ID: 1492933012293539
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+3 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Never print again. Mark up PDFs right on your device.
+0:00 / 0:06
+AMAZON.COM
+What are you working on?
+Learn More
+​
+Active
+Library ID: 651670024606435
+Started running on Aug 5, 2025
+Platforms
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+AMAZON.COM.MX
+Amazon Kindle
+Get offer
+​
+Active
+Library ID: 2349088118860733
+Started running on Nov 3, 2025
+Platforms
+​
+15 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Check if you are eligible for a discounted Kindle Unlimited membership. Enjoy unlimited reading on any device.
+0:00 / 0:06
+​
+Active
+Library ID: 819686897127349
+Started running on Oct 23, 2025
+Platforms
+​
+4 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Reveal your special discount for Kindle Unlimited! Enjoy unlimited reading and listening with access to over 5 million books. Read and listen anytime, anywhere on any device.
+0:00 / 0:13
+​
+Active
+Library ID: 1327127899337205
+Started running on Apr 23, 2026
+Platforms
+​
+​
+This ad has multiple versions
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+This one's for the messy handwriters. The new Kindle Scribe converts handwritten notes into clean, readable text.
+0:00 / 0:06
+What are you working on?
+Learn More
+​
+Active
+Library ID: 1327490032609899
+Started running on May 1, 2026
+Platforms
+​
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Notizen mit einer Berührung auf dem neuen Kindle Scribe zusammenfassen.
+0:00 / 0:06
+WWW.AMAZON.DE
+Woran arbeitest du?
+Learn more
+​
+Active
+Library ID: 1504166713800130
+Started running on Aug 7, 2025
+Platforms
+​
+4 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+0:00 / 0:10
+​
+Active
+Library ID: 970460575730694
+Started running on Apr 23, 2026
+Platforms
+​
+​
+This ad has multiple versions
+​
+EU transparency
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Recap your handwritten notes with just one touch on the new Kindle Scribe.
+0:00 / 0:06
+What are you working on?
+Learn More
+​
+Active
+Library ID: 1195212985767453
+Started running on Oct 13, 2025
+Platforms
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Explore millions of titles on any device.
+AMAZON.COM.AU
+Kindle Unlimited - See Your Best Offer
+Get offer
+​
+Active
+Library ID: 1480650503107829
+Started running on Aug 5, 2025
+Platforms
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Check if you are eligible for a discounted Kindle Unlimited membership. Enjoy unlimited reading on any device.
+AMAZON.CA
+Kindle Unlimited - See Your Best Offer
+Join Kindle Unlimited to unlock a seamless digital reading experience with unlimited access to popular series, best sellers, classics and more.
+Get offer
+​
+Active
+Library ID: 1384193629662050
+Started running on Feb 4, 2025
+Platforms
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Comprueba si eres elegible para obtener hasta un 95% de descuento en una suscripción a Kindle Unlimited. Disfruta de lectura ilimitada en cualquier dispositivo.
+​
+Active
+Library ID: 1973331663543451
+Started running on May 21, 2026
+Platforms
+​
+​
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+The hardest workers need a hard-working device.
+0:00 / 0:00
+AMAZON.COM
+What are you working on?
+Learn more
+​
+Active
+Library ID: 1462792608649265
+Started running on Apr 23, 2026
+Platforms
+​
+​
+This ad has multiple versions
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Für alle mit unordentlicher Handschrift: Der neue Kindle Scribe verwandelt Handschrift in klar lesbaren Text.
+0:00 / 0:00
+Woran arbeitest du?
+Learn More
+​
+Active
+Library ID: 1361495552460658
+Started running on May 20, 2026
+Platforms
+​
+​
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+The hardest workers need hard-working tools.
+AMAZON.COM
+A new kind of notebook.
+Learn more
+​
+Active
+Library ID: 1356867756486744
+Started running on Mar 31, 2026
+Platforms
+​
+13 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Explore millions of titles, thousands of audiobooks and selected magazines on any device.
+0:00 / 0:00
+​
+Active
+Library ID: 1296140111852755
+Started running on Aug 5, 2025
+Platforms
+​
+8 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Comprueba si eres elegible para obtener hasta un 95% de descuento en una suscripción a Kindle Unlimited. Disfruta de lectura ilimitada en cualquier dispositivo.
+​
+Active
+Library ID: 1300507451477559
+Started running on Sep 13, 2025
+Platforms
+​
+13 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Check if you are eligible for a discounted Kindle Unlimited membership. Enjoy unlimited reading and listening on any device.
+0:00 / 0:00
+​
+Active
+Library ID: 1268105058835147
+Started running on May 6, 2026
+Platforms
+​
+​
+Open Dropdown
+​
+See ad details
+Amazon Kindle
+Sponsored
+Notizen mit einer Berührung auf dem neuen Kindle Scribe zusammenfassen.
+0:00 / 0:00
+WWW.AMAZON.DE
+Woran arbeitest du?
+Learn more
+​
+Active
+Library ID: 26304559452471982
+Started running on Feb 14, 2026
+Platforms
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Plus de 800 Ebooks Kindle à partir de 1,99 €
+​
+Active
+Library ID: 1706056450813386
+Started running on May 4, 2026
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+6 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Amazon Kindle
+Sponsored
+Never print again. Mark up PDFs right on your device.
+0:00 / 0:00
+AMAZON.COM
+What are you working on?
+Learn More
+See more
+System status
+Ad Library APIAbout ads and data usePrivacyTermsCookies
+Meta © 2026 | English (US)

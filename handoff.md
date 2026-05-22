@@ -2,6 +2,13 @@
 
 Entry point for the next session (likely Claude Code).
 
+## Current state (2026-05-21)
+
+- `workflow.md` is now the full spine — phase structure (Phase −1 → 8) **plus** per-phase research questions, merged back from Kam's original planning doc (an earlier draft had dropped the depth). Locked.
+- Manual research run #1 done: a Phase 0 competitor map of the e-ink tablet space, 31 brands, in `runs/eink-tablets/`. `market-map.md` is its output and a worked example of the finder → analyzer → aggregator agent pattern.
+- Tooling lessons (`runs/eink-tablets/scripts/`): SimilarWeb blocks automated browsers (traffic supplied manually); Meta Ad Library keyword search is noise-polluted — resolve by advertiser Page ID (`adlib-one.js`); review-proxy revenue estimation mostly fails (Amazon/AliExpress block scraping) — revenue est is an unsolved gap.
+- Open loose end: the 31 per-brand records in `runs/eink-tablets/brands/` still carry pre-correction Ad Library counts; only `market-map.md` §5.0 is corrected.
+
 ## Read these in order
 
 1. `definitions.md` — locked vocabulary. Universal language for the project. Don't modify unless explicitly asked.
@@ -30,22 +37,17 @@ Downstream Unders (parked, resolve via manual runs first — do NOT pre-design):
 
 ## What comes next
 
-In order:
+Kam has pivoted: **manual research runs first**, before the two foundational Unders are built. Manual runs calibrate Gates 1/2 and surface what the persistence layer actually needs (consistent with "resolve downstream Unders via manual runs first"). The foundational Unders remain unbuilt — deprioritized, not cancelled.
 
-1. **Resolve the two foundational Unders.** Map layer first (gates everything downstream), then authorship/metadata pass-through (likely falls out of map design).
-2. **Agent clustering pass.** With the persistence model known, decide which capabilities cluster into which agents. Decisions made per agent, not globally — see locked decision #1 in `capability_inventory.md`.
-3. **First agent spec.** Probably per-brand extractor: smallest, most reused, clearest contract. Builds fast, gives a working piece quickly. But this is the call to make after clustering.
+**Next session — one job: market selection.** Run Kam's 3 candidate markets through the `workflow.md` **Phase 1 filter questions** + a rough **Gate 1**, score them, pick the bet. Do NOT deep-dive all 3; do NOT start Pipeline B depth — selection only. The session after picks up full Pipeline B on the winner.
 
-Folder structure suggestion when starting specs:
-```
-ecom-research-system/
-  definitions.md
-  workflow.md
-  capability_inventory.md
-  handoff.md
-  map/                  # persistence layer design
-  agents/               # specs go here, one file per agent
-```
+This is Pipeline B (product = e-ink tablet, held constant; choosing the market). The 3 markets:
+
+- **M1** — niche: wellness Gen Z women · transformation: better mental health + presence + analog life-organization (paper-notebook replacement, not a work tool — "a corded phone over an iPhone"). Large, highly problem-aware audience. Kam's #1.
+- **M2** — niche: students who get severely distracted · transformation: a class-optimized workspace that isn't a distraction machine. Most acute (pain-grade) severity. Buyer ≠ user (student vs parent). Kam's #2.
+- **M3** — niche: ambitious goal-chasers (male-skewed) · transformation: remove obstacles to chasing tangible goals / getting rich. Kam's #3. Flagged: likely an angle on M1's transformation, not a distinct market — believability strained ("e-ink tablet → rich" over-claims), and it is Daylight's occupied turf.
+
+Method: `workflow.md` Phase 1 filter questions (strong desire / proven spend · core driver proximity × severity × frequency · evergreen · why now · emerging · underserved + hungry · solvable/believable UM · describable buyer) + the Gate 1 formula. Output: a scored 3-way comparison → pick. `runs/eink-tablets/market-map.md` already has competitor context relevant to all three (esp. Daylight).
 
 ## What NOT to do
 

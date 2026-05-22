@@ -1,0 +1,65 @@
+# Bigme
+brand_query: Bigme
+status: ok
+resolved_advertiser: Bigme (pageID 108495751929413, 835 followers)
+active_ad_count: unknown
+
+TYPEAHEAD CANDIDATES:
+  639505135909717 | score=100.0 | BIGME / 73 follow this · Health & wellness website / @bigme.in · 2.9K followers
+  725355247333215 | score=37.0 | 7bigmens / 4 follow this · Clothing (Brand)
+  263556326836636 | score=45.0 | BigMexico / 106 follow this · Apartment & Condo Building
+  653504357857420 | score=37.0 | 7Bigmens.com / 0 follow this · Clothing (Brand)
+  388486558166695 | score=45.0 | BiG Meble / @bigmeble · 8.5K follow this · Local Business / @bigmeble · 420 followers
+  108495751929413 | score=115.0 | Bigme / @Bigme.eInk.Tablet · 835 follow this · Electronics
+  642851352246429 | score=100.0 | Bigme / 346 follow this · Accessories / @bigme.ua · 9.3K followers
+  720963401296009 | score=100.0 | Bigme / 71 follow this · Education / @jamesmorums · 623 followers
+  816185034915069 | score=115.0 | Bigme / 0 follow this · Shopping Mall
+  102708895831565 | score=100.0 | Bigme / 0 follow this · Ice Cream Shop
+
+--- ADS DUMP ---
+Meta Ad Library
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+​
+All
+​
+​
+​
+​
+All ads
+​
+Search by keyword or advertiser
+​
+​
+Bigme
+Ads
+About
+Log in
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+System status
+Subscribe to email updates
+FAQ
+About ads and data use
+Privacy
+Terms
+Cookies
+Filters
+Sort
+​
+Sort by
+Active status: Active ads
+Remove
+​
+No ads match your search criteria
+Remove or adjust any filters you've applied to get different results.
+Clear filters
+View search tips.
+
+System status
+Ad Library APIAbout ads and data usePrivacyTermsCookies
+Meta © 2026 | English (US)
