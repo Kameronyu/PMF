@@ -37,9 +37,13 @@ Downstream Unders (parked, resolve via manual runs first — do NOT pre-design):
 
 ## What comes next
 
-Kam has pivoted: **manual research runs first**, before the two foundational Unders are built. Manual runs calibrate Gates 1/2 and surface what the persistence layer actually needs (consistent with "resolve downstream Unders via manual runs first"). The foundational Unders remain unbuilt — deprioritized, not cancelled.
+**The active job is a deliverable, not system-building:** a strong PMF theory for an e-ink tablet, then run the ad test. `workflow.md` is the *method* — running it Phase 0 → test IS the work. The e-ink tablet is the real subject, not a system test case. PMF's unbuilt infrastructure (map/persistence layer, agent specs) only matters for *scaling* the method; it does not gate one manual run and is deprioritized behind this deliverable.
 
-**Next session — one job: market selection.** Run Kam's 3 candidate markets through the `workflow.md` **Phase 1 filter questions** + a rough **Gate 1**, score them, pick the bet. Do NOT deep-dive all 3; do NOT start Pipeline B depth — selection only. The session after picks up full Pipeline B on the winner.
+Note: workflow.md marks Phases 5–8 "deferred" — that deferral is about building the *system*. For this job, 5–6 are the endpoint, not deferred: build the creatives, run the test. The half-built system just means those phases are done more by hand.
+
+**The arc:** Phase 0 (e-ink market map — done, `runs/eink-tablets/`) → Phase 1 pick the market → Phase 2 deep competition → Phase 3 VOC + UM research → Phase 4 = the PMF theory crystallized as a 7–12-creative test → Phase 5–6 run it.
+
+**Next session — one job: market selection (step 1 of the PMF theory).** Run Kam's 3 candidate markets through the `workflow.md` **Phase 1 filter questions** + a rough **Gate 1**, score them, pick the bet. Do NOT deep-dive all 3; do NOT start Phase 2 depth — selection only. The session after picks up Phase 2 on the winner.
 
 This is Pipeline B (product = e-ink tablet, held constant; choosing the market). The 3 markets:
 
