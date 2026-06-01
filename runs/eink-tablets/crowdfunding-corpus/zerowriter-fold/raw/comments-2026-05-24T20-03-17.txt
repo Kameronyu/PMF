@@ -1,0 +1,631 @@
+URL: https://www.kickstarter.com/projects/zerowriter/zerowriter-fold/comments
+TITLE: Zerowriter Fold: E-Ink Word Processor by Zerowriter — Kickstarter
+FETCHED: 2026-05-24T20:03:51.996Z
+
+For creators
+Log in
+Categories
+Art
+Comics
+Crafts
+Dance
+Design
+Fashion
+Film
+Food
+Games
+Journalism
+Music
+Photography
+Publishing
+Technology
+Theater
+Discover
+0:00
+0:00
+Project We Love
+Hardware
+Ottawa, Canada
+$147,963
+pledged of $50,616 goal
+558
+backers
+15
+days to go
+Back this project
+Notify me on launch
+
+All or nothing. This project will only be funded if it reaches its goal by Tue, June 9 2026 11:00 AM EDT.
+
+Zerowriter Fold: E-Ink Word Processor
+
+The portable distraction-free word processor. Write wherever life takes you.
+
+Kickstarter connects creators with backers to fund projects.
+Rewards aren’t guaranteed, but creators must regularly update backers.
+You’re only charged if the project meets its funding goal by the campaign deadline.
+Campaign Rewards Creator FAQ 16 Updates 3 Comments 105 Community
+Notify me on launch
+
+This is your space to offer support and feedback. Remember to be constructive—there's a human behind this project.
+
+Have a question for the creator?
+
+Check this project's FAQ
+
+Only backers can post comments. Log in
+
+Allie
+1 day ago
+
+I beg....please....a transparent option. You're making the better traveler of my dreams and you'd have it in a ghost style? Please. And maybe a larger screen add on. I would pay extra.
+
+Caleb
+1 day ago
+
+I’d agree to both of those options.
+
+KateCollaborator
+1 day ago
+
+Hello Allie,
+
+Thank you for your support and for this suggestion! A clear transparent option would look really cool :)
+
+I think Adam has some more information about why a larger screen would cause us to need to increase costs pretty significantly or there would be an impact on battery life or lag...
+
+Please let me know if you have any other questions, I'm more than happy to help :)
+
+Sincerely,
+
+Kate
+
+kate@zerowriter.ink
+
+ZerowriterCreator
+1 day ago
+
+Hello! Adam here. Yeah: for this project going smoothly it’s important to keep the screen and major components streamlined, so I won’t be adding any larger screen options. You can check the FAQ for a more detailed write-up on why we are using this display.
+
+But, transparent/clear — hmm..
+
+Jody Ayres
+1 day ago
+
+Have you thought about a padded carrying case for it? That would be good to protect it.
+
+Showing 3 of 4 replies
+Load previous replies
+Lucas Keefer
+1 day ago
+
+Would add a case or sleeve to my pledge in a heartbeat
+
+KateCollaborator
+1 day ago
+
+Hello Jody,
+
+Thank you for the suggestion and your support! We are hoping to potentially add some case options to the Pledge Manager over time... A padded case would be great for those using their Fold on the road...
+
+Warm regards,
+
+Kate
+
+kate@zerowriter.ink
+
+Jody Ayres
+about 17 hours ago
+
+Ok thanks. That would be great
+
+Majugi
+2 days ago
+
+It's exciting seeing a project like this based in Ottawa. I wonder if local pickup could be an option?
+
+ZerowriterCreator
+2 days ago
+
+100% — we’re in the downtown core, pickup is absolutely doable
+
+StuartCollaborator
+2 days ago
+
+Definitely! We'll meet at Rideau (Ottawa ball knowledge required for that one).
+
+Majugi
+2 days ago
+
+Nice, thanks!
+
+Steff Leigh
+3 days ago
+
+Super excited about this, and I also like the fun surprise indie book add-on. I've shared a link to that program sign up on Mastodon/Fediverse, as there are a lot of indie authors on there who might be interested. :)
+
+KateCollaborator
+3 days ago
+
+Thank you for spreading the word, Steff! We think it is pretty awesome, too :)
+
+Noah Chinn
+3 days ago
+
+The one thing I feel I absolutely need for something like this is a way to sync to my Dropbox, which is where I keep my work. You mentioned possible future support for Google Drive... but wouldn't you have to add a wi-fi connection to do that? Or is it a matter of plugging it into a computer that is connected to wi-fi and it syncing up that way? What are the plans there?
+
+ZerowriterCreator
+3 days ago
+
+Hi Noah! Great question. I'll explain. The Zerowriter Fold has the guts that allow for wifi. They are disabled by default. If the user wants, they can enable it in the settings. Wifi will only be used for sending documents to a connected service. The only service I plan on building support for is google drive, but any could be added. Supporting cloud services is tedious and difficult because they change often, so my hope is by providing the structure via the most popular one, other developers can contribute and we can support other services.
+
+Hope this makes sense. Basically: I wouldn't want anyone purchasing this to expect a highly connected ecosystem of syncing. That is what the others in this space are good at, and at a higher price. But, we can start simple.
+
+Noah Chinn
+3 days ago
+
+Thanks for that update. While I do have a Google Drive account, I've been using Dropbox since it came out for my work. Still, shouldn't be too hard for me to move stuff over if that's all that ends up supported.
+
+Kitty Ho
+3 days ago
+
+Please add other languages! I wish it supported Chinese input!
+
+ZerowriterCreator
+3 days ago
+
+Hi Kitty! Chinese Input is on the roadmap. We intend to make it, but we can't promise it will be ready when we ship, as it requires some proper development time.
+
+moggyhoho
+3 days ago
+
+I love this can support screenplay formatting. I know it has push to gdrive, any chance it could support mounting to an smb share, or pushing to something selfhosted? I run a nas that's my central storage for writing projects. It'd be great if that was an option. I can't wait to get mine.
+
+ZerowriterCreator
+3 days ago
+
+The code will be shared publicly, and other developers can build features, so there's opportunity for other sharing methods, for sure! Self-hosted in smart. SMB is nice and simple, too, with plenty of libraries, so should be doable. Google drive push is in development, I won't promise it, but it will likely be ready to roll in time.
+
+Janine Shull
+3 days ago
+
+Yay about time another company puts something on the market to really challenge zerowrite traveler which is overly inflated in price. When I first saw the ad for this on FB I was instantly going to fund it. Can't wait to get mine. Thank you for the hard work and can't wait this will be a game changer for this Indie author 😁
+
+Janine Shull
+3 days ago
+
+I mean freewrite traveler brain fart today. (I'd edit but it won't let me. )
+
+KateCollaborator
+3 days ago
+
+Thank you so much for your support and for your message, Janine! We can't wait for you to get your Fold, too :)
+
+Luis CaparrozSuperbacker
+3 days ago
+
+Hi! Excited to back this project! Going with a mechanical keyboard is great, and the options for different switches are pretty welcome (I use Ambient Silent switches on my main keyboard).
+
+I have a few questions:
+
+- How is motion/navigation while editing? I mean, does it respond to commands like Ctrl + arrow keys, Shift + arrow keys, Home, End, etc?
+
+- Overall, it seems very promising, and I'd like to request one feature, which I assume isn't very common. I'm a software developer, and I'm really fond of vim keybindings/mode. Have you considered something like that?
+
+ZerowriterCreator
+3 days ago
+
+Hello Luis, thank you! Glad you are familiar with Darryl’s switches!
+
+Navigation: yes. There’s built-in shortcuts for moving between words, lines, and paragraphs. There is shortcuts for jumping to the start or end of documents. Shift works as you would expect for highlighting and editing, if you are in Word Processing mode. I’ll add a more detailed video in the coming weeks going over the full software.
+
+For VIM controls: I know a lot of people would enjoy this. It isn’t really high on my to-do list, but since the project software will be open source, I hope another developer would build it out or add similar support and share it. It should be totally doable and approachable.
+
+Thanks a lot!
+
+Juan Antonio Mateos
+4 days ago
+
+Teclas en español...
+
+KateCollaborator
+3 days ago
+
+Hello Juan,
+
+Yes, the Fold supports Spanish, and we'll roll out keycaps for different languages (starting with common Latin languages like German, French, Italian, Scandinavian languages, etc...) after the campaign closes. Via Kickstarter - you will have the option to add to your pledge after the campaign closes as we will be adding keycaps for different languages. If the Spanish keycaps are not available at the time of shipping, your device will come with the stock QWERTY ENG/US keycaps and we can get you the Spanish language keycaps as they become available.
+
+Also - any Kailh Choc Keycaps are compatible so you could source your own. Our Keycap partner (FKCaps) also produces print-on-demand keycaps that work with ZeroWriter, so we can facilitate a Spanish Keyboard for you.
+
+Another route we are exploring is a standard keycap pack for major European languages that includes all necessary characters (umlauts, ß, accented vowels, ç, ø, œ, etc...).
+
+In short - it won't be a problem re: Spanish-language keycaps. Just a matter of when.
+
+Please let me know if you have any questions or are curious about anything. I'm happy to help :)
+
+Sincerely,
+
+Kate
+
+ZerowriterCreator
+4 days ago
+
+Hi everyone! Posted an update, and wanted to share that we have stretch goals live. The next one is a pretty big one :)
+
+Steff Leigh
+4 days ago
+
+Just found out about this campaign and pledged, would love to snag one of those retro editions if a spot opened up or more was made available!
+
+StuartCollaborator
+4 days ago
+
+Hi, Thank you for being a backer! Shoot me an email at stuart@zerowriter.ink whenever you have the time and we'll see what we can do.
+
+Steff Leigh
+4 days ago
+
+Done!
+
+Lauren Ford
+4 days ago
+
+Ah, boo. I backed it before the new pictures for the retro color got posted (it was so small I couldn't figure it out), and there was no way to change the pledge afterwards. I assumed it would be a pledge manager thing and not a limited edition at the time thing, as it wasn't made clear until the list was updated after launch and by that time I couldn't change anything.
+
+If any other colors are considered, I'd love a teal or a pink color. Or more of the purple released.
+
+KateCollaborator
+4 days ago
+
+Good Morning Lauren,
+
+I'm very sorry to hear that you were not able to get a Retro Edition Fold... Would you mind reaching out to me via email when you have a second so I can put you on our list of users who would like to order any extra Retro Editions? My address is kate@zerowriter.ink.
+
+Also, teal and pink would be beautiful colors. I'm thinking a hot pink... But something a bit more muted could be pretty as well. We are hoping to offer some other color options in the future, so suggestions are very welcome :)
+
+Looking forward to speaking more,
+
+Kate
+
+kate@zerowriter.ink
+
+Michael Way
+4 days ago
+
+Will there be any opportunities for alternative keyboard layouts? I have a strong preference for ISO.
+
+ZerowriterCreator
+4 days ago
+
+Hi Michael. I plan on offering an ISO layout option in the pledge manager when the campaign ends if there is enough interest (and there seems to be!)
+
+Michael Way
+4 days ago
+
+That's brilliant thank you! Good luck with the rest of the campaign
+
+Rafi
+5 days ago
+
+Hello, is there a chance of Google drive syncing?
+
+ZerowriterCreator
+5 days ago
+
+Hi! Sync: no, push: yes! We’ve got Google Drive push (Zerowriter fold -> drive) sorted and it should be available at launch as an option. 2-way Syncing is a bit more complicated and has more room for problems, but we’ll investigate options!
+
+Tareque
+5 days ago
+
+Any chance of the retro style option having more stock? :( It's the one I really want.
+
+KateCollaborator
+5 days ago
+
+Hello Tareque,
+
+Unfortunately, the Retro Edition Folds have all sold out at this time... There may be other colour options available in the future, however. Is there any particular colour that you would like to see?
+
+Thank you for your support, Tareque And please feel free to reach out via email with any questions! My email is kate@zerowriter.ink and I'm very happy to help.
+
+Sincerely,
+
+Kate
+
+kate@zerowriter.ink
+
+Tareque
+5 days ago
+
+Thank you Kate! I've sent an email earlier, I'll send another one.
+
+Alyssa Tembi
+5 days ago
+
+Has the retro style option sold out? It's not giving me the option to add it as an additional pledge
+
+Showing 3 of 5 replies
+Load previous replies
+Alyssa Tembi
+5 days ago
+
+Thanks for letting me know!
+
+Alyssa Tembi
+5 days ago
+
+Also just wanted to note that I'm happy to fill a slot if a pledge for the retro one falls through/is cancelled
+
+KateCollaborator
+5 days ago
+
+Of course, we are happy to keep you in mind for openings. When you have a time, would you send me an email at kate@zerowriter.ink so I can put a list together?
+
+Alyssa Tembi
+5 days ago
+
+Super excited about the price and that it's open source. I've been eyeing off a freewrite traveller or pomera for a while now, but the prices are usually above 500aud and that's just not justifiable for the hardware. I was considering making a little cyberdeck to use as a word processor, but even that in Australia can get costly. I appreciate you guys for keeping costs low :)
+
+KateCollaborator
+5 days ago
+
+Hello Alyssa,
+
+Thank you for your message and for your support! Keeping costs low is a big priority for us...
+
+Sincerely,
+
+Kate
+
+Caleb
+5 days ago
+
+Super excited to see this Kickstarter take off. I've been wanting a Freewrite Traveler since I first saw it over a year ago, and I am happy to get all the features I wanted and more in a cheaper package. If I may chime in with a suggestion on keycaps, I would really like to see a set with two colors, one for the main letters, and another for the shift, caps lock, enter, etc. keys. Possibly a shade of grey for the letter keys, and red for the function keys. Thanks!
+
+KateCollaborator
+5 days ago
+
+Hello Caleb,
+
+Thank you so much, both for your support and for your message! A two-tone set of keycaps would look great. I will discuss your suggestions with Adam and the rest of the team :)
+
+Please reach out if you have any further questions, comments, or suggestions. We're always happy to hear from you :)
+
+Warm regards,
+
+Kate
+
+kate@zerowriter.ink
+
+John
+5 days ago
+
+Thank you for developing and offering this clamshell open-source writer's drafting device. The software developer and aspiring author in me cannot thank your team enough!
+
+KateCollaborator
+5 days ago
+
+Thank you so much for your support, John! We are very grateful for you and can't wait to see what you will write :)
+
+Vibiana Tran
+5 days ago
+
+So excited to be able to back this project! Looking forward to seeing what other add-ons will be available. I'm hoping additional key cap color ways will be an easy addition to the offerings! I love being tempted by pretty colors. :)
+
+Showing 3 of 4 replies
+Load previous replies
+Monica Linnell
+5 days ago
+
+Chiming in to say that I would love to see a light green!
+
+Vibiana Tran
+5 days ago
+
+I would most love a deep blue and a burnt orange, but I think that pinks and greens will also be really popular!
+
+Alyssa Tembi
+5 days ago
+
+Seconding burnt orange, stunning
+
+bef
+5 days ago
+
+Will it be possible to get it shipped with a German keyboard layout? QWERTZ with Umlauts ÖÄÜ and ß?
+
+Also what is the computing core? An ESP32 like the Zerowriter Ink? I think the KS page doesn’t state it explicitly or I missed it.
+
+ZerowriterCreator
+5 days ago
+
+Hey :) Yeah, we'll be adding German keyboard as an option in the Pledge Manager at the end of the campaign. Definitely a popular request!
+
+The chip is ESP32-S3, so a different chip than Ink but still in the esp32 family. I decided to leave those technical details out of the Kickstarter campaign as it might confuse people expecting laptop-style specs.
+
+bef
+5 days ago
+
+Great, thanks!
+
+Falorado
+5 days ago
+
+Hey, once you can share more pictures of the retro model, please make sure to include pictures with the white and black keycaps. That will help us to decide which ones to choose.
+
+Maybe you could also think about adding an Addon that is only an extra set of keycaps.
+
+StuartCollaborator
+5 days ago
+
+Good idea! We have the option to provide more add-ons after the campaign closes and backers can also add to their pledge. We can definitely make this happen.
+
+Can you shoot me an email at Stuart@zerowriter.ink whenever you have time?
+
+ZerowriterCreator
+5 days ago
+
+Hello! Updated the campaign page with a clearer picture for the Retro upgrade, so you will know what to expect.
+
+I'll work on getting some images with black keycaps, and good idea with extra keycaps - could add full alternate sets as options for backers.
+
+Inês
+5 days ago
+
+Hello team! Lovely project, thank you for sharing it with the world :)
+
+Out of curiosity: would it be possible to have more pictures of the "retro" model?
+
+Thank you so much in advance, and good luck with everything :D
+
+Showing 3 of 4 replies
+Load previous replies
+StuartCollaborator
+5 days ago
+
+Hi Inês,
+
+If you send me an email at Stuart@zerowriter.ink - I can share a photo of the retro model.
+
+Thank you for the kind words and support!
+
+KateCollaborator
+5 days ago
+
+Oh, I'm sorry for mistyping your name, Inês. Thank you again for your support, and I hope you have a wonderful day :)
+
+Inês
+5 days ago
+
+Hello Kate and Stuart,
+
+The email has been sent! And don't worry Kate, it happens :)
+
+Have a great day!
+
+Kate Shelly
+5 days ago
+
+Live word count please? I didn’t see it listed in features. Thanks!
+
+Showing 3 of 5 replies
+Load previous replies
+Kate Shelly
+5 days ago
+
+Thanks, Kate and Adam! I saw the goal stuff but not the word count, which is a need feature for me.
+
+I’d love if you could make an outline feature à la the pomera, which treats hashtags like section breaks for chapters, but that’s less crucial.
+
+I’d also love a backlit keyboard as a stretch goal, but assume that’d drive the price up significantly, so I only ask for it advisedly.
+
+ZerowriterCreator
+5 days ago
+
+Oh boy - I like delivering good news. The Outline Mode feature is supported :) I call it bookmarks, but it works the same way. It's shown briefly in the video but it is cut pretty quickly.
+
+For backlit keyboard - I'm not sure that will be able to make the cut, but you never know...
+
+Kate Shelly
+5 days ago
+
+Can’t watch videos right now so thanks. No worries on the backlit. A more sensible suggestion: custom cases. Hard (metal?), soft slipcover and in between (like a Magic Keyboard Shell case)
+
+(Stuck at the office with little to do, sorry!)
+
+Showing 25 of 36 comments
+Load more
+Similar projects to check out
+See more
+The Ultimate 5-in-1 Smart Cycling Hub with 4K Cam & GPS
+
+Walohub
+
+18 days left • 821% funded
+
+Eros Tarot Third Edition
+
+Chain Assembly
+
+25 days left • 487% funded
+
+MiixKey丨The World's First Security Key with a Touchscreen
+
+MiixPro
+
+10 days left • 14273% funded
+
+Womier DUO87: Modular Mechanical Keyboard with Smart Deck
+
+Womier INC
+
+17 days left • 925% funded
+
+English
+English
+Deutsch
+Español
+Français
+Italiano
+日本語
+繁體中文
+😃 ❤️ 🔥
+$ US Dollar (USD)
+€ Euro (EUR)
+$ Australian Dollar (AUD)
+$ Canadian Dollar (CAD)
+Fr Swiss Franc (CHF)
+kr Danish Krone (DKK)
+£ Pound Sterling (GBP)
+$ Hong Kong Dollar (HKD)
+¥ Japanese Yen (JPY)
+$ Mexican Peso (MXN)
+kr Norwegian Krone (NOK)
+$ New Zealand Dollar (NZD)
+zł Zloty (PLN)
+kr Swedish Krona (SEK)
+$ Singapore Dollar (SGD)
+$ US Dollar (USD)
+Discover
+Arts
+Comics & Illustration
+Design & Tech
+Film
+Food & Craft
+Games
+Music
+Publishing
+About
+About us
+Our charter
+Press
+Jobs
+Support
+Help Center
+Our Rules
+Creator Resources
+Forward Funds
+Brand assets
+More
+Newsletters
+Kickstarter Project Updates
+The Creative Independent
+Mobile apps
+Research
+Kickstarter, PBC © 2026
+Trust & Safety
+Terms of Use
+Privacy Policy
+Cookie Policy
+Cookie Preferences
+Accessibility Statement
+CA Notice of Consent
+We use personal data to provide a good experience on Kickstarter, and to help connect you with projects you'll love.
+Essential purposes
+Functionality
+Analytics
+Advertising
+Sale of personal information
+Confirm
+Accept all
+See Our Privacy Policy

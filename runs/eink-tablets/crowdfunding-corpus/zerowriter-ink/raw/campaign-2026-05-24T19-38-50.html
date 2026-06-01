@@ -1,0 +1,1282 @@
+<!DOCTYPE html><html lang="en" data-bs-theme="light"><head>
+  
+  
+    <title>Zerowriter Ink | Crowd Supply</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/_marvin/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/_marvin/images/crowd-supply-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Crowd Supply">
+    <link rel="me" href="https://hachyderm.io/@crowdsupply">
+    <link href="/_mvnd/assets/mainCss-CuW57QGO.css" rel="stylesheet">
+  
+  
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.crowdsupply.com/zerowriter/zerowriter-ink">
+  <meta property="og:description" content="Your open-source e-paper typewriter">
+  <meta property="og:title" content="Zerowriter Ink">
+  <meta property="og:site_name" content="Crowd Supply">
+    <meta property="og:image" content="https://www.crowdsupply.com/img/52dc/bd5a1357-a8b4-450d-bdb9-eba77a9252dc_open-graph.jpg">
+    <meta property="og:image:alt" content="">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@crowd_supply">
+  <meta name="twitter:creator" content="@crowd_supply">
+  <meta name="twitter:title" content="Zerowriter Ink">
+  <meta name="twitter:description" content="Your open-source e-paper typewriter">
+    <meta name="twitter:image" content="https://www.crowdsupply.com/img/52dc/bd5a1357-a8b4-450d-bdb9-eba77a9252dc_project-main.jpg">
+    <meta name="twitter:image:alt" content="">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async=""></script><style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style><style id="MJX-SVG-styles">
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+</style></head>
+<body>
+  
+  
+
+  
+    
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-cs">
+    <div class="container-lg">
+      <a class="navbar-brand" href="/">
+        <span class="navbar-logo">Crowd Supply</span>
+      </a>
+      <!--
+      <label for="navbar-toggler-css" class="navbar-toggler">
+        <span class="navbar-toggler-icon"></span>
+      </label>
+      <input type="checkbox" id="navbar-toggler-css">
+      -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-cs-main" aria-controls="navbar-cs-main" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbar-cs-main">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="/browse">Browse</a></li>
+          <li class="nav-item"><a class="nav-link" href="/apply">Apply</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+        </ul>
+
+        <div class="navbar-right d-flex justify-content-end">
+          <form method="GET" action="/search">
+            <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search">
+          </form>
+          <ul class="navbar-nav">
+            <li class="nav-item nav-item-avatar">
+              <a class="nav-link" href="/account">
+                  <img class="img-avatar" src="/_marvin/images/default-avatar.png" alt="Unknown Avatar" width="34" height="34">
+                <span class="nav-label-extra">My Account</span>
+              </a>
+            </li>
+            <li class="nav-item nav-item-cart">
+              <a class="nav-link" href="/cart">
+                <i class="bi bi-cart"></i> <span class="nav-label-extra">Cart</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+  <section>
+    <div class="container-lg">
+      
+  <p class="float-end text-end">
+    <i class="bi bi-people-fill"></i>
+    <a href="/zerowriter">Zerowriter</a>
+    <br>
+        <i class="bi bi-tag-fill"></i>
+      <a href="/e-paper">E-Paper</a>
+        <br>
+        <i class="bi bi-cpu-fill"></i>
+      <a href="/kicad">KiCad</a>
+  </p>
+
+      
+  <h1><a href="/zerowriter/zerowriter-ink">Zerowriter Ink</a></h1>
+  <h3>
+    Your open-source e-paper typewriter
+</h3>
+
+      <div class="row">
+        <div class="col-xl-8">
+          
+      
+  
+  <div class="ratio ratio-16x9">
+    <iframe src="https://www.youtube.com/embed/9I3aZIS4P3c?rel=0&amp;modestbranding=1" frameborder="0" allowfullscreen=""></iframe>
+  </div>
+
+
+    
+    
+    <a class="js-carousel-image d-none" href="/img/52dc/bd5a1357-a8b4-450d-bdb9-eba77a9252dc_gallery-lg.jpg" data-thumbnail-path="/img/52dc/bd5a1357-a8b4-450d-bdb9-eba77a9252dc_gallery-thumb.jpg">
+      <img alt="" height="900" src="/img/52dc/bd5a1357-a8b4-450d-bdb9-eba77a9252dc_aa-md.jpg" width="1600">
+    </a>
+
+
+
+        </div>
+        <div class="col-xl-4">
+          
+  <div class="row">
+
+      
+  <div class="col-xl-12 col-md-6 mt-md-3 mt-xl-0">
+    
+        
+  <div class="project-stats-tile">
+    <p class="project-pledged">
+      <span><sup>$</sup>143,023</span>&nbsp;raised
+    </p>
+    <p class="project-goal">
+      of&nbsp;<span><sup>$</sup>30,000</span>&nbsp;goal
+    </p>
+    <div class="status-bar status-bar-primary">
+      <span class="status-bar-left">
+    476<sup>%</sup> Funded!
+</span>
+      <span class="status-bar-right">Order Below</span>
+    </div>
+    <div class="factoids">
+      
+  <div class="fact ">
+      <a href="/zerowriter/zerowriter-ink/updates">
+      <span class="fact-number">17</span><br>
+      <span class="fact-label">updates</span>
+      </a>
+  </div>
+
+      
+    <div class="fact fact-micro">
+        <a href="/zerowriter/zerowriter-ink/crowdfunding">
+      <span class="fact-number">Oct 17 2024</span><br>
+      <span class="fact-label">funded on</span>
+        </a>
+    </div>
+
+      
+  <div class="fact ">
+      <a href="/zerowriter/zerowriter-ink/backers">
+      <span class="fact-number">570</span><br>
+      <span class="fact-label">backers</span>
+      </a>
+  </div>
+
+    </div>
+  </div>
+
+      
+  </div>
+
+      
+  <div class="col-xl-12 col-md-6">
+    
+        
+  <div class="text-center mt-3">
+    
+      <p>Available for pre-order.</p>
+    <h4>
+  
+  
+      <sup>$</sup>285
+
+</h4>
+    <p class="mt-3"><a class="btn btn-cta" href="#products">
+  
+    View Purchasing Options
+</a></p>
+  </div>
+
+
+      
+  </div>
+
+
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+    
+    <section class="section-bordered section-user-interactions">
+      <div class="container container-narrow">
+        
+    <h4>Recent Updates</h4>
+    <ul class="list-unstyled">
+        <li class="mb-1 mt-1">
+          
+    <span class="badge badge-calendar bg-secondary float-end">May 21, 2026</span>
+
+          <a href="/zerowriter/zerowriter-ink/updates/shipping-status-and-the-latest-developments">Shipping Status and the Latest Developments</a>
+        </li>
+        <li class="mb-1 mt-1">
+          
+    <span class="badge badge-calendar bg-secondary float-end">Apr 15, 2026</span>
+
+          <a href="/zerowriter/zerowriter-ink/updates/more-orders-fulfilled-plus-a-pre-launch-announcement">More Orders Fulfilled Plus a Pre-Launch Announcement</a>
+        </li>
+        <li class="mb-1 mt-1">
+          
+    <span class="badge badge-calendar bg-secondary float-end">Feb 09, 2026</span>
+
+          <a href="/zerowriter/zerowriter-ink/updates/progress-report-new-improvements">Progress Report, New Improvements</a>
+        </li>
+        <li class="mb-1 mt-1">
+          
+    <span class="badge badge-calendar bg-secondary float-end">Jan 17, 2026</span>
+
+          <a href="/zerowriter/zerowriter-ink/updates/first-shipments-and-resources-to-get-started">First Shipments and Resources to Get Started</a>
+        </li>
+    </ul>
+      <div class="mb-3">
+        <a href="/zerowriter/zerowriter-ink/updates">
+            View all project updates
+        </a>
+      </div>
+
+        
+      <form action="/zerowriter/zerowriter-ink/signup" method="POST">
+          <input class="form-fontrol" id="signup-email" maxlength="320" name="email" placeholder="email@example.com" type="email">
+          <div class="input-group mb-3">
+            <input class="form-control" id="1f99a5769822ffec57072a8f3d029bcf" maxlength="320" name="1f99a5769822ffec57072a8f3d029bcf" placeholder="me@example.com" type="email" value="">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </span>
+          </div>
+        Sign up to receive updates.
+      </form>
+
+      </div>
+    </section>
+
+
+  
+
+    
+  <section class="section-markdown">
+      <p><strong>Zerowriter Ink</strong> is an e-paper word processor with a low-profile mechanical keyboard, great readability, and long-lasting battery life. This is a  collaboration between Zerowriter and <a href="https://www.crowdsupply.com/soldered">Soldered Electronics</a>, makers of the Inkplate series of e-paper displays. We are building an active, robust community around Zerowriter Ink, and we hope you’ll be a part of it!</p>
+<h2 id="an-open-typewriter-for-writers">An Open Typewriter for Writers</h2><p>We designed Zerowriter Ink as a dependable and expandable alternative to some of our favorite products, the <em>Alphasmart Neo</em> and the <em>Pomera DM30</em>. It’s for writers first and device hackers second. It’s for anyone who wants a simple, dedicated writing tool. It’s for working at home, on the road, in the park, or by the sea. It ships with easy-to-use software and it just works, right out of the box.</p>
+
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-v">
+      
+    <a class="js-carousel-image " href="/img/45da/fdaeaf83-cbbf-4b66-a51d-f1f2de7245da_gallery-lg.jpg" data-thumbnail-path="/img/45da/fdaeaf83-cbbf-4b66-a51d-f1f2de7245da_gallery-thumb.jpg">
+      <img alt="" src="/img/45da/fdaeaf83-cbbf-4b66-a51d-f1f2de7245da_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+<p>If you like to tinker, you can dive right in and make it yours. If you don’t, it’ll help you get those words out and then stay out of your way.</p>
+<h2 id="no-compromises">No Compromises</h2><p>I launched <a href="https://github.com/zerowriter/zerowriter1">the Zerowriter Project</a> with a Raspberry Pi Zero, a cheap e-paper panel, and a mission: to build an open source alternative to commercial distraction-free writing tools. Hundreds of people have gotten involved by contributing code, sharing designs, learning, making, and hammering out words.</p>
+<p>It was a good start, but it wasn’t quite the device I was looking for. What I <em>wanted</em> was a minimal e-paper typewriter I could throw in my backpack and use anywhere. All it had to do was produce text files, but I needed it to fit comfortably in my bag, wake up instantly, and be ready whenever creativity hits. So I went back to the drawing board and rebuilt my dream device on the remarkable Inkplate 5 – my absolute favorite e-paper display. No compromises, this time.</p>
+<p>I finally had the product I was looking for. I also learned that other people wanted one too, but most weren’t interested in building their own. And that’s how we ended up here: crowdfunding a fully assembled, open source Zerowriter Ink.</p>
+<div class="markdown-video-embed">
+  <div class="ratio ratio-16x9">
+    <iframe src="https://www.youtube.com/embed/OGQSjiAPre0?start=&amp;end=&amp;autoplay=0&amp;mute=0&amp;playsinline=0&amp;fs=1&amp;disablekb=0&amp;controls=1&amp;rel=0&amp;modestbranding=1" frameborder="0" allow="encrypted-media" allowfullscreen=""></iframe>
+  </div>
+</div>
+<h2 id="features-specifications">Features &amp; Specifications</h2><ul>
+<li><strong>Display</strong>: second-edition Inkplate 5.2" display with an upgraded 1280 x 720 widescreen resolution for crisp, clean text.</li>
+<li><strong>Refresh Rate</strong>: variable e-paper refresh rate produces almost no perceptible lag while you're typing.</li>
+<li><strong>Keyboard</strong>: hot-swappable, 60% mechanical keyboard with Kailh Choc Pro Red low-profile switches and keycaps. US English layout with printed legends. Swap and customize as you like. Includes optional arrow keys to replace bottom right modifier keys.</li>
+<li><strong>Languages</strong>: customizeable keyboard with support for most western languages, like English, French, German, Spanish, Italian, and more. Uses extended ASCII 256 chars.</li>
+<li><strong>Dimensions</strong> Powerfully portable at 300 mm x 195 mm x 15 mm (12" x 7.5" x 0.6"). Slide it into your backpack and go. Fits in most 13" laptop sleeves.</li>
+<li><strong>Software</strong>: Instant-on, distraction-free writing software. No fiddling with accounts or logins.</li>
+<li><strong>Connectivity</strong>: Manage your files on the included microSD card. Connect via USB cable to transfer text files with companion app (via UART). Transfer files to your phone via QR Code.</li>
+<li><strong>Battery</strong>: Up to weeks of daily use on a single charge. Built-in, user-replaceable LiPo battery with USB Type-C charging.</li>
+<li><strong>Session Tools</strong>: Optional session tools to count words, track total writing time, page counts, set goals, hit milestones, and more.</li>
+<li><strong>Hackability</strong>: Easy-to-hack, Arduino-based software with full access so you can make it do whatever you want.</li>
+<li><strong>Transparency</strong>: No gimmicks, no marketing babble, no renders, and no mockups. What you see is what you'll get.</li>
+</ul>
+<h2 id="software-experience">Software &amp; Experience</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="image-gallery">
+      <div class="row align-items-center">
+          
+          <div class="col-6 col-sm-4">
+              
+    <a class="js-carousel-image " href="/img/4b02/54be4740-816e-490f-899a-eab255e74b02_gallery-lg.jpg" data-thumbnail-path="/img/4b02/54be4740-816e-490f-899a-eab255e74b02_gallery-thumb.jpg">
+      <img alt="" height="1200" src="/img/4b02/54be4740-816e-490f-899a-eab255e74b02_content-body-gallery-xl.jpg" width="1600">
+    </a>
+
+            
+    <div class="markdown-caption mb-3"><strong>A high-contrast, high-resolution e-paper screen with best-in-class performance. Readable in sunlight and easy on the eyes. Make it yours by configuring the size, spacing, and font to your liking or by adjusting the refresh rate to fit your needs</strong>.</div>
+
+          </div>
+          
+          <div class="col-6 col-sm-4">
+              
+    <a class="js-carousel-image " href="/img/4236/6424bb8e-a9e1-4792-af29-0d9686a34236_gallery-lg.jpg" data-thumbnail-path="/img/4236/6424bb8e-a9e1-4792-af29-0d9686a34236_gallery-thumb.jpg">
+      <img alt="" height="1200" src="/img/4236/6424bb8e-a9e1-4792-af29-0d9686a34236_content-body-gallery-xl.jpg" width="1600">
+    </a>
+
+            
+    <div class="markdown-caption mb-3"><strong>Navigate and manage files using the on-device menu to Save, Save-As, Delete, and Rename files. View current battery life and word count. Easily access configuration options, and extend device functionality with plugins and settings</strong>.</div>
+
+          </div>
+          
+          <div class="col-6 col-sm-4">
+              
+    <a class="js-carousel-image " href="/img/3736/65ddf4fe-f353-40f0-9960-5ad2e79c3736_gallery-lg.jpg" data-thumbnail-path="/img/3736/65ddf4fe-f353-40f0-9960-5ad2e79c3736_gallery-thumb.jpg">
+      <img alt="" height="1200" src="/img/3736/65ddf4fe-f353-40f0-9960-5ad2e79c3736_content-body-gallery-xl.jpg" width="1600">
+    </a>
+
+            
+    <div class="markdown-caption mb-3"><strong>Work on longer documents or projects with ease. Quickly review previous pages by scrolling through the open file, then continue writing by pressing any key. Supports 3,000 lines (approximately 24,000 words) per document</strong>.</div>
+
+          </div>
+      </div>
+  </div>
+
+<p>Zerowriter Ink’s software is built for how you write. Choose between two modes: drafting, and word-processing. Toggle back and forth as you need, on the fly.</p>
+<p>If you want to quick-fix a mistake, no problem. You can easily make simple edits with arrow-key navigation and cursor-based edits.</p>
+<p>Sometimes, less is more. Zerowriter Ink’s writing software is focused on getting that first draft done. The canvas is minimal and clean. It supports configurable text sizes, line spacing, and custom fonts. You can adjust the screen refresh rate to suit your needs and balance your power usage. You can manage your files on-device, with a menu to save, rename, or delete your work. Finally, there are optional motivational tools that will give you word counts and session times to keep you on track and making progress.</p>
+<p>When you’re done drafting, your <code>.txt</code> files will be ready for you to bring them over to a word processor for additional editing, formatting, and revision.</p>
+<p>Looking for something else? Open software means Zerowriter Ink can do whatever you want it to do – or whatever someone in the community dreams up!</p>
+
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/c127/a709bf9e-a207-4257-ba11-9af4c44ec127_gallery-lg.jpg" data-thumbnail-path="/img/c127/a709bf9e-a207-4257-ba11-9af4c44ec127_gallery-thumb.jpg">
+      <img alt="" src="/img/c127/a709bf9e-a207-4257-ba11-9af4c44ec127_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+<h2 id="software-updates-roadmap">Software Updates &amp; Roadmap</h2><p>Some of the recent software updates include: wide language support for most western/latin-based languages, support for custom fonts, and a suite of fully-functional writing shortcuts like what you’d expect in a word processor.</p>
+<p>We’re constantly working on refining the software for Zerowriter Ink. You can easily update your device by dragging a file on to your SD card, and powering on your unit. It will automatically update with the new firmware.</p>
+<p>This also makes it easy for other developers to share their own custom builds with the community.</p>
+<p>We’ll be sharing developments and features in our campaign updates, or you can join the <a href="https://discord.gg/57yANTWGet">Zerowriter discord server</a> to discuss more software ideas.</p>
+<h2 id="private-by-default-open-to-new-experiences">Private by Default. Open to New Experiences.</h2><p>Your words stay on your microSD card. Zerowriter Ink has no "subscription model," no software-as-a-service, and no cloud storage by default. Shipping without wireless connectivity means less development time, less red-tape, and less cost to you. Zerowriter Ink supports Wi-Fi and Bluetooth at the hardware level, though, so you could implement cloud storage and other online features in code or through a community update or extensions.</p>
+<p>This is a small project with a <em>very</em> small team. We are focused on creating a foundation for others to build upon, but that doesn’t mean <em>you</em> have to be the one laying the bricks. The Zerowriter community is already a scrappy group of writers and geeks, and we only expect it to grow. We are excited to see what new features our community implements.</p>
+<p>Want to try something out? Installing a new build will be as easy as downloading a file, and starting up your Zerowriter Ink. Since your writing is stored separately on the microSD card, there’s minimal risk of data loss. You can always revert to the default build.</p>
+<h2 id="comparisons">Comparisons</h2><div class="table-responsive">
+<table class="table table-markdown">
+<thead>
+<tr>
+<th></th><th>Zerowriter Ink</th><th><a href="https://www.amazon.ca/KINGJIM-Digital-memo-Pomela-Silva/dp/B07CYTVH4Z">Pomera DM30</a></th><th><a href="https://en.wikipedia.org/wiki/AlphaSmart">Alphasmart Neo</a></th><th><a href="https://www.getfreewrite.com/">Freewrite Alpha</a></th><th><a href="https://www.getfreewrite.com/">Freewrite Traveler</a></th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="table-active"><strong>Display</strong> </td><td class="table-active">HD e-Paper </td><td class="table-active">e-Paper </td><td class="table-active">LCD </td><td class="table-active">LCD </td><td class="table-active">e-Paper </td></tr>
+<tr>
+<td class="table-active"><strong>Cloud-Enabled</strong> </td><td class="table-active">Not by default </td><td class="table-active">No </td><td class="table-active">No </td><td class="table-active">Yes </td><td class="table-active">Yes </td></tr>
+<tr>
+<td><strong>Availability</strong></td><td class="table-success">New </td><td class="table-warning">Used </td><td class="table-warning">Used </td><td class="table-success">New </td><td class="table-success">New </td></tr>
+<tr>
+<td><strong>Mechanical Keyboard</strong></td><td class="table-success">Yes (hot swappable) </td><td class="table-danger">No </td><td class="table-danger">No </td><td class="table-warning">Yes </td><td class="table-danger">No </td></tr>
+<tr>
+<td><strong>Estimated Battery Life</strong></td><td class="table-warning">100 hours </td><td class="table-danger">20 hours </td><td class="table-success">700 hours </td><td class="table-warning">100 hours </td><td class="table-success">4 weeks </td></tr>
+<tr>
+<td><strong>Open Source</strong></td><td class="table-success">Yes </td><td class="table-danger">No </td><td class="table-danger">No </td><td class="table-danger">No </td><td class="table-danger">No </td></tr>
+</tbody>
+
+</table>
+</div><h2 id="support-documentation">Support &amp; Documentation</h2><p>Each Zerowriter Ink includes a getting started guide. When you open the box and power it up, you will be straight in to a document and ready to go. This means Zerowriter Ink is the perfect gift for anyone who writes, even those who don’t get along too well with modern technology.</p>
+<p>Open source makes sense for projects like this. We can’t support every language, keyboard layout, cloud service, or software request out of the box. Instead, we will provide a basic tool with all of the core functionality you expect. Other developers can extend our software (and our hardware!) to add features.</p>
+<p>Zerowriter Ink is built around the ubiquitous ESP32 module, and our software is written entirely in Arduino, which is one of the easiest languages to learn if you want to work with hardware. Our goal is to keep everything approachable and transparent.</p>
+<p>Our hardware design files are available in <a href="https://github.com/zerowriter/zerowriter_ink/tree/main/design/src">our GitHub</a>. Our source code will all be published on GitHub.</p>
+<p>You can get help or contribute to the project on the <a href="https://discord.gg/57yANTWGet">Zerowriter discord server</a>.</p>
+
+  </section>
+
+    
+  
+    <section id="programs" class="section-project-programs">
+      <div class="container container-narrow">
+          <a href="/soldered/electronics-inkubator">
+            
+              <img alt="" height="900" src="/img/8e90/cc0d2d95-414b-4dd0-b317-6a2fd7e68e90_orig.svg" width="1600">
+          </a>
+          <p>Zerowriter Ink is part of <a href="/soldered/electronics-inkubator">Soldered Electronics Inkubator</a></p>
+            
+
+      </div>
+    </section>
+
+    
+    <section id="press">
+      <div class="container container-narrow">
+        <h1 class="mb-3">In the Press</h1>
+          
+      <hr>
+    <div class="row">
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.tomshardware.com/raspberry-pi/zerowriter-ink-typewriter-sequel-comes-with-larger-52-inch-eink-screen-all-week-battery-and-mechanical-keyboard"><img alt="" height="75" src="/img/7cce/7654c152-9e50-4b57-8285-7dc514df7cce_press-logo.png" title="Tom's Hardware: Working on the 5.2-inch eInk screen is... a joy with its 1280 x 720 widescreen resolution." width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.ereaderpro.co.uk/en/blogs/news/e-ink-new-product-the-e-ink-typewriter-focused-on-writing-zerowriter-ink-is-coming-soon-to-crowdfunding-platforms"><img alt="" height="75" src="/img/b96e/f0427ef1-c67d-4709-9f9c-41de3458b96e_press-logo.png" title="E-Reader Pro: Zerowriter Ink is an innovative E-Ink typewriter that combines retro typewriter style with modern technology" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://liliputing.com/zerowriter-ink-is-an-open-source-word-processor-with-an-e-ink-display-and-a-mechanical-keyboard-crowdfunding/"><img alt="Liliputing Logo" height="75" src="/img/79f0/8f2564ae-de9c-4dda-9810-d8f6ac1279f0_press-logo.png" title="Liliputing: Sure, you could use a laptop computer for writing on the go, but this device won’t distract you with videos, social media, or websites – it’s first and foremost a mobile writing machine that starts up instantly and offers long battery life." width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://goodereader.com/blog/technology/zerowriter-ink-e-paper-typewriter-crowd-funding-campaign-to-start-soon"><img alt="Good E-Reader" height="75" src="/img/33e1/511be448-1ef8-4faa-953e-b613c09833e1_press-logo.png" title="Good E-Reader: Zerowriter Ink e-Paper Typewriter Crowd Funding Campaign to Start Soon" width="150"></a>
+  </div>
+
+    </div>
+    <div class="row">
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.notebookcheck.com/Zerowriter-Ink-Offenes-System-bringt-einen-E-Ink-Bildschirm-und-eine-mechanische-Tastatur-fuer-Texterstellung-mit.868781.0.html"><img alt="" height="75" src="/img/73f6/efd7d4e0-a334-41c2-80d7-10c8ebd073f6_press-logo.png" title="Notebookcheck: Zerowriter Ink: Open system features an E-Ink screen and a mechanical keyboard for text creation" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.e-ink-info.com/zerowriter-ink"><img alt="" height="75" src="/img/573b/55009529-77e8-421d-818c-b0d140a8573b_press-logo.png" title="E-Ink Info: Zerowriter Ink" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://circuitdigest.com/news/zerowriter-ink-an-open-source-epaper-typewriter-for-writers"><img alt="" height="75" src="/img/4229/64c929fb-8890-42f4-9595-fb9da2514229_press-logo.png" title="Circuit Digest: Zerowriter Ink: An Open-Source ePaper Typewriter for Writers" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.techeblog.com/zerowriter-ink-typewriter-e-ink/"><img alt="" height="75" src="/img/6774/82061e1f-b557-49a4-b42c-9cd1b0ef6774_press-logo.png" title="Tech-E-Blog: ZeroWriter Ink Gives the Typewriter a Modern Twist with an E-Ink Display" width="150"></a>
+  </div>
+
+    </div>
+    <div class="row">
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.pascalforget.com/zerowriter-ink/"><img alt="" height="75" src="/img/9f3b/20529073-0674-40da-aceb-d5c9d9759f3b_press-logo.png" title="Pascal Forget: Zerowriter Ink – write without distraction" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://boingboing.net/2026/02/02/zerowriter.html"><img alt="Boing Boing Logo" height="75" src="/img/443d/2016e924-cf56-4df5-bbbf-f5fb011a443d_press-logo.png" title="Boing Boing: Zerowriter Ink: sleek e-ink typewriter" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.yankodesign.com/2026/02/04/zerowriter-ink-is-an-open-source-e-paper-typewriter-built-for-writers/"><img alt="" height="75" src="/img/fcda/ffa79a59-1fa2-4298-8637-892e16fefcda_press-logo.png" title="Yanko Design: Zerowriter Ink Is an Open-Source E-Paper Typewriter Built for Writers" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.msn.com/en-us/lifestyle/shopping/this-e-paper-typewriter-is-ideal-for-those-who-want-to-write-without-distraction/ar-AA1VPzs6"><img alt="" height="75" src="/img/b8bd/139417bd-7973-4171-b143-e4eb28f4b8bd_orig.svg" title="MSN: This e-paper typewriter is ideal for those who want to write without distraction" width="150"></a>
+  </div>
+
+    </div>
+    <div class="row">
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.ft.com/content/38ae29d6-9d6b-4ac5-b4b7-45215609dd25"><img alt="Financial Times Logo" height="75" src="/img/51b1/7b2bb4d5-0af1-4a0b-919d-25f62d4d51b1_press-logo.png" title="Financial Times: Can this WiFi-free word processor make you more productive?" width="150"></a>
+  </div>
+
+    </div>
+
+      </div>
+    </section>
+
+
+      
+  <section id="questions">
+    <div class="container container-narrow">
+      <h1 class="mt-3 mb-3">Ask a Question</h1>
+      <div class="question-buttons">
+        <a class="btn btn-default" href="/contact">
+          <i class="bi bi-question-circle-fill"></i><br>
+          Ask Crowd Supply about an order
+        </a>
+        <a class="btn btn-default" href="/zerowriter/zerowriter-ink/ask-question">
+          <i class="bi bi-question-circle-fill"></i><br>
+          Ask Zerowriter a technical question
+        </a>
+        <a class="btn btn-default" href="/field-reports">
+          <i class="bi bi-newspaper"></i><br>
+          Submit a field report about how you used this project
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+      
+  <section id="products" class="section-color section-produced-by">
+    <div class="container">
+      <div class="text-center">
+        <p>Produced by <a href="/zerowriter">Zerowriter</a> in Ottawa, Canada.</p>
+        <p>Sold and shipped by Crowd Supply.</p>
+      </div>
+    </div>
+  </section>
+
+      
+    <section class="section-bordered">
+      <div class="container">
+          
+  <div class="product" id="product-3904">
+    <div class="row">
+      <div class="col-sm-4">
+        <img alt="" height="900" src="/img/52dc/bd5a1357-a8b4-450d-bdb9-eba77a9252dc_md-fixed-xl.jpg" title="Zerowriter Ink" width="1600">
+      </div>
+      <div class="col-sm-8">
+        <h3>Zerowriter Ink</h3>
+
+
+        <p>A distraction-free e-paper word processor that's always ready to write. Comes with a USB Type-C to Type-A cable.</p>
+
+        <div class="product-price-row">
+          <span class="product-price">
+  
+  
+  <sup>$</sup><span class="product-price-number">285</span>
+
+</span>
+            <span class="product-shipping">
+              Free Worldwide Shipping
+            </span>
+        </div>
+
+        
+    <p class="product-metadata product-stock-status">Orders placed now ship Jun 19, 2026.</p>
+
+
+
+        <form method="POST" action="/cart/add" class="js-product-form" data-path="/product/stock-status">
+          <input name="product_id" type="hidden" value="3904">
+          <input name="qty" type="hidden" value="1">
+          
+
+          
+        <button type="submit" class="btn btn-block btn-cta">Pre-order</button>
+
+          
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+          
+  <div class="product" id="product-3215">
+    <div class="row">
+      <div class="col-sm-4">
+        <img alt="" height="900" src="/img/78ce/9b5bffb4-0dd5-4fbd-8a92-0ce7b0d278ce_md-fixed-xl.jpg" title="USB 2.0 Cable: Type-C to Type-A (100 cm)" width="1600">
+      </div>
+      <div class="col-sm-8">
+        <h3>USB 2.0 Cable: Type-C to Type-A (100 cm)</h3>
+
+          <p>From the <a href="/stewart-connector/usb-cables">USB Cables</a> project.</p>
+            <p>For charging or programming your Zerowriter Ink</p>
+
+        <p>A 100 cm cable with a USB Type-C and a USB Type-A connector.</p>
+
+        <div class="product-price-row">
+          <span class="product-price">
+  
+  
+  <sup>$</sup><span class="product-price-number">8</span>
+
+</span>
+            <span class="product-shipping">
+              $8 US Shipping / $18 Worldwide
+            </span>
+        </div>
+
+        
+    <p class="product-metadata product-stock-status">Orders placed now ship May 13, 2026.</p>
+
+
+
+        <form method="POST" action="/cart/add" class="js-product-form" data-path="/product/stock-status">
+          <input name="product_id" type="hidden" value="3215">
+          <input name="qty" type="hidden" value="1">
+          
+
+          
+      <button type="submit" class="btn btn-block btn-cta">Add to Cart</button>
+
+          
+    <!-- -->
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+      </div>
+    </section>
+
+
+    
+  <section class="section-bordered">
+    <div class="container">
+      <h1 id="team" class="mb-4">About the Team</h1>
+      
+  <div class="row mb-4">
+    <div class="col-sm-3 col-organization-logo">
+      
+        <img alt="" height="140" src="/img/49f4/eba5f6c0-9ef7-4d1e-8eac-925f430149f4_orig.svg" title="Zerowriter" width="200">
+    </div>
+    <div class="col-sm-9">
+      <h4>
+          <a href="/zerowriter">Zerowriter</a>
+      </h4>
+      <p>
+  <span class="metadata-with-icon">
+    <i class="bi bi-geo-alt-fill"></i>
+    Ottawa, Canada
+  </span>
+    &nbsp;·&nbsp;
+    
+  <a href="https://github.com/zerowriter" class="metadata-with-icon">
+    <i class="bi bi-github"></i>&nbsp;zerowriter
+  </a>
+
+    &nbsp;·&nbsp;
+    
+  <a href="https://www.youtube.com/@ZeroWriter" class="metadata-with-icon">
+    <i class="bi bi-youtube"></i>&nbsp;ZeroWriter
+  </a>
+
+</p>
+        <p>We're all about open-source e-paper typewriters.</p>
+    </div>
+  </div>
+
+      
+    <div class="user-tiles">
+        
+  
+  <div class="user-tile">
+    <img alt="" height="196" src="/img/46b6/704771de-e7dc-4c68-8c01-64a0235b46b6_avatar-xl.jpg" width="196">
+    <div class="user-tile-text">
+        <h5 class="mt-2 text-break">Adam Wilk</h5>
+        
+  <a href="https://github.com/zerowriter" class="text-truncate">
+    <i class="bi bi-github"></i>&nbsp;zerowriter
+  </a>
+
+    </div>
+  </div>
+
+    </div>
+
+    </div>
+  </section>
+
+    
+  
+    <section class="section-bordered" data-nosnippet="">
+      <div class="container">
+        <h1 class="mb-4" id="related">See Also</h1>
+
+          
+  <div class="project-row">
+      
+  
+    <a class="project-tile" href="/tall-dog-electronics/tinynes" aria-label="TinyNES">
+      <img alt="TinyNES" height="900" src="/img/365f/6b89b338-1d27-4595-a5a6-256bb4ce365f_aa-md.jpg" width="1600">
+      <div class="project-tile-overview">
+        <h3>TinyNES</h3>
+          <p>Classic NES games on open source hardware that fits in the palm of your hand</p>
+      </div>
+
+      
+
+
+      <div class="project-metadata">
+        
+    
+  <div class="stats">
+    <div class="status-bar status-bar-primary">
+      <div>
+    622<sup>%</sup> Funded!
+</div>
+        <div>In Stock</div>
+    </div>
+    <div class="factoids">
+      
+  <div class="fact fact-small">
+      <span class="fact-number"><sup>$</sup>124,431</span><br>
+      <span class="fact-label">raised</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">11</span><br>
+      <span class="fact-label">updates</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">505</span><br>
+      <span class="fact-label">backers</span>
+  </div>
+
+    </div>
+  </div>
+
+
+      </div>
+    </a>
+
+      
+  
+    <a class="project-tile" href="/anavi-technology/anavi-macro-pad-12-and-arrows" aria-label="ANAVI Macro Pad 12 &amp; Arrows">
+      <img alt="ANAVI Macro Pad 12 &amp; Arrows" height="900" src="/img/7e11/a62c8a5e-9c53-45d4-9e31-14f33b977e11_aa-md.jpg" width="1600">
+      <div class="project-tile-overview">
+        <h3>ANAVI Macro Pad 12 &amp; Arrows</h3>
+          <p>Two fully programmable, open source, no-solder, hot-swappable mechanical keyboards powered by Raspberry Pi &amp; CircuitPython</p>
+      </div>
+
+      
+
+
+      <div class="project-metadata">
+        
+    
+  <div class="stats">
+    <div class="status-bar status-bar-primary">
+      <div>
+    Funded!
+</div>
+        <div>In Stock</div>
+    </div>
+    <div class="factoids">
+      
+  <div class="fact ">
+      <span class="fact-number"><sup>$</sup>3,678</span><br>
+      <span class="fact-label">raised</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">10</span><br>
+      <span class="fact-label">updates</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">56</span><br>
+      <span class="fact-label">backers</span>
+  </div>
+
+    </div>
+  </div>
+
+
+      </div>
+    </a>
+
+      
+  
+    <a class="project-tile" href="/deepsea-developments/deepdeck" aria-label="DeepDeck">
+      <img alt="DeepDeck" height="900" src="/img/2b86/03e79b62-2a59-4cb2-b1f3-8e9323622b86_aa-md.jpg" width="1600">
+      <div class="project-tile-overview">
+        <h3>DeepDeck</h3>
+          <p>Wireless, fully programmable, open source, ESP32 macropad featuring 16 RGB, mechanical, hot-swappable keys and two RGB rotary encoders</p>
+      </div>
+
+      
+
+
+      <div class="project-metadata">
+        
+    
+  <div class="stats">
+    <div class="status-bar status-bar-primary">
+      <div>
+    558<sup>%</sup> Funded!
+</div>
+        <div>In Stock</div>
+    </div>
+    <div class="factoids">
+      
+  <div class="fact ">
+      <span class="fact-number"><sup>$</sup>27,903</span><br>
+      <span class="fact-label">raised</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">8</span><br>
+      <span class="fact-label">updates</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">313</span><br>
+      <span class="fact-label">backers</span>
+  </div>
+
+    </div>
+  </div>
+
+
+      </div>
+    </a>
+
+  </div>
+
+      </div>
+    </section>
+
+
+
+
+
+  
+    
+  <section class="section-color section-email-signup">
+    <div class="container">
+      <h6>Subscribe to the Crowd Supply newsletter, highlighting the latest creators and projects</h6>
+      <form action="/newsletter/signup" method="POST">
+        <input class="form-fontrol" id="signup-email" maxlength="320" name="email" placeholder="email@example.com" type="email">
+        <div class="input-group">
+          <input class="form-control" id="8ff4ef269656ec49f792b25802554de1" maxlength="320" name="8ff4ef269656ec49f792b25802554de1" placeholder="email@example.com" type="email">
+          <button type="submit" class="btn btn-dark btn-lg">Subscribe</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+    
+  <footer>
+    <div class="container">
+      <div class="pt-4">
+        <div class="row">
+          <div class="col-6 col-md col-footer-company">
+            <h5>Company</h5>
+            <ul class="list-unstyled">
+              <li><a href="/announcements">Announcements</a></li>
+              <li><a href="/contact">Contact</a></li>
+              <li><a href="/security">Security</a></li>
+              <li><a href="/distributors">Distributors</a></li>
+              <li><a href="/events">Events</a></li>
+              <li><a href="/press">In the News</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md col-footer-terms">
+            <h5>Terms</h5>
+            <ul class="list-unstyled">
+              <li><a href="/terms-of-use">Terms of Use</a></li>
+              <li><a href="/shipping">Shipping</a></li>
+              <li><a href="/returns">Returns</a></li>
+              <li><a href="/privacy-policy">Privacy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md col-footer-nuts">
+            <h5>Nuts &amp; Bolts</h5>
+            <ul class="list-unstyled">
+              <li><a href="/login">Account Login</a></li>
+              <li><a href="/guide">The Crowd Supply Guide</a></li>
+              <li><a href="/apply">Project Application</a></li>
+              <li><a href="/field-reports">Submit a Field Report</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md col-footer-follow">
+            <h5>Follow Us</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="https://discord.gg/7p5huQd">
+                  Discord
+                  <i class="ms-1 bi bi-discord"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/crowd_supply">
+                  Twitter/X
+                  <i class="ms-1 bi bi-twitter-x"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://bsky.app/profile/crowdsupply.bsky.social">
+                  Bluesky
+                  <i class="ms-1 bi bi-bluesky"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/crowdsupply">
+                  Instagram
+                  <i class="ms-1 bi bi-instagram"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/CrowdSupplyTeardown">
+                  YouTube
+                  <i class="ms-1 bi bi-youtube"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://hachyderm.io/@crowdsupply">
+                  Fediverse
+                  <i class="ms-1 bi bi-mastodon"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/company/crowdsupply">
+                  LinkedIn
+                  <i class="ms-1 bi bi-linkedin"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="pt-4 border-top">
+              <p>Based in Portland, Oregon. Accepting projects worldwide.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+
+  
+    
+    <script src="/_mvnd/assets/main-CQ8m-ku3.js" type="module"></script>
+  
+
+
+
+
+
+
+
+<div class="modal fade" id="gallery-modal" aria-hidden="true" tabindex="-1">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <div id="gallery-carousel" class="carousel slide gallery-carousel">
+          <div class="carousel-inner gallery-carousel-inner">
+
+            
+              <div class="carousel-item active">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/52dc/bd5a1357-a8b4-450d-bdb9-eba77a9252dc_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/45da/fdaeaf83-cbbf-4b66-a51d-f1f2de7245da_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/4b02/54be4740-816e-490f-899a-eab255e74b02_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/4236/6424bb8e-a9e1-4792-af29-0d9686a34236_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/3736/65ddf4fe-f353-40f0-9960-5ad2e79c3736_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/c127/a709bf9e-a207-4257-ba11-9af4c44ec127_gallery-lg.jpg">
+              </div>
+            
+
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            
+              <button class="carousel-control-prev" type="button" data-bs-target="#gallery-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#gallery-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            
+          </div>
+
+          
+            <div class="carousel-indicators gallery-carousel-indicators d-none d-sm-block">
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="0" class="active">
+                  <img alt="" src="/img/52dc/bd5a1357-a8b4-450d-bdb9-eba77a9252dc_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="1" class="">
+                  <img alt="" src="/img/45da/fdaeaf83-cbbf-4b66-a51d-f1f2de7245da_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="2" class="">
+                  <img alt="" src="/img/4b02/54be4740-816e-490f-899a-eab255e74b02_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="3" class="">
+                  <img alt="" src="/img/4236/6424bb8e-a9e1-4792-af29-0d9686a34236_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="4" class="">
+                  <img alt="" src="/img/3736/65ddf4fe-f353-40f0-9960-5ad2e79c3736_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="5" class="">
+                  <img alt="" src="/img/c127/a709bf9e-a207-4257-ba11-9af4c44ec127_gallery-thumb.jpg">
+                </a>
+              
+            </div>
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<svg id="MJX-SVG-global-cache" style="display: none;"><defs></defs></svg></body></html>

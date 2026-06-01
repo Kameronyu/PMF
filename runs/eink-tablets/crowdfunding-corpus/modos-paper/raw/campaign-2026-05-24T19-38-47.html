@@ -1,0 +1,1508 @@
+<!DOCTYPE html><html lang="en" data-bs-theme="light"><head>
+  
+  
+    <title>Modos Paper Monitor | Crowd Supply</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/_marvin/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/_marvin/images/crowd-supply-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Crowd Supply">
+    <link rel="me" href="https://hachyderm.io/@crowdsupply">
+    <link href="/_mvnd/assets/mainCss-CuW57QGO.css" rel="stylesheet">
+  
+  
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.crowdsupply.com/modos-tech/modos-paper-monitor">
+  <meta property="og:description" content="A fast, low-latency, open-hardware e-paper monitor and dev kit">
+  <meta property="og:title" content="Modos Paper Monitor">
+  <meta property="og:site_name" content="Crowd Supply">
+    <meta property="og:image" content="https://www.crowdsupply.com/img/1080/ffe06499-b877-4d44-ac68-3d4b92521080_open-graph.jpg">
+    <meta property="og:image:alt" content="Modos Paper Monitor">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@crowd_supply">
+  <meta name="twitter:creator" content="@alexsotodev">
+  <meta name="twitter:title" content="Modos Paper Monitor">
+  <meta name="twitter:description" content="A fast, low-latency, open-hardware e-paper monitor and dev kit">
+    <meta name="twitter:image" content="https://www.crowdsupply.com/img/1080/ffe06499-b877-4d44-ac68-3d4b92521080_project-main.jpg">
+    <meta name="twitter:image:alt" content="Modos Paper Monitor">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async=""></script><style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style><style id="MJX-SVG-styles">
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+</style></head>
+<body>
+  
+  
+
+  
+    
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-cs">
+    <div class="container-lg">
+      <a class="navbar-brand" href="/">
+        <span class="navbar-logo">Crowd Supply</span>
+      </a>
+      <!--
+      <label for="navbar-toggler-css" class="navbar-toggler">
+        <span class="navbar-toggler-icon"></span>
+      </label>
+      <input type="checkbox" id="navbar-toggler-css">
+      -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-cs-main" aria-controls="navbar-cs-main" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbar-cs-main">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="/browse">Browse</a></li>
+          <li class="nav-item"><a class="nav-link" href="/apply">Apply</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+        </ul>
+
+        <div class="navbar-right d-flex justify-content-end">
+          <form method="GET" action="/search">
+            <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search">
+          </form>
+          <ul class="navbar-nav">
+            <li class="nav-item nav-item-avatar">
+              <a class="nav-link" href="/account">
+                  <img class="img-avatar" src="/_marvin/images/default-avatar.png" alt="Unknown Avatar" width="34" height="34">
+                <span class="nav-label-extra">My Account</span>
+              </a>
+            </li>
+            <li class="nav-item nav-item-cart">
+              <a class="nav-link" href="/cart">
+                <i class="bi bi-cart"></i> <span class="nav-label-extra">Cart</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+  <section>
+    <div class="container-lg">
+      
+  <p class="float-end text-end">
+    <i class="bi bi-people-fill"></i>
+    <a href="/modos-tech">Modos Tech</a>
+    <br>
+        <i class="bi bi-tag-fill"></i>
+      <a href="/e-paper">E-Paper</a>
+        <br>
+        <i class="bi bi-tag-fill"></i>
+      <a href="/fpga-boards">FPGA Boards</a>
+  </p>
+
+      
+  <h1><a href="/modos-tech/modos-paper-monitor">Modos Paper Monitor</a></h1>
+  <h3>
+    A fast, low-latency, open-hardware e-paper monitor and dev kit
+</h3>
+
+      <div class="row">
+        <div class="col-xl-8">
+          
+      
+  
+  <div class="ratio ratio-16x9">
+    <iframe src="https://www.youtube.com/embed/4pCZlw_kR58?rel=0&amp;modestbranding=1" frameborder="0" allowfullscreen=""></iframe>
+  </div>
+
+
+    
+    
+    <a class="js-carousel-image d-none" href="/img/1080/ffe06499-b877-4d44-ac68-3d4b92521080_gallery-lg.jpg" data-thumbnail-path="/img/1080/ffe06499-b877-4d44-ac68-3d4b92521080_gallery-thumb.jpg">
+      <img alt="Modos Paper Monitor" height="900" src="/img/1080/ffe06499-b877-4d44-ac68-3d4b92521080_aa-md.jpg" width="1600">
+    </a>
+
+
+
+        </div>
+        <div class="col-xl-4">
+          
+  <div class="row">
+
+      
+  <div class="col-xl-12 col-md-6 mt-md-3 mt-xl-0">
+    
+        
+  <div class="project-stats-tile">
+    <p class="project-pledged">
+      <span><sup>$</sup>197,588</span>&nbsp;raised
+    </p>
+    <p class="project-goal">
+      of&nbsp;<span><sup>$</sup>110,000</span>&nbsp;goal
+    </p>
+    <div class="status-bar status-bar-primary">
+      <span class="status-bar-left">
+    179<sup>%</sup> Funded!
+</span>
+      <span class="status-bar-right">Order Below</span>
+    </div>
+    <div class="factoids">
+      
+  <div class="fact ">
+      <a href="/modos-tech/modos-paper-monitor/updates">
+      <span class="fact-number">11</span><br>
+      <span class="fact-label">updates</span>
+      </a>
+  </div>
+
+      
+    <div class="fact fact-micro">
+        <a href="/modos-tech/modos-paper-monitor/crowdfunding">
+      <span class="fact-number">Sep 18 2025</span><br>
+      <span class="fact-label">funded on</span>
+        </a>
+    </div>
+
+      
+  <div class="fact ">
+      <a href="/modos-tech/modos-paper-monitor/backers">
+      <span class="fact-number">355</span><br>
+      <span class="fact-label">backers</span>
+      </a>
+  </div>
+
+    </div>
+  </div>
+
+      
+  </div>
+
+      
+  <div class="col-xl-12 col-md-6">
+    
+        
+  <div class="text-center mt-3">
+    
+      <p>Available for pre-order.</p>
+    <h4>
+  
+  
+      <sup>$</sup>199 - <sup>$</sup>599
+
+</h4>
+    <p class="mt-3"><a class="btn btn-cta" href="#products">
+  
+    View Purchasing Options
+</a></p>
+  </div>
+
+
+      
+  </div>
+
+
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+    
+    <section class="section-bordered section-user-interactions">
+      <div class="container container-narrow">
+        
+    <h4>Recent Updates</h4>
+    <ul class="list-unstyled">
+        <li class="mb-1 mt-1">
+          
+    <span class="badge badge-calendar bg-secondary float-end">Apr 01, 2026</span>
+
+          <a href="/modos-tech/modos-paper-monitor/updates/progress-on-shipping-cases-and-firmware">Progress on Shipping, Cases, and Firmware</a>
+        </li>
+        <li class="mb-1 mt-1">
+          
+    <span class="badge badge-calendar bg-secondary float-end">Feb 04, 2026</span>
+
+          <a href="/modos-tech/modos-paper-monitor/updates/first-shipment-starting-soon">First Shipment Starting Soon</a>
+        </li>
+        <li class="mb-1 mt-1">
+          
+    <span class="badge badge-calendar bg-secondary float-end">Dec 08, 2025</span>
+
+          <a href="/modos-tech/modos-paper-monitor/updates/highlights-certifications-and-production-progress">Highlights, Certifications, and Production Progress</a>
+        </li>
+        <li class="mb-1 mt-1">
+          
+    <span class="badge badge-calendar bg-secondary float-end">Sep 17, 2025</span>
+
+          <a href="/modos-tech/modos-paper-monitor/updates/a-beginning-not-an-end">A Beginning, Not an End</a>
+        </li>
+    </ul>
+      <div class="mb-3">
+        <a href="/modos-tech/modos-paper-monitor/updates">
+            View all project updates
+        </a>
+      </div>
+
+        
+      <form action="/modos-tech/modos-paper-monitor/signup" method="POST">
+          <input class="form-fontrol" id="signup-email" maxlength="320" name="email" placeholder="email@example.com" type="email">
+          <div class="input-group mb-3">
+            <input class="form-control" id="91d5f1ce24bb613ef15b627991681f51" maxlength="320" name="91d5f1ce24bb613ef15b627991681f51" placeholder="me@example.com" type="email" value="">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </span>
+          </div>
+        Sign up to receive updates.
+      </form>
+
+      </div>
+    </section>
+
+
+  
+
+    
+  <section class="section-markdown">
+      <p><strong>Modos Paper Dev Kit</strong> includes nearly everything you need to create an open-hardware e-paper monitor with a fast 75 Hz refresh rate, low latency, various screen-update configurations, multiple image modes, and flexible dithering options. It can be connected through HDMI or USB, and it works on Linux, macOS, and Windows. We are offering 6-inch and 13-inch monochrome kits, both powered by the same display controller, which can also be used with other panels.</p>
+
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/8b97/7f41293c-97d2-48e3-80e4-b59dbaee8b97_gallery-lg.jpg" data-thumbnail-path="/img/8b97/7f41293c-97d2-48e3-80e4-b59dbaee8b97_gallery-thumb.jpg">
+      <img alt="" src="/img/8b97/7f41293c-97d2-48e3-80e4-b59dbaee8b97_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/74ca/f63a2cfe-6b69-416c-9214-205091cd74ca_gallery-lg.jpg" data-thumbnail-path="/img/74ca/f63a2cfe-6b69-416c-9214-205091cd74ca_gallery-thumb.jpg">
+      <img alt="" src="/img/74ca/f63a2cfe-6b69-416c-9214-205091cd74ca_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+<h2 id="at-the-cutting-edge-of-e-paper">At the Cutting Edge of E-Paper</h2><p>Twenty years ago, the release of the first e-paper devices marked a significant milestone in display technology, giving rise to e-readers and digital signage. Electrophoretic displays stand out for their unique qualities: they are easy on the eyes, mimic the aesthetics of paper, conserve power when idle, and offer high contrast with wide viewing angles even in direct sunlight.</p>
+<p>In recent years, improvements in e-paper technology have expanded its applications beyond traditional e-readers. Despite these advancements, however, key challenges still hold back widespread adoption of e-paper devices:</p>
+<ul>
+<li><strong>Proprietary Hardware and Software:</strong> Most e-paper devices operate on closed, proprietary systems.</li>
+<li><strong>Lack of Standards:</strong> There is a shortage of best practices and guidelines for designing user interfaces optimized for e-paper.</li>
+<li><strong>High Costs:</strong> The expense of e-paper panels limits experimentation and broader adoption.</li>
+</ul>
+<p>We built the Modos Developer Kit to allow engineers, product designers, programmers, and enthusiasts to re-purpose e-paper screens in creative ways. We’re also building a community that’s committed to establishing the standards, best practices, and guidelines needed to realize the full potential of e-paper technology. Join us on <a href="https://discord.gg/6ktE6VxSyh">Discord</a> and by following us on <a href="https://fosstodon.org/@modos">Mastodon</a>, <a href="https://bsky.app/profile/modostech.bsky.social">Bluesky</a>, <a href="https://www.modos.tech/matrix">Matrix</a>, and <a href="https://x.com/Modostech">Twitter</a>.</p>
+<h2 id="high-refresh-rate">High Refresh Rate</h2><div class="markdown-video-embed">
+  <div class="ratio ratio-16x9">
+    <iframe src="https://www.youtube.com/embed/2J0VHUJ0kVI?start=&amp;end=&amp;autoplay=0&amp;mute=0&amp;playsinline=0&amp;fs=1&amp;disablekb=0&amp;controls=1&amp;rel=0&amp;modestbranding=1" frameborder="0" allow="encrypted-media" allowfullscreen=""></iframe>
+  </div>
+</div>
+<p>Our Developer Kit leverages <a href="https://github.com/Modos-Labs/Caster">Caster</a>, an open-source FPGA-based electrophoretic display controller engineered for low-latency performance and capable of driving e-paper screens at up to 60 Hz. By dividing the screen into multiple update regions, the Caster processes and displays new images or text instantly, without waiting for previous updates to complete. Each pixel is managed independently, and early cancellation techniques ensure that pixels update as soon as new data is available. The result is smooth, responsive performance with high frame rates and superior contrast, ideal for dynamic content and fluid interactions.</p>
+<h2 id="compatible-with-a-variety-of-screens">Compatible With a Variety of Screens</h2>
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/caf2/70975223-7b9f-4180-9d19-4103f316caf2_gallery-lg.jpg" data-thumbnail-path="/img/caf2/70975223-7b9f-4180-9d19-4103f316caf2_gallery-thumb.jpg">
+      <img alt="" src="/img/caf2/70975223-7b9f-4180-9d19-4103f316caf2_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+<p>Got a spare e-paper screen gathering dust or looking to re-purpose a display for your project? Our Developer Kit makes it simple. Compatible with a wide range of screens—from 6-inch up to 13.3-inch, in both monochrome and color—the kit lets you easily connect and reuse unused displays. With our monitor enclosure design files, you can build a custom monitor housing that perfectly fits your project’s needs.</p>
+<p>Explore our <a href="https://github.com/Modos-Labs/Glider?tab=readme-ov-file#screen-list">GitHub repository</a> for a complete list of compatible screens.</p>
+<h2 id="reuse-experiment-create">Reuse. Experiment. Create.</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="image-gallery">
+      <div class="row align-items-center">
+          
+          <div class="col-6 col-sm-6">
+              
+    <a class="js-carousel-image " href="/img/de33/b4e3dd8d-8213-4814-9221-d064163bde33_gallery-lg.jpg" data-thumbnail-path="/img/de33/b4e3dd8d-8213-4814-9221-d064163bde33_gallery-thumb.jpg">
+      <img alt="" height="1200" src="/img/de33/b4e3dd8d-8213-4814-9221-d064163bde33_content-body-gallery-xl.jpg" width="1600">
+    </a>
+
+            
+
+          </div>
+          
+          <div class="col-6 col-sm-6">
+              
+    <a class="js-carousel-image " href="/img/a803/ad0c6b2f-c64e-486b-86de-9c5c426ca803_gallery-lg.jpg" data-thumbnail-path="/img/a803/ad0c6b2f-c64e-486b-86de-9c5c426ca803_gallery-thumb.jpg">
+      <img alt="" height="1200" src="/img/a803/ad0c6b2f-c64e-486b-86de-9c5c426ca803_content-body-gallery-xl.jpg" width="1600">
+    </a>
+
+            
+
+          </div>
+      </div>
+  </div>
+
+<p>Every kit includes the <strong>Glider Mega Adapter</strong>, giving you out-of-the-box support for a wide range of e-paper panels. With one adapter set, you can <strong>connect displays from 4.3" up to 13.3"</strong>. The Glider Mega Adapter includes support for the following (which is not a comprehensive list, as some panels are untested but expected to work):</p>
+<ul>
+<li><strong>39-pin 0.3mm pitch:</strong> Certain 4.3", 5", and 13.3" screens (ED043WC1, ED043WC3, ED050SU3, ES133UTx, ED133UTx, EC133UJ1)</li>
+<li><strong>33-pin 0.5mm pitch:</strong> Most 9.7" screens (ED097OCx, ED097ODx, ED097TCx)</li>
+<li><strong>0.5mm pitch, 7.8"–10.3"</strong> screens: (ED078KCx, ED078KHx, EC078KHx, ED080TC1, EC080SC2, ED100UC1, ES103TCx, ED103TCx)</li>
+<li><strong>34-pin 0.5mm pitch:</strong> Most 6.0" screens (ED060SCF, ED060SCP, ED060XC3/C5/C8/C9/CG/D4/D6/G1/H2, ED060KC1/C4/D1/G1, etc.)</li>
+<li><strong>50-pin 0.5mm pitch:</strong> Most 11.3" screens (ED113TCx)</li>
+</ul>
+<p>With these adapters, anyone interested in working with e-paper has much more flexibility to experiment by reusing e-paper panels from existing devices as well as trying out new ones.</p>
+<h2 id="user-defined-modes-api">User-Defined Modes &amp; API</h2><div class="markdown-video-embed">
+  <div class="ratio ratio-16x9">
+    <iframe src="https://www.youtube.com/embed/6B4tSAdm21w?start=&amp;end=&amp;autoplay=0&amp;mute=0&amp;playsinline=0&amp;fs=1&amp;disablekb=0&amp;controls=1&amp;rel=0&amp;modestbranding=1" frameborder="0" allow="encrypted-media" allowfullscreen=""></iframe>
+  </div>
+</div>
+<p>While commercial e-paper products rely on preset driving strategies (text, graphics, video modes) to cope with the technology’s limitations, our Developer Kit goes further. It offers full customization so you can tailor the display experience to your specific needs.</p>
+<p>For example, the Hybrid Greyscale Mode allows the Caster to switch between a fast binary mode for quick updates and a slower, detailed greyscale mode for refined rendering. This minimizes latency and visual flashing by updating in binary first, then refining in greyscale as the image stabilizes.</p>
+<p>With our C API, you gain direct control over screen and mode selection, letting you optimize the display for a wide range of applications. Our broader vision includes developing native e-paper applications and a protocol for seamless mode transitions based on content type.</p>
+<div class="markdown-video-embed">
+  <div class="ratio ratio-16x9">
+    <iframe src="https://www.youtube.com/embed/AoDYEZE7gDA?start=&amp;end=&amp;autoplay=0&amp;mute=0&amp;playsinline=0&amp;fs=1&amp;disablekb=0&amp;controls=1&amp;rel=0&amp;modestbranding=1" frameborder="0" allow="encrypted-media" allowfullscreen=""></iframe>
+  </div>
+</div>
+<h2 id="features-specifications">Features &amp; Specifications</h2><h3 id="driver-board-hardware-reference-design">Driver Board Hardware Reference Design</h3><ul>
+<li>Xilinx Spartan-6 LX16 FPGA running Caster gateware</li>
+<li>DDR3-800 framebuffer memory</li>
+<li>Video input supporting:<ul>
+<li>USB Type-C DisplayPort Alt-Mode with on-board PTN3460 decoder</li>
+<li>DVI (via microHDMI connector) video input with on-board ADV7611 decoder</li>
+</ul>
+</li>
+<li>E-paper power supply with up to 1 A peak current on the ±15 V rail to support large panel sizes.</li>
+<li>VCOM kick-back voltage measurement support</li>
+<li>On-board STM32H750 microcontroller for USB communication, firmware upgrades, and standalone applications. Processing rate up to 133 MP/s when error-diffusion dithering enabled and 200 MP/s when disabled</li>
+</ul>
+
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/874a/64da1b5f-5a13-4eaa-88ba-3aa3f973874a_gallery-lg.jpg" data-thumbnail-path="/img/874a/64da1b5f-5a13-4eaa-88ba-3aa3f973874a_gallery-thumb.jpg">
+      <img alt="" src="/img/874a/64da1b5f-5a13-4eaa-88ba-3aa3f973874a_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+<h3 id="caster-fpga-gateware-reference-design">Caster FPGA Gateware Reference Design</h3><ul>
+<li>Supports electrophoretic display panels with parallel interfaces (E Ink, OED, and DES)</li>
+<li>Compatible with both monochrome and color-filter-array screens</li>
+<li>Extremely low processing delay (&lt;20 µs)</li>
+<li>Supports binary, 4-level grayscale, and 16-level grayscale output modes</li>
+<li>Latency-optimized binary and 4-level grayscale driving modes</li>
+<li>Hybrid automatic binary and 16-level grayscale driving mode</li>
+<li>Host software runtime controllable regional updates and mode switching</li>
+<li>Hardware bayer dithering, blue-noise dithering, and error-diffusion dithering with no additional latency</li>
+</ul>
+<h2 id="comparisons">Comparisons</h2><h3 id="e-paper-monitors">E-Paper Monitors</h3><div class="table-responsive">
+<table class="table table-markdown">
+<thead>
+<tr>
+<th></th><th>Modos 13" Paper Dev Kit</th><th><a href="https://shop.dasung.com/pages/13-3-dasung-paperlike-e-ink-monitor">DASUNG 13.3" Paperlike HD-FT</a></th><th><a href="https://onyxboox.com/boox_mira">Boox Mira 13.3" E-Ink Monitor</a></th><th><a href="https://www.waveshare.com/wiki/EINK-DISP-133">Waveshare EINK DISP 133</a></th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="table-active"><strong>Display</strong> </td><td class="table-active">Eink Carta 1000 (ED133UT3) </td><td class="table-active">Eink Carta 1000 (ES133TT3) </td><td class="table-active">Eink Carta 1200 (ES133TT5) </td><td class="table-active">Eink Carta 1000 (ED133UT2) </td></tr>
+<tr>
+<td class="table-active"><strong>Screen Size</strong> </td><td class="table-active">13.3" </td><td class="table-active">13.3" </td><td class="table-active">13.3" </td><td class="table-active">13.3" </td></tr>
+<tr>
+<td><strong>Screen Resolution</strong></td><td class="table-danger">1600 x 1200 </td><td class="table-success">2200 x 1650 </td><td class="table-success">2200 x 1650 </td><td class="table-danger">1600 x 1200 </td></tr>
+<tr>
+<td><strong>Maximum Frame rate</strong></td><td class="table-success">75Hz </td><td class="table-warning">40Hz </td><td class="table-danger">~20Hz </td><td class="table-danger">~15Hz </td></tr>
+<tr>
+<td><strong>Interfaces</strong></td><td class="table-success">HDMI &amp; USB Type-C </td><td class="table-danger">HDMI </td><td class="table-success">HDMI &amp; USB Type-C  </td><td class="table-danger">HDMI </td></tr>
+<tr>
+<td><strong>Touchscreen</strong></td><td class="table-danger">No </td><td class="table-success">Yes </td><td class="table-danger">No </td><td class="table-danger">No </td></tr>
+<tr>
+<td><strong>Frontlight</strong></td><td class="table-danger">No </td><td class="table-success">Yes </td><td class="table-success">Yes  </td><td class="table-danger">No </td></tr>
+<tr>
+<td><strong>Open Hardware</strong></td><td class="table-success">Yes </td><td class="table-danger">No </td><td class="table-danger">No </td><td class="table-danger">No </td></tr>
+<tr>
+<td><strong>Programmable Modes</strong></td><td class="table-success">Yes </td><td class="table-danger">No </td><td class="table-danger">No </td><td class="table-danger">No </td></tr>
+<tr>
+<td><strong>API for Display Controller</strong></td><td class="table-success">Yes </td><td class="table-danger">No </td><td class="table-danger">No </td><td class="table-danger">No </td></tr>
+<tr>
+<td><strong>Price</strong></td><td class="table-success">$599 </td><td class="table-danger">$798 </td><td class="table-danger">$800 </td><td class="table-warning">$679 </td></tr>
+</tbody>
+
+</table>
+</div><h3 id="e-paper-dev-kits">E-Paper Dev Kits</h3><div class="table-responsive">
+<table class="table table-markdown">
+<thead>
+<tr>
+<th></th><th>Modos 6" Paper Dev Kit</th><th><a href="https://www.waveshare.com/product/6inch-hd-e-paper-hat.htm">Waveshare e-paper HAT</a></th><th><a href="https://www.crowdsupply.com/soldered/inkplate-6-motion">Inkplate 6 MOTION</a></th><th><a href="https://github.com/vroland/epdiy">EPDiy</a></th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="table-active"><strong>Controller</strong> </td><td class="table-active">FPGA-based </td><td class="table-active">None </td><td class="table-active">ESP32-based  </td><td class="table-active">ESP32-based  </td></tr>
+<tr>
+<td class="table-active"><strong>Display Technology</strong> </td><td class="table-active">E Ink </td><td class="table-active">E Ink </td><td class="table-active">E Ink </td><td class="table-active">E Ink </td></tr>
+<tr>
+<td class="table-active"><strong>Screen Size</strong>  </td><td class="table-active">6.0" </td><td class="table-active">6.0"  </td><td class="table-active">6.0"  </td><td class="table-active">9.7"  </td></tr>
+<tr>
+<td class="table-active"><strong>Programming Language Support</strong> </td><td class="table-active">Rust, Python, C  </td><td class="table-active">Python, C, C++  </td><td class="table-active">MicroPython, C, C++  </td><td class="table-active">MicroPython, C, C++ </td></tr>
+<tr>
+<td><strong>Screen Resolution</strong></td><td class="table-success">1448 x 1072 </td><td class="table-success">1448 x 1072 </td><td class="table-danger">1024 × 758 </td><td class="table-warning">1200 x 825 </td></tr>
+<tr>
+<td><strong>Maximum Frame rate</strong></td><td class="table-success">75 Hz </td><td class="table-danger">&lt; 2 Hz </td><td class="table-warning">11 Hz </td><td class="table-active">Unknown </td></tr>
+<tr>
+<td><strong>Interfaces</strong></td><td class="table-success">HDMI, USB Type-C  </td><td class="table-warning">SPI, GPIO  </td><td class="table-warning">USB Type-C, GPIO  </td><td class="table-danger">GPIO  </td></tr>
+<tr>
+<td><strong>Touchscreen</strong></td><td class="table-danger">No </td><td class="table-danger">No </td><td class="table-danger">No </td><td class="table-active">N/A </td></tr>
+<tr>
+<td><strong>Frontlight</strong></td><td class="table-danger">No </td><td class="table-danger">No </td><td class="table-success">Yes  </td><td class="table-active">N/A </td></tr>
+<tr>
+<td><strong>Open Hardware</strong></td><td class="table-success">Yes </td><td class="table-danger">No </td><td class="table-success">Yes </td><td class="table-success">Yes </td></tr>
+<tr>
+<td><strong>Programmable Modes</strong></td><td class="table-success">Yes </td><td class="table-success">Yes </td><td class="table-success">Yes </td><td class="table-success">Yes </td></tr>
+<tr>
+<td><strong>API for Display Controller</strong></td><td class="table-success">Yes </td><td class="table-danger">No </td><td class="table-danger">No </td><td class="table-danger">No </td></tr>
+<tr>
+<td><strong>Works With Other Panels</strong></td><td class="table-success">Yes </td><td class="table-danger">No </td><td class="table-danger">No </td><td class="table-success">Yes </td></tr>
+<tr>
+<td><strong>Power Consumption</strong></td><td class="table-danger">High  </td><td class="table-success">Low  </td><td class="table-success">Low </td><td class="table-success">Low </td></tr>
+<tr>
+<td><strong>Price</strong></td><td class="table-danger">$199 </td><td class="table-success">$113 </td><td class="table-warning">$195 </td><td class="table-active">N/A  </td></tr>
+</tbody>
+
+</table>
+</div><h2 id="support-documentation">Support &amp; Documentation</h2><p>The Modos  Developer Kit is open hardwayore built using open-source software, with all design files and source code available on <a href="https://github.com/Modos-Labs">GitHub</a>. Our <a href="https://github.com/Modos-Labs/Glider">documentation</a> offers extensive information on electrophoretic displays, drawing from both public sources and our original research. This serves as a comprehensive guide for anyone looking to dive deeper into e-paper technology.</p>
+<p>For additional support or to join the discussion, please visit <a href="https://discord.gg/6ktE6VxSyh">Discord</a> and follow us on <a href="https://fosstodon.org/@modos">Mastodon</a>, <a href="https://bsky.app/profile/modostech.bsky.social">Bluesky</a>, <a href="https://www.modos.tech/matrix">Matrix</a>, and <a href="https://x.com/Modostech">Twitter</a>.</p>
+<h2 id="manufacturing-plan">Manufacturing Plan</h2><p>The Modos Developer Kit has passed pre-production revisions and undergone thorough validation and testing. We have established partnerships with contract manufacturers in China, our chosen partner will handle board manufacturing and assembly. The panels are sourced directly from E Ink Corporation. With the Caster completed and the design finalized, we now have a full Bill of Materials (BOM) and supplier quotes in place as we prepare for production. Once the campaign concludes, manufacturing will commence, and we’ll keep you updated via campaign emails.</p>
+<h2 id="fulfillment-logistics">Fulfillment &amp; Logistics</h2><p>After our production run is finished, we will package everything and send it to Crowd Supply’s fulfillment partner, Mouser Electronics, for distribution to backers worldwide. For more details about Crowd Supply’s fulfillment service, please refer to their guide under <a href="https://www.crowdsupply.com/guide/ordering-paying-shipping-details">Ordering, Paying, and Shipping</a>.</p>
+<h2 id="risks-challenges">Risks &amp; Challenges</h2><p>The development of the Modos Developer Kit has been ongoing for over a year. Throughout this time, the core functionalities of our display controller board have proven stable, allowing us to focus on refining the hardware design and solving engineering challenges. We are confident in the robustness of our final product.</p>
+<p>That said, as with any hardware project, the production process and supply-chain management present inherent risks. To mitigate these risks, we have built strong partnerships with our suppliers and manufacturers. In the event of any setbacks, we are committed to minimizing delays and will keep our backers informed with transparent, timely updates throughout the process.</p>
+<h2 id="thank-you-to-the-nlnet-foundation-and-the-ngi-zero-entrust-fund">Thank You to the NLnet Foundation and the NGI Zero Entrust Fund</h2><p>Our team would like to acknowledge partial funding for development of Caster from the <a href="https://nlnet.nl/entrust/">NGI0 Entrust Fund</a>,&nbsp;a fund established by <a href="https://nlnet.nl/">NLnet</a> with financial support from the European Commission’s <a href="https://ngi.eu/">Next Generation Internet program</a>.</p>
+
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/61cb/337fff5a-1fde-4b80-948a-51e1481261cb_gallery-lg.jpg" data-thumbnail-path="/img/61cb/337fff5a-1fde-4b80-948a-51e1481261cb_gallery-thumb.jpg">
+      <img alt="" src="/img/61cb/337fff5a-1fde-4b80-948a-51e1481261cb_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+
+  </section>
+
+    
+  
+    <section id="programs" class="section-project-programs">
+      <div class="container container-narrow">
+          <a href="/amd/fpga-playground">
+            
+              <!--?xml version="1.0" encoding="UTF-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508.65 198.01">
+  <g fill="#009999">
+    <path d="m143.04,159.35h13.28c8.51,0,15.37,3.04,15.37,12.44s-6.94,13.11-15.13,13.11h-4.78v13.12h-8.74v-38.67Zm13,18.61c4.81,0,7.08-2.14,7.08-6.17s-2.59-5.5-7.32-5.5h-4.03v11.67h4.27Z"></path>
+    <path d="m179.82,159.35h8.74v31.33h15.26v7.33h-24v-38.67h0Z"></path>
+    <path d="m218.82,159.35h10.46l12.14,38.67h-9.25l-5.06-19.58c-1.07-3.87-2.11-8.44-3.14-12.47h-.24c-.94,4.08-1.97,8.61-3.04,12.47l-5.08,19.58h-8.94l12.14-38.67h0Zm-4.14,22.66h18.6v6.79h-18.6v-6.79Z"></path>
+    <path d="m252.61,184.22l-11.65-24.88h9.35l3.45,8.88c1.03,2.9,2.04,5.58,3.15,8.57h.24c1.1-2.99,2.21-5.67,3.27-8.57l3.45-8.88h9.13l-11.65,24.88v13.79h-8.74v-13.79Z"></path>
+    <path d="m275.65,178.91c0-12.83,8.52-20.27,18.85-20.27,5.61,0,9.6,2.39,12.2,5.02l-4.61,5.61c-1.92-1.77-3.98-3.08-7.3-3.08-5.95,0-10.18,4.68-10.18,12.43s3.6,12.57,10.88,12.57c1.55,0,3.15-.4,4.09-1.15v-6.68h-6.41v-7.14h14.17v17.83c-2.67,2.61-7.36,4.68-12.76,4.68-10.65,0-18.94-6.8-18.94-19.82h0Z"></path>
+    <path d="m316.75,159.35h13.93c8.2,0,14.92,2.85,14.92,12.04s-6.72,12.71-14.92,12.71h-5.18v13.92h-8.74v-38.67h-.01Zm13.21,17.81c4.6,0,7.07-1.97,7.07-5.77s-2.47-5.1-7.07-5.1h-4.47v10.87s4.47,0,4.47,0Zm-.89,4.64l6.05-5.59,12.34,21.81h-9.78l-8.6-16.22h0Z"></path>
+    <path d="m352.71,178.51c0-12.63,7.13-19.88,17.56-19.88s17.56,7.29,17.56,19.88-7.13,20.21-17.56,20.21-17.56-7.58-17.56-20.21Zm26.17,0c0-7.75-3.33-12.33-8.6-12.33s-8.6,4.58-8.6,12.33,3.33,12.67,8.6,12.67,8.6-4.91,8.6-12.67Z"></path>
+    <path d="m396.33,180.1v-20.75h8.74v21.64c0,7.57,2.38,10.19,6.71,10.19s6.85-2.62,6.85-10.19v-21.64h8.43v20.75c0,12.98-5.28,18.63-15.28,18.63s-15.45-5.65-15.45-18.63h0Z"></path>
+    <path d="m437.42,159.35h8.96l10.09,19.23,3.82,8.49h.24c-.41-4.09-1.12-9.51-1.12-14.07v-13.66h8.33v38.67h-8.96l-10.09-19.28-3.83-8.45h-.24c.41,4.26,1.12,9.44,1.12,14v13.72h-8.33v-38.67.02h0Z"></path>
+    <path d="m478.3,159.35h10.93c11.81,0,19.42,5.88,19.42,19.17s-7.61,19.5-18.93,19.5h-11.42v-38.67Zm10.4,31.63c6.56,0,10.99-3.21,10.99-12.46s-4.43-12.13-10.99-12.13h-1.66v24.59h1.66Z"></path>
+  </g>
+  <g fill="currentColor">
+    <path d="m0,159.35h24.4v7.33h-15.66v8.96h13.38v7.33h-13.38v15.04H0v-38.67H0Z"></path>
+    <path d="m32.51,159.35h13.28c8.51,0,15.37,3.04,15.37,12.44s-6.94,13.11-15.13,13.11h-4.78v13.12h-8.74s0-38.67,0-38.67Zm13,18.61c4.81,0,7.08-2.14,7.08-6.17s-2.59-5.5-7.32-5.5h-4.03v11.67h4.27Z"></path>
+    <path d="m67.47,178.91c0-12.83,8.52-20.27,18.85-20.27,5.61,0,9.6,2.39,12.2,5.02l-4.61,5.61c-1.92-1.77-3.98-3.08-7.3-3.08-5.95,0-10.18,4.68-10.18,12.43s3.6,12.57,10.88,12.57c1.55,0,3.15-.4,4.09-1.15v-6.68h-6.41v-7.14h14.17v17.83c-2.67,2.61-7.36,4.68-12.76,4.68-10.65,0-18.94-6.8-18.94-19.82h.01Z"></path>
+    <path d="m115.29,159.35h10.46l12.14,38.67h-9.25l-5.06-19.58c-1.07-3.87-2.11-8.44-3.14-12.47h-.24c-.94,4.08-1.97,8.61-3.04,12.47l-5.08,19.58h-8.94l12.14-38.67h.01Zm-4.14,22.66h18.6v6.79h-18.6v-6.79Z"></path>
+    <path d="m156.74,81.23h-20.23l-6.19-14.93h-33.72l-5.64,14.93h-19.9L101.45,5.82h21.77l33.49,75.41h.03Zm-44.12-57.38l-11.05,29.3h23.22l-12.17-29.3Z"></path>
+    <path d="m230.24,5.82h16.36v75.41h-18.81v-47.11l-20.35,23.66h-2.87l-20.35-23.66v47.11h-18.81V5.82h16.36l24.22,27.97,24.22-27.97h.03Z"></path>
+    <path d="m294.22,5.82c27.52,0,41.67,17.14,41.67,37.82s-13.71,37.59-43.79,37.59h-31.18V5.82h33.3Zm-14.48,61.59h12.28c18.9,0,24.54-12.83,24.54-23.89,0-12.95-6.97-23.89-24.76-23.89h-12.06v47.77h0Z"></path>
+    <polygon points="349.6 0 435.89 0 435.89 86.29 412.19 62.59 412.19 23.7 373.3 23.7 349.6 0"></polygon>
+    <polygon points="348.88 52.85 348.88 87.02 383.02 87.02 407.43 62.61 373.28 62.61 373.28 28.45 348.88 52.85"></polygon>
+  </g>
+</svg>
+
+          </a>
+          <p>Modos Paper Monitor is part of <a href="/amd/fpga-playground">AMD FPGA Playground</a></p>
+            
+    <h4>Key Components</h4>
+      <p class="marketing-program-part">
+        
+  
+    <a href="https://www.mouser.com/ProductDetail/217-C6SLX16-3CSG324I">
+      <strong>AMD Spartan 6</strong>
+        ·
+        <span class="part-number">XC6SLX16-3CSG324I</span>
+  </a>
+
+
+          · <strong>image processing</strong>
+      </p>
+
+      </div>
+    </section>
+
+    
+    <section id="press">
+      <div class="container container-narrow">
+        <h1 class="mb-3">In the Press</h1>
+          
+      <hr>
+    <div class="row">
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.golem.de/news/open-source-e-paper-monitor-von-modos-soll-ins-crowdfunding-gehen-2405-185274.html"><img alt="" height="75" src="/img/a1ba/4284bc23-8493-4db0-80f9-42939b5ba1ba_press-logo.png" title="Golem.de: Modos wants to offer a more responsive, smoother e-paper monitor..." width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.hackster.io/news/modos-prepares-to-launch-its-paper-monitor-and-amd-powered-epaper-driver-board-ac6c5ae6a485"><img alt="" height="75" src="/img/ee94/1d515f69-c563-478e-950d-72937410ee94_press-logo.png" title="Hackster News: The idea behind the Modos Paper Monitor... is to provide a more eye-friendly display than the backlit LCD panels commonly in use. " width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.tomshardware.com/monitors/new-open-source-high-resolution-e-ink-monitor-announced-modos-paper-delivers-1200p-in-a-133-inch-form-factor"><img alt="" height="75" src="/img/7cce/7654c152-9e50-4b57-8285-7dc514df7cce_press-logo.png" title="Tom's Hardware: This project is the brainchild of Alexander Soto, who describes a journey starting in February 2021 to defeat the eyestrain that comes with daily extended use of standard displays." width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://news.ycombinator.com/item?id=40423746"><img alt="Hacker News Logo" height="75" src="/img/28ea/1dd9e995-dbca-47cc-bd66-622cc72928ea_press-logo.png" title="Hacker News: Modos Paper Monitor Pre-Launch on Crowd Supply" width="150"></a>
+  </div>
+
+    </div>
+    <div class="row">
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://liliputing.com/modos-paper-monitor-is-an-open-hardware-13-3-inch-e-ink-monitor-crowdfunding/"><img alt="Liliputing Logo" height="75" src="/img/79f0/8f2564ae-de9c-4dda-9810-d8f6ac1279f0_press-logo.png" title="Liliputing: Modos Paper Monitor is an open hardware 13.3 inch E Ink monitor" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.electromaker.io/blog/article/modos-paper-monitor-a-game-changer-for-eink-technology"><img alt="" height="75" src="/img/46d8/f60bd65f-9ec4-4486-a20d-b94d74f946d8_press-logo.png" title="Electromaker: E-ink Low Latency and High Refresh Rates! - Introducing the Modos E-paper Monitor" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.yankodesign.com/2025/08/05/modos-paper-dev-kit-brings-high-refresh-e-ink-to-designers-and-makers/"><img alt="" height="75" src="/img/fcda/ffa79a59-1fa2-4298-8637-892e16fefcda_press-logo.png" title="Yanko Design: Modos Paper Dev Kit Brings High-Refresh E Ink to Designers and Makers" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.notebookcheck.net/Modos-E-Ink-display-supports-impressive-75-Hz-refresh-rate.1080417.0.html"><img alt="" height="75" src="/img/73f6/efd7d4e0-a334-41c2-80d7-10c8ebd073f6_press-logo.png" title="Notebookcheck: Modos: E Ink display supports impressive 75 Hz refresh rate" width="150"></a>
+  </div>
+
+    </div>
+    <div class="row">
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.inkl.com/news/e-paper-hits-75-hz-to-better-suit-productivity-tasks-kits-in-two-screen-sizes-go-up-for-pre-order-starting-at-199"><img alt="" height="75" src="/img/6f1d/b9206e79-5553-4ca0-b8ac-d196da1d6f1d_orig.svg" title="Inkl: E-paper hits 75 Hz to better suit productivity tasks — kits in two screen sizes go up for pre-order, starting at $199" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.cnx-software.com/2025/08/06/fpga-modos-paper-dev-kit-supports-e-ink-displays-75-hz-refresh-rate/"><img alt="CNXSoft Logo" height="75" src="/img/711c/7ecfdc09-2156-4809-ba2b-ddba407c711c_press-logo.png" title="CNX Software: FPGA-based Modos Paper Dev Kit supports a wide range of E-Ink displays, up to 75 Hz refresh rate " width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://archup.net/modos-paper-dev-kit/"><img alt="" height="75" src="/img/e03c/81544d68-cdad-49c9-820b-e30bf38ce03c_press-logo.png" title="ArchUp: Modos Paper Dev Kit: Redefining the Future of Creative Displays and E Ink Technology?" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.techradar.com/pro/time-to-ditch-the-pen-and-paper-modus-now-boasts-e-paper-with-75hz-refresh-enough-to-challenge-even-a-tablet"><img alt="Tech Radar Pro logo" height="75" src="/img/ea8a/3f9bcd6c-38de-47e1-9cd5-06f69dd2ea8a_press-logo.png" title="Tech Radar Pro: Time to ditch the pen and paper - Modus now boasts e-paper with 75Hz refresh, enough to challenge even a tablet" width="150"></a>
+  </div>
+
+    </div>
+    <div class="row">
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://spectrum.ieee.org/e-paper-display-modos"><img alt="" height="75" src="/img/8059/7bd0e871-9948-470a-bf69-55aa24f08059_press-logo.png" title="IEEE Spectrum: E-Paper Display Reaches the Realm of LCD Screens" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://hackaday.com/2025/09/08/modos-is-open-hardware-easy-on-the-eyes/"><img alt="Hackaday" height="75" src="/img/5543/c38c960c-69a1-4a86-afc6-b3ea15275543_orig.svg" title="Hackaday: Modos Is Open Hardware, Easy On The Eyes" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.pcgamer.com/hardware/gaming-monitors/i-bet-return-of-the-obra-dinn-looks-perfect-on-this-open-source-75-hz-e-paper-display-kit-and-its-compatible-with-a-whole-bunch-of-existing-panels-too/"><img alt="" height="75" src="/img/6c52/16c243a7-357d-4a67-b71c-817611106c52_press-logo.png" title="PC Gamer: I bet Return of the Obra Dinn looks perfect on this open-source 75 Hz e-paper display kit—and it's compatible with a whole bunch of existing panels, too" width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://dailytechnewsshow.com/2025/09/10/your-horse-needs-a-fitness-tracker-dtns-5101/"><img alt="" height="75" src="/img/183b/5d79935b-caaf-4acf-b385-a329322b183b_press-logo.png" title="Daily Tech News Show: Your Horse Needs a Fitness Tracker – DTNS 5101" width="150"></a>
+  </div>
+
+    </div>
+
+      </div>
+    </section>
+
+
+      
+  <section id="questions">
+    <div class="container container-narrow">
+      <h1 class="mt-3 mb-3">Ask a Question</h1>
+      <div class="question-buttons">
+        <a class="btn btn-default" href="/contact">
+          <i class="bi bi-question-circle-fill"></i><br>
+          Ask Crowd Supply about an order
+        </a>
+        <a class="btn btn-default" href="/modos-tech/modos-paper-monitor/ask-question">
+          <i class="bi bi-question-circle-fill"></i><br>
+          Ask Modos Tech a technical question
+        </a>
+        <a class="btn btn-default" href="/field-reports">
+          <i class="bi bi-newspaper"></i><br>
+          Submit a field report about how you used this project
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+      
+  <section id="products" class="section-color section-produced-by">
+    <div class="container">
+      <div class="text-center">
+        <p>Produced by <a href="/modos-tech">Modos Tech</a> in Boston, MA.</p>
+        <p>Sold and shipped by Crowd Supply.</p>
+      </div>
+    </div>
+  </section>
+
+      
+    <section class="section-bordered">
+      <div class="container">
+          
+  <div class="product" id="product-3900">
+    <div class="row">
+      <div class="col-sm-4">
+        <img alt="" height="900" src="/img/e0df/64b01533-89fe-47b8-a8bf-227e8506e0df_md-fixed-xl.jpg" title="6&quot; Modos Paper Dev Kit" width="1600">
+      </div>
+      <div class="col-sm-8">
+        <h3>6" Modos Paper Dev Kit</h3>
+
+
+        <p>Pre-assembled development kit for the 6-inch version of our low-latency, 1448 x 1072 e-paper display. Includes a screen, a mainboard, a ribbon cable, and a Glider Mega Adapter to support e-paper panels of various sizes. Comes with a USB Type-C cable.</p>
+
+        <div class="product-price-row">
+          <span class="product-price">
+  
+  
+  <sup>$</sup><span class="product-price-number">199</span>
+
+</span>
+            <span class="product-shipping">
+              $8 US Shipping / $18 Worldwide
+            </span>
+        </div>
+
+        
+    <p class="product-metadata product-stock-status">Orders placed now ship May 29, 2026.</p>
+
+
+
+        <form method="POST" action="/cart/add" class="js-product-form" data-path="/product/stock-status">
+          <input name="product_id" type="hidden" value="3900">
+          <input name="qty" type="hidden" value="1">
+          
+
+          
+        <button type="submit" class="btn btn-block btn-cta">Pre-order</button>
+
+          
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+          
+  <div class="product" id="product-4476">
+    <div class="row">
+      <div class="col-sm-4">
+        <img alt="" height="900" src="/img/0508/4e597557-247a-4ee7-9914-d0427f3e0508_md-fixed-xl.jpg" title="13&quot; Modos Paper Dev Kit" width="1600">
+      </div>
+      <div class="col-sm-8">
+        <h3>13" Modos Paper Dev Kit</h3>
+
+
+        <p>Pre-assembled development kit for the 13-inch version of our low-latency, 1600 x 1200 e-paper display. Includes a screen, a mainboard, a ribbon cable, and a Glider Mega Adapter to support e-paper panels of various sizes. Comes with a USB Type-C cable.</p>
+
+        <div class="product-price-row">
+          <span class="product-price">
+  
+  
+  <sup>$</sup><span class="product-price-number">599</span>
+
+</span>
+            <span class="product-shipping">
+              Free US Shipping / $18 Worldwide
+            </span>
+        </div>
+
+        
+    <p class="product-metadata product-stock-status">Orders placed now ship May 29, 2026.</p>
+
+
+
+        <form method="POST" action="/cart/add" class="js-product-form" data-path="/product/stock-status">
+          <input name="product_id" type="hidden" value="4476">
+          <input name="qty" type="hidden" value="1">
+          
+
+          
+        <button type="submit" class="btn btn-block btn-cta">Pre-order</button>
+
+          
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+      </div>
+    </section>
+
+
+    
+  <section class="section-bordered">
+    <div class="container">
+      <h1 id="team" class="mb-4">About the Team</h1>
+      
+  <div class="row mb-4">
+    <div class="col-sm-3 col-organization-logo">
+      
+        <img alt="" height="140" src="/img/cc4a/ed9e6623-dc48-4002-b920-c37fc3eecc4a_orig.svg" title="Modos Tech" width="200">
+    </div>
+    <div class="col-sm-9">
+      <h4>
+          <a href="/modos-tech">Modos Tech</a>
+      </h4>
+      <p>
+  <span class="metadata-with-icon">
+    <i class="bi bi-geo-alt-fill"></i>
+    Boston, MA
+  </span>
+    &nbsp;·&nbsp;
+    
+  <a href="https://discord.gg/6ktE6VxSyh" class="metadata-with-icon">
+    <i class="bi bi-globe"></i>&nbsp;discord.gg/6ktE6VxSyh
+  </a>
+
+    &nbsp;·&nbsp;
+    
+  <a href="https://fosstodon.org/@modos" class="metadata-with-icon">
+    <i class="bi bi-mastodon"></i>&nbsp;modos@fosstodon.org
+  </a>
+
+    &nbsp;·&nbsp;
+    
+  <a href="https://bsky.app/profile/modostech.bsky.social" class="metadata-with-icon">
+    <i class="bi bi-bluesky"></i>&nbsp;modostech.bsky.social
+  </a>
+
+    &nbsp;·&nbsp;
+    
+  <a href="https://github.com/Modos-Labs/" class="metadata-with-icon">
+    <i class="bi bi-github"></i>&nbsp;Modos-Labs
+  </a>
+
+    &nbsp;·&nbsp;
+    
+  <a href="https://www.modos.tech/matrix" class="metadata-with-icon">
+    <i class="bi bi-globe"></i>&nbsp;modos.tech/matrix
+  </a>
+
+    &nbsp;·&nbsp;
+    
+  <a href="https://twitter.com/modostech" class="metadata-with-icon">
+    <i class="bi bi-twitter-x"></i>&nbsp;modostech
+  </a>
+
+</p>
+        <p>Our mission is to help you live a healthy life by creating technology that respects your time, attention, and well-being. We are creating an open hardware and open-source ecosystem of e-ink devices.</p>
+    </div>
+  </div>
+
+      
+    <div class="user-tiles">
+        
+  
+  <div class="user-tile">
+    <img alt="" height="196" src="/img/7f0e/5ea39a15-285e-412b-9da3-ef8b83217f0e_avatar-xl.jpg" width="196">
+    <div class="user-tile-text">
+        <h5 class="mt-2 text-break"><a href="/people/alexsoto">Alexander Soto</a></h5>
+        
+  <a href="https://twitter.com/alexsotodev" class="text-truncate">
+    <i class="bi bi-twitter-x"></i>&nbsp;alexsotodev
+  </a>
+
+          <br>
+        
+  <a href="https://github.com/alex-a-soto" class="text-truncate">
+    <i class="bi bi-github"></i>&nbsp;alex-a-soto
+  </a>
+
+    </div>
+  </div>
+
+        
+  
+  <div class="user-tile">
+    <img alt="" height="196" src="/img/ff7d/ae63b6f8-18b5-4695-bb22-8610bbebff7d_avatar-xl.jpg" width="196">
+    <div class="user-tile-text">
+        <h5 class="mt-2 text-break"><a href="/people/wenting">Wenting Zhang</a></h5>
+        
+  <a href="https://twitter.com/zephray_wenting" class="text-truncate">
+    <i class="bi bi-twitter-x"></i>&nbsp;zephray_wenting
+  </a>
+
+          <br>
+        
+  <a href="https://github.com/zephray" class="text-truncate">
+    <i class="bi bi-github"></i>&nbsp;zephray
+  </a>
+
+    </div>
+  </div>
+
+    </div>
+
+    </div>
+  </section>
+
+    
+  
+    <section class="section-bordered" data-nosnippet="">
+      <div class="container">
+        <h1 class="mb-4" id="related">See Also</h1>
+
+          
+  <div class="project-row">
+      
+  
+    <a class="project-tile" href="/newae/phywhisperer-usb" aria-label="PhyWhisperer-USB">
+      <img alt="PhyWhisperer-USB" height="900" src="/img/3fc3/0a842ff7-26d5-450a-a329-9ee494bc3fc3_aa-md.jpg" width="1600">
+      <div class="project-tile-overview">
+        <h3>PhyWhisperer-USB</h3>
+          <p>A hardware-based USB 2.0 monitor &amp; trigger platform, controlled from Python</p>
+      </div>
+
+      
+
+
+      <div class="project-metadata">
+        
+    
+  <div class="stats">
+    <div class="status-bar status-bar-primary">
+      <div>
+    Funded!
+</div>
+        <div>In Stock</div>
+    </div>
+    <div class="factoids">
+      
+  <div class="fact ">
+      <span class="fact-number"><sup>$</sup>53,865</span><br>
+      <span class="fact-label">raised</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">6</span><br>
+      <span class="fact-label">updates</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">193</span><br>
+      <span class="fact-label">backers</span>
+  </div>
+
+    </div>
+  </div>
+
+
+      </div>
+    </a>
+
+      
+  
+    <a class="project-tile" href="/wavelet-lab/usdr" aria-label="uSDR">
+      <img alt="uSDR" height="900" src="/img/6d0e/267ce2be-644f-483f-bca3-56779ff16d0e_aa-md.jpg" width="1600">
+      <div class="project-tile-overview">
+        <h3>uSDR</h3>
+          <p>A tiny, single-sided M.2 SDR board that you can operate easily using your web browser</p>
+      </div>
+
+      
+      <div class="project-tile-program">
+        Part of <strong>Qorvo RF Accelerator</strong>
+      </div>
+      <div class="project-tile-program">
+        Part of <strong>Lime SDR Accelerator</strong>
+      </div>
+      <div class="project-tile-program">
+        Part of <strong>AMD FPGA Playground</strong>
+      </div>
+
+
+      <div class="project-metadata">
+        
+    
+  <div class="stats">
+    <div class="status-bar status-bar-primary">
+      <div>
+    281<sup>%</sup> Funded!
+</div>
+        <div>In Stock</div>
+    </div>
+    <div class="factoids">
+      
+  <div class="fact fact-small">
+      <span class="fact-number"><sup>$</sup>112,611</span><br>
+      <span class="fact-label">raised</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">17</span><br>
+      <span class="fact-label">updates</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">173</span><br>
+      <span class="fact-label">backers</span>
+  </div>
+
+    </div>
+  </div>
+
+
+      </div>
+    </a>
+
+      
+  
+    <a class="project-tile" href="/quicklogic/qomu" aria-label="Qomu">
+      <img alt="Qomu" height="900" src="/img/507e/10750802-507b-4883-a558-0a7d297b507e_aa-md.jpg" width="1600">
+      <div class="project-tile-overview">
+        <h3>Qomu</h3>
+          <p>An MCU + eFPGA dev kit with 100% vendor-supported open source tools that fits inside your USB port</p>
+      </div>
+
+      
+
+
+      <div class="project-metadata">
+        
+    
+  <div class="stats">
+    <div class="status-bar status-bar-primary">
+      <div>
+    Funded!
+</div>
+        <div>In Stock</div>
+    </div>
+    <div class="factoids">
+      
+  <div class="fact ">
+      <span class="fact-number"><sup>$</sup>15,879</span><br>
+      <span class="fact-label">raised</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">3</span><br>
+      <span class="fact-label">updates</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">263</span><br>
+      <span class="fact-label">backers</span>
+  </div>
+
+    </div>
+  </div>
+
+
+      </div>
+    </a>
+
+  </div>
+
+      </div>
+    </section>
+
+
+
+
+
+  
+    
+  <section class="section-color section-email-signup">
+    <div class="container">
+      <h6>Subscribe to the Crowd Supply newsletter, highlighting the latest creators and projects</h6>
+      <form action="/newsletter/signup" method="POST">
+        <input class="form-fontrol" id="signup-email" maxlength="320" name="email" placeholder="email@example.com" type="email">
+        <div class="input-group">
+          <input class="form-control" id="713c00f948de23bfd9ba13e9be76f375" maxlength="320" name="713c00f948de23bfd9ba13e9be76f375" placeholder="email@example.com" type="email">
+          <button type="submit" class="btn btn-dark btn-lg">Subscribe</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+    
+  <footer>
+    <div class="container">
+      <div class="pt-4">
+        <div class="row">
+          <div class="col-6 col-md col-footer-company">
+            <h5>Company</h5>
+            <ul class="list-unstyled">
+              <li><a href="/announcements">Announcements</a></li>
+              <li><a href="/contact">Contact</a></li>
+              <li><a href="/security">Security</a></li>
+              <li><a href="/distributors">Distributors</a></li>
+              <li><a href="/events">Events</a></li>
+              <li><a href="/press">In the News</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md col-footer-terms">
+            <h5>Terms</h5>
+            <ul class="list-unstyled">
+              <li><a href="/terms-of-use">Terms of Use</a></li>
+              <li><a href="/shipping">Shipping</a></li>
+              <li><a href="/returns">Returns</a></li>
+              <li><a href="/privacy-policy">Privacy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md col-footer-nuts">
+            <h5>Nuts &amp; Bolts</h5>
+            <ul class="list-unstyled">
+              <li><a href="/login">Account Login</a></li>
+              <li><a href="/guide">The Crowd Supply Guide</a></li>
+              <li><a href="/apply">Project Application</a></li>
+              <li><a href="/field-reports">Submit a Field Report</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md col-footer-follow">
+            <h5>Follow Us</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="https://discord.gg/7p5huQd">
+                  Discord
+                  <i class="ms-1 bi bi-discord"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/crowd_supply">
+                  Twitter/X
+                  <i class="ms-1 bi bi-twitter-x"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://bsky.app/profile/crowdsupply.bsky.social">
+                  Bluesky
+                  <i class="ms-1 bi bi-bluesky"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/crowdsupply">
+                  Instagram
+                  <i class="ms-1 bi bi-instagram"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/CrowdSupplyTeardown">
+                  YouTube
+                  <i class="ms-1 bi bi-youtube"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://hachyderm.io/@crowdsupply">
+                  Fediverse
+                  <i class="ms-1 bi bi-mastodon"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/company/crowdsupply">
+                  LinkedIn
+                  <i class="ms-1 bi bi-linkedin"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="pt-4 border-top">
+              <p>Based in Portland, Oregon. Accepting projects worldwide.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+
+  
+    
+    <script src="/_mvnd/assets/main-CQ8m-ku3.js" type="module"></script>
+  
+
+
+
+
+
+
+
+<div class="modal fade" id="gallery-modal" aria-hidden="true" tabindex="-1">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <div id="gallery-carousel" class="carousel slide gallery-carousel">
+          <div class="carousel-inner gallery-carousel-inner">
+
+            
+              <div class="carousel-item active">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/1080/ffe06499-b877-4d44-ac68-3d4b92521080_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/8b97/7f41293c-97d2-48e3-80e4-b59dbaee8b97_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/74ca/f63a2cfe-6b69-416c-9214-205091cd74ca_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/caf2/70975223-7b9f-4180-9d19-4103f316caf2_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/de33/b4e3dd8d-8213-4814-9221-d064163bde33_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/a803/ad0c6b2f-c64e-486b-86de-9c5c426ca803_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/874a/64da1b5f-5a13-4eaa-88ba-3aa3f973874a_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/61cb/337fff5a-1fde-4b80-948a-51e1481261cb_gallery-lg.jpg">
+              </div>
+            
+
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            
+              <button class="carousel-control-prev" type="button" data-bs-target="#gallery-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#gallery-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            
+          </div>
+
+          
+            <div class="carousel-indicators gallery-carousel-indicators d-none d-sm-block">
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="0" class="active">
+                  <img alt="" src="/img/1080/ffe06499-b877-4d44-ac68-3d4b92521080_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="1" class="">
+                  <img alt="" src="/img/8b97/7f41293c-97d2-48e3-80e4-b59dbaee8b97_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="2" class="">
+                  <img alt="" src="/img/74ca/f63a2cfe-6b69-416c-9214-205091cd74ca_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="3" class="">
+                  <img alt="" src="/img/caf2/70975223-7b9f-4180-9d19-4103f316caf2_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="4" class="">
+                  <img alt="" src="/img/de33/b4e3dd8d-8213-4814-9221-d064163bde33_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="5" class="">
+                  <img alt="" src="/img/a803/ad0c6b2f-c64e-486b-86de-9c5c426ca803_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="6" class="">
+                  <img alt="" src="/img/874a/64da1b5f-5a13-4eaa-88ba-3aa3f973874a_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="7" class="">
+                  <img alt="" src="/img/61cb/337fff5a-1fde-4b80-948a-51e1481261cb_gallery-thumb.jpg">
+                </a>
+              
+            </div>
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<svg id="MJX-SVG-global-cache" style="display: none;"><defs></defs></svg></body></html>

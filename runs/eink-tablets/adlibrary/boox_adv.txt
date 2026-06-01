@@ -1,0 +1,66 @@
+# boox
+brand_query: Onyx Boox
+status: ok
+resolved_advertiser: ONYX BOOX (pageID 106630594839515, 143 followers)
+active_ad_count: 0
+library_ids_loaded: 0
+
+TYPEAHEAD CANDIDATES:
+  106630594839515 | score=115.0 | ONYX BOOX / 143 follow this · Electronics / @onyxboox · 7.6K followers
+  622358188409118 | score=45.0 | Onyx BOOX Singapore / @onyxboox.sg · 361 follow this · Phone/Tablet / @onyxboox.sg · 978 followers
+  107789298176089 | score=60.0 | OnyxBoox.pl / @OnyxBooxPL · 59 follow this · Electronics
+  101853101944898 | score=60.0 | Onyx Boox Türkiye / @onyxbooxturkey · 889 follow this · Product/service / @onyxbooxturkey · 5.2K followers
+  102873831171166 | score=60.0 | Onyx BOOX Philippines / @OnyxBOOXPhilippines · 2K follow this · Electronics / @onyxbooxphilippines · 135 followers
+  734491477269427 | score=60.0 | ONYX BOOX Indonesia / @onyxboox.id · 214 follow this · Electronics / @onyxboox.id · 2.1K followers
+  116717051417841 | score=60.0 | OnyxBoox.eu / 43 follow this · Shopping Service
+  177932227012427 | score=60.0 | Onyx Boox Turkey / 8 follow this · Product/service
+  100205151866482 | score=60.0 | Onyx Boox Bahrain / 1 follower · Bookstore
+  144521346086506 | score=60.0 | Onyx Boox 電子書閱讀器 e-Reader E-Book / @booxhkm · 1.2K follow this · Brand
+
+--- ADS DUMP ---
+Meta Ad Library
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+​
+All
+​
+​
+​
+​
+All ads
+​
+Search by keyword or advertiser
+​
+​
+ONYX BOOX
+Ads
+About
+Log in
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+System status
+Subscribe to email updates
+FAQ
+About ads and data use
+Privacy
+Terms
+Cookies
+Filters
+Sort
+​
+Sort by
+Active status: Active ads
+Remove
+​
+No ads match your search criteria
+Remove or adjust any filters you've applied to get different results.
+Clear filters
+View search tips.
+
+System status
+Ad Library APIAbout ads and data usePrivacyTermsCookies
+Meta © 2026 | English (US)

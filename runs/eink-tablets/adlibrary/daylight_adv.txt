@@ -1,0 +1,59 @@
+# daylight
+brand_query: Daylight Computer
+status: ok
+resolved_advertiser: Daylight Computer (pageID 575419519610777, 59900 followers)
+active_ad_count: 0
+library_ids_loaded: 0
+
+TYPEAHEAD CANDIDATES:
+  575419519610777 | score=115.1 | Daylight Computer / @daylightcomputer · 59.9K follow this · Computer Repair Service
+  125345827332586 | score=60.0 | Daylight Computer Co. / 928 follow this · Computer Company / @daylightco · 40.4K followers
+  181174745234224 | score=15.0 | DayLight For Computer Services / @DayLightGroup · 935 follow this · Computers (Brand) / @mmohamed.selmi · 442 followers
+
+--- ADS DUMP ---
+Meta Ad Library
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+​
+All
+​
+​
+​
+​
+All ads
+​
+Search by keyword or advertiser
+​
+​
+Daylight Computer
+Ads
+About
+Log in
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+System status
+Subscribe to email updates
+FAQ
+About ads and data use
+Privacy
+Terms
+Cookies
+Filters
+Sort
+​
+Sort by
+Active status: Active ads
+Remove
+​
+No ads match your search criteria
+Remove or adjust any filters you've applied to get different results.
+Clear filters
+View search tips.
+
+System status
+Ad Library APIAbout ads and data usePrivacyTermsCookies
+Meta © 2026 | English (US)

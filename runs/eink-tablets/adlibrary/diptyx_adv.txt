@@ -1,0 +1,12 @@
+# diptyx
+brand_query: Diptyx
+status: ok
+resolved_advertiser: NONE
+active_ad_count: n/a
+library_ids_loaded: 0
+
+TYPEAHEAD CANDIDATES:
+  263503933519259 | score=0.0 | kateswan_ / @kateswan_ · 558 followers
+  161648240540004 | score=10.0 | Εκδόσεις Δίπτυχο - diptyxo.gr / @diptyxo · 12.4K follow this · Community / @diptyxo.gr · 1.9K followers
+
+--- ADS DUMP ---

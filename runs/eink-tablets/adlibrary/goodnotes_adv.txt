@@ -1,0 +1,128 @@
+# goodnotes
+brand_query: Goodnotes
+status: ok
+resolved_advertiser: Goodnotes (pageID 654439068501379, 6300 followers)
+active_ad_count: 3
+library_ids_loaded: 3
+
+TYPEAHEAD CANDIDATES:
+  654439068501379 | score=100.0 | Goodnotes / @goodnotesofficial · 6.3K follow this · App page / @goodnotes.app · 218K followers
+  102788098106571 | score=45.0 | Goodnotes.no / @goodnotes.no · 657 follow this · E-commerce website / @goodnotes.no · 2K followers
+  1681667835431268 | score=45.0 | GoodNotes App / @goodnotesapp · 18.1K follow this · App page
+  362818301116279 | score=45.0 | Good Notes Film & Photography / @goodnotes19 · 1.5K follow this · Photographer / @goodnotes__ · 190 followers
+  1088316298034724 | score=22.0 | Digital Planner Goodnotes / @DigitalPlannerGoodnotes · 888 follow this · Digital creator
+  102135721310327 | score=60.0 | Goodnotes, Noteshelf, Notability planner for ipad / 774 follow this · Computer Store / @digitalplanner_ · 1.6K followers
+  429412523588649 | score=15.0 | TANG SHOP / 170 follow this · Clothing (Brand) / @good.notes6 · 1 follows this
+  1832398557047073 | score=15.0 | Goodnote / 32 follow this · Product/service / @goodnote_shop · 4.5K followers
+  108282758947761 | score=60.0 | Goodnotes Japan / 6 follow this · Software / @goodnotes.app.jp · 32.9K followers
+  113102157547565 | score=45.0 | Goodnotes planner / 2 follow this · Website
+
+--- ADS DUMP ---
+Meta Ad Library
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+​
+All
+​
+​
+​
+​
+All ads
+​
+Search by keyword or advertiser
+​
+​
+Goodnotes
+Ads
+About
+Log in
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+System status
+Subscribe to email updates
+FAQ
+About ads and data use
+Privacy
+Terms
+Cookies
+~3 results
+Filters
+Sort
+​
+Sort by
+Active status: Active ads
+Remove
+​
+​
+Active
+Library ID: 25709882642024845
+Started running on May 21, 2026
+Platforms
+​
+​
+​
+​
+This ad has multiple versions
+​
+Open Dropdown
+​
+See ad details
+Goodnotes
+Sponsored
+Discover how digital note-taking with Goodnotes can help you lighten the load. Join the Goodnotes USA Tour!
+GOODNOTES.COM
+Join the Goodnotes USA Tour!
+Sign Up
+​
+Active
+Library ID: 1484621029664960
+Started running on May 21, 2026
+Platforms
+​
+​
+​
+​
+This ad has multiple versions
+​
+Open Dropdown
+​
+See ad details
+Goodnotes
+Sponsored
+Discover how digital note-taking with Goodnotes can help you lighten the load. Join the Goodnotes USA Tour!
+GOODNOTES.COM
+Join the Goodnotes USA Tour!
+Sign Up
+​
+Active
+Low impression count
+​
+Library ID: 2691722151209743
+Started running on May 21, 2026
+Platforms
+​
+​
+​
+​
+Impressions:
+<100
+This ad has multiple versions
+​
+Open Dropdown
+​
+See ad details
+Goodnotes
+Sponsored
+Discover how digital note-taking with Goodnotes can help you lighten the load. Join the Goodnotes USA Tour!
+Low impression count
+0:00 / 0:15
+GOODNOTES.COM
+Join the Goodnotes USA Tour!
+Learn More
+System status
+Ad Library APIAbout ads and data usePrivacyTermsCookies
+Meta © 2026 | English (US)

@@ -1,0 +1,247 @@
+URL: https://www.crowdsupply.com/diptyx/diptyx-e-reader
+TITLE: Diptyx E-Reader | Crowd Supply
+FETCHED: 2026-05-24T19:38:54.987Z
+
+Crowd Supply
+BROWSE
+APPLY
+ABOUT
+
+ Diptyx
+ E-Paper
+ Mobile Devices
+
+Diptyx E-Reader
+An open-source, dual-screen e-reader
+
+$86,610 raised
+
+of $27,000 goal
+
+320% Funded!
+Order Below
+9
+
+updates
+	Jan 22
+
+funded on
+	247
+
+backers
+
+Limited items in stock. Order below.
+
+$249
+
+View Purchasing Options
+
+Recent Updates
+Apr 01, 2026
+Production Progress Report
+Feb 25, 2026
+Preparing for Production
+Jan 22, 2026
+The Final Stretch
+Jan 14, 2026
+The Firmware
+View all project updates
+Subscribe
+Sign up to receive updates.
+
+Diptyx E-Reader is an ESP32-based, open-source e-reader. Its unique dual-screen design allows it to close like a book, protecting the screens without requiring a case, making it perfect for reading on the go. Automatic standby mode and e-ink displays enable the device to run for weeks on a single charge, while it powers up in seconds with the press of a button. Fully open-source, Diptyx E-Reader is easy to repair and customize, letting you read whenever and wherever you want, forever.
+
+Own Your Device, Own Your Books
+
+Diptyx E-Reader runs on custom, open-source firmware designed specifically for reading ebooks. Simply upload your digital books as EPUB files through the USB Type-C connector, and start reading.
+
+It features no DRM, allowing you to read books from any digital bookstore, as long as they are in EPUB format. That enables full offline use anywhere you go: no internet connection, accounts, or cloud services are required.
+
+When you’re done reading, the device automatically enters deep sleep mode, reducing power consumption to an absolute minimum. Its stellar power management, two large batteries, and efficient circuitry allow for weeks of use on a single charge. In standby, the device can last for months, but it can still be fully powered off if you need to save every microamp.
+
+Diptyx E-reader is constructed in a unique way: rather than hiding the electronics within the device, the circuit boards are actually put on display as part of the other shell, covered with beautiful art-nouveau illustrations. But don’t worry, The exposed layers contain no active circuits, so even deep scratches won’t affect functionality.
+
+Features & Specifications
+Processor: ESP32-S3-N16R8
+Displays: 2× 5.83'-inch 648×480 e-ink black & white displays
+Storage: 2 GB SD card, user-replaceable
+Batteries: 2× 1500 mAh Li-Po batteries
+Dimensions (closed): 120×150×14 mm (4.7×5.9×0.6 in)
+Dimensions (opened): 226×150×14 mm (8.9×5.9×0.6 in)
+Weight: 300 g (10.5 oz)
+Connector: USB Type-C for charging and mass storage
+Firmware & User Experience
+
+The Diptyx E-reader firmware is designed to provide the simplest possible reading experience. Starting from power-off, it boots directly into your library of books, which are sorted by author. Of course, if you were reading something the last time you used the device, it will directly open that instead.
+
+With the physical buttons you can navigate through the pages of the book, and a convenient quick menu is available for scrolling through chapters, toggling dark mode, or jumping to your bookmarks.
+Details on how the book is displayed can be changed in the general settings menu, where you can choose a variety of fonts, tune the line-spacing, and much more. Other device-settings can be customized as well, such as the automatic standby timeout or whether you want to use the internal haptic buzzer.
+
+Since the device is open-source, the community is free to modify the source-code in whatever way they want. This opens a range of possibilities: activate Wi-Fi functionality to access RSS feeds, create unique custom games, or connect a bluetooth keyboard and make a two-screen writerdeck—the limit is your imagination.
+
+Comparisons
+	Diptyx E-Reader	Kobo Clara BW	Kindle Paperwhite 11th gen
+Manufacturer	Diptyx	Rakuten Kobo	Amazon
+Ebook File Compatibility	EPUB	EPUB, PDF, MOBI	AZW, PDF, MOBI
+Interface	Physical buttons	Touch screen	Touch screen
+Screen Layout	Dual screen	Single screen	Single screen
+Screen Area	210 cm²	109 cm²	146 cm²
+Frontlight	No	Yes	Yes
+Open Source	Hardware + Software	No	No
+Repairability	Modular	Glued assembly	Glued assembly
+Battery Capacity	3000 mAh	1500 mAh	1700 mAh
+Expandable Storage	microSD	No	No
+Wireless Connectivity	Disabled in stock firmware	Wi-Fi & Bluetooth	Wi-Fi & Bluetooth
+Price	$249	~$140	~$160
+Support & Documentation
+
+Device longevity and right-to-repair are core principles for us. Therefore, we make extensive use of open-source design software: the enclosure is designed in FreeCAD, the electronics are designed in KiCad, and the firmware is developed with VS Code. After the campaign is finished and the design is finalized, these design files will be made open source, making it easy to customize and repair your own device.
+
+Diptyx E-Reader’s firmware builds on prior open-source work and will be released under the MIT license. We are excited to see what custom software and applications users will develop.
+
+Manufacturing Plan
+
+Many, many prototypes have been constructed during development, but we are happy to say that the design of the Diptyx E-reader is almost finalized. All core hardware functions are working reliably, so production can begin shortly after funding. It has been designed from the ground up for easy production and assembly, whilst keeping it as compact as possible.
+
+The main circuit boards will be manufactured and assembled by a reputable PCB house. Assembly of the devices, as well as production of the enclosures, will be performed by us, in the Netherlands. In this way we keep the supply chain as small as possible, while making sure every device meets our quality expectations.
+
+Fulfillment Plan
+
+After the campaign has finished, we can start with the first production run. Depending on the amount of orders, the production will possibly be spread into several smaller batches. We will then package everything up and send it along to Crowd Supply’s fulfillment partner, Mouser Electronics, who will handle distribution to backers worldwide. You can learn more about Crowd Supply’s fulfillment service under Ordering, Paying, and Shipping in their guide.
+
+Risks and challenges
+
+Production: Small scale production is always hard, and we depend on multiple sources of components, international shipping, and new tarifs. To reduce production risks and ensure the longevity of our product, the design uses mostly off-the-shelf components which can be sourced from multiple suppliers. In this way, we can switch suppliers in case there are issues, and replacement parts will be easy to source in the future.
+
+Software support: Because EPUB is an open and loosely defined standard, some books may render unexpectedly. We’ll continue refining the firmware with feedback and help from the community to ensure the best possible reading experience.
+
+In the Press
+Ask a Question
+
+Ask Crowd Supply about an order
+
+Ask Diptyx a technical question
+
+Submit a field report about how you used this project
+
+Produced by Diptyx in Lisse, Netherlands.
+
+Sold and shipped by Crowd Supply.
+
+Diptyx E-Reader
+
+Open-source, dual-screen e-reader
+
+$249 Free US Shipping / $12 Worldwide
+
+Orders placed now ship Sep 30, 2026.
+
+Pre-order
+USB 3.1 Cable: Type-C to Type-C (100 cm)
+
+From the USB Cables project.
+
+A 100 cm cable with a USB Type-C connectors on both ends. No additional shipping charge when ordered with other products.
+
+$19 $8 US Shipping / $18 Worldwide
+
+In stock
+
+Add to Cart
+USB 2.0 Cable: Type-C to Type-A (100 cm)
+
+From the USB Cables project.
+
+A 100 cm cable with a USB Type-C and a USB Type-A connector.
+
+$8 $8 US Shipping / $18 Worldwide
+
+Orders placed now ship May 13, 2026.
+
+Add to Cart
+About the Team
+Diptyx
+
+ Lisse, Netherlands  ·   diptyx.dev
+
+We design unique portable devices, inspired by technology and art from days gone by.
+
+Martijn den Hoed
+ MartijndenHoed
+See Also
+Inkplate 6
+
+Versatile, easy-to-use, Wi-Fi-enabled e-paper display
+
+1,308% Funded!
+In Stock
+$130,893
+
+raised
+	20
+
+updates
+	966
+
+backers
+	
+WiCAN
+
+Open source, ESP32-C3 CAN adapter with USB, Wi-Fi, and BLE support
+
+Funded!
+In Stock
+$53,719
+
+raised
+	10
+
+updates
+	1,014
+
+backers
+	
+DeepDeck
+
+Wireless, fully programmable, open source, ESP32 macropad featuring 16 RGB, mechanical, hot-swappable keys and two RGB rotary encoders
+
+558% Funded!
+In Stock
+$27,903
+
+raised
+	8
+
+updates
+	313
+
+backers
+Subscribe to the Crowd Supply newsletter, highlighting the latest creators and projects
+Subscribe
+Company
+Announcements
+Contact
+Security
+Distributors
+Events
+In the News
+Terms
+Terms of Use
+Shipping
+Returns
+Privacy
+Nuts & Bolts
+Account Login
+The Crowd Supply Guide
+Project Application
+Submit a Field Report
+Follow Us
+Discord 
+Twitter/X 
+Bluesky 
+Instagram 
+YouTube 
+Fediverse 
+LinkedIn 
+
+Based in Portland, Oregon. Accepting projects worldwide.

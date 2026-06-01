@@ -1,0 +1,66 @@
+# yondr-home-tray
+brand_query: Yondr
+status: ok
+resolved_advertiser: YONDR (pageID 103565588462999, 24 followers)
+active_ad_count: 0
+library_ids_loaded: 0
+
+TYPEAHEAD CANDIDATES:
+  103565588462999 | score=115.0 | YONDR / @YONDResp · 24 follow this · Brand / @yondr_es · 1.7K followers
+  315310188679297 | score=100.0 | yondr / @theyondr · 2.8K follow this · Video Creator / @_yondr · 2.4K followers
+  561333893740752 | score=10.0 | Yondralink / 0 follow this · News & media website
+  100709695721198 | score=0.0 | Agung Toyota Riau.id / @YondriToyotaRiau.id · 5.9K follow this · Automotive Service / @toyotariau.id_yondri · 1.2K followers
+  975781512295173 | score=60.0 | Yondradial.Pro / 44 follow this · Shopping Service
+  102902499296157 | score=22.0 | LaYondra Nicole Baker / @addysensmom2010 · 7.3K follow this · Digital creator
+  990383250822322 | score=22.0 | Lee-yondre Foster / @leeyondrefosterr · 7.9K follow this · Digital creator
+  104558795639409 | score=22.0 | AaiYondria RahjaniQue / @Rare.breed95 · 7.6K follow this · Chef
+  167680827264048 | score=-13.0 | YK Yondrik / @YKYONDRiK · 2.8K follow this · Musician/band / @ykyondrik · 539 followers
+  248968508973655 | score=10.0 | Yondra Syahputra / 2.1K follow this · Personal blog
+
+--- ADS DUMP ---
+Meta Ad Library
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+​
+All
+​
+​
+​
+​
+All ads
+​
+Search by keyword or advertiser
+​
+​
+YONDR
+Ads
+About
+Log in
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+System status
+Subscribe to email updates
+FAQ
+About ads and data use
+Privacy
+Terms
+Cookies
+Filters
+Sort
+​
+Sort by
+Active status: Active ads
+Remove
+​
+No ads match your search criteria
+Remove or adjust any filters you've applied to get different results.
+Clear filters
+View search tips.
+
+System status
+Ad Library APIAbout ads and data usePrivacyTermsCookies
+Meta © 2026 | English (US)

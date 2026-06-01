@@ -1,0 +1,66 @@
+# ipad-q
+brand_query: Apple iPad
+status: ok
+resolved_advertiser: Apple i pad (pageID 102121308259217, 20 followers)
+active_ad_count: 0
+library_ids_loaded: 0
+
+TYPEAHEAD CANDIDATES:
+  102121308259217 | score=115.0 | Apple i pad / 20 follow this · Product/service
+  103519722103266 | score=0.0 | IPad World By AppleMan / @ipadworldbyappleman · 17.7K follow this · Digital creator / @appleman_uae · 2.8K followers
+  728682170328561 | score=0.0 | Padelio App: Track Padel Activity using your Apple Watch / 45 follow this · Sports / @padelio.app · 635 followers
+  609350275847886 | score=-35.0 | iFixApple - Ремонт iPhone / Ремонт iPad / @ifixapple.com.ua · 412 follow this · Artist / @pnd.ink · 2.4K followers
+  440247489658014 | score=0.4 | AppleSheep เคส ipadpro มีที่เก็บปากกา / @AppleSheep.TH · 364.4K follow this · Phone/Tablet / @applesheepth · 148.8K followers
+  111599558355825 | score=15.0 | P Store Shopเชียงใหม่ - รับซื้อ รับฝาก ผ่อน iPhone iPad สินค้า APPLE ราคาดี / 22.1K follow this · Phone/Tablet / @pstorechiangmai · 4.4K followers
+  110933271367803 | score=0.0 | ซ่อมiphone ipad imac macbookสมุทรปราการ / @applecarethailandd · 2.2K follow this · Phone/Tablet / @jump_applecarethailand · 15 followers
+  167042137176755 | score=0.0 | เบสท์โฟนเชียงใหม่ - รับซื้อ รับฝาก ผ่อน IPHONE IPAD สินค้า Apple ราคาดี / @bestphoneChiangMai · 31.9K follow this · Phone/Tablet / @bestphone.cnx · 11.2K followers
+  275040302607365 | score=0.0 | Apple Club 專業iPhone iPad維修團隊 / @AppleClub888 · 38.5K follow this · Mobile Phone Shop
+  662143067194755 | score=15.0 | Apple iPhone / Ipad External Drive 16GB / @VibrandzCreation · 22K follow this · Electronics
+
+--- ADS DUMP ---
+Meta Ad Library
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+​
+All
+​
+​
+​
+​
+All ads
+​
+Search by keyword or advertiser
+​
+​
+Apple i pad
+Ads
+About
+Log in
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+System status
+Subscribe to email updates
+FAQ
+About ads and data use
+Privacy
+Terms
+Cookies
+Filters
+Sort
+​
+Sort by
+Active status: Active ads
+Remove
+​
+No ads match your search criteria
+Remove or adjust any filters you've applied to get different results.
+Clear filters
+View search tips.
+
+System status
+Ad Library APIAbout ads and data usePrivacyTermsCookies
+Meta © 2026 | English (US)

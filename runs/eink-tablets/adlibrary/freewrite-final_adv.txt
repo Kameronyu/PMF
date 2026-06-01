@@ -1,0 +1,11 @@
+# freewrite-final
+brand_query: getfreewrite
+status: ok
+resolved_advertiser: NONE
+active_ad_count: n/a
+library_ids_loaded: 0
+
+TYPEAHEAD CANDIDATES:
+  911139335596993 | score=15.0 | Freewrite / @getfreewrite · 16.2K follow this · Electronics / @getfreewrite · 64.2K followers
+
+--- ADS DUMP ---

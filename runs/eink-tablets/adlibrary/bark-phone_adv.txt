@@ -1,0 +1,302 @@
+# bark-phone
+brand_query: Bark
+status: ok
+resolved_advertiser: Barkyn (pageID 1138706132808133, 115400 followers)
+active_ad_count: 24
+library_ids_loaded: 10
+
+TYPEAHEAD CANDIDATES:
+  264418603594198 | score=47.9 | BarkBox / @barkbox  /  · 2.9M follow this · Pet Service / @bark  /  · 2M followers
+  495567297176082 | score=45.2 | Bark.com / @barkteam · 211.2K follow this · Business Service / @bark.mrkt · 63.4K followers
+  832749653248043 | score=37.0 | Jeanette Barker / 3.9K follow this · Convenience Store
+  102561162214263 | score=45.2 | Barkadahan Party-List / @barkadahanpartylist · 193.5K follow this · Political Organization
+  175969755936979 | score=10.5 | Barkibu / @barkibu · 497.4K follow this · Community / @barkibu  /  · 85.7K followers
+  103714881550651 | score=45.0 | BARK DNA / @BARKDNA · 3K follow this · Skin Care Service / @barkdna · 16.5K followers
+  102820741540781 | score=22.0 | Pop+Bark / @popandbark · 26.1K follow this · Event / @popandbark  /  · 70.9K followers
+  481835675021155 | score=60.0 | Barkibu Assicurazione / 6.2K follow this · Insurance company / @barkibu.it · 27.4K followers
+  1138706132808133 | score=60.1 | Barkyn / @barkyndogs · 115.4K follow this · Product/service · Portugal / @barkyn  /  · 76.3K followers
+  1382464052006075 | score=37.0 | ICA Maxi Barkarby / @MaxiBarkarby · 21.6K follow this · Grocery Store / @icamaxibarkarbystaden · 40.4K followers
+
+--- ADS DUMP ---
+Meta Ad Library
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+​
+All
+​
+​
+​
+​
+All ads
+​
+Search by keyword or advertiser
+​
+​
+Barkyn
+Ads
+About
+Log in
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+System status
+Subscribe to email updates
+FAQ
+About ads and data use
+Privacy
+Terms
+Cookies
+~24 results
+Similar regional ads
+Barkyn
+Product/service
+Spain
+View ads
+Barkyn
+Product/service
+Italy
+View ads
+Barkyn
+Product/service
+Germany
+View ads
+Filters
+Sort
+​
+Sort by
+Active status: Active ads
+Remove
+​
+​
+Active
+Library ID: 1333827318662887
+Started running on May 22, 2026 · Total active time 20 hrs
+Platforms
+​
+​
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Barkyn
+Sponsored
+Mudou a alimentação do seu cão nos últimos 3 anos?
+Porque o corpo dele mudou.
+
+• Nutrientes ajustados à fase de vida
+• Reforço das articulações e mobilidade
+• Estabilização digestiva
+• Suporte à barreira da pele
+
+Aplique código: COMECAR30 no checkout
+0:00 / 0:40
+​
+Active
+Library ID: 1516179379847785
+Started running on May 22, 2026 · Total active time 21 hrs
+Platforms
+​
+​
+​
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Barkyn
+Sponsored
+Pequenos sinais podem indicar grandes riscos. Um sistema estruturado protege digestão, imunidade e vitalidade antes que seja tarde.
+0:00 / 0:41
+​
+Active
+Library ID: 3560144860791400
+Started running on May 22, 2026 · Total active time 21 hrs
+Platforms
+​
+​
+​
+​
+EU transparency
+​
+Open Dropdown
+​
+See ad details
+Barkyn
+Sponsored
+Pequenos sinais podem indicar grandes riscos. Um sistema estruturado protege digestão, imunidade e vitalidade antes que seja tarde.
+0:00 / 0:40
+BARKYN.COM
+Proteger o futuro do seu cão
++150.000 familias satisfeitas
+Learn more
+​
+Active
+Library ID: 978589321426060
+Started running on May 22, 2026 · Total active time 20 hrs
+Platforms
+​
+​
+​
+​
+3 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Barkyn
+Sponsored
+Mudou a alimentação do seu cão nos últimos 3 anos?
+Porque o corpo dele mudou.
+
+• Nutrientes ajustados à fase de vida
+• Reforço das articulações e mobilidade
+• Estabilização digestiva
+• Suporte à barreira da pele
+0:00 / 0:40
+​
+Active
+Library ID: 1636602984297670
+Started running on May 22, 2026 · Total active time 21 hrs
+Platforms
+​
+​
+​
+​
+2 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Barkyn
+Sponsored
+Pequenos sinais podem indicar grandes riscos. Um sistema estruturado protege digestão, imunidade e vitalidade antes que seja tarde.
+0:00 / 0:22
+​
+Active
+Library ID: 2341278826282266
+Started running on May 22, 2026 · Total active time 20 hrs
+Platforms
+​
+​
+​
+3 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Barkyn
+Sponsored
+Mudou a alimentação do seu cão nos últimos 3 anos?
+Porque o corpo dele mudou.
+
+• Nutrientes ajustados à fase de vida
+• Reforço das articulações e mobilidade
+• Estabilização digestiva
+• Suporte à barreira da pele
+
+Aplique código: COMECAR30 no checkout
+0:00 / 0:32
+​
+Active
+Library ID: 1015770504130152
+Started running on May 22, 2026 · Total active time 21 hrs
+Platforms
+​
+​
+​
+​
+4 ads use this creative and text
+Open Dropdown
+​
+See summary details
+Barkyn
+Sponsored
+Mudou a alimentação do seu cão nos últimos 3 anos?
+Porque o corpo dele mudou.
+
+• Nutrientes ajustados à fase de vida
+• Reforço das articulações e mobilidade
+• Estabilização digestiva
+• Suporte à barreira da pele
+0:00 / 0:32
+​
+Active
+Library ID: 1462254315218373
+Started running on May 22, 2026 · Total active time 20 hrs
+Platforms
+​
+​
+​
+This ad has multiple versions
+​
+EU transparency
+​
+Open Dropdown
+​
+See ad details
+Barkyn
+Sponsored
+O tempo não se recupera. Mas podes protegê-lo.
+
+Core 15 cuida da nutrição do teu cão em 4 sistemas de saúde essenciais: 15 ingredientes funcionais, carne como primeiro ingrediente, formulado por veterinários.
+Desde 0,33€ por refeição, entregue à tua porta.
+Consistência protege o tempo que mais importa.
+Não é apenas ração
+Learn More
+​
+Active
+Library ID: 1609314320163625
+Started running on May 22, 2026 · Total active time 21 hrs
+Platforms
+​
+​
+​
+​
+This ad has multiple versions
+​
+EU transparency
+​
+Open Dropdown
+​
+See ad details
+Barkyn
+Sponsored
+Se fosse evitável… perdoaria-se a si mesmo?
+A prevenção é estruturada.
+• Nutrição para longevidade
+• Módulos de reforço
+• Monitorização contínua
+• Sistema apoiado por veterinários
+Proteja o seu cão agora
+Learn More
+​
+Active
+Library ID: 957243927185443
+Started running on May 22, 2026 · Total active time 20 hrs
+Platforms
+​
+​
+​
+​
+This ad has multiple versions
+​
+EU transparency
+​
+Open Dropdown
+​
+See ad details
+Barkyn
+Sponsored
+Mudou a alimentação do seu cão nos últimos 3 anos?
+Porque o corpo dele mudou.
+
+• Nutrientes ajustados à fase de vida
+• Reforço das articulações e mobilidade
+• Estabilização digestiva
+• Suporte à barreira da pele
+A proteção deve evoluir com ele.
+Learn More
+System status
+Ad Library APIAbout ads and data usePrivacyTermsCookies
+Meta © 2026 | English (US)

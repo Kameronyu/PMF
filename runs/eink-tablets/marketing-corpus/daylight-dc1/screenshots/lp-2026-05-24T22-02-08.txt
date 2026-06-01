@@ -1,0 +1,252 @@
+URL: https://daylightcomputer.com/blog/screen-flicker-101
+TITLE: Daylight | Light Flicker — Why your screen turning on & off 500 times a second is not good for your brain | Daylight Blog
+FETCHED: 2026-05-24T22:02:11.673Z
+
+Home
+Product
+FAQ
+ORDER NOW
+
+Newsletter
+
+GET UPDATES · NO SPAM
+
+Newsletter
+
+Sign up for updates, guides and more resources. No spam.
+
+SUBSCRIBE
+Table of Contents
+1 ·Intro
+2 ·A silent epidemic in a LED-driven world
+2.1 ·Flicker: An invisible issue
+3 ·What is flicker?
+4 ·What causes flicker in smartphones and computers?
+5 ·PWM Flicker on OLED screens vs LCD screens
+5.1 ·The health risk of flickering devices
+6 ·Other causes of flicker
+6.1 ·Temporal dithering (aka frame rate control)
+6.2 ·Amorphous Silicon (a-Si) Thin Film Transistor (TFT) Backplanes
+7 ·The Daylight Computer: 100% Flicker Free
+7.1 ·How the DC-1 achieves a flicker free display:
+8 ·Our eye-strain pilot study
+9 ·Our favorite ways to reduce digital eye strain
+10 ·Dive deeper with our curated resources
+April 23, 2025 • By Tristan Scott • 12 min read
+Light Flicker — Why your screen turning on & off 500 times a second is not good for your brain
+AND WHY WE CREATED A FLICKER FREE COMPUTER
+
+Screen flicker is a subtle and often overlooked cause of eye strain that many of us deal with daily. We understand this issue firsthand and are working hard to solve it, which is why we build for a different, more caring screen technology. This guide will help you understand screen flicker, how it affects you, and why better screen technology can make a real difference.
+
+A silent epidemic in a LED-driven world
+
+Tired eyes and a drained mind are almost a universal feeling at the end of a work day. That is, if you work a job that requires you to be in front of a computer screen all day… which today is most of us.
+
+Slow motion shows flicker: It's not just screens; nearly all LED environments could flicker.
+
+"Digital eye strain" refers to the negative symptoms (dry eyes, blurred vision, headaches, eye fatigue, light sensitivity, neck pain, etc.) that arise from use of digital devices for a prolonged period of time. It is also known as computer vision syndrome. Numbers are hard to pin down for such a commonly occurring issue, but pre COVID (2020) researchers estimated up to 70% prevalence in modern society.
+
+Since COVID-19, things have gotten much worse.
+
+"Digital eye strain has been on the rise since the beginning of the COVID-19 pandemic. An augmented growth pattern has been experienced with prevalence ranging from 5 to 65% in pre-COVID-19 studies to 80–94% in the COVID-19 era. The sudden steep increase in screen and chair time has led way to other silent pandemics like digital eye strain, myopia, musculoskeletal problems, obesity, diabetes etc."
+
+The most common cause outlined by the researchers compiling these digital eye strain reviews is excessive screen time. And they outline the reason for screen time being an issue for the following reasons:
+
+Technological devices being in a short field of vision
+Devices causing a reduced blink rate
+Poor ergonomics
+
+These are certainly all reasonable causes to highlight, but from our perspective two other key potential causes of digital eye strain are missing: screen flicker and blue light.
+
+Multiple studies show that blue light in isolation can cause mitochondrial dysfunction and oxidative stress in the retina. To learn more about blue light, its potentially harmful effects, and how to mitigate them, read our "Definitive Guide on Blue Light".
+
+In this discussion we are going to focus on screen flicker only.
+
+FLICKER: AN INVISIBLE ISSUE
+
+Flicker could be one of the most underrated stressors to our biology, as it is something we are exposed to constantly due to the nature of modern lighting and screens. It is widely agreed upon by both electrical/electronic engineers and scientific researchers that light flicker can cause:
+
+Headaches, eye strain, blurred vision and migraines
+Aggravation of autism symptoms in children
+Photo epilepsy
+
+This is documented in the Institute of Electrical and Electronics Engineers (IEEE) 1789 standard for best practice in LED lighting applications, amongst other scientific reviews.
+
+The P1789 committee from IEEE identified the following major effects of flicker:
+
+Photo epilepsy
+Increased repetitive behaviour among people suffering from autism
+Migraine or intense paroxysmal headache
+Asthenopia (eye strain); including fatigue, blurred vision, headache and diminished sight-related task performance
+Anxiety, panic attacks
+Vertigo
+
+Light flicker is pervasive, mainly due to the ubiquitous nature of LEDs in our modern indoor work environments. We are being exposed to light flicker constantly from both light bulb sources and the screens that we stare at all day. This is a main reason why indoor, screen based work seems so draining. The good news is that this can be avoided (from an engineering perspective).
+
+What is flicker?
+
+We must first understand what "flicker actually is" before we can discuss how to avoid it or how to engineer flicker free light solutions.
+
+In its most simple form, flicker can be defined as "a rapid and repeated change in the brightness of light over time (IEEE - PAR1789)".
+
+Flicker can be easily conceptualized when it is visible, however the flicker we are talking about in regards to modern lighting & LEDs is unfortunately invisible to the human eye…which is part of the problem.
+
+Most humans are unable to perceive flicker in oscillation rates above 60-90Hz (60-90 cycles per second). When we can't see something, we have a much more challenging time as a species grasping its effect on how we feel. The above mentioned health effects are directly related to the invisible flicker in terms of its effects on our biology. We can't see it, but our eyes and our brains react to it.
+
+Slow-motion footage comparing DC-1's DC Dimming versus regular PWM Dimming.
+
+For this article, we want to focus specifically on the flicker coming from LEDs used in modern personal electronics. This type of flicker can be shown in the above video of multiple smartphones being filmed with a slow motion camera.
+
+What causes flicker in smartphones and computers?
+
+There are a few different characteristics of a modern electronic display that cause flicker, but the main culprit is something called "PWM dimming".
+
+PWM (Pulse Width Modulation) is an electronics control mechanism that uses pulsed signals as the LED driver function to control the brightness of the device display.
+
+PWM dimming has become the standard way to drive LEDs because it has specific advantages when it comes to retaining color consistency at lower brightness, and is also typically more power efficient. In a PWM dimming application, the diodes are being modulated to turn on and off very rapidly (faster than our eyes can perceive) to reduce the overall appearance of brightness of the light emission of the LEDs (aka luminance).
+
+Brightness control in regular devices is just rapid flickering that looks steady to our eyes.
+
+The lower the brightness setting, the longer the "off time". The "duty cycle" refers to the ratio of the LED being modulated "on" vs the total period of the cycle. Higher screen brightness setting = higher % duty cycle = more "time on" for the LED. This can be visualized in the graphic below.
+
+PWM dimming controls brightness by quickly pulsing the backlight on and off.
+
+PWM dimming has been chosen as the industry standard because of the intrinsic characteristics of the semiconductors in a light-emitting diode (LED) making it challenging to retain color consistency when modulating output illuminance with direct current, also known as Constant Current Reduction (CCR). CCR or "DC dimming" can utilize simpler control circuitry, but at the cost of less precision over the LED performance, especially at low brightness/luminance settings. PWM dimming can also save on overall power consumption.
+
+DC Dimming maintain consistent light output by adjusting direct electrical current.
+
+The downside of PWM dimming is obvious when you see the slow motion videos of the implementation in smartphone displays. The less obvious downside is that a PWM dimmed light means that we are consuming light at its peak output no matter the brightness setting. Because PWM is turning the light on/off constantly, the "ON" portion is always at peak intensity. This combined with the imbalanced light spectrum (blue heavy) can further exacerbate potential concerns of negatively affecting eye health and sleep quality.
+
+The question we must ask then: is it more important for better LED and electronics performance, or is it more important to have screens that are not causing immense stress to our biology?
+
+PWM Flicker on OLED screens vs LCD screens
+
+Not all PWM flicker is created equal. The flicker frequency used for PWM dimming is directly related to how potentially stressful it can be to our eyes and brains. It is well agreed upon that the lower the frequency is, the more it can stress us out and cause eye strain. This is because at a high enough frequency, the oscillations are happening so rapidly that your brain basically perceives them as a continuous signal.
+
+The "risk factor" of flicker is also dependent on the modulation % (similar to duty cycle) of the flicker as well, but since we all use our devices across different brightness settings and modulation % 's, it is best to focus on the frequency as the independent variable in our control.
+
+Left: Non-PWM Flicker Device | Right: PWM Dimming Device.
+
+Up to and including the iPhone 11, liquid crystal displays (LCD) were the standard for smartphones. A big switch was made to OLED display technology and the tech giants have never looked back. When it comes to PWM dimming frequency, there was a big shift when this swap occurred:
+
+Most LCD display use a PWM frequency of 1000Hz+ or no PWM at all.
+Nearly all OLED smartphone use a PWM frequency of 240Hz or 480Hz.
+THE HEALTH RISK OF FLICKERING DEVICES
+
+So why don't OLED screens use higher PWM frequencies? Because of the nature of OLEDs being controlled as singular pixels, they need the lower PWM frequency to maintain that extremely precise color consistency at low brightness settings. This is of course why they use PWM in the first place.
+
+According to the IEEE1789 flicker risk chart for negative health effects, a 480Hz PWM smartphone (iPhone 15 Pro) would be high risk at any level above 40% modulation and a 240Hz PWM phone (Google Pixel 7) would be high risk above 20%. Whereas a phone that used 1000Hz-2000Hz PWM frequency (Nothing, Xiaomi 15) would only be "low risk".
+
+California law (Title 24), requires that LEDs used in certain applications have a "reduced flicker operation," meaning the percent amplitude modulation (flicker) must be less than 30% at frequencies below 200 Hz → The Google Pixel 7, Galaxy S23 and many iPhones operate at 240Hz and and 60-95% flicker...just above the legal limit!
+The report that recommended these levels states that: "Excessive flicker, even imperceptible flicker, can have deleterious health effects, and lesser amounts can be annoying or impact productivity."
+
+For PWM frequencies above 3000Hz, there is "no risk" according to IEEE1789. If you have ever felt that staring at your iPhone is far more "straining on the eyes" compared to your MacBook, the PWM flicker is likely a large reason for that (alongside the size of the display itself and distance held from the eyes)...because MacBooks have an LCD display and a PWM flicker frequency of 10-20kHz. At that PWM frequency, your brain is perceiving the oscillating light as a continuous signal.
+
+Other causes of flicker
+
+Although PWM dimming is widely agreed upon as the main cause of light flicker in modern consumer electronics displays, it is not the only cause. There are two other potential causes of light flicker we are aware of:
+
+TEMPORAL DITHERING (AKA FRAME RATE CONTROL)
+"Pixel" dithering is a technique used to produce more colors than what a display's panel is capable of by rapidly changing between two different pixel colors. This technique unlocks a tremendous amount of more color possibilities - for example showing colors with 10 bit color depth results in billions of colors vs an 8 bit color depth results in millions of colors. Temporal dithering helps bridge the gap for 8 bit color depth displays.
+OLED displays are more likely to have better (10-bit) color depth vs LCD displays but use of temporal dithering can certainly vary across display technologies.
+Temporal dithering example (video)
+AMORPHOUS SILICON (A-SI) THIN FILM TRANSISTOR (TFT) BACKPLANES
+Most commercial displays use a-Si TFT semiconductor technology in their backplanes of their LCD panels.
+This technology works well, but can have a high amount of photo-induced leakage current under back light illumination conditions, which can cause non uniformity of the light output and flicker.
+In simple language, the standard a-Si transistors are less "efficient" in a backlight application…which can lead to inconsistent light output and thus flicker.
+The Daylight Computer: 100% Flicker Free
+
+The DC-1 was designed and built purposefully to be flicker free. We wanted to provide a solution both for those suffering with severe eye strain and also to prevent negative optical and cognitive repercussions of flicker for any end consumer.
+
+HOW THE DC-1 ACHIEVES A FLICKER FREE DISPLAY:
+Using DC dimming instead of PWM dimming
+The most deliberate change made in our electrical design was centered around using a DC/CCR LED driver (aka Constant Current Reduction) instead of a PWM driver. This means that there is no pulsed circuit control around our LED backlight, and therefore no flicker from PWM lightning control.
+Has zero temporal dithering, as is a monochrome display
+The benefit of being black and white is there is no need to have intense pixel switching to create the mirage of billions of different color combinations.
+Uses Indium Gallium Zinc Oxide (IGZO) TFT Technology
+New semiconductor technology that provides better and more efficient performance vs a-Si TFT panels. Results in no flicker at the transistor level.
+Verified by light experts to be flicker free
+"Flicker testing yielded a perfect result using my highly sensitive audio-based flicker meter and the photodiode based FFT testing method: not even a trace of light modulation could be demonstrated with both methods!" — Dr. Alexander Wunsch (M.D., P.hD), Light Scientist
+
+This commitment to a flicker-free experience isn't just theoretical; it's changing lives. We're incredibly moved by stories from users like Tiffany and Juan Diego, who found relief and regained possibilities with the DC-1:
+
+For someone with eye disability, the DC-1 is a dream device. The display is so soft and smooth on my eyes that I was able to take my life back off of hold and return to medical school after a multi year absence.
+
+— Tiffany Yang, Medical student
+
+It took a couple of weeks to transition all my work screen time to the DC-1, but when I did, my eye strain completely went away. Plus, it let me work outside on my terrace.
+
+— Juan Diego
+
+Our eye-strain pilot study
+
+Here at Daylight, we are all about proof of work. That is why we have already kicked off an initial pilot study to see if the DC-1 is actually more "eye friendly" than standard consumer electronic devices…specifically for those suffering from severe digital eye strain.
+
+We have partnered with Dr. Michael Destefano, a neuro-optometrist at the Visual Symptoms Treatment Center in Illinois, to coordinate this pilot study.
+
+MORE PARTICIPANTS NEEDED
+
+Do you suffer from severe digital eye strain, computer vision syndrome, or visual snow syndrome? If you are interested in trying a DC-1 for 30 days as part of the Eye Strain Pilot Study, please send an email to drdestefanoOD@gmail.com with a background on your visual affliction.
+
+Our favorite ways to reduce digital eye strain
+
+Cutting screen time is not always possible, so here are some options that can help:
+
+Use DC dimming devices whenever possible
+Try minimizing screen time on your smartphone, utilizing a PWM laptop instead
+Try switching to an LCD smartphone or OLED smartphone with a high PWM frequency
+Turn "White Point" mode ON on your smartphone to increase the duty cycle and reduce the PWM dimming effect
+Dive deeper with our curated resources
+RESEARCH
+Potential Biological and Ecological Effects of Flickering Artificial Light - PMC
+
+Research shows that animals can detect flicker in common lighting that humans cannot see, which may affect their behavior and well-being in ways we had not considered.
+
+RESEARCH
+Light Emitting Diode Lighting Flicker, its Impact on Health and the Need to Minimise it
+
+The existing technologies in Light Emitting Diode (LED) lighting sometimes cause flicker at frequencies that may have adverse health effects.
+
+RESEARCH
+Digital Eye Strain- A Comprehensive Review
+
+A comprehensive review of digital eye strain, its prevalence, risk factors, and management strategies in the modern digital era.
+
+VIDEO
+Nick Sutrich (Youtube) - Screen PWM Testing and Reviews
+
+YouTube channel dedicated to testing and reviewing screens for PWM flicker, helping users find flicker-free displays.
+
+WEBSITE
+Eye Phone Review - Screen Health Reviews
+
+Independent reviews focusing on smartphone displays and their impact on eye health, including PWM measurements and flicker analysis.
+
+RESEARCH
+Flicker Measurement NEMA77 and IEEE1789 White Paper
+
+Technical white paper from Signify discussing flicker measurement standards and their implications for LED lighting and displays.
+
+ORDER NOW
+
+Ships within 3-5 business days
+
+© 2026 • Daylight Computer Co. • Daylight is a Public Benefit Co.
+
+Daylight Computer operates on behalf of JANGLE INNOVATIONS INC
+
+Privacy Policy
+•
+Terms of Service
+NAVIGATION
+Home
+Product
+Blog
+FAQ
+WHO WE ARE
+
+A more caring computer company
+
+SOCIALS
+GET UPDATES
+GET UPDATES

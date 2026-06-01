@@ -1,0 +1,20 @@
+# mudita
+brand_query: We Are Mudita
+status: ok
+resolved_advertiser: NONE
+active_ad_count: n/a
+library_ids_loaded: 0
+
+TYPEAHEAD CANDIDATES:
+  357682101356773 | score=15.0 | Mudita / @wearemudita · 11.1K follow this · Product/service / @wearemudita · 34.7K followers
+  100229211758243 | score=0.0 | Muditam Ayurveda / @muditamayurveda · 4.6K follow this · Health & wellness website / @muditam_ayurveda · 42.6K followers
+  215709181888186 | score=0.0 | Muditayoga Ashtanga vinyasa Yoga Flow / @Muditayoga · 4.6K follow this · Yoga Studio / @muditayogabudapest · 906 followers
+  239778929216405 | score=15.0 | Mudita / 89 follow this · Clothing (Brand) / @mudita.paris · 4K followers
+  420564864483003 | score=0.0 | Traditional Asiana Mudita / 3.3K follow this · Digital creator
+  478414289317652 | score=0.0 | Mudita Gifts - Thoughtful Gift Boxes / @muditagifts · 958 follow this · Gift Shop / @muditagifts · 1.1K followers
+  726036230589999 | score=0.0 | Mudita Joga / 1.4K follow this · Yoga Studio / @mudita_joga_bielsko · 296 followers
+  106065518665813 | score=0.0 | Mudita Kapoor / @MuditaKapoorINC · 14.8K follow this · Politician
+  120229307677953 | score=0.0 | Mudita Brewery / @muditabrewery · 586 follow this · Brewery / @muditabrewery · 1.8K followers
+  103738418985627 | score=0.0 | Mudita PMU / 172 follow this · Beauty, Cosmetic & Personal Care / @mudita.pmu.rotterdam · 1.1K followers
+
+--- ADS DUMP ---

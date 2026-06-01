@@ -1,0 +1,66 @@
+# brick-getbrick
+brand_query: getbrick
+status: ok
+resolved_advertiser: Get Bricky (pageID 110577497444369, 582 followers)
+active_ad_count: 0
+library_ids_loaded: 0
+
+TYPEAHEAD CANDIDATES:
+  110679378676446 | score=15.0 | Brick - Take Back Your Time / 5.6K follow this · Software Company / @getbrick  /  · 186.1K followers
+  235579549636554 | score=15.0 | brickd / @getbrickdapp · 12.6K follow this · Information Technology Company / @getbrickdapp · 12.7K followers
+  157549811062816 | score=45.0 | Get Brick Capital / @GetBrickCapital · 2K follow this · Loan Service / @getbrickcapital · 136 followers
+  110577497444369 | score=60.0 | Get Bricky / @getbricky · 582 follow this · Brand / @getbricky · 475 followers
+  512223928629866 | score=0.0 | Brickle / 6 follow this · Education website / @get_brickle · 9 followers
+  103850494337920 | score=45.0 | GetBrickly / 5 follow this · Games/toys
+  114661931730303 | score=45.0 | getbrickd.up / @getbrickd.up · 2.3K followers
+  176116608921356 | score=45.0 | get_bricked_jc / @get_bricked_jc · 1.2K followers
+  186773921177926 | score=45.0 | getbrickdup / @getbrickdup · 13 followers
+  206658145871217 | score=45.0 | getbrickdapp / @getbrickdapp · 12.7K followers
+
+--- ADS DUMP ---
+Meta Ad Library
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+​
+All
+​
+​
+​
+​
+All ads
+​
+Search by keyword or advertiser
+​
+​
+Get Bricky
+Ads
+About
+Log in
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+System status
+Subscribe to email updates
+FAQ
+About ads and data use
+Privacy
+Terms
+Cookies
+Filters
+Sort
+​
+Sort by
+Active status: Active ads
+Remove
+​
+No ads match your search criteria
+Remove or adjust any filters you've applied to get different results.
+Clear filters
+View search tips.
+
+System status
+Ad Library APIAbout ads and data usePrivacyTermsCookies
+Meta © 2026 | English (US)

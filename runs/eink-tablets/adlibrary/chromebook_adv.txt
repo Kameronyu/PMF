@@ -1,0 +1,66 @@
+# chromebook
+brand_query: Chromebook
+status: ok
+resolved_advertiser: Chromebook (pageID 230566887637052, 8000 followers)
+active_ad_count: 0
+library_ids_loaded: 0
+
+TYPEAHEAD CANDIDATES:
+  230566887637052 | score=115.0 | Chromebook / @Chromebook · 8K follow this · Product/service
+  399988413449350 | score=65.0 | Chromebook / @chromebook.net · 1.9K follow this · Fan page
+  101116895266542 | score=100.0 | Chromebook / 1 follower · E-commerce website
+  110264065480335 | score=100.0 | Chromebook / 0 follow this · Games/toys
+  122097425822017049 | score=100.0 | Chromebook / Profile
+  555003711018925 | score=37.0 | Obaazaq Bukka N Chromebook Store / @obaazaqbukkachromebook · 194 follow this · Food delivery service
+  138838013522115 | score=45.0 | Chromebook Classroom / @chromebookclassroom · 38.2K follow this · Educational Consultant
+  113559711328926 | score=60.0 | Chromebooks R US / @CHROMEBOOKSRUS · 6.3K follow this · Computer Store / @chromebooksrus · 2.9K followers
+  170059726184598 | score=37.0 | Kabayan's Chromebook Direct Supplier / 45.1K follow this · Computer Store
+  100208875547463 | score=37.0 | PC, MacBook, Chromebook à vendre / @chromebookshop · 16.9K follow this · Hardware Store
+
+--- ADS DUMP ---
+Meta Ad Library
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+​
+All
+​
+​
+​
+​
+All ads
+​
+Search by keyword or advertiser
+​
+​
+Chromebook
+Ads
+About
+Log in
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+System status
+Subscribe to email updates
+FAQ
+About ads and data use
+Privacy
+Terms
+Cookies
+Filters
+Sort
+​
+Sort by
+Active status: Active ads
+Remove
+​
+No ads match your search criteria
+Remove or adjust any filters you've applied to get different results.
+Clear filters
+View search tips.
+
+System status
+Ad Library APIAbout ads and data usePrivacyTermsCookies
+Meta © 2026 | English (US)

@@ -1,0 +1,66 @@
+# apple-pencil
+brand_query: Apple Pencil
+status: ok
+resolved_advertiser: Apple Pencil (pageID 301363683811269, 699 followers)
+active_ad_count: 0
+library_ids_loaded: 0
+
+TYPEAHEAD CANDIDATES:
+  301363683811269 | score=115.0 | Apple Pencil / 699 follow this · Product/service
+  327387637117187 | score=115.0 | Apple Pencil / 7 follow this · Electronics / @sincere_tech · 0 followers
+  120131881023954 | score=115.0 | Apple Pencil / 2 follow this · Grocery Store
+  101178786025429 | score=100.0 | Apple pencil / 1 follower · Local & travel website
+  269808516212767 | score=60.0 | Apple Pencil Đà Nẵng / 1.3K follow this · Electronics
+  641476059303924 | score=-35.0 | Applez Pencil Drawings Profile Pictures. / 1.8K follow this · Artist
+  231075886754838 | score=22.0 | Sửa Apple Pencil Đà Nẵng / @suapencildanang · 1.1K follow this · Appliance Repair Service
+  172409765964103 | score=0.0 | Natraj pencil packing Jobs Male / female Apple / 379 follow this · Jobs & Occupations
+  113159646751961 | score=0.0 | Apples and Pencils / @Mr.Hines.Daily.Phonics · 199 follow this · Education
+  181541951715016 | score=25.0 | รับซ่อม ซื้อขาย Apple Pencil Thailand / @Allinnewstech · 164 follow this · Science, Technology & Engineering
+
+--- ADS DUMP ---
+Meta Ad Library
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+​
+All
+​
+​
+​
+​
+All ads
+​
+Search by keyword or advertiser
+​
+​
+Apple Pencil
+Ads
+About
+Log in
+Ad Library
+Ad Library Report
+Ad Library API
+Branded Content
+System status
+Subscribe to email updates
+FAQ
+About ads and data use
+Privacy
+Terms
+Cookies
+Filters
+Sort
+​
+Sort by
+Active status: Active ads
+Remove
+​
+No ads match your search criteria
+Remove or adjust any filters you've applied to get different results.
+Clear filters
+View search tips.
+
+System status
+Ad Library APIAbout ads and data usePrivacyTermsCookies
+Meta © 2026 | English (US)

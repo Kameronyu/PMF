@@ -1,0 +1,1268 @@
+<!DOCTYPE html><html lang="en" data-bs-theme="light"><head>
+  
+  
+    <title>Diptyx E-Reader | Crowd Supply</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/_marvin/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/_marvin/images/crowd-supply-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Crowd Supply">
+    <link rel="me" href="https://hachyderm.io/@crowdsupply">
+    <link href="/_mvnd/assets/mainCss-CuW57QGO.css" rel="stylesheet">
+  
+  
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.crowdsupply.com/diptyx/diptyx-e-reader">
+  <meta property="og:description" content="An open-source, dual-screen e-reader">
+  <meta property="og:title" content="Diptyx E-Reader">
+  <meta property="og:site_name" content="Crowd Supply">
+    <meta property="og:image" content="https://www.crowdsupply.com/img/d4e7/d965d849-86cc-455f-9c52-b8a7cf20d4e7_open-graph.jpg">
+    <meta property="og:image:alt" content="Diptyx E-Reader">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@crowd_supply">
+  <meta name="twitter:creator" content="@crowd_supply">
+  <meta name="twitter:title" content="Diptyx E-Reader">
+  <meta name="twitter:description" content="An open-source, dual-screen e-reader">
+    <meta name="twitter:image" content="https://www.crowdsupply.com/img/d4e7/d965d849-86cc-455f-9c52-b8a7cf20d4e7_project-main.jpg">
+    <meta name="twitter:image:alt" content="Diptyx E-Reader">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async=""></script><style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style><style id="MJX-SVG-styles">
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+</style></head>
+<body>
+  
+  
+
+  
+    
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-cs">
+    <div class="container-lg">
+      <a class="navbar-brand" href="/">
+        <span class="navbar-logo">Crowd Supply</span>
+      </a>
+      <!--
+      <label for="navbar-toggler-css" class="navbar-toggler">
+        <span class="navbar-toggler-icon"></span>
+      </label>
+      <input type="checkbox" id="navbar-toggler-css">
+      -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-cs-main" aria-controls="navbar-cs-main" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbar-cs-main">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="/browse">Browse</a></li>
+          <li class="nav-item"><a class="nav-link" href="/apply">Apply</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+        </ul>
+
+        <div class="navbar-right d-flex justify-content-end">
+          <form method="GET" action="/search">
+            <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search">
+          </form>
+          <ul class="navbar-nav">
+            <li class="nav-item nav-item-avatar">
+              <a class="nav-link" href="/account">
+                  <img class="img-avatar" src="/_marvin/images/default-avatar.png" alt="Unknown Avatar" width="34" height="34">
+                <span class="nav-label-extra">My Account</span>
+              </a>
+            </li>
+            <li class="nav-item nav-item-cart">
+              <a class="nav-link" href="/cart">
+                <i class="bi bi-cart"></i> <span class="nav-label-extra">Cart</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+  <section>
+    <div class="container-lg">
+      
+  <p class="float-end text-end">
+    <i class="bi bi-people-fill"></i>
+    <a href="/diptyx">Diptyx</a>
+    <br>
+        <i class="bi bi-tag-fill"></i>
+      <a href="/e-paper">E-Paper</a>
+        <br>
+        <i class="bi bi-tag-fill"></i>
+      <a href="/mobile-devices">Mobile Devices</a>
+  </p>
+
+      
+  <h1><a href="/diptyx/diptyx-e-reader">Diptyx E-Reader</a></h1>
+  <h3>
+    An open-source, dual-screen e-reader
+</h3>
+
+      <div class="row">
+        <div class="col-xl-8">
+          
+      
+  
+  <div class="ratio ratio-16x9">
+    <iframe src="https://www.youtube.com/embed/063oSeObUXo?rel=0&amp;modestbranding=1" frameborder="0" allowfullscreen=""></iframe>
+  </div>
+
+
+    
+    
+    <a class="js-carousel-image d-none" href="/img/d4e7/d965d849-86cc-455f-9c52-b8a7cf20d4e7_gallery-lg.jpg" data-thumbnail-path="/img/d4e7/d965d849-86cc-455f-9c52-b8a7cf20d4e7_gallery-thumb.jpg">
+      <img alt="Diptyx E-Reader" height="900" src="/img/d4e7/d965d849-86cc-455f-9c52-b8a7cf20d4e7_aa-md.jpg" width="1600">
+    </a>
+
+
+
+        </div>
+        <div class="col-xl-4">
+          
+  <div class="row">
+
+      
+  <div class="col-xl-12 col-md-6 mt-md-3 mt-xl-0">
+    
+        
+  <div class="project-stats-tile">
+    <p class="project-pledged">
+      <span><sup>$</sup>86,610</span>&nbsp;raised
+    </p>
+    <p class="project-goal">
+      of&nbsp;<span><sup>$</sup>27,000</span>&nbsp;goal
+    </p>
+    <div class="status-bar status-bar-primary">
+      <span class="status-bar-left">
+    320<sup>%</sup> Funded!
+</span>
+      <span class="status-bar-right">Order Below</span>
+    </div>
+    <div class="factoids">
+      
+  <div class="fact ">
+      <a href="/diptyx/diptyx-e-reader/updates">
+      <span class="fact-number">9</span><br>
+      <span class="fact-label">updates</span>
+      </a>
+  </div>
+
+      
+    <div class="fact">
+        <a href="/diptyx/diptyx-e-reader/crowdfunding">
+      <span class="fact-number">Jan 22</span><br>
+      <span class="fact-label">funded on</span>
+        </a>
+    </div>
+
+      
+  <div class="fact ">
+      <a href="/diptyx/diptyx-e-reader/backers">
+      <span class="fact-number">247</span><br>
+      <span class="fact-label">backers</span>
+      </a>
+  </div>
+
+    </div>
+  </div>
+
+      
+  </div>
+
+      
+  <div class="col-xl-12 col-md-6">
+    
+        
+  <div class="text-center mt-3">
+    
+      <p>Limited items in stock. Order below.</p>
+    <h4>
+  
+  
+      <sup>$</sup>249
+
+</h4>
+    <p class="mt-3"><a class="btn btn-cta" href="#products">
+  
+    View Purchasing Options
+</a></p>
+  </div>
+
+
+      
+  </div>
+
+
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+    
+    <section class="section-bordered section-user-interactions">
+      <div class="container container-narrow">
+        
+    <h4>Recent Updates</h4>
+    <ul class="list-unstyled">
+        <li class="mb-1 mt-1">
+          
+    <span class="badge badge-calendar bg-secondary float-end">Apr 01, 2026</span>
+
+          <a href="/diptyx/diptyx-e-reader/updates/production-progress-report">Production Progress Report</a>
+        </li>
+        <li class="mb-1 mt-1">
+          
+    <span class="badge badge-calendar bg-secondary float-end">Feb 25, 2026</span>
+
+          <a href="/diptyx/diptyx-e-reader/updates/preparing-for-production">Preparing for Production</a>
+        </li>
+        <li class="mb-1 mt-1">
+          
+    <span class="badge badge-calendar bg-secondary float-end">Jan 22, 2026</span>
+
+          <a href="/diptyx/diptyx-e-reader/updates/the-final-stretch">The Final Stretch</a>
+        </li>
+        <li class="mb-1 mt-1">
+          
+    <span class="badge badge-calendar bg-secondary float-end">Jan 14, 2026</span>
+
+          <a href="/diptyx/diptyx-e-reader/updates/the-diptyx-firmware">The Firmware</a>
+        </li>
+    </ul>
+      <div class="mb-3">
+        <a href="/diptyx/diptyx-e-reader/updates">
+            View all project updates
+        </a>
+      </div>
+
+        
+      <form action="/diptyx/diptyx-e-reader/signup" method="POST">
+          <input class="form-fontrol" id="signup-email" maxlength="320" name="email" placeholder="email@example.com" type="email">
+          <div class="input-group mb-3">
+            <input class="form-control" id="993b2a3ce422c3a93a65530a4a1755e6" maxlength="320" name="993b2a3ce422c3a93a65530a4a1755e6" placeholder="me@example.com" type="email" value="">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </span>
+          </div>
+        Sign up to receive updates.
+      </form>
+
+      </div>
+    </section>
+
+
+  
+
+    
+  <section class="section-markdown">
+      <p><strong>Diptyx E-Reader</strong> is an ESP32-based, open-source e-reader. Its unique dual-screen design allows it to close like a book, protecting the screens without requiring a case, making it perfect for reading on the go. Automatic standby mode and e-ink displays enable the device to run for weeks on a single charge, while it powers up in seconds with the press of a button. Fully open-source, Diptyx E-Reader is easy to repair and customize, letting you read whenever and wherever you want, forever.</p>
+<h2 id="own-your-device-own-your-books">Own Your Device, Own Your Books</h2><p>Diptyx E-Reader runs on custom, open-source firmware designed specifically for reading ebooks. Simply upload your digital books as EPUB files through the USB Type-C connector, and start reading.</p>
+<p>It features no DRM, allowing you to read books from any digital bookstore, as long as they are in EPUB format. That enables full offline use anywhere you go: no internet connection, accounts, or cloud services are required.</p>
+
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/3dde/77578e79-eafd-4c9f-a560-061209433dde_gallery-lg.jpg" data-thumbnail-path="/img/3dde/77578e79-eafd-4c9f-a560-061209433dde_gallery-thumb.jpg">
+      <img alt="" src="/img/3dde/77578e79-eafd-4c9f-a560-061209433dde_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+<p>When you’re done reading, the device automatically enters deep sleep mode, reducing power consumption to an absolute minimum. Its stellar power management, two large batteries, and efficient circuitry allow for weeks of use on a single charge. In standby, the device can last for months, but it can still be fully powered off if you need to save every microamp.</p>
+
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/9686/12db5767-203a-46cd-be40-0691a9c39686_gallery-lg.jpg" data-thumbnail-path="/img/9686/12db5767-203a-46cd-be40-0691a9c39686_gallery-thumb.jpg">
+      <img alt="" src="/img/9686/12db5767-203a-46cd-be40-0691a9c39686_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+<p>Diptyx E-reader is constructed in a unique way: rather than hiding the electronics within the device, the circuit boards are actually put on display as part of the other shell, covered with beautiful art-nouveau illustrations. But don’t worry, The exposed layers contain no active circuits, so even deep scratches won’t affect functionality.</p>
+<h2 id="features-specifications">Features &amp; Specifications</h2><ul>
+<li><strong>Processor:</strong> ESP32-S3-N16R8</li>
+<li><strong>Displays:</strong> 2× 5.83'-inch 648×480 e-ink black &amp; white displays</li>
+<li><strong>Storage:</strong> 2 GB SD card, user-replaceable</li>
+<li><strong>Batteries:</strong> 2× 1500 mAh Li-Po batteries</li>
+<li><strong>Dimensions (closed):</strong> 120×150×14 mm (4.7×5.9×0.6 in)</li>
+<li><strong>Dimensions (opened):</strong> 226×150×14 mm (8.9×5.9×0.6 in)</li>
+<li><strong>Weight:</strong> 300 g (10.5 oz)</li>
+<li><strong>Connector:</strong> USB Type-C for charging and mass storage</li>
+</ul>
+
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/521f/86fc3d98-74f6-4c51-8424-45bada89521f_gallery-lg.jpg" data-thumbnail-path="/img/521f/86fc3d98-74f6-4c51-8424-45bada89521f_gallery-thumb.jpg">
+      <img alt="" src="/img/521f/86fc3d98-74f6-4c51-8424-45bada89521f_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+<h2 id="firmware-user-experience">Firmware &amp; User Experience</h2><p>The Diptyx E-reader firmware is designed to provide the simplest possible reading experience. Starting from power-off, it boots directly into your library of books, which are sorted by author. Of course, if you were reading something the last time you used the device, it will directly open that instead.</p>
+<p>With the physical buttons you can navigate through the pages of the book, and a convenient quick menu is available for scrolling through chapters, toggling dark mode, or jumping to your bookmarks.<br>
+Details on how the book is displayed can be changed in the general settings menu, where you can choose a variety of fonts, tune the line-spacing, and much more. Other device-settings can be customized as well, such as the automatic standby timeout or whether you want to use the internal haptic buzzer.</p>
+<p>Since the device is open-source, the community is free to modify the source-code in whatever way they want. This opens a range of possibilities: activate Wi-Fi functionality to access RSS feeds, create unique custom games, or connect a bluetooth keyboard and make a two-screen writerdeck—the limit is your imagination.</p>
+
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/e1a7/a4e0cc9f-ae81-4112-9aaa-31a476cde1a7_gallery-lg.jpg" data-thumbnail-path="/img/e1a7/a4e0cc9f-ae81-4112-9aaa-31a476cde1a7_gallery-thumb.jpg">
+      <img alt="" src="/img/e1a7/a4e0cc9f-ae81-4112-9aaa-31a476cde1a7_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+<h2 id="comparisons">Comparisons</h2><div class="table-responsive">
+<table class="table table-markdown">
+<thead>
+<tr>
+<th></th><th>Diptyx E-Reader</th><th><a href="https://us.kobobooks.com/products/kobo-clara-bw">Kobo Clara BW</a></th><th><a href="https://www.amazon.com/Kindle-Paperwhite-adjustable-Ad-Supported/dp/B09RD7XM9X">Kindle Paperwhite 11th gen</a></th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="table-info"><strong>Manufacturer</strong> </td><td class="table-info">Diptyx  </td><td class="table-info">Rakuten Kobo </td><td class="table-info">Amazon  </td></tr>
+<tr>
+<td class="table-info"><strong>Ebook File Compatibility</strong> </td><td class="table-info">EPUB  </td><td class="table-info">EPUB, PDF, MOBI </td><td class="table-info">AZW, PDF, MOBI </td></tr>
+<tr>
+<td class="table-info"><strong>Interface</strong> </td><td class="table-info">Physical buttons  </td><td class="table-info">Touch screen  </td><td class="table-info">Touch screen </td></tr>
+<tr>
+<td><strong>Screen Layout</strong></td><td class="table-success">Dual screen  </td><td class="table-danger">Single screen  </td><td class="table-danger">Single screen  </td></tr>
+<tr>
+<td><strong>Screen Area</strong></td><td class="table-success">210 cm² </td><td class="table-danger">109 cm² </td><td class="table-warning">146 cm² </td></tr>
+<tr>
+<td><strong>Frontlight</strong></td><td class="table-danger">No </td><td class="table-success">Yes </td><td class="table-success">Yes </td></tr>
+<tr>
+<td><strong>Open Source</strong></td><td class="table-success">Hardware + Software  </td><td class="table-danger">No  </td><td class="table-danger">No  </td></tr>
+<tr>
+<td><strong>Repairability</strong></td><td class="table-success">Modular </td><td class="table-danger">Glued assembly  </td><td class="table-danger">Glued assembly  </td></tr>
+<tr>
+<td><strong>Battery Capacity</strong></td><td class="table-success">3000 mAh </td><td class="table-danger">1500 mAh  </td><td class="table-warning">1700 mAh  </td></tr>
+<tr>
+<td><strong>Expandable Storage</strong></td><td class="table-success">microSD </td><td class="table-danger">No  </td><td class="table-danger">No </td></tr>
+<tr>
+<td><strong>Wireless Connectivity</strong></td><td class="table-danger">Disabled in stock firmware </td><td class="table-success">Wi-Fi &amp; Bluetooth </td><td class="table-success">Wi-Fi  &amp; Bluetooth  </td></tr>
+<tr>
+<td><strong>Price</strong></td><td class="table-danger">$249  </td><td class="table-success">~$140  </td><td class="table-warning">~$160 </td></tr>
+</tbody>
+
+</table>
+</div>
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/82d1/98c9f0c8-ac20-44c2-aa91-65a4a19982d1_gallery-lg.jpg" data-thumbnail-path="/img/82d1/98c9f0c8-ac20-44c2-aa91-65a4a19982d1_gallery-thumb.jpg">
+      <img alt="" src="/img/82d1/98c9f0c8-ac20-44c2-aa91-65a4a19982d1_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+<h2 id="support-documentation">Support &amp; Documentation</h2><p>Device longevity and right-to-repair are core principles for us. Therefore, we make extensive use of open-source design software: the enclosure is designed in FreeCAD, the electronics are designed in KiCad, and the firmware is developed with VS Code. After the campaign is finished and the design is finalized, these design files will be made open source, making it easy to customize and repair your own device.</p>
+<p>Diptyx E-Reader’s firmware builds on prior open-source work and will be released under the MIT license. We are excited to see what custom software and applications users will develop.</p>
+<h2 id="manufacturing-plan">Manufacturing Plan</h2><p>Many, many prototypes have been constructed during development, but we are happy to say that the design of the Diptyx E-reader is almost finalized. All core hardware functions are working reliably, so production can begin shortly after funding. It has been designed from the ground up for easy production and assembly, whilst keeping it as compact as possible.</p>
+<p>The main circuit boards will be manufactured and assembled by a reputable PCB house. Assembly of the devices, as well as production of the enclosures, will be performed by us, in the Netherlands. In this way we keep the supply chain as small as possible, while making sure every device meets our quality expectations.</p>
+
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/f7bd/0c4f2126-7ece-433f-ac9d-1a9ec9f2f7bd_gallery-lg.jpg" data-thumbnail-path="/img/f7bd/0c4f2126-7ece-433f-ac9d-1a9ec9f2f7bd_gallery-thumb.jpg">
+      <img alt="" src="/img/f7bd/0c4f2126-7ece-433f-ac9d-1a9ec9f2f7bd_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+<h2 id="fulfillment-plan">Fulfillment Plan</h2><p>After the campaign has finished, we can start with the first production run. Depending on the amount of orders, the production will possibly be spread into several smaller batches. We will then package everything up and send it along to Crowd Supply’s fulfillment partner, Mouser Electronics, who will handle distribution to backers worldwide. You can learn more about Crowd Supply’s fulfillment service under <a href="https://www.crowdsupply.com/guide/ordering-paying-shipping-details"><em>Ordering, Paying, and Shipping</em></a> in their guide.</p>
+<h2 id="risks-and-challenges">Risks and challenges</h2><p><strong>Production:</strong> Small scale production is always hard, and we depend on multiple sources of components, international shipping, and new tarifs. To reduce production risks and ensure the longevity of our product, the design uses mostly off-the-shelf components which can be sourced from multiple suppliers. In this way, we can switch suppliers in case there are issues, and replacement parts will be easy to source in the future.</p>
+<p><strong>Software support:</strong> Because EPUB is an open and loosely defined standard, some books may render unexpectedly. We’ll continue refining the firmware with feedback and help from the community to ensure the best possible reading experience.</p>
+
+
+
+<div class="image-single image-single-normal">
+  <div class="image-single-inner image-single-inner-h">
+      
+    <a class="js-carousel-image " href="/img/10ab/8933bc08-057f-4ce8-ad30-f6c05c8910ab_gallery-lg.jpg" data-thumbnail-path="/img/10ab/8933bc08-057f-4ce8-ad30-f6c05c8910ab_gallery-thumb.jpg">
+      <img alt="" src="/img/10ab/8933bc08-057f-4ce8-ad30-f6c05c8910ab_md-xl.jpg" width="1600">
+    </a>
+
+  </div>
+</div>
+
+  </section>
+
+    
+  
+
+    
+    <section id="press">
+      <div class="container container-narrow">
+        <h1 class="mb-3">In the Press</h1>
+          
+      <hr>
+    <div class="row">
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.hackster.io/news/the-next-chapter-in-e-reader-design-54afd318535e"><img alt="" height="75" src="/img/ee94/1d515f69-c563-478e-950d-72937410ee94_press-logo.png" title="Hackster News: The Diptyx E-Reader adds a second E Ink screen for book-like reading, and has an open source design based on the ESP32-S3 for hackability." width="150"></a>
+  </div>
+
+        
+  <div class="col-3 project-press-mention-compact">
+      <a href="https://www.gadgetify.com/diptyx/"><img alt="" height="75" src="/img/ba18/ff06c852-3d4e-4778-be00-861f6076ba18_press-logo.png" title="Gadgetify: The Diptyx E-Reader is different. Not only it is open source but has two screens, so you can read long books more comfortably. " width="150"></a>
+  </div>
+
+    </div>
+
+      </div>
+    </section>
+
+
+      
+  <section id="questions">
+    <div class="container container-narrow">
+      <h1 class="mt-3 mb-3">Ask a Question</h1>
+      <div class="question-buttons">
+        <a class="btn btn-default" href="/contact">
+          <i class="bi bi-question-circle-fill"></i><br>
+          Ask Crowd Supply about an order
+        </a>
+        <a class="btn btn-default" href="/diptyx/diptyx-e-reader/ask-question">
+          <i class="bi bi-question-circle-fill"></i><br>
+          Ask Diptyx a technical question
+        </a>
+        <a class="btn btn-default" href="/field-reports">
+          <i class="bi bi-newspaper"></i><br>
+          Submit a field report about how you used this project
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+      
+  <section id="products" class="section-color section-produced-by">
+    <div class="container">
+      <div class="text-center">
+        <p>Produced by <a href="/diptyx">Diptyx</a> in Lisse, Netherlands.</p>
+        <p>Sold and shipped by Crowd Supply.</p>
+      </div>
+    </div>
+  </section>
+
+      
+    <section class="section-bordered">
+      <div class="container">
+          
+  <div class="product" id="product-4517">
+    <div class="row">
+      <div class="col-sm-4">
+        <img alt="Diptyx E-Reader" height="900" src="/img/d4e7/d965d849-86cc-455f-9c52-b8a7cf20d4e7_md-fixed-xl.jpg" title="Diptyx E-Reader" width="1600">
+      </div>
+      <div class="col-sm-8">
+        <h3>Diptyx E-Reader</h3>
+
+
+        <p>Open-source, dual-screen e-reader</p>
+
+        <div class="product-price-row">
+          <span class="product-price">
+  
+  
+  <sup>$</sup><span class="product-price-number">249</span>
+
+</span>
+            <span class="product-shipping">
+              Free US Shipping / $12 Worldwide
+            </span>
+        </div>
+
+        
+    <p class="product-metadata product-stock-status">Orders placed now ship Sep 30, 2026.</p>
+
+
+
+        <form method="POST" action="/cart/add" class="js-product-form" data-path="/product/stock-status">
+          <input name="product_id" type="hidden" value="4517">
+          <input name="qty" type="hidden" value="1">
+          
+
+          
+        <button type="submit" class="btn btn-block btn-cta">Pre-order</button>
+
+          
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+          
+  <div class="product" id="product-3813">
+    <div class="row">
+      <div class="col-sm-4">
+        <img alt="" height="900" src="/img/f7cf/fbe36544-6068-42ca-8490-5d7a57b1f7cf_md-fixed-xl.jpg" title="USB 3.1 Cable: Type-C to Type-C (100 cm)" width="1600">
+      </div>
+      <div class="col-sm-8">
+        <h3>USB 3.1 Cable: Type-C to Type-C (100 cm)</h3>
+
+          <p>From the <a href="/stewart-connector/usb-cables">USB Cables</a> project.</p>
+
+        <p>A 100 cm cable with a USB Type-C connectors on both ends. No additional shipping charge when ordered with other products.</p>
+
+        <div class="product-price-row">
+          <span class="product-price">
+  
+  
+  <sup>$</sup><span class="product-price-number">19</span>
+
+</span>
+            <span class="product-shipping">
+              $8 US Shipping / $18 Worldwide
+            </span>
+        </div>
+
+        
+      <p class="product-metadata product-stock-status">In stock</p>
+
+
+
+        <form method="POST" action="/cart/add" class="js-product-form" data-path="/product/stock-status">
+          <input name="product_id" type="hidden" value="3813">
+          <input name="qty" type="hidden" value="1">
+          
+
+          
+      <button type="submit" class="btn btn-block btn-cta">Add to Cart</button>
+
+          
+    <!-- -->
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+          
+  <div class="product" id="product-3215">
+    <div class="row">
+      <div class="col-sm-4">
+        <img alt="" height="900" src="/img/78ce/9b5bffb4-0dd5-4fbd-8a92-0ce7b0d278ce_md-fixed-xl.jpg" title="USB 2.0 Cable: Type-C to Type-A (100 cm)" width="1600">
+      </div>
+      <div class="col-sm-8">
+        <h3>USB 2.0 Cable: Type-C to Type-A (100 cm)</h3>
+
+          <p>From the <a href="/stewart-connector/usb-cables">USB Cables</a> project.</p>
+
+        <p>A 100 cm cable with a USB Type-C and a USB Type-A connector.</p>
+
+        <div class="product-price-row">
+          <span class="product-price">
+  
+  
+  <sup>$</sup><span class="product-price-number">8</span>
+
+</span>
+            <span class="product-shipping">
+              $8 US Shipping / $18 Worldwide
+            </span>
+        </div>
+
+        
+    <p class="product-metadata product-stock-status">Orders placed now ship May 13, 2026.</p>
+
+
+
+        <form method="POST" action="/cart/add" class="js-product-form" data-path="/product/stock-status">
+          <input name="product_id" type="hidden" value="3215">
+          <input name="qty" type="hidden" value="1">
+          
+
+          
+      <button type="submit" class="btn btn-block btn-cta">Add to Cart</button>
+
+          
+    <!-- -->
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+      </div>
+    </section>
+
+
+    
+  <section class="section-bordered">
+    <div class="container">
+      <h1 id="team" class="mb-4">About the Team</h1>
+      
+  <div class="row mb-4">
+    <div class="col-sm-3 col-organization-logo">
+      
+        <img alt="" height="140" src="/img/662b/4a9876d7-1ae4-4ff6-9255-79c18bc2662b_orig.svg" title="Diptyx" width="200">
+    </div>
+    <div class="col-sm-9">
+      <h4>
+          <a href="/diptyx">Diptyx</a>
+      </h4>
+      <p>
+  <span class="metadata-with-icon">
+    <i class="bi bi-geo-alt-fill"></i>
+    Lisse, Netherlands
+  </span>
+    &nbsp;·&nbsp;
+    
+  <a href="https://diptyx.dev/" class="metadata-with-icon">
+    <i class="bi bi-globe"></i>&nbsp;diptyx.dev
+  </a>
+
+</p>
+        <p>We design unique portable devices, inspired by technology and art from days gone by.</p>
+    </div>
+  </div>
+
+      
+    <div class="user-tiles">
+        
+  
+  <div class="user-tile">
+    <img alt="" height="196" src="/img/8a7b/32d450f4-34c0-410b-a120-4774aedf8a7b_avatar-xl.jpg" width="196">
+    <div class="user-tile-text">
+        <h5 class="mt-2 text-break">Martijn den Hoed</h5>
+        
+  <a href="https://github.com/MartijndenHoed" class="text-truncate">
+    <i class="bi bi-github"></i>&nbsp;MartijndenHoed
+  </a>
+
+    </div>
+  </div>
+
+    </div>
+
+    </div>
+  </section>
+
+    
+  
+    <section class="section-bordered" data-nosnippet="">
+      <div class="container">
+        <h1 class="mb-4" id="related">See Also</h1>
+
+          
+  <div class="project-row">
+      
+  
+    <a class="project-tile" href="/soldered/inkplate-6" aria-label="Inkplate 6">
+      <img alt="Inkplate 6" height="900" src="/img/acc3/38b8afae-0b7d-4c72-b254-43c5785eacc3_aa-md.jpg" width="1600">
+      <div class="project-tile-overview">
+        <h3>Inkplate 6</h3>
+          <p>Versatile, easy-to-use, Wi-Fi-enabled e-paper display</p>
+      </div>
+
+      
+
+
+      <div class="project-metadata">
+        
+    
+  <div class="stats">
+    <div class="status-bar status-bar-primary">
+      <div>
+    1,308<sup>%</sup> Funded!
+</div>
+        <div>In Stock</div>
+    </div>
+    <div class="factoids">
+      
+  <div class="fact fact-small">
+      <span class="fact-number"><sup>$</sup>130,893</span><br>
+      <span class="fact-label">raised</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">20</span><br>
+      <span class="fact-label">updates</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">966</span><br>
+      <span class="fact-label">backers</span>
+  </div>
+
+    </div>
+  </div>
+
+
+      </div>
+    </a>
+
+      
+  
+    <a class="project-tile" href="/meatpi-electronics/wican" aria-label="WiCAN">
+      <img alt="WiCAN" height="900" src="/img/6d22/2941f95f-cee3-4b94-9a86-67a9abf16d22_aa-md.jpg" width="1600">
+      <div class="project-tile-overview">
+        <h3>WiCAN</h3>
+          <p>Open source, ESP32-C3 CAN adapter with USB, Wi-Fi, and BLE support</p>
+      </div>
+
+      
+
+
+      <div class="project-metadata">
+        
+    
+  <div class="stats">
+    <div class="status-bar status-bar-primary">
+      <div>
+    Funded!
+</div>
+        <div>In Stock</div>
+    </div>
+    <div class="factoids">
+      
+  <div class="fact ">
+      <span class="fact-number"><sup>$</sup>53,719</span><br>
+      <span class="fact-label">raised</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">10</span><br>
+      <span class="fact-label">updates</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">1,014</span><br>
+      <span class="fact-label">backers</span>
+  </div>
+
+    </div>
+  </div>
+
+
+      </div>
+    </a>
+
+      
+  
+    <a class="project-tile" href="/deepsea-developments/deepdeck" aria-label="DeepDeck">
+      <img alt="DeepDeck" height="900" src="/img/2b86/03e79b62-2a59-4cb2-b1f3-8e9323622b86_aa-md.jpg" width="1600">
+      <div class="project-tile-overview">
+        <h3>DeepDeck</h3>
+          <p>Wireless, fully programmable, open source, ESP32 macropad featuring 16 RGB, mechanical, hot-swappable keys and two RGB rotary encoders</p>
+      </div>
+
+      
+
+
+      <div class="project-metadata">
+        
+    
+  <div class="stats">
+    <div class="status-bar status-bar-primary">
+      <div>
+    558<sup>%</sup> Funded!
+</div>
+        <div>In Stock</div>
+    </div>
+    <div class="factoids">
+      
+  <div class="fact ">
+      <span class="fact-number"><sup>$</sup>27,903</span><br>
+      <span class="fact-label">raised</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">8</span><br>
+      <span class="fact-label">updates</span>
+  </div>
+
+      
+  <div class="fact ">
+      <span class="fact-number">313</span><br>
+      <span class="fact-label">backers</span>
+  </div>
+
+    </div>
+  </div>
+
+
+      </div>
+    </a>
+
+  </div>
+
+      </div>
+    </section>
+
+
+
+
+
+  
+    
+  <section class="section-color section-email-signup">
+    <div class="container">
+      <h6>Subscribe to the Crowd Supply newsletter, highlighting the latest creators and projects</h6>
+      <form action="/newsletter/signup" method="POST">
+        <input class="form-fontrol" id="signup-email" maxlength="320" name="email" placeholder="email@example.com" type="email">
+        <div class="input-group">
+          <input class="form-control" id="ecae050a185ecf076817a5510ba96884" maxlength="320" name="ecae050a185ecf076817a5510ba96884" placeholder="email@example.com" type="email">
+          <button type="submit" class="btn btn-dark btn-lg">Subscribe</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+    
+  <footer>
+    <div class="container">
+      <div class="pt-4">
+        <div class="row">
+          <div class="col-6 col-md col-footer-company">
+            <h5>Company</h5>
+            <ul class="list-unstyled">
+              <li><a href="/announcements">Announcements</a></li>
+              <li><a href="/contact">Contact</a></li>
+              <li><a href="/security">Security</a></li>
+              <li><a href="/distributors">Distributors</a></li>
+              <li><a href="/events">Events</a></li>
+              <li><a href="/press">In the News</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md col-footer-terms">
+            <h5>Terms</h5>
+            <ul class="list-unstyled">
+              <li><a href="/terms-of-use">Terms of Use</a></li>
+              <li><a href="/shipping">Shipping</a></li>
+              <li><a href="/returns">Returns</a></li>
+              <li><a href="/privacy-policy">Privacy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md col-footer-nuts">
+            <h5>Nuts &amp; Bolts</h5>
+            <ul class="list-unstyled">
+              <li><a href="/login">Account Login</a></li>
+              <li><a href="/guide">The Crowd Supply Guide</a></li>
+              <li><a href="/apply">Project Application</a></li>
+              <li><a href="/field-reports">Submit a Field Report</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md col-footer-follow">
+            <h5>Follow Us</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="https://discord.gg/7p5huQd">
+                  Discord
+                  <i class="ms-1 bi bi-discord"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/crowd_supply">
+                  Twitter/X
+                  <i class="ms-1 bi bi-twitter-x"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://bsky.app/profile/crowdsupply.bsky.social">
+                  Bluesky
+                  <i class="ms-1 bi bi-bluesky"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/crowdsupply">
+                  Instagram
+                  <i class="ms-1 bi bi-instagram"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/CrowdSupplyTeardown">
+                  YouTube
+                  <i class="ms-1 bi bi-youtube"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://hachyderm.io/@crowdsupply">
+                  Fediverse
+                  <i class="ms-1 bi bi-mastodon"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/company/crowdsupply">
+                  LinkedIn
+                  <i class="ms-1 bi bi-linkedin"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="pt-4 border-top">
+              <p>Based in Portland, Oregon. Accepting projects worldwide.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+
+  
+    
+    <script src="/_mvnd/assets/main-CQ8m-ku3.js" type="module"></script>
+  
+
+
+
+
+
+
+
+<div class="modal fade" id="gallery-modal" aria-hidden="true" tabindex="-1">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <div id="gallery-carousel" class="carousel slide gallery-carousel">
+          <div class="carousel-inner gallery-carousel-inner">
+
+            
+              <div class="carousel-item active">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/d4e7/d965d849-86cc-455f-9c52-b8a7cf20d4e7_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/3dde/77578e79-eafd-4c9f-a560-061209433dde_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/9686/12db5767-203a-46cd-be40-0691a9c39686_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/521f/86fc3d98-74f6-4c51-8424-45bada89521f_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/e1a7/a4e0cc9f-ae81-4112-9aaa-31a476cde1a7_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/82d1/98c9f0c8-ac20-44c2-aa91-65a4a19982d1_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/f7bd/0c4f2126-7ece-433f-ac9d-1a9ec9f2f7bd_gallery-lg.jpg">
+              </div>
+            
+              <div class="carousel-item ">
+                <img class="d-block w-100" alt="" src="https://www.crowdsupply.com/img/10ab/8933bc08-057f-4ce8-ad30-f6c05c8910ab_gallery-lg.jpg">
+              </div>
+            
+
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            
+              <button class="carousel-control-prev" type="button" data-bs-target="#gallery-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#gallery-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            
+          </div>
+
+          
+            <div class="carousel-indicators gallery-carousel-indicators d-none d-sm-block">
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="0" class="active">
+                  <img alt="" src="/img/d4e7/d965d849-86cc-455f-9c52-b8a7cf20d4e7_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="1" class="">
+                  <img alt="" src="/img/3dde/77578e79-eafd-4c9f-a560-061209433dde_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="2" class="">
+                  <img alt="" src="/img/9686/12db5767-203a-46cd-be40-0691a9c39686_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="3" class="">
+                  <img alt="" src="/img/521f/86fc3d98-74f6-4c51-8424-45bada89521f_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="4" class="">
+                  <img alt="" src="/img/e1a7/a4e0cc9f-ae81-4112-9aaa-31a476cde1a7_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="5" class="">
+                  <img alt="" src="/img/82d1/98c9f0c8-ac20-44c2-aa91-65a4a19982d1_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="6" class="">
+                  <img alt="" src="/img/f7bd/0c4f2126-7ece-433f-ac9d-1a9ec9f2f7bd_gallery-thumb.jpg">
+                </a>
+              
+                <a href="#" data-bs-target="#gallery-carousel" data-bs-slide-to="7" class="">
+                  <img alt="" src="/img/10ab/8933bc08-057f-4ce8-ad30-f6c05c8910ab_gallery-thumb.jpg">
+                </a>
+              
+            </div>
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<svg id="MJX-SVG-global-cache" style="display: none;"><defs></defs></svg></body></html>

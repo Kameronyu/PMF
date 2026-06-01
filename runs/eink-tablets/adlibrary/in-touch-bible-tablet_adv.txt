@@ -1,0 +1,12 @@
+# in-touch-bible-tablet
+brand_query: In-Touch Tablets
+status: ok
+resolved_advertiser: NONE
+active_ad_count: n/a
+library_ids_loaded: 0
+
+TYPEAHEAD CANDIDATES:
+  1416928868543714 | score=15.0 | Charleynbens Touchscreen Tablets / @charleyNbens · 2.7K follow this · Electronics Store
+  292794684122488 | score=15.0 | Touchit Tablets / @touchitfan · 259 follow this · Computer Company
+
+--- ADS DUMP ---

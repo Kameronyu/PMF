@@ -1,0 +1,11 @@
+# opal-focus
+brand_query: Opal focus
+status: ok
+resolved_advertiser: NONE
+active_ad_count: n/a
+library_ids_loaded: 0
+
+TYPEAHEAD CANDIDATES:
+  320912937772215 | score=0.0 | Flying Dresses -Côte d’Opale-World Focus Photography / 103 follow this · Photographer
+
+--- ADS DUMP ---

@@ -1,0 +1,5 @@
+URL: daylightcomputer.com
+ERR: page.goto: Protocol error (Page.navigate): Cannot navigate to invalid URL
+Call log:
+[2m  - navigating to "daylightcomputer.com", waiting until "domcontentloaded"[22m
+
