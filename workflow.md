@@ -8,18 +8,6 @@ Each phase carries its **research questions** — what a run must answer there. 
 
 ---
 
-## Phase −1 — Operator self-assessment
-
-Precedes "sketch a space." A run needs a space to map; this is how you choose one, grounded in what the operator brings. Human work.
-
-**Research questions:**
-- What am I good at? What am I knowledgeable about that people will pay for?
-- What products can I sell? What is my moat?
-- What kinds of **niches** do I know deeply?
-- The drill: pick a **transformation category** (e.g. wellness) → what **niches** sit under it? Pick a **product category** (e.g. tech) → what **transformations** can it serve? → name a candidate **niche**.
-
----
-
 ## Phase 0 — Map a space
 
 Goal: produce a populated map of a space so you can spot opportunity. Output is a map, not a hypothesis.
@@ -174,7 +162,7 @@ Gate 2 is judgment against a framework. Framework structure: differentiation is 
 
 ## Phase 3a — Structural map of themes
 
-Goal: identify which themes, frames, emotions, beliefs, behaviors, pains, dreams, and drivers are frequent in the avatar. Output: ranked themes by prevalence. Drives angle selection in Phase 4 (frequency × intensity scoring on candidate angles).
+Goal: identify which themes, frames, emotions, and PMBDs (pains, beliefs, motifs, desires) are frequent in the avatar, and which core drivers sit underneath them. Output: ranked themes by prevalence. Drives angle selection in Phase 4 (frequency × intensity scoring on candidate angles).
 
 **Two-phase VOC approach:**
 1. **Broad pattern discovery** — frequency tables across the market: which characteristics are probable. Also which answers **co-occur in clusters** (they mention X *and* Y in the context of problem Z) — build this into the pattern. Mintel × demographic × science is the friend here: large, non-noisy datasets alongside VOC clustering.
@@ -186,11 +174,13 @@ Goal: identify which themes, frames, emotions, beliefs, behaviors, pains, dreams
 
 - **Lane 1 — Transformation only (population-wide).** No niche filter. How anyone with this problem talks about it.
 - **Lane 2 — Transformation inside the niche.** Niche-anchored venue + transformation query. Isolates niche-specific language; compare against Lane 1.
-- **Lane 3 — Adjacent context inside the niche.** Niche venue + the broader category the transformation sits inside. Surfaces the surrounding belief system, identity, worldview. Mintel and other institutional databases supplement Lane 3.
+- **Lane 3 — Adjacent context inside the niche.** Niche venue + the broader category the transformation sits inside. Surfaces the surrounding belief system, identity, worldview — feeds the Belief/identity layers, not just the immediate pain. The Mintel pipeline is most useful here: search for a relevant Mintel report — a customer-research report for product category × niche.
 
-### Research questions — core differentiators
+### Research questions — the PMBD battery
 
-**Beliefs**
+The question battery below appears once, here. Phase 3b runs the same themes for verbatim copy capture rather than frequency — it does not re-list them. Researchers must **also look for core differentiators** while running this battery, not just PMBDs.
+
+**Belief**
 - What do they believe (about themselves and their situation)?
 - What do they trust (sources, brands, people)?
 - Where do they get their information?
@@ -199,26 +189,30 @@ Goal: identify which themes, frames, emotions, beliefs, behaviors, pains, dreams
 - Are they loyal to specific brands?
 - What do they believe are the barriers to the outcome — about other products, themselves, or the transformation? ("it's just genetics," "all those supplements are crap")
 
-**Experiences**
+**Experiences** (feeds Belief and Motif)
 - Experiences with other products: what have they bought in this category, what did they expect, where did it fall short, what did they like?
 - Other life experiences relevant to the transformation.
 
-**Behaviors / actions**
-- Behaviors related to the problem — coping strategies, habits in any relation to the desired transformation (including adjacent contexts).
-- What they have bought / what they currently do around the problem.
+**Motif** (behaviors / actions — observable from outside)
+- Behaviors related to the problem — coping strategies, habits in any relation to the desired transformation (including adjacent contexts: what they do when they feel ugly, not only what they do about the puffiness itself).
+- What they have bought / what they currently do around the problem (e.g. drink water to depuff).
 
-**Pains** (laddered)
+**Pain** (laddered)
 - Physical & symptom-related: what happens to their body.
-- Surface pain point: the symptom they notice.
-- Pain of pain: what happens *because* of the pain.
-- Pain of pain of pain: the true root.
-- Core human driver: status / survival / reproduction / belonging.
+- Surface pain: the symptom they notice ("look puffy," "feel tired").
+- Pain of pain: what happens *because* of the pain (embarrassed on a date, bed-rot all day).
+- Pain of pain of pain: the true root (don't want to be seen as "less than"; scared of running out of time).
+- Core human driver: survival / reproduction / status / belonging.
 
-**Dreams** (laddered)
-- Immediate relief.
-- Outcome of the dream.
-- Dream of the dream of the dream.
+**Desire** (laddered)
+- Immediate relief (not feel uncomfortable from a hot flash; look more attractive).
+- Outcome of the desire (get the date, get complimented, less mental space taken up by it).
+- Desire of the desire of the desire (to be the person others want to be; to be respected; to feel desired).
 - Core human driver.
+
+The broad-discovery pass (above) records which of these answers **co-occur in clusters** — when the same individual expresses X *and* Y around problem Z. That clustering is what feeds sub-niche validation in Phase 3b.
+
+**Sources:** competitor reviews from Phase 2 · Reddit · Quora · Facebook groups · TikTok / Instagram comments and posts · YouTube posts (highest-engagement framings).
 
 ### Evaluation
 
@@ -310,14 +304,32 @@ Target: 7–12 creatives covering as much surface area as possible across as man
 
 ---
 
-## Phases 5–8 — Deferred
+## Phases 5–8 — Execution (lighter scope)
 
-Downstream of the research system working at all. Not in current scope; detail preserved for when it opens.
+Downstream of the research system working at all. Not in current build scope — kept lighter than Phases 0–4 — but real stubs, not placeholders.
 
-- **5 — Hook test.** White-square test preview. Test hooks — preferably hooks from titles of high-engagement VOC posts.
-- **6 — Build-a-brand.** 7–12 creatives · funnel build · belief architecture · run the test.
-- **7 — Eval.** What are your kill gates? When do you rotate creatives out? When do you push through after the first test vs. kill?
-- **8 — Iterate or destroy.**
+### Phase 5 — Hook test
+
+White-square test preview. Test your hooks before building full creative. Preferably take hooks from the titles of high-engagement VOC posts — a post that earned engagement organically has a validated hook. Read the data; try to draw conclusions or direction from it.
+
+### Phase 6 — Build-a-brand
+
+- 7–12 creatives.
+- Funnel build.
+- Belief architecture.
+- Run the test.
+
+**Execution principles** (see Cross-cutting below for the full statement): become the customer, externalize the UM ("it's not their fault"), play out their purchase logic.
+
+### Phase 7 — Eval
+
+- What are your kill gates?
+- When do you rotate creatives out?
+- When do you push through after the first test vs. kill altogether?
+
+### Phase 8 — Iterate or destroy
+
+Take the verdict from Phase 7 and either iterate the market/product/angles or kill it and return to the map.
 
 ---
 
@@ -335,23 +347,8 @@ Downstream of the research system working at all. Not in current scope; detail p
 
 ---
 
-## Open meta-questions
-
-Project-level questions Kam flagged. Settled items live in `definitions.md` / this doc / `capability_inventory.md`; the rest are open and map onto the Unders in `capability_inventory.md` and `handoff.md`.
-
-**Settled:** what the variables are · what they mean (optimal market characteristics) · what data to collect and in what order · what data to collect depending on starting point · what questions to answer from which sources.
-
-**Open — not started:**
-- How do we collect good data? What are all our sources? Quantitative then qualitative? What agents do we make? How do we write the prompts?
-- How will we organize the data?
-- What are our outputs / synthesis pipeline? What should AI read? What should the Human read?
-- What are our criteria for judging the data?
-- How do Human and AI work together — what role does each have?
-- What do we do with the data (design tests)?
-- How will we actually implement: test design → funnel architecture → ads → media buying / kill criteria → evaluating test results?
-
----
-
 ## Reconciliation note
 
-This doc merges two sources: an earlier workflow draft (newer; clean phase structure, corrected gap formula) and Kam's original project planning doc (older; deeper research questions). Restored from the planning doc: Phase −1, Pipeline D, the niche-competition definition, the laddered VOC research questions (pain-of-pain ladder, dream ladder, the six belief surfaces), the Phase 2 sophistication/market checklists, the Phase 3c generation heuristics and filters, the execution principles, and the open meta-questions. The gap formula and phase structure are the newer draft's. `definitions.md` vocabulary and the phase structure are locked.
+This doc merges two sources: an earlier workflow draft (newer; clean phase structure, corrected gap formula) and Kam's original project planning doc (older; deeper research questions). Restored from the planning doc: Pipeline D, the niche-competition definition, the laddered VOC research questions (pain ladder, desire ladder, the six belief surfaces, the experience and motif questions), the Phase 2 sophistication/market checklists, the Phase 3a search lanes and source list, the Phase 3c generation heuristics and filters, the Phase 4 angle types, the Phase 5–8 stubs, and the execution principles. The gap formula and phase structure are the newer draft's. `definitions.md` vocabulary and the phase structure (0–8) are locked.
+
+Dropped from the planning doc as out-of-scope: the `trend velocity = (desire × feasibility) / sophistication` formula (superseded by the Gap formula above — subtraction, plus Market Growth); the operator self-assessment ("what am I good at / what can I sell / moat"); the wellness/tech niche scratch sketch; the "human type questions" build-the-system meta-checklist (deprioritized by the course correction — the manual workflow is the product); and agent-implementation asides and scratch notes.

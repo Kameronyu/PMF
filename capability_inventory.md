@@ -159,6 +159,8 @@ Notes: same agent as Copy bank builder, narrower scoping input. Not a separate c
 
 ## Foundational Unders (must resolve before agent specs)
 
+> **Course correction (2026-05-21).** Persistence layer is **deprioritized.** PMF's job is shipping brands — the manual workflow + research questions already delivers that (proven on the eink-tablets run). Build tooling **just-in-time**: automate a step only once it is the repeated bottleneck across brand-ships. The persistence layer is no longer a hard gate on agent specs; it gets built when manual friction justifies it, after shipping. See `agents/implementation-notes.md`.
+
 ### 1. Map / persistence layer
 Every capability writes to and reads from a shared store. Phase 4 is read-heavy on accumulated Op outputs — decision gates read from the map, they don't trigger fresh research. Affects every Op's output schema (must be structured, dedupable, joinable). Read interface matters as much as write interface. Has to be designed before agent specs are written.
 

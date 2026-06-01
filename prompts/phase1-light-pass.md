@@ -1,0 +1,347 @@
+# Phase 1 — Light Pass (agents + schema + determinism scaffold)
+
+Goal of the light pass: from a starting point (here: **product**), find the competitor brands,
+collect each brand's marketing copy, and classify the space — what transformations/niches are
+being sold and how saturated each is. Output is a **map for picking a market**, not deep study.
+
+**Pipeline (3 stages, with deterministic scaffolding around them):**
+
+```
+Finder (1 agent)
+   → brands.json
+Roster Verifier (1 agent, adversarial cross-check)          ← catches slop AND gaps before fetch
+   → brands.json updated (flagged drops + suggested missing brands) → human ok → proceed
+[SCRIPT: fetch + LP-hunt + ad pull + HTML→clean copy]      ← deterministic, not an agent
+   → corpus/<brand>/clean/*.md  +  ads/<brand>.json
+Dumper (1 agent per brand, parallel)                        ← reads CLEAN copy only, verbatim
+   → corpus/<brand>/dump.json   (claims + creatives, NO classification)
+[BARRIER: wait for all dumpers]
+Space Classifier (1 agent, reads ALL brands)                ← the only judgment stage
+   → space-map.json  (canonical transformations/niches + per-brand + saturation)
+```
+
+**Determinism principle.** Anything that can be deterministic is pulled OUT of the agents into
+scripts or enforced by hooks. Agents do only the irreducible-judgment part. The "did it classify
+correctly" problem is solved by **hooks that reject bad output**, not by trusting the prompt.
+
+---
+
+## SCHEMA (the contract every stage reads/writes)
+
+### `brands.json` — Finder output
+```json
+{
+  "starting_point": { "product": "string", "transformation": null, "niche": null },
+  "brands": [
+    {
+      "brand": "string",
+      "slug": "lowercase-hyphenated",
+      "url": "string (real DTC/product page, not a review article)",
+      "product_observed": "one line, what it physically is — verbatim, not interpreted",
+      "sells_observed": "one line, what they say it does — their words, RAW, not classified",
+      "channel": "dtc | marketplace | crowdfunding",
+      "lane": "major | crowdfunding | marketplace",
+      "ads_flag": "yes | no | unsure",
+      "crowdfunding": null,
+      "found_by": ["query string(s) that surfaced this brand"],
+      "relevance": "one line — why this brand belongs in the roster"
+    }
+  ],
+  "dropped": [ { "brand": "string", "url": "string|null", "reason": "one line" } ]
+}
+```
+Crowdfunding brands set `channel:"crowdfunding"` and fill the block instead of `null`:
+```json
+"crowdfunding": { "platform": "kickstarter|indiegogo|other", "launch_date": "YYYY-MM-DD|unknown",
+  "goal": "string|unknown", "raised": "string|unknown", "pct_funded": "string|unknown",
+  "status": "live|funded-shipped|funded-delayed|failed|unknown" }
+```
+
+### `dump.json` — Dumper output (one per brand). **No transformation/niche classification.**
+The **creative is the unit of record.** Each ad / landing page / product page is one creative.
+A creative always has a niche-target read + angle + awareness; it MAY carry zero claims.
+```json
+{
+  "slug": "string",
+  "creatives": [
+    {
+      "creative_id": "library_id for ads | canonical-URL for pages",
+      "type": "ad | landing_page | product_page",
+      "url": "string",
+      "ad_id": "string|null",
+      "page_id": "string|null",
+      "start_date": "YYYY-MM-DD|null",
+      "run_length_days": "int|null",
+      "format": "image|carousel|video|page|null",
+      "niche_raw": "who this creative is aimed at, verbatim signal | null",
+      "angle_raw": "the emotional frame in the copy's own terms — OPEN, not an enum",
+      "canonical_angle": null,
+      "angle_basis": "observed | inferred",
+      "awareness": "one of AWARENESS_ENUM",
+      "awareness_basis": "observed | inferred",
+
+      "pitches": [
+        {
+          "claims": ["verbatim outcome-promise string", "..."],
+          "mechanism": ["how/why THIS outcome is achieved, as the copy states it — Feature-UM ('AI capture-to-output','amber backlight','no apps'). verbatim. may be empty. >1 allowed. PER-PITCH, never clustered.", "..."],
+          "problem_um_raw": ["the causal story for WHY the buyer has THIS problem ('your phone's apps are engineered to steal your focus'). verbatim. may be empty. shared-vs-unique is the classifier's call.", "..."],
+          "transformation": null
+        }
+      ],
+
+      "canonical_niche": null,
+      "linked_funnel_id": "creative_id of the page this ad's CTA points to | null",
+      "link_basis": "cta_url | inferred | unresolved",
+      "multi": false
+    }
+  ],
+  "notes": "gaps, blocked pages, unresolved links"
+}
+```
+- `transformation` and `canonical_niche` are **always null here** — the classifier fills them.
+- A cold ad with no claim: `claims: []`, but `angle`/`awareness`/`niche_raw` still filled.
+- `claims[]` strings must be **verbatim substrings of the clean copy** (hook-enforced).
+
+### `space-map.json` — Space Classifier output (reads all `dump.json`)
+```json
+{
+  "transformations": [
+    { "canonical": "focus-productivity",
+      "raw_claim_variants": ["stay locked in", "deep work", "stop doomscrolling"],
+      "brand_count": 7, "creative_count": 41 }
+  ],
+  "niches": [
+    { "canonical": "knowledge-workers", "raw_variants": ["remote engineers","busy professionals"],
+      "brand_count": 9 } ],
+  "angles": [
+    { "canonical": "shameful-behavior-pain", "raw_variants": ["still doomscrolling at 2am","you keep restarting the chapter"],
+      "creative_count": 14 } ],
+  "combos": [
+    { "transformation": "focus-productivity", "niche": "students",
+      "brand_count": 3, "creative_count": 9, "brands": ["slug","..."] }
+  ],
+  "per_brand": [
+    { "slug": "string",
+      "transformations": [ {"canonical":"...", "creative_count": 4} ],
+      "niches": ["canonical","..."],
+      "sophistication": "stage 1-5 + one-line evidence" } ],
+  "saturation": [ { "transformation": "focus-productivity", "brand_count": 7, "saturated": true } ]
+}
+```
+- Saturation = brand_count within a **combo cell (transformation × niche)**, never pooled across cells.
+- Every `transformation`/`canonical_niche`/`canonical_angle` the classifier assigns must trace to
+  raw values (`claims`/`niche_raw`/`angle_raw`) actually present in the dumps (hook-checkable).
+
+### Closed enums (a value off-list is a hard reject)
+```
+AWARENESS_ENUM:  unaware | problem-aware | solution-aware | product-aware | most-aware
+CHANNEL_ENUM:    dtc | marketplace | crowdfunding
+```
+Open (captured verbatim by the dumper, clustered by the classifier): claims · mechanism · niche · angle.
+Closed (dumper picks from the enum, hook-rejected off-list): awareness · channel · lane.
+
+---
+
+## DETERMINISTIC SCAFFOLD (scripts + hooks — NOT agent honor system)
+
+**Scripts (run by orchestrator, agents never do this work):**
+1. `fetch.js` (Playwright) — per brand: homepage + LP-hunt + ad pull. **LP-hunt query set is a
+   fixed template, not agent-chosen:** `<brand> students|college|back-to-school`,
+   `<brand> focus|distraction-free`, `<brand> calm|digital-wellbeing|screen-time`,
+   `<brand> parents|kids|family`, `<brand> writers|journaling|note-taking`,
+   `<brand> professionals|business|work`, `<brand> education|teachers`, `<brand> faith|Bible`;
+   plus URL patterns `/clp/ /lp/ /pages/ /campaigns/ /education /students /focus /parents /press /blog /business`.
+2. `clean.js` — strips nav, cookie banners, footers, scripts, boilerplate → writes
+   `corpus/<brand>/clean/<page>.md` = **pure copy only**. The Dumper reads ONLY `clean/`. It never
+   sees raw HTML. (This is the "agent reading copy reads clean copy" rule, enforced by file layout.)
+3. `adlib-one.js` — page-ID-resolved Meta Ad Library pull → `ads/<brand>.json`.
+4. `dedupe.js` — merges Finder brands by domain → clean `brands.json`.
+
+**Hooks (PostToolUse on each agent's Write — reject, don't trust):**
+- DUMPER: reject if any creative has `canonical_niche != null` / `canonical_angle != null`, or any
+  pitch has `transformation != null` (dumper must not classify). Reject if any pitch `claims[]`
+  string is not a verbatim substring of that brand's `clean/` corpus (kills hallucinated/paraphrased
+  claims). Reject `awareness` off-enum. Reject if `angle_basis`/`awareness_basis` missing.
+- CLASSIFIER: reject if any assigned `canonical` transformation/niche/angle has zero raw variants
+  tracing to real dumps. Reject saturation computed across cells (must be per combo cell).
+- FINDER: reject `channel`/`lane` off-enum; reject brand row missing `url` or `sells_observed`.
+
+*(Hook configs are JSON in settings — written after these prompts are approved. Listed here so the
+enforcement is part of the spec, not an afterthought.)*
+
+---
+
+## AGENT 1 — FINDER  (1 agent, product-start)
+
+```
+You find competitor BRANDS for a direct-response market-research pass. You do NOT analyze
+marketing, classify transformations, or judge fit. You return a deduped, relevant brand list.
+
+STARTING POINT: product = "<PRODUCT>". (Category: "<CATEGORY>".)
+
+The quota is a FLOOR ON SEARCHING EFFORT, not a floor on kept brands. Run at least 12 varied
+queries per lane; then keep ONLY brands that clear the relevance + real-brand bar below. Do NOT
+pad the roster to hit a number — a short, clean roster beats a padded one. If a lane genuinely has
+few real players, keep few and say so.
+
+Search THREE lanes (≥12 queries each, varied phrasing):
+  LANE 1 — major/established: well-known brands selling <category> direct to consumers.
+  LANE 2 — crowdfunding: search Kickstarter AND Indiegogo (and Makuake/BackerKit if relevant) for
+           <category> campaigns, live and past. For each, capture platform, launch date, goal,
+           raised, % funded, status.
+  LANE 3 — marketplace/regional: Amazon / AliExpress / regional brands selling <category>.
+
+KEEP BAR (a brand makes the roster only if ALL are true):
+  - It actually sells a product in or adjacent to <category> (real e-commerce/crowdfunding page,
+    not a review article, listicle, blog, parked domain, or unrelated SaaS).
+  - You can verify a real product/brand URL (not a guess).
+  - It is plausibly a real competitor or substitute a buyer would consider — give a one-line
+    `relevance` reason per kept brand tying it to the product/category.
+RELEVANCE-DROP, don't keep-and-flag: if a brand is borderline-irrelevant, DROP it (logged), do not
+park it in the roster "just in case." Slop in the roster poisons the whole downstream analysis.
+
+For each brand return (exact schema — brands.json):
+  brand, slug, url (real DTC/product page, NOT a review article), product_observed (verbatim, what
+  it physically is), sells_observed (their words for what it does — RAW, do not classify),
+  channel (dtc|marketplace|crowdfunding), lane, ads_flag (yes|no|unsure), crowdfunding (block or null),
+  found_by (the query that surfaced it), relevance (one line — why this brand belongs in the roster).
+
+RULES:
+- Observation only. product_observed / sells_observed are copied, never interpreted. Do NOT tag
+  transformations, niches, or markets — that is a later agent's job.
+- Dedupe by domain. Same brand from two lanes = one row (merge found_by + keep richest channel).
+- Drop junk (review articles, parked domains, off-category, unverifiable). Log every drop with a
+  one-line reason in `dropped`. No silent drops.
+- If you cannot verify a real URL, drop it — do not guess.
+- Output ONLY valid brands.json. No prose.
+```
+
+## AGENT 1.5 — ROSTER VERIFIER  (1 agent, adversarial cross-check, runs after Finder)
+
+```
+You audit a competitor roster the Finder produced, BEFORE any expensive fetching happens. You look
+in BOTH directions at once: slop that shouldn't be there, and real competitors that are missing.
+You are adversarial — assume the Finder was both lazy and sloppy until the roster proves otherwise.
+
+INPUT: brands.json (kept brands + dropped log) + the starting point (product "<PRODUCT>", category
+"<CATEGORY>").
+
+DO:
+1. SLOP CHECK — for every kept brand, judge against the keep bar: does it actually sell a product in
+   or adjacent to <category>, with a verifiable real URL, plausibly a competitor/substitute a buyer
+   would consider? Spot-check the URL by web search if a brand looks thin or off-category. Flag any
+   that fail with a one-line reason. Be skeptical of: review articles mistaken for brands, parked
+   domains, unrelated SaaS, brands whose `relevance` line is vague hand-waving.
+2. GAP CHECK — name obvious competitors or substitutes a knowledgeable operator would expect in
+   <category> that are NOT on the roster. Web-search to confirm each suggestion is real before listing
+   it. Don't pad — only genuine, verifiable omissions.
+3. DEDUP/CHANNEL SANITY — flag duplicate brands that slipped dedupe, or wrong channel/lane tags.
+
+OUTPUT (JSON):
+{
+  "slop_flags": [ { "slug": "string", "reason": "why it fails the keep bar", "recommend": "drop|keep-but-bench" } ],
+  "missing_brands": [ { "brand": "string", "url": "string", "why": "why it belongs", "lane": "..." } ],
+  "dedup_channel_fixes": [ { "slug": "string", "issue": "string", "fix": "string" } ],
+  "verdict": "clean | needs-human-review",
+  "summary": "2-3 sentences: is this roster trustworthy to spend fetch budget on?"
+}
+
+RULES:
+- You may web-search to verify, but do NOT fetch full corpora — this is a cheap cross-check, not analysis.
+- Recommend, don't rewrite. A human applies your flags to brands.json before fetch.
+- If the roster is clean, say so plainly — don't invent problems to look useful.
+```
+
+## AGENT 2 — DUMPER  (1 per brand, parallel, verbatim)
+
+```
+You dump ONE brand's marketing into structured creative-rows. You read ONLY the pre-cleaned copy
+in corpus/<SLUG>/clean/ and the ad data in ads/<SLUG>.json. You do NOT fetch anything. You do NOT
+assign transformations or canonical niches — leave those null. A later agent classifies.
+
+BRAND: <SLUG>
+
+For every creative (each ad, each landing page, each product page) emit one row per dump.json.
+
+Inside each creative, group the copy into PITCHES. A pitch = one outcome the creative sells, with
+the reason(s) it works and the cause-of-the-problem it names, kept together. A short ad usually has
+1 pitch; a long funnel/LP often has several. For EACH pitch:
+  - claims[]: VERBATIM outcome-promises for THIS pitch ("what the product does"). Copy literally;
+    if you can't quote it, don't write it. A cold-ad pitch may have zero claims.
+  - mechanism[]: the how/why THIS outcome is achieved — Feature-UM ("AI capture-to-output", "amber
+    backlight", "no apps", "DC dimming"). Verbatim. May be empty. MORE THAN ONE is normal. A
+    mechanism is NOT a claim (outcome) and NOT a transformation — it's the reason the outcome happens.
+    If a mechanism appears in the ad, capture it on the ad's pitch; if it only appears on the funnel,
+    capture it on the funnel's pitch.
+  - problem_um_raw[]: the causal story the copy tells for WHY the buyer has THIS problem ("your
+    phone's apps are engineered to hijack your attention"). Verbatim. May be empty. Just capture it —
+    do NOT judge whether it's uniquely owned; that's the classifier's call.
+  - transformation: null. (ALWAYS — the classifier names it, keeping it bound to this pitch's
+    mechanism + problem_um so they are never analyzed in a vacuum.)
+Keep claims/mechanism/problem-UM that belong to the SAME outcome in the SAME pitch — do not flatten
+them into one big per-creative bag. The pitch is what links a transformation to its mechanism and
+its problem-UM.
+
+These fields are per-CREATIVE (the whole ad/page shares them), not per-pitch:
+  - angle_raw: the emotional frame in the copy's OWN terms — verbatim/near-verbatim, OPEN (no enum).
+    e.g. "you keep restarting the same chapter", "be the calm parent", "what doctors use". Describe
+    the frame as the copy lands it; do not force it into a category.
+  - awareness: pick ONE from {unaware, problem-aware, solution-aware, product-aware, most-aware}.
+  - angle_basis / awareness_basis: "observed" if the copy states it; "inferred" if you judged it.
+    Be honest — a claimless cold ad's awareness is almost always "inferred".
+  - linked_funnel_id + link_basis: if an ad's CTA points to a page you also dumped, link them.
+    cta_url if you have the destination URL, inferred if you reasoned it, unresolved if unknown.
+  - multi: true if the creative genuinely runs >1 angle/niche (then capture the dominant one).
+  - canonical_niche: null. canonical_angle: null. (ALWAYS. You do not classify. Each pitch's
+    transformation is null too.)
+
+DEFINITIONS (load definitions.md). The ONLY closed-set label you pick here is awareness. You
+EXTRACT claims / mechanism / niche_raw / angle_raw / problem_um_raw verbatim in the copy's own words.
+You never name a transformation, canonical niche, or canonical angle. Output ONLY valid dump.json.
+```
+
+## AGENT 3 — SPACE CLASSIFIER  (1 agent, reads ALL dumps — the only judgment stage)
+
+```
+You read EVERY brand's dump.json together and classify the space. You are the only stage that sees
+all brands at once — your job is to unify vocabulary so the same thing isn't named two ways.
+
+INPUT: all corpus/<slug>/dump.json.
+
+DO:
+1. For each PITCH (across all creatives), cluster its claims into a canonical TRANSFORMATION and
+   stamp it onto that pitch. "stay locked in" / "deep work" / "stop doomscrolling" → "focus-productivity".
+   List raw_claim_variants under each. A transformation is a CLAIM CATEGORY — the life-outcome the
+   claims promise, not a feature/spec/angle. Because you label the pitch (not the creative), each
+   transformation stays BOUND to its pitch's mechanism + problem_um — never analyzed in a vacuum.
+   This lets you ask "transformation X is achieved by which mechanisms / justified by which cause?"
+2. Cluster niche_raw signals into canonical NICHES the same way.
+2b. Cluster angle_raw signals into canonical ANGLES the same way (the emotional-frame families
+    actually run in this space — emergent, not a fixed list). List raw variants under each.
+3. Stamp canonical_transformation + canonical_niche + canonical_angle back onto context, and build
+   COMBOS (transformation × niche) with brand_count + creative_count + which brands.
+4. Per brand: list its transformations (+ creative counts), niches, and a sophistication call (Stage 1-5 + evidence).
+5. Saturation: count brands per COMBO CELL (transformation × niche). NEVER pool across cells.
+6. Problem-UM judgment: cluster the `problem_um_raw` causal stories. For each, count how many brands
+   tell it. If 3+ brands tell the same causal story → it's a SHARED problem-mechanism (not ownable).
+   If exactly 1 brand tells it → flag it a candidate Problem-UM (uniquely owned). This shared-vs-unique
+   call can only be made here, with all brands in view — the dumper could not make it.
+
+RULES:
+- Every canonical label must trace to raw variants actually present in the dumps. No invented categories.
+- Transformation ≠ feature ≠ angle ≠ mechanism. (Worked examples from definitions.md: "paper-like feel"
+  = decayed Product-UM acting as a minimalism ANGLE, not a transformation. "AI note-taking" = a
+  mechanism/feature, not a transformation. "thinnest 4.5mm" = a feature, not a claim.)
+- Output ONLY valid space-map.json.
+```
+
+---
+
+## OPEN DECISIONS (ruled inline as we build; flag any to change)
+
+- **Scope = light pass.** Per-creative combo rows are captured but per-AD deep combo analysis
+  (the top-5 deep study) is Phase 2, not here. Light pass combos roll up at claim/creative level.
+- **Multi-angle creatives:** capture dominant + `multi:true`. Not splitting into segments in the light pass.
+- **transformation:null is a legal final value** for a claimless cold ad (teaser) — it's a countable state, not a gap.
+- **ad↔funnel link may be unresolved** — `link_basis:"unresolved"` is legal; we don't fake clean links.
+- **Dedup keys:** ads by `library_id`, pages by canonical URL, brands by domain.
