@@ -1,5 +1,7 @@
 # Run Retrospective — Inkleaf e-ink arc (2026-04-26 → 05-29)
 
+> **Status: learnings reservoir, not canon.** This is the pile of run-learnings not yet folded into the canon docs. When you build a given part, drain the relevant section here into its prompt / `workflow.md` / `agents/implementation-notes.md` — §8 maps what folds where. `workflow.md` and `capability_inventory.md` point here.
+
 What the manual runs taught us that is **not yet in `workflow.md`**. Source: 14 mined
 session transcripts + 6 run-output clusters, deduped to net-new signal against the
 current doc set (workflow / definitions / capability_inventory / implementation-notes /
@@ -204,7 +206,7 @@ Things the runs proved that `workflow.md` doesn't say:
   commands; data sources become MCP servers (future). [NEW, architecture intent]
 - **Planning doc = source of truth; AI-written handoffs are *not* locked decisions.** Always
   distinguish Kam's output from AI synthesis.
-- **Naming split:** GSD = *Phases* (execution), research content = *Stages* (0–8).
+- **Naming:** research = *Phases* (steps 0–8, defined in `workflow.md`); GSD build units = *Stages*. (An earlier draft had these reversed — corrected 2026-06-02.)
 - **Milestone split:** M1 = research system (Stages 0–3), M2 = test pipeline (Stages 4–8).
   Don't spec M2 until M1 is shaken out on 2–3 real spaces.
 - **Defer output/substrate decisions** until 2–3 prompts exist — "I don't know what the

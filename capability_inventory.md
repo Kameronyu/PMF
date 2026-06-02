@@ -1,209 +1,110 @@
 # Capability Inventory
 
-What the system needs to do, decomposed into atomic capabilities. **Not agents.** Agents are a downstream clustering decision — multiple capabilities may live inside one agent, or each may be its own. That call gets made per agent when writing specs, not globally up front.
+The smallest single-job units the whole system composes from. **One job per brick, each routed to one executor** (see `CLAUDE.md`: deterministic jobs are scripts/hooks, only judgment jobs are agents). Phases are not monolithic prompts; they are **compositions of bricks**. This replaces the old flat "Op" tag, which lumped fetch + classify + extract together.
 
-Tags:
-- **Op** — atomic operation, clean I/O, agentifiable
-- **Orch** — composition/sequencing logic
-- **Human** — judgment moment, not agentifiable (now or maybe ever)
-- **Under** — not built enough to spec; flagged below as foundational or downstream
+Run learnings not yet folded into bricks or specs live in `run-retrospective.md` — drain the relevant section when you build that part (its §8 maps what folds where).
 
 ---
 
-## Discovery / mapping
+## The brick set
 
-### Space-sketcher (partial-seed expander) — [Under, deferred]
-Input: partial seed across {T-cat, P-cat, niche} at varying specificity.
-Output: candidate completions for missing slots.
-Status: deferred. Current research runs assume all 3 inputs known. Revisit when a partial-seed case appears.
+| # | Brick | Executor | Job | Status |
+|---|---|---|---|---|
+| A1 | **Query design** | agent | Given a goal, produce the queries / venues / lanes to run | built (light pass); specced (VOC Query Planner) |
+| A2 | **Classify** | agent | Tag each item against a frozen codebook; N/A allowed; cite evidence | built (light pass); specced (VOC Bucketer) |
+| A3 | **Extract** | agent | Pull verbatim spans/fields per schema; no paraphrase | specced (VOC Ladderer, quote extractor) |
+| A4 | **Synthesize** | agent | Combine across items into a structured analysis artifact (descriptive: what the data says, organized) | partial (market playbook ran, throwaway quality); specced (VOC Language Analyzer) |
+| A5 | **Generate** | agent | Propose net-new candidates from heuristics (products, transformations) | **deferred** — not needed while product is fixed |
+| S1 | **Fetch** | script | Retrieve raw data from a source, preserve all metadata | built (`adlib-one.js`, `crowdfund-fetch.js`); to build (Reddit) |
+| S2 | **Clean** | script | Normalize, dedupe, strip junk; keep a raw immutable copy | specced (~30-line regex) |
+| S3 | **Score/aggregate** | script | Counts, frequency (unique-user), intensity (VADER+engagement+length), co-occurrence matrix | partial (ran as an agent — must become a script); to build (VOC) |
+| S4 | **Store** | script | Persist records + materialized views | interim = flat `.md` files; heavy persistence **deferred** (build JIT) |
+| S5 | **Retrieve** | script | Query the store by slot | to build (depends on S4) |
+| H1 | **Validate/gate** | hook | Reject agent output that breaks a rule (verbatim string-match, off-enum, schema) | specced (VOC verbatim gate) |
+| D1 | **Decide** | human | The gates and strategic picks — **your DR strategy sessions** | ongoing (manual) |
 
-### Per-brand extractor — [Op]
-Input: brand URL or identifier.
-Output: transformation(s), product, niche, sophistication signals (revenue estimate, social proof, distribution).
-Notes: workhorse capability. Reused in Phase 0 (shallow scan) and Phase 2 (depth study, composed with other capabilities).
+**Adjacency rule.** Agents feed the human brick; they do not replace it. `A4 Synthesize → D1 Decide` (agent preps the analysis, you make the call). `A5 Generate → D1 Decide` (agent proposes, you pick). Your edge lives in D1; every other brick exists to feed it well.
 
-### Market aggregator — [Op]
-Input: collection of per-brand outputs.
-Output: claim count + types, mechanism inventory, trend velocity, sophistication patterns.
-Notes: operates on the collection, not individuals. Separate from per-brand extractor.
-
----
-
-## Deep brand/market study (Phase 2 capabilities)
-
-### Ad creative + visual extractor — [Op]
-Input: brand identifier.
-Output: structured ad creative inventory + landing page visuals + copy (from Foreplay, Meta Ad Library, GetHookd, website scraping).
-Tools: visual scraping, screenshot capture, Playwright.
-
-### Offer/bundle structure extractor — [Op]
-Input: brand identifier (specifically: landing pages, checkout flows).
-Output: pricing, bundles, offer mechanics, free-shipping thresholds, subscription terms, guarantees.
-
-### Channel analysis — [Op]
-Input: brand identifier or market.
-Output: traffic source breakdown (SimilarWeb), ad library presence/absence, social channel activity, channel concentration.
-Notes: surfaces "competitors NOT scaling on Meta" → opportunity to be first on that channel.
-
-### Trend / temporal signal — [Op]
-Input: transformation or product or niche.
-Output: trend velocity, "why now" signals, evergreen vs emerging classification, adjacent trend signals (TikTok virality, search trends, early adopter behavior).
-Notes: called from Phase 0 mapping, Phase 1 filters, Phase 2 market eval.
+**Two naming smells fixed by this model:** the old "market aggregator" and "frequency/intensity *synthesizer*" are **S3 (scripts)**, not synthesis. They count; they don't interpret. Interpretation on top is a separate A4 call.
 
 ---
 
-## Mechanism research
+## Phases as brick compositions
 
-### Mechanism research — [Op]
-Input: transformation.
-Output: known causes, biological pathways, existing solutions, evidence quality, IP/patentability signals, regulatory status, COGS floor signals, format candidates.
-Notes: merged from prior "commercializable mechanism" (Phase 0) + "mechanism/science research" (Phase 3c). Same tools (scite, web of science, web search, Alibaba), same general operation, different framings of output. One capability.
-
-### Product candidate discovery — [Op]
-Input: transformation + Human-generated heuristic seeds (format change, household items, adherence issues, emerging product expansion).
-Output: candidate products for the transformation.
-Tools: Alibaba AI, emerging product scanning on social, generative ideation.
-Notes: generative, not extractive. Downstream Human filtering against avatar fit, believability, IP, etc.
+- **Light pass (Phase 0–1):** `A1 → S1 → H1/S2 verify+dedupe → S4 → A2 classify per-brand → S3 aggregate space → D1 Gate 1` *(already built and running as `phase1-light-pass.md`; the brick string shows how a fresh build would decompose, but it works — leave it unless it breaks)*
+- **Deep comp (Phase 2):** `A1 → S1 (ads/offers/channel) → A3 extract creative+offers → S3 aggregate → A4 cross-brand playbook → D1 Gate 2` *(old `granular-analyzer-brief.md` is throwaway; rebuild as this string)*
+- **VOC (Phase 3):** `A1 → S1 → S2 → A2 Bucketer → S3 freq+intensity+co-occurrence → A3 Ladderer → H1 verbatim gate → A4 Language Analyzer → S4 copy bank → D1 sub-niche call` *(spec: `handoff-phase3-voc-build.md`; the proven template)*
+- **Test design (Phase 4):** `S5 retrieve copy bank + competitor data → A4 synthesize options → D1 the big DR session (angles, variables, test)`
 
 ---
 
-## Seed expansion (Pipelines B and C support)
+## The ~20 capabilities, re-expressed as brick strings
 
-### Transformation-from-product expander — [Op]
-Input: product.
-Output: candidate transformations the product can serve.
-Sources: Amazon reviews (hidden use cases), science search, social media.
+**Discovery / mapping**
+- Space-sketcher (partial-seed expander) → `A5` — *deferred*
+- Per-brand extractor → `S1 + A2 + A3` (was one "Op"; it is three jobs)
+- Market aggregator → `S3 (+ A4 for the pattern read)`
 
-### Transformation-from-niche expander — [Op]
-Input: niche.
-Output: candidate transformations the niche verbalizes wanting.
-Notes: VOC machinery pointed at a niche venue, scoped to "what do they want changed."
+**Deep brand/market study (Phase 2)**
+- Ad creative + visual extractor → `S1 + A3`
+- Offer/bundle structure extractor → `S1 + A3`
+- Channel analysis → `S1 + S3`
+- Trend / temporal signal → `S1 + A2` (evergreen vs emerging)
 
----
+**Mechanism research**
+- Mechanism research → `A1 + S1 + A4` (evidence-quality read)
+- Product candidate discovery → `A5` *(deferred)*
 
-## VOC pipeline (chained capabilities)
+**Seed expansion (Pipelines B/C)**
+- Transformation-from-product expander → `S1 + A3 + A5` *(deferred)*
+- Transformation-from-niche expander → VOC string scoped to "what they want changed"
 
-A pipeline, not a single capability. Each link has its own contract. Source metadata (platform, venue, author ID, link, timestamp, engagement) is preserved through every link. Authorship preservation enables the 5+ co-occurrence rule downstream — non-negotiable.
+**VOC pipeline**
+- VOC scraper → `S1` · Cleaner → `S2` · Classifier/tagger → `A2` · Quote extractor → `A3` · PMBD clusterer → `S3` (co-occurrence math) · Frequency/intensity synthesizer → `S3` (counts, not synthesis) · Copy bank builder → `A4 organize + S4 store` · Institutional report retrieval → `S1 + A3`
 
-### VOC scraper — [Op]
-Input: scoping params (venue, query, depth, date range).
-Output: raw dump (posts, comments, reviews) with all metadata preserved.
-Notes: may fragment into platform-specific scrapers (Reddit JSON, Amazon scrape, TikTok, YouTube) under one umbrella capability. Different platforms = different tooling, same capability shape.
+**Purchase signal**
+- Purchase signal composite → `S3`
 
-### Cleaner — [Op, lightweight]
-Input: raw scraper dump.
-Output: deduped, normalized, junk-stripped text with all metadata intact.
-Notes: dumb version first — strip URLs in body text, remove `[deleted]`/`[removed]`, dedup exact-match, normalize encoding. ~30 lines of Python. Scale up only when downstream complains. Probably a script, not an agent.
+**Test design support**
+- VOC language extractor (scoped) → `S5` (query the copy bank, same store, narrower scope)
 
-### Classifier / tagger — [Op]
-Input: cleaned text + universal schema (the locked question/theme list — pains, beliefs, behaviors, dreams, drivers, language, identity, etc.).
-Output: each text unit tagged against the schema with frequency rollup. Authorship and source metadata preserved.
-**Locked design decision:** one classifier, one universal schema, content-based classification. N/A is a valid output for any schema field (no force-fitting when content doesn't address a question). Source metadata is preserved and attached to every record, but does NOT route to different schemas. See "Locked decisions" below.
-
-### Quote extractor — [Op]
-Input: classified text.
-Output: verbatim quotes pulled per theme, exact language preserved, indexed to themes and source.
-Notes: separable from classifier so re-extraction can happen without re-classification.
-
-### PMBD clusterer — [Op]
-Input: classified extracts with author IDs.
-Output: candidate sub-niche clusters with single-individual co-occurrence verified against the 5+ rule.
-Notes: cross-niche clusters are stronger (validate they're not platform artifacts).
-
-### Frequency / intensity synthesizer — [Op] — Phase 3a output
-Input: classified data.
-Output: ranked themes by prevalence, intensity proxies (length, repetition, emotional language density).
-Notes: this IS the structural map of "what patterns are common." Drives angle selection in Phase 4.
-
-### Copy bank builder — [Op] — Phase 3b output
-Input: extracted quotes indexed to themes + source metadata.
-Output: copy bank organized by theme / sub-niche / PMBD layer, queryable by source.
-Notes: source-aware. Filterable to "purchase-anchored language" (Amazon) vs "community language" (Reddit) for different funnel stages.
-
-### Institutional report retrieval — [Op]
-Input: niche × category.
-Output: relevant Mintel / IBISWorld / MRI-Simmons / Statista report content, structured.
-Notes: feeds into classifier downstream (treated as another VOC source after structure extraction).
+**Orchestration (the wiring, not a brick)**
+- Pipelines A/B/C/D, Phase 3d loop → composition logic that sequences bricks per input shape.
 
 ---
 
-## Purchase signal evaluation
+## Locked decisions
 
-### Purchase signal composite — [Op]
-Input: VOC outputs + demographic data + reachability data + growth/newness signals.
-Output: scored signal on buying power, growth, newness, reachability for a candidate cluster.
-Notes: one composite for now. May fragment later if downstream needs different slices.
-
----
-
-## Test design support
-
-### VOC language extractor (scoped) — [Op, reuses Copy bank builder]
-Input: copy bank + specific test variables (angles, claims, offers).
-Output: filtered exact-language snippets for ad copy and landing page work.
-Notes: same agent as Copy bank builder, narrower scoping input. Not a separate capability — same machinery, different query.
+1. **One job per brick, routed to one executor.** Deterministic → script/hook. Judgment → agent. An "agent that cleans/counts/stores" is a category error. (See `CLAUDE.md`.)
+2. **Per-brand extractor stays shallow.** Depth in Phase 2 comes from *composing* bricks around one brand (`S1 + A3` for ads, offers, channel), not from a smarter extractor.
+3. **3a and 3b are distinct.** Frequency aggregate (`S3`, Phase 3a) and copy bank (`A4 + S4`, Phase 3b) both branch downstream of the classifier (`A2`).
+4. **Universal classifier, one schema.** `A2` reads any cleaned text from any source against one schema. N/A is valid. Source metadata is preserved and attached, never routes to source-specific schemas.
+5. **Mechanism research = one capability.** Phase 0 commercializability + Phase 3c science are the same `A1 + S1 + A4`, different output framing.
+6. **Cleaner is dumb first.** `S2` = 30 lines of regex now; modular contract lets it be swapped later without touching downstream.
+7. **VOC chain is a brick string, not one op.** Branches at the classifier (`A2`) output into `A3/S3/A4`.
+8. **Hypothesis selection is an explicit `D1`** between Phase 0 and Phase 1. Not invisible glue.
+9. **Gate 2 = "do I want to run ads for this."** `D1` after deep research; Gate 1 (`D1`) gates whether the space is worth pursuing at all.
+10. **Synthesize (A4) ≠ Decide (D1).** A4 reports what the data says, organized. D1 is your prescriptive strategy call on top. Agents stop at A4.
 
 ---
 
-## Orchestration / decision layer (not Ops)
+## Foundational Unders
 
-- **Pipelines A / B / C** — [Orch]. Decision logic for which capabilities to call in what order given input shape.
-- **Phase 3d loop** — [Orch]. Revise Phase 0/1 given new data.
-- **Hypothesis selection** (Phase 0 → Phase 1) — [Human]. Read map, pick a bet.
-- **Differentiation strategy** (Phase 4) — [Human-with-framework]. Framework: Product UM play gated by gap analysis + steal proven variables. Framework structure locked, threshold methodology Under.
-- **Macro test selection** — [Human]. Same product × new markets, or same market × new products.
-- **Variable definition** (test design) — [Human]. Read competitor outputs + lock proven + define test variables.
-- **Sub-niche declaration** — [Human]. Clusterer surfaces candidates meeting 5+ rule; you decide which to pursue.
+> **Course correction (2026-05-21).** Persistence (`S4`) is **deprioritized.** PMF ships brands; the manual workflow + research questions already deliver that (proven on the eink run). Build tooling **just-in-time**: automate a brick only once it is the repeated bottleneck across brand-ships. `S4` is no longer a hard gate on agent specs. See `agents/implementation-notes.md`.
 
----
-
-## Foundational Unders (must resolve before agent specs)
-
-> **Course correction (2026-05-21).** Persistence layer is **deprioritized.** PMF's job is shipping brands — the manual workflow + research questions already delivers that (proven on the eink-tablets run). Build tooling **just-in-time**: automate a step only once it is the repeated bottleneck across brand-ships. The persistence layer is no longer a hard gate on agent specs; it gets built when manual friction justifies it, after shipping. See `agents/implementation-notes.md`.
-
-### 1. Map / persistence layer
-Every capability writes to and reads from a shared store. Phase 4 is read-heavy on accumulated Op outputs — decision gates read from the map, they don't trigger fresh research. Affects every Op's output schema (must be structured, dedupable, joinable). Read interface matters as much as write interface. Has to be designed before agent specs are written.
-
-### 2. Authorship + source metadata pass-through
-Every link in the VOC chain must preserve author ID, platform, venue, URL, timestamp, engagement. Non-negotiable for the 5+ co-occurrence rule and downstream source-aware analysis. Treat as an architectural constraint, not a feature.
+1. **Map / persistence layer (`S4`/`S5`).** Every brick reads from and writes to a shared store; Phase 4 is read-heavy on accumulated outputs. Affects every brick's output schema (structured, dedupable, joinable). Interim: flat `.md`. Build the real store when manual friction justifies it.
+2. **Authorship + source-metadata pass-through.** Every VOC brick must preserve author ID, platform, venue, URL, timestamp, engagement. Non-negotiable for the 5+ co-occurrence rule. Architectural constraint, not a feature.
 
 ---
 
 ## Downstream Unders (parked; resolve via manual runs first)
 
-### 1. Gap analysis scoring (Gate 1)
-Variables locked, weights/thresholds not. Calibrate after running manually on 2–3 real spaces.
-
-### 2. Win-decision framework (Gate 2)
-Structure locked (Product UM play + steal proven variables, gated by gap analysis). Threshold methodology open. Calibrate alongside Gate 1.
-
-### 3. Filtering thresholds
-Strong desire / proven spend / evergreen / underserved-hungry / solvable UM filters throughout the workflow. All consume Op outputs. Thresholds calibrate from manual runs.
+1. **Gap analysis scoring (Gate 1 / `D1`).** Variables locked, weights/thresholds not. Calibrate after 2–3 real spaces (3 now available).
+2. **Win-decision framework (Gate 2 / `D1`).** Structure locked (Product UM play + steal proven variables). Thresholds open.
+3. **Filtering thresholds.** Strong desire / proven spend / evergreen / underserved-hungry / solvable UM. All consume brick outputs. Calibrate from manual runs.
 
 ---
 
-## Locked decisions (preserve in next session)
+## Brick count
 
-1. **Workflow ≠ agents.** Capabilities are the unit of design. Agent clustering happens per agent during spec writing, not globally up front.
-
-2. **Per-brand extractor stays shallow.** Depth in Phase 2 comes from *composing* multiple capabilities around one brand (extractor + ad creative + offer/bundle + channel + review mining), not from the extractor itself getting smarter.
-
-3. **3a and 3b are distinct operations.** Frequency synthesizer (3a) and copy bank builder (3b) both branch downstream of the classifier. Same raw material, different outputs.
-
-4. **Universal classifier, one schema.** Classifier reads any cleaned text from any source against a unified schema. N/A is valid for any field. Source metadata is preserved and attached, but does not route to source-specific schemas. Cross-source insights (Reddit thread that's actually a product review, Amazon review that contains worldview) get caught natively.
-
-5. **Mechanism research = one capability.** Phase 0 commercializability + Phase 3c science research are the same operation with different output framing. Merged.
-
-6. **Cleaner: dumb version first.** Modular contract means the cleaner can be swapped for a real one later without touching downstream. Build 30 lines of regex now, scale when something breaks.
-
-7. **VOC chain is ~7 ops, not one.** Scraper → cleaner → classifier → (quote extractor + frequency synthesizer + clusterer) → copy bank. Branches at classifier output.
-
-8. **Hypothesis selection is an explicit Human step** between Phase 0 and Phase 1. Not invisible glue.
-
-9. **Gate 2 = "do I want to run ads for this."** Gap analysis (Gate 1) gates whether the space is worth pursuing. After deep research (Phase 2/3), Gate 2 gates whether to actually commit.
-
----
-
-## Capability count
-
-~20 distinct capabilities currently named. Some will likely cluster into shared agents (visual scrapers, e.g.). Some are scripts more than agents (cleaner). Final agent count is open — decided per agent during spec writing.
+12 brick types across 4 executors. `A5 Generate` and the heavy `S4`/`S5` store are deferred. Everything else is built or specced. Final *agent* count is still decided per spec — a phase may run two adjacent agent bricks (e.g. `A2 + A3`) in one call when there is no cost reason to split, but they stay separate brick *types*.

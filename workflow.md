@@ -6,6 +6,14 @@ Phases below are stages of work, not agent boundaries. Many capabilities are reu
 
 Each phase carries its **research questions** — what a run must answer there. These were merged back from Kam's original planning doc; an earlier workflow draft had compressed or dropped them. Where the two sources conflicted: **phase structure and the gap formula** follow the newer draft; **research-question depth** follows the planning doc. The phase structure and `definitions.md` vocabulary are locked. See the reconciliation note at the bottom.
 
+**Naming.** "Phase" = a research step (0–8), defined here. "Stage" = a GSD build unit. Never reuse Phase numbers for build units.
+
+**Three layers** (where depth lives): **Layer 1 — flow** (the skeleton: steps, order, purpose; see `README.md`). **Layer 2 — agent prompts** (the theory, variables, and classification rules each step runs; this doc is the reservoir that drains into the prompts as each is built). **Layer 3 — scripts/hooks** (APIs, wiring, storage).
+
+**Starting point sets the query order.** A run begins from a Transformation, a Product, or a Niche (T/P/N), or a combination. That choice picks the Phase 1 pipeline (A = T-first, B = P-first, C = N-first, D = product-variation). InkLeaf starts from P.
+
+**This doc's role.** It is the phase spec and the theory reservoir. Built phases live in their prompts; unbuilt phases are mined from here. Run learnings not yet folded in live in `run-retrospective.md` — drain the relevant section into the phase/prompt when you build that part.
+
 ---
 
 ## Phase 0 — Map a space
@@ -341,7 +349,7 @@ Take the verdict from Phase 7 and either iterate the market/product/angles or ki
 
 ## Cross-cutting — System
 
-- **Map / persistence layer:** every capability writes to and reads from a shared store. Foundational Under — has to be designed before capability specs. See `capability_inventory.md` and `map/data_inventory.md`.
+- **Map / persistence layer:** every capability writes to and reads from a shared store. **Deprioritized (2026-05-21 course correction): build just-in-time when manual friction justifies it, not before capability specs.** Interim persistence = flat `.md` files. See `capability_inventory.md` and `map/data_inventory.md`.
 - **Source metadata** (platform, venue, author, link, engagement) is preserved through every capability in the VOC chain. Non-negotiable. Enables the 5+ co-occurrence rule, the source-aware copy bank, and downstream analysis.
 - **3a and 3b are distinct operations on the same raw material.** 3a is structural (frequency). 3b is linguistic (verbatim quotes). Both consume classified VOC; they branch downstream of the classifier.
 
