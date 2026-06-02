@@ -60,6 +60,25 @@ Deferred to Milestone 2 (rolling-wave; do not plan before M1 shakes out): test d
 
 ## Traceability
 
-<!-- Filled by roadmap: REQ-ID → Stage -->
+REQ-ID → Stage (GSD phase index in parens). Naming: the Stage is the identifier; the GSD phase index is mechanical. 15/15 v1 REQs mapped, each to exactly one stage.
 
-(pending roadmap)
+| Requirement | Stage | Serves PMF Phase | Status |
+|-------------|-------|------------------|--------|
+| VOC-01 | M1-S1 (phase 1) | 3a/3b | Pending |
+| VOC-02 | M1-S1 (phase 1) | 3a/3b | Pending |
+| VOC-03 | M1-S2 (phase 2) | 3a | Pending |
+| VOC-04 | M1-S3 (phase 3) | 3a | Pending |
+| VOC-05 | M1-S3 (phase 3) | 3a | Pending |
+| VOC-06 | M1-S4 (phase 4) | 3a | Pending |
+| VOC-07 | M1-S4 (phase 4) | 3a | Pending |
+| VOC-08 | M1-S5 (phase 5) | 3a | Pending |
+| VOC-09 | M1-S6 (phase 6) | 3b | Pending |
+| VOC-10 | M1-S7 (phase 7) | 3b | Pending |
+| VOC-11 | M1-S8 (phase 8) | 3a/3b validation | Pending |
+| TOOL-01 | M1-S9 (phase 9) | 0, 1 | Pending |
+| TOOL-02 | M1-S9 (phase 9) | 0, 1 | Pending |
+| GATE-01 | M1-S10 (phase 10) | 0 gate | Pending |
+| UM-01 | M1-S11 (phase 11) | 3c | Pending |
+| LOOP-01 | M1-S12 (phase 12) | 3d | Pending |
+
+**Coverage: 15/15 mapped. No orphans. No duplicates.**
