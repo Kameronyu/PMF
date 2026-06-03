@@ -49,6 +49,7 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
 **Depends on**: Nothing
 **Requirements**: TOOL-01 (partial)
 **Status**: BUILT (`prompts/phase1-light-pass.md`, enriched with `revenue_est` + `claim_type`); layer-3 scripts remaining.
+**Build inputs (read first)**: `prompts/phase1-light-pass.md` (the prompt — its DETERMINISTIC SCAFFOLD section specs every script + hook to build) · `capability_inventory.md` (brick split: A1 query / S1 fetch / S2 clean / dedupe / H1 hooks) · `tools/adlib-one.js` + `tools/crowdfund-fetch.js` (page-ID-resolution + Cloudflare-bypass to inherit) · `run-retrospective.md` §2/§4 + `agents/implementation-notes.md` (fetch lessons: keyword-collision, page-ID resolution, SimilarWeb blocked) · `definitions.md` · `CLAUDE.md`.
 **Success Criteria** (what must be TRUE):
   1. `prompts/phase1-light-pass.md` emits `brands.json` + `dump.json` + `space-map.json` with the pitch binding (claims↔mechanism↔problem-UM bound, not parallel arrays), per-combo-cell saturation, `revenue_est`, and `claim_type` (direct/enlarged/mechanism/enhanced).
   2. The layer-3 scripts it specs exist — `fetch.js` / `clean.js` / `dedupe.js` / `revenue-est.js` + the rejection-hook JSON — so a run is reproducible (mine `tools/adlib-one.js` + `tools/crowdfund-fetch.js`).
@@ -62,6 +63,7 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
 **Depends on**: Stage M1-S1 (the light pass produces the gate inputs)
 **Requirements**: GATE-01
 **Status**: DRAFTED (`.claude/skills/market-selection/SKILL.md` + verbatim spec `prompts/_specs/market-selection-framework.md`); data-contract wiring remaining.
+**Build inputs (read first)**: `.claude/skills/market-selection/SKILL.md` (the skill — its INPUT DATA CONTRACT lists every gate input) · `prompts/_specs/market-selection-framework.md` (the verbatim framework) · `prompts/phase1-light-pass.md` (S1 — the upstream producer of the gate inputs) · `workflow.md` Phase 0 (the gap variables) · `capability_inventory.md` · `definitions.md`.
 **Success Criteria** (what must be TRUE):
   1. The skill runs the four gates in fixed order with the kill rules, stops at the first kill, and outputs ranked survivors citing evidence per axis (exact figures or "not found" — no hand-waving).
   2. The S1 data contract the gates consume is wired: claim-typing ✓ + revenue ✓ in the light pass; trend-shape + adjacent-signals + market-awareness rollup added; any missing input is surfaced as `DATA GAP`, never guessed.
@@ -75,6 +77,7 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
 **Depends on**: Stage M1-S2 (a chosen market)
 **Requirements**: (no v1 REQ — specced capability feeding M2; promote when M2 is planned)
 **Status**: SPECCED (`prompts/_specs/deep-market-analysis-framework.md`).
+**Build inputs (read first)**: `prompts/_specs/deep-market-analysis-framework.md` (the framework) · `prompts/phase1-light-pass.md` (the format template + the pitch binding to inherit) · `capability_inventory.md` (brick model) · `run-retrospective.md` §4 (days_running winner detection, SYNTHESIS fencing, survivorship-bias hunt) · `agents/implementation-notes.md` (layer discipline) · `~/knowledge/dr-marketing/` (copywriting/offer/funnel for the messaging merge — read on demand).
 **Success Criteria** (what must be TRUE):
   1. A deep-pass prompt is built as a brick string from the framework spec (structure lens + messaging lens + the merge), running only on the chosen market's top ~5 brands.
   2. Winner detection uses `days_running` (longest-running ad = spend-validated); every deliverable fences AI inference from observed competitor copy (SYNTHESIS-block rule).
