@@ -56,7 +56,12 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
   2. The layer-3 scripts it specs exist — `fetch.js` / `clean.js` / `dedupe.js` / `revenue-est.js` + the rejection-hook JSON — so a run is reproducible (mine `tools/adlib-one.js` + `tools/crowdfund-fetch.js`).
   3. Running on a real T/P/N produces a clean space map with no cross-cell saturation pooling and no layer conflation (feature≠claim, mechanism≠transformation).
   4. Kam scans a bucketed sample and confirms letters / themes / typed claims are assigned the way he would.
-**Plans**: TBD
+**Plans**: 5 plans
+- [ ] 01-01-PLAN.md — reconcile step1-light-pass.md: strip awareness (D-05), inline the D-03 sophistication ladder
+- [ ] 01-02-PLAN.md — layer-3 fetch + clean scripts (tools/fetch.js, tools/clean.js)
+- [ ] 01-03-PLAN.md — layer-3 transform scripts (tools/dedupe.js, tools/revenue-est.js) + adlib-one.js touch-up
+- [ ] 01-04-PLAN.md — PostToolUse rejection hooks + four per-agent validators
+- [ ] 01-05-PLAN.md — debug run on a reference T/P/N + Kam's bucketed-sample confirmation (UAT)
 
 ### Phase 2: Stage M1-S2 — Market-selection gate
 **Goal**: The 4-gate market-selection skill (Demand → Product → Sophistication → Awareness) runs candidate NTPs through ordered kill-gates, ranks survivors with per-axis evidence, and presents them for the human bet pick — the calibrated methodology that replaces the bare gap score.
