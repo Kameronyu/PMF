@@ -120,6 +120,7 @@ A creative always has a niche-target read + angle; it MAY carry zero claims.
 ### `space-map.json` — Space Classifier output (reads all `dump.json`)
 ```json
 {
+  "_provenance": "Canonical transformations are claim-categories competitors ASSERT, not validated customer transformations — true transformation is a later VOC/review-mine finding.",
   "transformations": [
     { "canonical": "focus-productivity",
       "raw_claim_variants": ["stay locked in", "deep work", "stop doomscrolling"],
@@ -138,7 +139,8 @@ A creative always has a niche-target read + angle; it MAY carry zero claims.
       "brand_count": 3, "creative_count": 9, "brands": ["slug","..."],
       "claim_count": 9, "enhanced_claim_count": 2,
       "claims": [ { "text": "stay locked in for hours", "type": "direct" },
-                  { "text": "2x deeper work, clinically measured", "type": "enhanced" } ] }
+                  { "text": "2x deeper work, clinically measured", "type": "enhanced" } ],
+      "anti_fluke": { "brands_at_scale": "count of brands at scale in this cell (floor: 2+)", "qualifying_creatives": "count of creatives with run_length_days >= 7 (floor: 7+ days to qualify a creative)" } }
   ],
   "per_brand": [
     { "slug": "string",
@@ -152,6 +154,11 @@ A creative always has a niche-target read + angle; it MAY carry zero claims.
 }
 ```
 - Saturation = brand_count within a **combo cell (transformation × niche)**, never pooled across cells.
+- `_provenance` note: canonical transformations are claim-categories competitors ASSERT, not validated
+  customer transformations — true transformation is a later VOC/review-mine finding.
+- `anti_fluke` is **surfaced, not enforced** (D-09 — Phase 1 never hard-gates): the floor (2+ brands at
+  scale; 7+ day ad longevity to qualify a creative) is visible in each `combos[]` entry so the Phase 2
+  skill can apply it at decision-time without reconstructing it. Phase 1 never hard-gates on this floor.
 - Every `transformation`/`canonical_niche`/`canonical_angle` the classifier assigns must trace to
   raw values (`claims`/`niche_raw`/`angle_raw`) actually present in the dumps (hook-checkable).
 - `bet_type` (per brand) = the structural bet the brand LEADS with — what kind of differentiation it
@@ -253,8 +260,17 @@ KEEP BAR (a brand makes the roster only if ALL are true):
   - You can verify a real product/brand URL (not a guess).
   - It is plausibly a real competitor or substitute a buyer would consider — give a one-line
     `relevance` reason per kept brand tying it to the product/category.
+NET (what counts as "similar" — wide by substitutability AND bet-similarity, never by spec match):
+  A brand belongs if EITHER is true:
+    - SUBSTITUTABILITY — a buyer choosing this product would also cross-shop it, OR
+    - BET-SIMILARITY — it makes the SAME structural bet (see the bet brief), even in a different form/spec.
+  Span the FULL set of bet-brief territories + the named comparable-bet seed brands from the brief.
+  Do NOT filter by spec match. Rationale: a bet validates only if structurally-similar bets are in the
+  pool — an EMPTY comparable-bet pool reads identically to a FAILED bet (a false-negative that silently
+  kills a live opportunity). When in doubt on a bet-similar brand, keep it (still log a relevance line).
 RELEVANCE-DROP, don't keep-and-flag: if a brand is borderline-irrelevant, DROP it (logged), do not
 park it in the roster "just in case." Slop in the roster poisons the whole downstream analysis.
+(The NET rule widens what is bet-similar; it does NOT license padding with junk — RELEVANCE-DROP still applies.)
 
 For each brand return (exact schema — brands.json):
   brand, slug, url (real DTC/product page, NOT a review article), product_observed (verbatim, what
@@ -395,6 +411,15 @@ DO:
       - mechanism — claim tied to a named how/why ("removes wrinkles via retinol microspheres").
       - enhanced  — claim stacked on a UM or superlative differentiation ("the ONLY retinol clinically
                     shown to…", "patented amber backlight no competitor can run").
+    WORKED EXAMPLES (span domains — do NOT anchor on one product's vocabulary):
+      - direct    — "removes wrinkles" (skincare) · "fall asleep faster" (sleep) · "blocks distractions" (productivity).
+      - enlarged  — "removes wrinkles in 14 days" (skincare) · "asleep in under 20 min" (sleep) · "2x deep-work hours" (productivity).
+      - mechanism — "via retinol microspheres" (skincare) · "via magnesium glycinate" (supplement) · "via an amber distraction-free display" (hardware).
+      - enhanced  — "the ONLY retinol clinically shown to…" (skincare) · "the only magnesium with 3 published RCTs" (supplement).
+    FEATURE-vs-CLAIM TRAP (the inoculation): a striking FEATURE is NOT a claim and is NOT typed —
+      "a 4.5mm titanium body / 16K-pressure stylus" is a FEATURE/mechanism shown as spec, NOT promoted to a
+      claim — sitting beside a real outcome-claim "write for 40 days on one charge" (that is the typed claim).
+      Miscounting a headline feature as a claim inflates the stage/saturation read — do NOT do it.
     LAYER DISCIPLINE (do not conflate — a mistype here corrupts the stage read):
       - A FEATURE is not a claim. "thinnest 4.5mm / 16K stylus / faster refresh" = features → NOT typed.
       - A MECHANISM alone is not a claim; it becomes claim_type:"mechanism" only when bound to an outcome.
@@ -460,9 +485,12 @@ claim(s) + brand count that set the stage.
 
 RULES:
 - Every canonical label must trace to raw variants actually present in the dumps. No invented categories.
-- Transformation ≠ feature ≠ angle ≠ mechanism. (Worked examples from definitions.md: "paper-like feel"
-  = decayed Product-UM acting as a minimalism ANGLE, not a transformation. "AI note-taking" = a
-  mechanism/feature, not a transformation. "thinnest 4.5mm" = a feature, not a claim.)
+- Transformation ≠ feature ≠ angle ≠ mechanism. Worked examples span domains (see WORKED EXAMPLES
+  above): "paper-like feel" = decayed Product-UM acting as a minimalism ANGLE, not a transformation.
+  "AI note-taking" = a mechanism/feature, not a transformation. "thinnest 4.5mm" = a feature, not a
+  claim. "fall asleep faster" = direct claim (sleep domain). "via magnesium glycinate" = mechanism
+  claim only when bound to an outcome. Apply FEATURE-vs-CLAIM TRAP discipline across ALL domains —
+  do NOT anchor examples on one product's vocabulary.
 - bet_type is the structural bet each brand leads with, NAMED in the space's own terms (OPEN — no
   enum), with a page-quoted basis — never eyeballed; canonical bet_types[] must trace to real
   per-brand reads.
