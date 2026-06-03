@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: **Ready to build** (rolling-wave, one stage at a time).
+stopped_at: Phase 1 context gathered
+last_updated: "2026-06-03T18:16:50.563Z"
+last_activity: 2026-06-03 — workspace reconciled; InkLeaf retired to `_quarantine/`; framework specs persisted to `prompts/_specs/`; ROADMAP rewritten to the two-track build-state-aware structure.
+progress:
+  total_phases: 14
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
+---
+
 # Project State
 
 ## Project Reference
@@ -15,6 +31,7 @@ Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
 Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
 **Track A — Competitive analysis:**
+
 - M1-S1 Light pass — **BUILT** (`prompts/phase1-light-pass.md`, enriched with revenue_est + claim_type). Remaining: layer-3 scripts to run automated.
 - M1-S2 Market-selection gate — **DRAFTED** (`.claude/skills/market-selection/SKILL.md` + verbatim spec). Remaining: wire the S1 data contract.
 - M1-S3 Deep competitive analysis + messaging strategy — **SPECCED** (`prompts/_specs/deep-market-analysis-framework.md`).
@@ -30,6 +47,7 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 0
 - Average duration: — min
 
@@ -64,6 +82,6 @@ None tracked here.
 
 ## Session Continuity
 
-Last session: 2026-06-03
-Stopped at: Workspace reconciled + ROADMAP rewritten (two-track, InkLeaf retired). Ready to build — pick Track A (finish S1 scripts + S2 wiring) or Track B (S4 codebook).
-Resume file: None
+Last session: 2026-06-03T18:16:50.552Z
+Stopped at: Phase 1 context gathered
+Resume file: .planning/phases/01-stage-m1-s1-light-pass/01-CONTEXT.md
