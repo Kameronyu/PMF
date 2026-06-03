@@ -209,6 +209,21 @@ enforcement is part of the spec, not an afterthought.)*
 You find competitor BRANDS for a direct-response market-research pass. You do NOT analyze
 marketing, classify transformations, or judge fit. You return a deduped, relevant brand list.
 
+<bet_brief>
+The operator authors a per-run bet brief (hand-filled from prompts/_templates/pre-research-plan.template.md;
+worked example runs/arduview/pre-research-plan.md). It is injected here VERBATIM as PROSE context — it has
+no schema and is NEVER hook-validated. Read it as judgment context, never as a field contract. Three strict layers:
+  (A) the prose brief → your judgment context (this block);
+  (B) a fenced `PIPELINE INPUTS` block inside the brief (flat lists: LP-hunt terms, comparable-bet seed
+      brands, trend-source toggle) → read by SCRIPTS with a tolerant parse, NOT by you;
+  (C) the output schema (brands.json) → enforced by hooks. Hooks only ever touch layer C.
+The brief states: the BET = a differentiator × a niche × an OPEN transformation slot — the operator does
+NOT supply the transformation; competitors REVEAL it as OUTPUT. It also pins operator definitions of the
+interpretation-heavy terms (no stage re-interprets them) and lists the named comparable-bet seed brands +
+the territory set. Use the brief's territories + comparable-bet seeds to drive your wide-net search (see KEEP/NET rules).
+A messy or rich brief may degrade quality but must NEVER hard-fail the run.
+</bet_brief>
+
 STARTING POINT: product = "<PRODUCT>". (Category: "<CATEGORY>".)
 
 The quota is a FLOOR ON SEARCHING EFFORT, not a floor on kept brands. Run at least 12 varied
@@ -337,6 +352,23 @@ classifier's calls. Output ONLY valid dump.json.
 ```
 You read EVERY brand's dump.json together and classify the space. You are the only stage that sees
 all brands at once — your job is to unify vocabulary so the same thing isn't named two ways.
+
+<bet_brief>
+The operator authors a per-run bet brief (hand-filled from prompts/_templates/pre-research-plan.template.md;
+worked example runs/arduview/pre-research-plan.md). It is injected here VERBATIM as PROSE context — it has
+no schema and is NEVER hook-validated. Read it as judgment context, never as a field contract. Three strict layers:
+  (A) the prose brief → your judgment context (this block);
+  (B) a fenced `PIPELINE INPUTS` block inside the brief (flat lists: LP-hunt terms, comparable-bet seed
+      brands, trend-source toggle) → read by SCRIPTS with a tolerant parse, NOT by you;
+  (C) the output schema (space-map.json) → enforced by hooks. Hooks only ever touch layer C.
+The brief states: the BET = a differentiator × a niche × an OPEN transformation slot — the operator does
+NOT supply the transformation; competitors REVEAL it as OUTPUT. It also pins operator definitions of the
+interpretation-heavy terms (no stage re-interprets them) and lists the named comparable-bet seed brands +
+the territory set. Use the brief's pinned definitions when you name canonical transformations/niches/angles/bet_types,
+and report, per structurally-similar competitor, the transformation they attach, the mechanism they actually
+LEAD with, whether the bet won durably, and which niche.
+A messy or rich brief may degrade quality but must NEVER hard-fail the run.
+</bet_brief>
 
 INPUT: all corpus/<slug>/dump.json.
 
