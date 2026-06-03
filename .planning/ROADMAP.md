@@ -57,9 +57,9 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
   3. Running on a real T/P/N produces a clean space map with no cross-cell saturation pooling and no layer conflation (feature≠claim, mechanism≠transformation).
   4. Kam scans a bucketed sample and confirms letters / themes / typed claims are assigned the way he would.
 **Plans**: 5 plans
-- [ ] 01-01-PLAN.md — reconcile step1-light-pass.md: strip awareness (D-05), inline the D-03 sophistication ladder
-- [ ] 01-02-PLAN.md — layer-3 fetch + clean scripts (tools/fetch.js, tools/clean.js)
-- [ ] 01-03-PLAN.md — layer-3 transform scripts (tools/dedupe.js, tools/revenue-est.js) + adlib-one.js touch-up
+- [x] 01-01-PLAN.md — reconcile step1-light-pass.md: strip awareness (D-05), inline the D-03 sophistication ladder
+- [x] 01-02-PLAN.md — layer-3 fetch + clean scripts (tools/fetch.js, tools/clean.js)
+- [x] 01-03-PLAN.md — layer-3 transform scripts (tools/dedupe.js, tools/revenue-est.js) + adlib-one.js touch-up
 - [ ] 01-04-PLAN.md — PostToolUse rejection hooks + four per-agent validators
 - [ ] 01-05-PLAN.md — debug run on a reference T/P/N + Kam's bucketed-sample confirmation (UAT)
 
