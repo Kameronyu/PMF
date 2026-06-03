@@ -75,6 +75,20 @@ It finds competitor brands and emits **correctly-labeled** structured signal —
 - **D-10:** Never ship a fabricated or empty traffic number as data. `revenue_est` always carries `method` + `confidence`; if `monthly_visits` is null → `method:"review_proxy"` (`confidence:"low"`) or explicit null — never "PENDING" shipped as if populated (the InkLeaf failure: SimilarWeb PENDING on all 31 records).
 - **D-11:** Web traffic source = **Semrush Trends API** (returns `monthly_visits` per domain; documented REST endpoint; ±20–40% accuracy). Free tier ≈10 req/day per account → **use multiple logins/accounts** to clear batch volume. The **multi-login wiring is left to the implementer to figure out as they actually wire it up** — not fully specced here. Manual SimilarWeb free-tier paste = **fallback** (`visits_source:"similarweb-manual"`); add `visits_source:"semrush-api"`. No auto-browser SimilarWeb scraping (ToS / ban risk). SpyFu ($89/mo) noted as a secondary fallback only.
 
+### Competitive axis — per-competitor, page-readable (Gate-2 input)
+- **D-12 (competitive axis):** Capture, **per competitor**, the **competitive axis** = what competitors in this territory actually compete on. It is **page-readable** — you can see what axis a market competes on from the competitor's own positioning/page, WITHOUT knowing the customer's true dream/desire. Its purpose: it is a **Gate 2 (Phase 2) input** — it tells the market-selection skill whether transparency/openness is a *live differentiating axis* in that territory.
+  - **Closed enum (single primary axis per competitor):**
+    `competitive_axis: function-capability-price | visual-statement | community-openness`
+    - `function-capability-price` — competes on what it does / specs / features / cost.
+    - `visual-statement` — competes as a visual showpiece / object-as-statement / aesthetic identity.
+    - `community-openness` — competes on community, openness, transparency.
+  - **Evidence required:** a `competitive_axis_basis` string quoting/citing the page signal the axis call is read off (same discipline as the D-03 sophistication evidence line — read it off the page, do not eyeball it).
+  - **Populated for EVERY captured brand** (page-readable regardless of live/dead/region-only — consistent with D-06 flag-don't-drop). It is a per-brand descriptor, NOT a per-cell saturation count, so the live-status exclusion (D-08) does NOT apply to whether the field is populated.
+  - **Executor = the CLASSIFIER (judgment), NOT the Dumper.** The Dumper is hard-bounded to "must not classify" (its hook rejects any classification field). `competitive_axis` is a judgment read, so the Classifier assigns it. It lives in the `space-map.json` `per_brand[]` block (the per-brand Classifier-written structure) — this respects one-writer-per-file (the Classifier solely owns space-map.json; the Dumper never touches it).
+  - **Quality check (hook):** the Classifier validator (`tools/hooks/validate-classifier.js`, Plan 04) must reject any brand whose `competitive_axis` is off-enum, and reject a missing/empty `competitive_axis_basis` when `competitive_axis` is set. This makes the field hook-enforced based on the rest of the prompt.
+  - **Debug-pass note:** if the Plan-05 reference run surfaces a market whose dominant axis fits none of the three enum values, that is expected debug-pass signal — the enum gets extended then, not pre-emptively now ("first run = debug pass").
+  - *Naming note: `definitions.md` has no "axis"/"positioning" term; `competitive_axis` is a new per-brand descriptor that does not collide with the differentiator-lever or sophistication vocabulary. It describes the SHAPE of competition in the territory, not a buyer-side PMBD or a differentiator lever you pull.*
+
 ### Claude's Discretion
 - Reconciliation mechanics — how to fold `step1-light-pass.md`'s scaffold + agent prompts into one runnable file, exact prompt wording, and where the two inlines physically sit.
 - Hook implementation details (the rejection-hook JSON the prompt specs).
@@ -123,7 +137,7 @@ It finds competitor brands and emits **correctly-labeled** structured signal —
 - Dumper reads ONLY pre-cleaned `corpus/<brand>/clean/*.md` (file-layout enforces "agent reads clean copy only").
 
 ### Integration Points
-- `space-map.json` is the contract the **Phase 2 market-selection skill** consumes (`.claude/skills/market-selection/`). The D-06/D-07/D-08 flags + the live-vs-total split are what let that skill apply its lenses without re-deriving them.
+- `space-map.json` is the contract the **Phase 2 market-selection skill** consumes (`.claude/skills/market-selection/`). The D-06/D-07/D-08 flags + the live-vs-total split + the per-brand `competitive_axis` (D-12) are what let that skill apply its lenses without re-deriving them.
 - `revenue-est.js` traffic source is swappable via `visits_source` — Semrush-API (D-11) plugs in here.
 </code_context>
 
@@ -140,6 +154,7 @@ It finds competitor brands and emits **correctly-labeled** structured signal —
 
 ### Phase 2 — market-selection skill (separate session, runs while light pass runs)
 - Applies the comp-revenue **demand floor** ($300–500K) — the gate D-09 keeps out of Phase 1.
+- Reads the per-brand `competitive_axis` (D-12) as the **Gate-2 transparency-axis input**: it tells the skill whether transparency/openness (`community-openness`) is a *live differentiating axis* in the territory, without the skill re-deriving it from the pages.
 - Reads the flagged dead/region-only brands (D-06/D-08) through **different lenses, never double-counted**:
   - **Dead brand = post-mortem, not a model.** Classify cause of death from creative run-length: *long run then stop* = fatigue/operator-quit → steal the proven angle + note the whitespace that just opened; *short run then vanish* = angle failed / fad → avoid. Dead brands are OUT of the live saturation count but IN as a zero-attribution-risk **angle archive**.
   - **Region-only brand = channel-edge signal.** Proven-elsewhere transformation with the competitor absent from your channel = first-mover distribution edge. Filed to a **separate channel-edge output**, never the saturation count.
@@ -158,5 +173,3 @@ It finds competitor brands and emits **correctly-labeled** structured signal —
 
 *Phase: 01-stage-m1-s1-light-pass*
 *Context gathered: 2026-06-03*
-</content>
-</invoke>

@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: **Ready to build** (rolling-wave, one stage at a time).
+status: executing
 stopped_at: Phase 1 context gathered
-last_updated: "2026-06-03T18:16:50.563Z"
-last_activity: 2026-06-03 — workspace reconciled; InkLeaf retired to `_quarantine/`; framework specs persisted to `prompts/_specs/`; ROADMAP rewritten to the two-track build-state-aware structure.
+last_updated: "2026-06-03T18:45:19.937Z"
+last_activity: 2026-06-03 -- Phase 1 planning complete
 progress:
   total_phases: 14
   completed_phases: 0
-  total_plans: 0
+  total_plans: 5
   completed_plans: 0
   percent: 0
 ---
@@ -38,9 +38,9 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 **Track B — VOC (Step 3a/3b):** all SPECCED in `handoff-step3-voc-build.md`; starts at the **M1-S4 codebook keystone** (everything keys off it). Not yet built.
 
-Status: **Ready to build** (rolling-wave, one stage at a time).
+Status: Ready to execute
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
-Last activity: 2026-06-03 — workspace reconciled; InkLeaf retired to `_quarantine/`; framework specs persisted to `prompts/_specs/`; ROADMAP rewritten to the two-track build-state-aware structure.
+Last activity: 2026-06-03 -- Phase 1 planning complete
 
 Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not yet run end-to-end through the new pipeline)
 
