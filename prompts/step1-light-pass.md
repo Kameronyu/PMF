@@ -54,6 +54,13 @@ correctly" problem is solved by **hooks that reject bad output**, not by trustin
         "inputs": { "monthly_visits": null, "visits_source": "similarweb-manual | semrush-api | proxy | review-proxy | null",
                     "cvr_assumption": 0.02, "aov_usd": null, "aov_source": "observed-price | estimate | null" },
         "notes": "string"
+      },
+      "demand_trend": {
+        "_note": "populated by fetch.js (Google Trends ~5yr per brand/category term), NOT an agent",
+        "shape": "steady | rising | parabolic-spike | declining | unknown",
+        "window": "the trend window measured, e.g. '2021-2026 (5yr)' | null",
+        "source": "google-trends | null",
+        "basis": "one-line read of the curve the shape is called off — e.g. 'sharp 2023 spike then -70% by 2025' | null"
       }
     }
   ],
@@ -139,6 +146,7 @@ A creative always has a niche-target read + angle; it MAY carry zero claims.
       "niches": ["canonical","..."],
       "bet_type": "the structural bet this brand leads with, NAMED in the space's own terms — OPEN, not an enum",
       "bet_type_basis": "page-quoted signal the bet_type call is read off — verbatim/cited, not eyeballed",
+      "demand_trend": { "shape": "one of DEMAND_TREND_SHAPE_ENUM", "window": "string|null", "source": "google-trends|null", "basis": "string|null" },
       "sophistication": "stage 1-5 + one-line evidence" } ],
   "saturation": [ { "transformation": "focus-productivity", "niche": "students", "brand_count": 3, "saturated": false } ]
 }
@@ -157,8 +165,9 @@ A creative always has a niche-target read + angle; it MAY carry zero claims.
 
 ### Closed enums (a value off-list is a hard reject)
 ```
-CHANNEL_ENUM:          dtc | marketplace | crowdfunding
-CLAIM_TYPE_ENUM:       direct | enlarged | mechanism | enhanced   (classifier assigns per claim; off-list = hard reject)
+CHANNEL_ENUM:               dtc | marketplace | crowdfunding
+CLAIM_TYPE_ENUM:             direct | enlarged | mechanism | enhanced   (classifier assigns per claim; off-list = hard reject)
+DEMAND_TREND_SHAPE_ENUM: steady | rising | parabolic-spike | declining | unknown   (unknown = escape valve when no source resolves; off-list = hard reject)
 ```
 Open (captured verbatim by the dumper, clustered by the classifier): claims · mechanism · niche · angle · bet_type.
 Closed (dumper picks from the enum, hook-rejected off-list): channel · lane.
@@ -397,9 +406,9 @@ DO:
 3. Stamp canonical_transformation + canonical_niche + canonical_angle back onto context, and build
    COMBOS (transformation × niche) with brand_count + creative_count + which brands.
 4. Per brand: list its transformations (+ creative counts), niches, a bet_type call (see
-   BET TYPE below), and a sophistication call (Stage 1-5) read off the cell's claim_type
-   distribution per the SOPHISTICATION block below — the evidence line cites the claim(s) + brand
-   count that set the stage; never eyeball the stage.
+   BET TYPE below), a demand_trend carry (see DEMAND TREND below), and a sophistication call
+   (Stage 1-5) read off the cell's claim_type distribution per the SOPHISTICATION block below —
+   the evidence line cites the claim(s) + brand count that set the stage; never eyeball the stage.
 4b. BET TYPE (per brand) — read OFF the brand's OWN positioning/page what structural bet it leads
     with. This is page-readable: you decide from how the brand presents itself, WITHOUT needing to
     know the customer's true dream/desire. NAME the structural bet in the space's own terms — do NOT
@@ -411,6 +420,11 @@ DO:
     Then unify the per-brand bet_type reads into canonical `bet_types[]` with `raw_variants`,
     exactly as you cluster transformations — variants must trace back to real per-brand reads.
     This feeds the Phase 2 Gate-2 structural-bet read.
+4c. DEMAND TREND (per brand) — carry each brand's `demand_trend` record from its brands.json entry
+    into per_brand[]. Do NOT recompute it — it is a fetch.js Google Trends read, not your judgment.
+    If a brand's `demand_trend.shape` is `unknown`, list it as `unknown` — never guess a shape.
+    demand_trend is the load-bearing fad-death / parabolic-spike durability signal the Phase 2
+    Gate-1 kill reads (a parabolic-spike brand in a declining trend = structural fad risk).
 SOPHISTICATION (per combo cell = transformation × niche)
 The stage = the height of the most-saturated differentiation layer competitors
 already occupy in this cell. It tells you the FLOOR you must clear to out-persuade
