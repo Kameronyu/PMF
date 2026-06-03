@@ -4,8 +4,8 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Phase 1 context gathered
-last_updated: "2026-06-03T18:45:19.937Z"
-last_activity: 2026-06-03 -- Phase 1 planning complete
+last_updated: "2026-06-03T19:13:31.702Z"
+last_activity: 2026-06-03 -- Phase 01 execution started
 progress:
   total_phases: 14
   completed_phases: 0
@@ -22,11 +22,13 @@ See: .planning/PROJECT.md · Roadmap: .planning/ROADMAP.md (rewritten 2026-06-03
 
 **Core value:** A reusable research engine that converts a T/P/N seed into a validated market bet plus a
 queryable bank of real, attributed customer language (verbatim, live permalinks).
-**Current focus:** Milestone 1 (Research Engine), two parallel tracks — **Track A: Competitive analysis**
+**Current focus:** Phase 01 — stage-m1-s1-light-pass
 (Step 0/1/2, closest to running) and **Track B: VOC** (Step 3a/3b, specced).
 
 ## Current Position
 
+Phase: 01 (stage-m1-s1-light-pass) — EXECUTING
+Plan: 1 of 5
 Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
 Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
@@ -38,9 +40,9 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 **Track B — VOC (Step 3a/3b):** all SPECCED in `handoff-step3-voc-build.md`; starts at the **M1-S4 codebook keystone** (everything keys off it). Not yet built.
 
-Status: Ready to execute
+Status: Executing Phase 01
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
-Last activity: 2026-06-03 -- Phase 1 planning complete
+Last activity: 2026-06-03 -- Phase 01 execution started
 
 Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not yet run end-to-end through the new pipeline)
 
