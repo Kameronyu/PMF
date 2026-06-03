@@ -21,13 +21,13 @@ PMF is a research-to-launch system for direct-response e-commerce. You start fro
 - If you have a product, look for what brands sell your product / similar products.
 - *or any combination of these 3.*
 
-**! [Light Brand Analysis Agent](runs/eink-tablets/scripts/analyzer-brief.md)**
+**! [Light Brand Analysis Agent](prompts/phase1-light-pass.md)**
 - Analyze per-brand: Product, Mechanism (how the product delivers the transformation), Niche (the specific group of people you sell to), Transformation, Sophistication Signals (how advanced and saturated the competitors' marketing already is).
 
-**! [Light Space Analysis Agent](runs/eink-tablets/markets/faith/aggregator-brief.md)**
+**! [Light Space Analysis Agent](prompts/phase1-light-pass.md)**
 - Analyze space: brand and claim (a claim is a promise the marketing makes) frequency and ad volume per product / niche / transformation / claim / mechanism.
 
-**! [Gap Analysis Agent](workflow.md) + Human**
+**! [Gap Analysis Agent](.claude/skills/market-selection/SKILL.md) + Human**
 - Which markets could my product serve that aren't being served / are underserved.
 - Does this market already spend similar amounts of money on similar products? Do we have validated demand? If not, does the customer talk about wanting to spend money on a product like ours?
 - What edge does my product have over the competition, what can it do differently and for what purpose, that gives the customer a uniquely desirable benefit.
@@ -39,24 +39,24 @@ PMF is a research-to-launch system for direct-response e-commerce. You start fro
 **! [Finder Agent](prompts/phase1-light-pass.md)**
 - Find your competition specific to the new market you selected. It is realistic that they all sell similar products.
 
-**! [Light Brand Analysis Agent](runs/eink-tablets/scripts/analyzer-brief.md)**
+**! [Light Brand Analysis Agent](prompts/phase1-light-pass.md)**
 - Analyze per-brand: Product, Mechanism, Niche, Transformation, Sophistication Signals.
 
-**! [Light Space Analysis Agent](runs/eink-tablets/markets/faith/aggregator-brief.md)**
+**! [Light Space Analysis Agent](prompts/phase1-light-pass.md)**
 - Analyze space: brand and claim frequency and ad volume per product / niche / transformation / claim / mechanism.
 
-**! [Gap Analysis Agent](workflow.md) + Human**
+**! [Gap Analysis Agent](.claude/skills/market-selection/SKILL.md) + Human**
 - Does this market already spend similar amounts of money on similar products? Do we have validated demand? If not, does the customer talk about wanting to spend money on a product like ours?
 - What edge does my product have over the competition, for what purpose, that gives the customer a uniquely desirable benefit.
 - What is the trend velocity?
 - Perform feasibility evaluation.
 
-**! [Decision Agent](workflow.md) + Human**
+**! [Decision Agent](.claude/skills/market-selection/SKILL.md) + Human**
 - Should we pursue this?
 
 ## Phase 2: Study Your Competition
 
-**! [Deep Brand Analysis Agent](runs/eink-tablets/scripts/granular-analyzer-brief.md)**
+**! [Deep Brand Analysis Agent](prompts/_specs/deep-market-analysis-framework.md)** *(specced, not built)*
 
 Ads:
 - Ad run length
@@ -78,7 +78,7 @@ Funnel:
 
 Run this on the top 5 brands in the market.
 
-**! [Persuasion Analysis Agent](runs/eink-tablets/scripts/market-playbook-brief.md)**
+**! [Persuasion Analysis Agent](prompts/_specs/deep-market-analysis-framework.md)** *(specced, not built)*
 - How are we going to use the winning elements from other brands in our brand, while staying congruent with the differentiated edge from Phase 1.
 
 ## Phase 3: Study Your Customer

@@ -2,74 +2,68 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-06-02)
+See: .planning/PROJECT.md · Roadmap: .planning/ROADMAP.md (rewritten 2026-06-03)
 
-**Core value:** A reusable research engine that converts a T/P/N seed into a queryable bank of real, attributed customer language (verbatim, live permalinks) plus a validated market bet.
-**Current focus:** Milestone 1 (Research Engine) — Stage M1-S1: Codebook + record schema
+**Core value:** A reusable research engine that converts a T/P/N seed into a validated market bet plus a
+queryable bank of real, attributed customer language (verbatim, live permalinks).
+**Current focus:** Milestone 1 (Research Engine), two parallel tracks — **Track A: Competitive analysis**
+(Phase 0/1/2, closest to running) and **Track B: VOC** (Phase 3a/3b, specced).
 
 ## Current Position
 
-Milestone: M1 of 2 (Research Engine; M2 deferred / rolling-wave)
-Phase: 1 of 12 (Stage M1-S1 — Codebook + record schema)
-Plan: 0 of TBD in current stage
-Status: Ready to plan
-Last activity: 2026-06-02 — ROADMAP.md + STATE.md created; 12 M1 stages transcribed from BUILD-STATE.md, 15 REQs mapped, coverage 100%.
+Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
+Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
-Progress: [░░░░░░░░░░] 0%
+**Track A — Competitive analysis:**
+- M1-S1 Light pass — **BUILT** (`prompts/phase1-light-pass.md`, enriched with revenue_est + claim_type). Remaining: layer-3 scripts to run automated.
+- M1-S2 Market-selection gate — **DRAFTED** (`.claude/skills/market-selection/SKILL.md` + verbatim spec). Remaining: wire the S1 data contract.
+- M1-S3 Deep competitive analysis + messaging strategy — **SPECCED** (`prompts/_specs/deep-market-analysis-framework.md`).
+
+**Track B — VOC (Phase 3a/3b):** all SPECCED in `handoff-phase3-voc-build.md`; starts at the **M1-S4 codebook keystone** (everything keys off it). Not yet built.
+
+Status: **Ready to build** (rolling-wave, one stage at a time).
+Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
+Last activity: 2026-06-03 — workspace reconciled; InkLeaf retired to `_quarantine/`; framework specs persisted to `prompts/_specs/`; ROADMAP rewritten to the two-track build-state-aware structure.
+
+Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not yet run end-to-end through the new pipeline)
 
 ## Performance Metrics
 
 **Velocity:**
 - Total plans completed: 0
 - Average duration: — min
-- Total execution time: 0.0 hours
-
-**By Phase:**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| - | - | - | - |
-
-**Recent Trend:**
-- Last 5 plans: —
-- Trend: —
-
-*Updated after each plan completion*
 
 ## Accumulated Context
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
-
-- M1/M2 split: M1 = research engine (critical path = Phase 3 VOC pipeline); M2 = launch engine, deferred rolling-wave.
-- Build the classifier codebook (M1-S1) first — it is simultaneously classifier instructions, record schema, and copy-retrieval index; everything keys off it.
-- Verification is UAT, not unit tests — run on a reference subreddit + Kam reads the copy bank.
-- Naming locked: "Phase" = PMF research step 0–8 (reserved); build units are "Stages" (M1-S{n}).
+- InkLeaf RETIRED — `runs/eink-tablets/` quarantined; not canon, not a UAT rebuild target. Learnings live in `run-retrospective.md` + `agents/implementation-notes.md`; fetch tooling rescued to `tools/`.
+- Brick model is the build law: one job per brick, deterministic → script/hook, judgment → agent, gates → agent-prep + human Decide.
+- Schema authority for the per-brand/per-market record = `prompts/_specs/` frameworks + `phase1-light-pass.md` (the older `map/data_inventory.md` base/enhanced claim_type is superseded by direct/enlarged/mechanism/enhanced).
+- GSD used lightweight: roadmap tracking + `/gsd-plan-phase --skip-research` → `/gsd-execute-phase`; heavy ceremony stays off.
+- Verification is UAT, not unit tests — run on a reference space and Kam reads the output.
 
 ### Pending Todos
 
-None yet.
+None tracked here.
 
 ### Blockers/Concerns
 
-- M1-S2/S3 carry the open "no-clean-niche-venue" design problem (behavior-defined niches like dumb-device have no anchor subreddit) — flagged for the Query Planner stage.
-- Reddit ingestion must run on the official commercial API (GummySearch died Nov 2025 over API licensing) — same shutdown risk otherwise.
+- Track B M1-S5: the open "no-clean-niche-venue" design problem (behavior-defined niches have no anchor subreddit) — flagged for the Query Planner stage.
+- Track B M1-S6: Reddit ingestion must run on the official commercial API (GummySearch died Nov 2025 over API licensing).
+- Track A M1-S1 revenue signal: monthly-visits source is manual-paste / review-proxy (no paid SimilarWeb API) — `revenue_est.method/confidence` keeps it swappable.
 
 ## Deferred Items
 
-Items acknowledged and carried forward:
-
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| Milestone | M2 — launch/execution engine (Phases 4–8 + InkLeaf fold) | Deferred (rolling-wave) | 2026-06-02 |
+| Milestone | M2 — launch engine (Phases 4–8 + the `launch/` Shopify/Klaviyo fold) | Deferred (rolling-wave) | 2026-06-03 |
 | Capability | Vectorization / RAG vector DB | Deferred (JIT for Phase 4) | 2026-06-02 |
 | Capability | Persistence / substrate layer | Deferred (.md files suffice) | 2026-06-02 |
 | Capability | `space-sketcher` (partial-seed expander) | Deferred (no case yet) | 2026-06-02 |
 
 ## Session Continuity
 
-Last session: 2026-06-02
-Stopped at: Roadmap + state initialized for M1; awaiting plan of Stage M1-S1.
+Last session: 2026-06-03
+Stopped at: Workspace reconciled + ROADMAP rewritten (two-track, InkLeaf retired). Ready to build — pick Track A (finish S1 scripts + S2 wiring) or Track B (S4 codebook).
 Resume file: None

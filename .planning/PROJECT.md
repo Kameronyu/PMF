@@ -2,7 +2,7 @@
 
 ## What This Is
 
-PMF is a research-to-launch system for direct-response e-commerce. You feed it a product, a transformation, or a niche, and it works that input down a fixed flow — map a space, pick a market worth entering, study the competition and the customer, design and run a creative test, then launch or kill. What comes out is a validated market, the exact customer language to sell with, and a funnel ready to take money. InkLeaf (a foldable programmable e-ink tablet) is the first product running through it; the machinery is built to work for the next product without being rewritten.
+PMF is a research-to-launch system for direct-response e-commerce. You feed it a product, a transformation, or a niche, and it works that input down a fixed flow — map a space, pick a market worth entering, study the competition and the customer, design and run a creative test, then launch or kill. What comes out is a validated market, the exact customer language to sell with, and a funnel ready to take money. InkLeaf (a foldable programmable e-ink tablet) was the first product run through it — a bare-minimum shakedown, now **retired to `_quarantine/`**; the machinery is built to work for the next product without being rewritten.
 
 ## Core Value
 
@@ -12,14 +12,15 @@ A reusable research engine that converts a T/P/N seed into a queryable bank of *
 
 ### Validated
 
-<!-- Shipped during the InkLeaf run (2026-04 to 05) and confirmed useful. Locked — changing requires explicit discussion. -->
+<!-- Durable assets that survive the InkLeaf retirement (2026-06-03). The InkLeaf RUN itself is quarantined; what's validated below is the reusable machinery + locked canon, not the run's artifacts. -->
 
-- ✓ **Phase 0/1 space mapping** — 31 brand records, 3 market profiles (faith/students/dumb-device), `market-opportunity.md`, birdseye transformation map — existing (`runs/eink-tablets/`)
-- ✓ **Phase 2 deep market study** — 10-brand marketing corpus (5-file schema each), 10 granular persuasion analyses, 4 per-market playbooks, category-evolution/wedge analysis — existing
-- ✓ **3-agent scan pattern** — finder → roster checkpoint → parallel analyzers (shared framework file) → aggregator → profile checkpoint; one-job-per-agent, per-brand isolation enforced — existing
-- ✓ **Deterministic fetch tooling** — `adlib-one.js` (Meta Ad Library + `days_running`), `crowdfund-fetch.js` (SPA/Cloudflare bypass), Playwright-based — existing
-- ✓ **Phase 5/6 launch-vehicle research** — crowdfunding corpus (4+ campaigns, 9-file schema), deposit-funnel 3-stage skeleton (`lp-teardown.md`), deposit-pages verbatim — existing, ahead of schedule
-- ✓ **Locked canon** — `definitions.md` (vocabulary), `workflow.md` (Phase spine + PMBD battery), `capability_inventory.md` (brick set + locked decisions 1–9), `flow.md`, `README.md` — existing
+- ✓ **Light pass (built)** — `prompts/phase1-light-pass.md`: Finder + Roster Verifier + Dumper + Space Classifier, enriched with `revenue_est` + `claim_type`. The one durable, reusable competitor-research prompt + the format template for all future prompts.
+- ✓ **Brick model (locked)** — `capability_inventory.md`: one job per brick, scripts for deterministic work, agents for judgment, hooks to gate, human Decide for the gates. The build law.
+- ✓ **Strategy frameworks (locked, verbatim)** — `prompts/_specs/market-selection-framework.md` (4-gate market selection) + `prompts/_specs/deep-market-analysis-framework.md` (two-lens deep analysis). Kam's source-of-truth sauce.
+- ✓ **Deterministic fetch tooling** — `tools/adlib-one.js` (Meta Ad Library + `days_running`), `tools/crowdfund-fetch.js` (SPA/Cloudflare bypass), Playwright-based — rescued from the InkLeaf run.
+- ✓ **Locked canon** — `definitions.md` (vocabulary), `workflow.md` (Phase spine + PMBD battery, now tagged reservoir), `capability_inventory.md`, `README.md` (the clickable flow), `CLAUDE.md` (agent-design rules).
+- ✓ **Launch machinery imported** — `launch/` (Shopify + Klaviyo + LP build/deploy), to generalize into the reusable new-store module (M2). InkLeaf-specific; not yet reconciled.
+- ⌫ **InkLeaf run — RETIRED** — `_quarantine/runs/eink-tablets/`: misclassified definitions, throwaway deep-comp brief. Learnings already mined into `run-retrospective.md` + `agents/implementation-notes.md`.
 
 ### Active
 
@@ -55,7 +56,7 @@ A reusable research engine that converts a T/P/N seed into a queryable bank of *
 - **Vectorization / RAG vector DB** — JIT only; build the structured attributed store now, add embeddings when Phase 4 needs semantic retrieval.
 - **Persistence / substrate layer** — DEFERRED (2026-05-21); `.md` files are de-facto persistence; build JIT when manual friction demands it.
 - **`space-sketcher` (partial-seed expander)** — DEFERRED; no partial-seed case has appeared.
-- **Rebuilding InkLeaf artifacts** — `runs/eink-tablets/` is the first instance / UAT corpus, not a rebuild target.
+- **InkLeaf research run** — RETIRED, quarantined to `_quarantine/`. Not regenerated, not a UAT corpus. Learnings mined into `run-retrospective.md` + `agents/implementation-notes.md`.
 - **LLM-generated customer copy** — hard prohibition; the moat is real attributed verbatim. No agent ever authors a customer sentence into the bank.
 
 ## Context
@@ -86,7 +87,7 @@ A reusable research engine that converts a T/P/N seed into a queryable bank of *
 | M1 = research engine, M2 = launch engine (deferred) | VOC pipeline is the critical path; rolling-wave avoids over-planning M2 before M1 teaches us | — Pending |
 | Build the classifier codebook first | It is simultaneously classifier instructions, record schema, and copy-retrieval index — everything keys off it | — Pending |
 | Models: Opus for planning/research/roadmap, Sonnet for executor | Opus where context+reasoning+orchestration matter; Sonnet for worker-bee implementation | — Pending |
-| InkLeaf run is the first instance + UAT corpus, not a rebuild | Existing `runs/eink-tablets/` artifacts are validated; reuse, don't regenerate | ✓ Good |
+| InkLeaf run RETIRED / quarantined | Bare-minimum first run; misclassified definitions + throwaway deep-comp; learnings mined to reservoir docs | ✓ Done (2026-06-03) |
 | Co-occurrence clustering within individuals is the differentiator | No prior art; commercial twins (PainOnSocial) stop short of per-user clustering | — Pending |
 
 ## Evolution

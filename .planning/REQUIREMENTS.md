@@ -1,6 +1,6 @@
 # PMF — Requirements (Milestone 1: Research Engine)
 
-Scope: **M1 — the research engine**, with the **Phase 3 VOC pipeline as the critical path**. Source of truth: `BUILD-STATE.md` (M1/M2 split) + `handoff-phase3-voc-build.md` (VOC build brief). InkLeaf (`runs/eink-tablets/`) is the first instance / UAT corpus.
+Scope: **M1 — the research engine**, two tracks: **Track A competitive analysis** (Phase 0/1/2 — light pass [built] → market-selection gate [drafted] → deep analysis [specced]) and **Track B VOC** (Phase 3a/3b — specced in `handoff-phase3-voc-build.md`). Source of truth: `ROADMAP.md` + `prompts/_specs/` (the strategy frameworks) + `handoff-phase3-voc-build.md`. **InkLeaf is RETIRED** (quarantined to `_quarantine/`) — not an instance to regenerate, not a UAT rebuild target.
 
 Naming: **Stage** = GSD build unit; **Phase** = PMF research step 0–8. REQ-IDs below are capabilities, mapped to Stages by the roadmap.
 
@@ -54,7 +54,7 @@ Deferred to Milestone 2 (rolling-wave; do not plan before M1 shakes out): test d
 - **Vector DB / RAG embeddings** — JIT; add when Phase 4 needs semantic retrieval.
 - **Persistence / substrate layer** — DEFERRED; `.md` files suffice until manual friction demands a store.
 - **`space-sketcher`** — DEFERRED; no partial-seed case yet.
-- **Regenerating InkLeaf artifacts** — they are validated instance data / UAT corpus.
+- **InkLeaf research run** — RETIRED, quarantined to `_quarantine/`. Not regenerated, not used as a UAT corpus. Learnings already mined into `run-retrospective.md` + `agents/implementation-notes.md`.
 
 ---
 
@@ -64,21 +64,23 @@ REQ-ID → Stage (GSD phase index in parens). Naming: the Stage is the identifie
 
 | Requirement | Stage | Serves PMF Phase | Status |
 |-------------|-------|------------------|--------|
-| VOC-01 | M1-S1 (phase 1) | 3a/3b | Pending |
-| VOC-02 | M1-S1 (phase 1) | 3a/3b | Pending |
-| VOC-03 | M1-S2 (phase 2) | 3a | Pending |
-| VOC-04 | M1-S3 (phase 3) | 3a | Pending |
-| VOC-05 | M1-S3 (phase 3) | 3a | Pending |
-| VOC-06 | M1-S4 (phase 4) | 3a | Pending |
-| VOC-07 | M1-S4 (phase 4) | 3a | Pending |
-| VOC-08 | M1-S5 (phase 5) | 3a | Pending |
-| VOC-09 | M1-S6 (phase 6) | 3b | Pending |
-| VOC-10 | M1-S7 (phase 7) | 3b | Pending |
-| VOC-11 | M1-S8 (phase 8) | 3a/3b validation | Pending |
-| TOOL-01 | M1-S9 (phase 9) | 0, 1 | Pending |
-| TOOL-02 | M1-S9 (phase 9) | 0, 1 | Pending |
-| GATE-01 | M1-S10 (phase 10) | 0 gate | Pending |
-| UM-01 | M1-S11 (phase 11) | 3c | Pending |
-| LOOP-01 | M1-S12 (phase 12) | 3d | Pending |
+| GATE-01 | M1-S2 (market-selection gate) | 0 gate | **Drafted** |
+| TOOL-01 | M1-S1 (light pass) + M1-S12 | 0, 1 | Light pass **built**; templatize pending |
+| TOOL-02 | M1-S12 | 0, 1 | Pending |
+| VOC-01 | M1-S4 | 3a/3b | Pending (specced) |
+| VOC-02 | M1-S4 | 3a/3b | Pending (specced) |
+| VOC-03 | M1-S5 | 3a | Pending (specced) |
+| VOC-04 | M1-S6 | 3a | Pending (specced) |
+| VOC-05 | M1-S6 | 3a | Pending (specced) |
+| VOC-06 | M1-S7 | 3a | Pending (specced) |
+| VOC-07 | M1-S7 | 3a | Pending (specced) |
+| VOC-08 | M1-S8 | 3a | Pending (specced) |
+| VOC-09 | M1-S9 | 3b | Pending (specced) |
+| VOC-10 | M1-S10 | 3b | Pending (specced) |
+| VOC-11 | M1-S11 | 3a/3b validation | Pending (specced) |
+| UM-01 | M1-S13 | 3c | Pending |
+| LOOP-01 | M1-S14 | 3d | Pending |
 
-**Coverage: 15/15 mapped. No orphans. No duplicates.**
+**Coverage: 16/16 mapped.** Note: Track A's deep competitive analysis + messaging strategy (M1-S3,
+`prompts/_specs/deep-market-analysis-framework.md`) serves Phase 2 + front-half Phase 4 and is not yet a
+numbered v1 REQ — it's a specced capability feeding the launch engine; promote to a REQ when M2 is planned.

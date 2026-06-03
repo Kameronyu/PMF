@@ -1,5 +1,18 @@
 # PMF Build-State Map
 
+> ⚠ **SUPERSEDED IN PARTS (2026-06-03).** This map was generated before the workspace reconciliation.
+> Current source of truth is `ROADMAP.md` (rewritten to the two-track structure). What changed since
+> this map was written:
+> - **InkLeaf is RETIRED** — `runs/eink-tablets/` quarantined to `_quarantine/`; it is NOT a UAT corpus
+>   or rebuild target. The "Inkleaf mid-Phase-0" framing below is stale.
+> - **Brick model locked** in `capability_inventory.md` (one job per brick; script/agent/hook/human).
+> - **Light pass enriched** (`prompts/phase1-light-pass.md` now has `revenue_est` + `claim_type`).
+> - **Market-selection gate drafted** (`.claude/skills/market-selection/SKILL.md`); strategy frameworks
+>   persisted verbatim to `prompts/_specs/`.
+> - **`flow.md` deleted** (folded into `workflow.md`); `workflow.md` is now tagged reservoir.
+> Read the matrix below for VOC-pipeline detail (still accurate), but defer to `ROADMAP.md` for stage
+> numbering, statuses, and the competitive-analysis track.
+
 ## Orientation
 
 PMF is a research-to-launch system for direct-response e-commerce. It operates on a locked phase spine numbered 0–8: Phases 0–4 are the research engine (map a space, theorize, study competition, study the customer, design the test); Phases 5–8 are the execution engine (hook test, build-a-brand, eval, iterate or destroy). Three-layer document discipline structures everything: Layer 1 is flow/workflow (what happens, in what order, why); Layer 2 is build briefs and agent prompts (theory-heavy specs, heuristics, classification rules); Layer 3 is technical implementation (APIs, scripts, storage wiring). The Inkleaf foldable e-ink tablet is the first product moving through this system, currently mid-Phase 0 with partial Phase 2/3 surface area explored ad hoc. This map is a feeder document for `gsd-new-project`: it tells the GSD setup which artifacts exist, which are missing, what is buildable now versus blocked, and how to split milestones without colliding with PMF's own research-phase numbering.
