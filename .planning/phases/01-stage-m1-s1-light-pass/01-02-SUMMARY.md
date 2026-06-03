@@ -120,3 +120,20 @@ None. `fetchTrend` is a real Playwright fetch against `trends.google.com`. `clas
 - Commit `d1ba2ef` exists covering both task changes
 - `git diff --name-only HEAD~1 HEAD` shows only `tools/fetch.js` (clean.js untouched)
 - No new npm deps introduced
+
+## Addendum — Task 3 (D-20) built 2026-06-03 (direct build, post-execution)
+
+Task 3 (`tools/adlib-one.js` structured per-ad extraction) was added to this plan AFTER the
+parallel execute-phase run had already completed Tasks 1-2, so it was built directly rather than
+via execute-phase. Delivered:
+- `adlib-one.js` now emits a structured per-ad `ads[]` array (`library_id`, `start_date`,
+  `end_date`, `run_length_days`, `text`) into `ads/<slug>.json` — not just `active_ad_count` + blob.
+- Stopped-ad pass added (`active_status=all`) so dead ads carry an `end_date` + full `run_length_days`
+  (feeds D-08 cause-of-death); the active pass + `active_ad_count` are preserved unchanged.
+- Records merged across both passes, de-duped by `library_id` (prefer the record with an `end_date`).
+- `run_length_days` deterministic (end−start, or today−start for active); `null` when start unparseable
+  (D-10 never-fabricate). Zero new deps (playwright + fs + path).
+- Selectors are best-effort (text-chunk parse on the "Library ID" delimiter, since Ad Library DOM is
+  obfuscated) — the 01-05 debug run is expected to calibrate the date/card patterns against the real DOM.
+- Parser unit-tested against a synthetic blob: active ad → run-so-far; stopped ad → full run length;
+  short/invalid IDs skipped.

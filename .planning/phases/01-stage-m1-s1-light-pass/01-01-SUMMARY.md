@@ -115,3 +115,12 @@ None — prompt-text edit only, no new network endpoints, no credentials, no exe
 - Commit da80de4 (Task 2): FOUND
 - Commit b2d0aeb (Task 3): FOUND
 - Commit dac8cd8 (Task 4): FOUND
+
+## Addendum — Task 4(d) (D-20 Dumper carry) built 2026-06-03 (direct build, post-execution)
+
+Task 4(d) was added AFTER the parallel execute-phase run completed Task 4, so it was built directly.
+The AGENT 2 — DUMPER prompt now instructs: COPY each ad creative's `start_date` / `run_length_days`
+from the matching `ads/<SLUG>.json` `ads[]` record (by `library_id` = `creative_id`, adlib-one.js
+extracts them deterministically); landing/product pages → both null; NEVER estimate or guess
+(D-10 / D-20). This makes the D-19 anti-fluke `run_length_days >= 7` count rest on real data.
+Paired with the `adlib-one.js` structured extraction built under 01-02 Task 3.

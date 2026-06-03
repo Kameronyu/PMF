@@ -77,6 +77,60 @@ function pickAdvertiser(cands, brand) {
   return best && best._score >= 30 ? best : null;
 }
 
+// --- D-20: structured per-ad extraction (run_length_days from the Ad Library) ---
+// Card boundaries on the Ad Library DOM are obfuscated/hashed, so chunking the
+// rendered results text on the "Library ID" delimiter is more robust than guessing
+// container selectors. The 01-05 debug pass calibrates these patterns against the
+// real DOM. adlib-one.js is a normal Node CLI (not a workflow script), so new Date()
+// is fine for the active-ad "run so far" anchor.
+function toISO(d) {
+  const t = new Date(d);
+  return isNaN(t.getTime()) ? null : t.toISOString().slice(0, 10);
+}
+function daysBetween(a, b) {
+  const t1 = new Date(a), t2 = new Date(b);
+  if (isNaN(t1.getTime()) || isNaN(t2.getTime())) return null;
+  return Math.max(0, Math.round((t2 - t1) / 86400000));
+}
+function parseAdsFromText(blob) {
+  if (!blob) return [];
+  const today = new Date().toISOString().slice(0, 10);
+  const ads = [];
+  const DATE = /([A-Z][a-z]{2,8}\.?\s+\d{1,2},\s+\d{4})/;
+  const parts = blob.split(/Library ID:?\s*/i).slice(1); // drop preamble before first ID
+  for (const part of parts) {
+    try {
+      const idm = part.match(/^(\d{5,})/);
+      if (!idm) continue;
+      const library_id = idm[1];
+      // A "Mon D, YYYY - Mon D, YYYY" range means the ad has stopped → second date is end_date.
+      const range = part.match(new RegExp(DATE.source + /\s*[-–—]\s*/.source + DATE.source));
+      let start_date = null, end_date = null;
+      if (range) {
+        start_date = toISO(range[1]);
+        end_date = toISO(range[2]);
+      } else {
+        const sm = part.match(new RegExp(/Started running on\s+/.source + DATE.source, 'i'));
+        if (sm) start_date = toISO(sm[1]);
+      }
+      // never-fabricate (D-10): no parseable start → null run_length, never a guess.
+      const run_length_days = start_date ? daysBetween(start_date, end_date || today) : null;
+      const text = part.replace(/\s+/g, ' ').trim().slice(0, 1200);
+      ads.push({ library_id, start_date, end_date, run_length_days, text });
+    } catch (e) { /* skip a malformed card, keep the rest */ }
+  }
+  return ads;
+}
+function mergeAds(a, b) {
+  const byId = new Map();
+  for (const ad of [...a, ...b]) {
+    const prev = byId.get(ad.library_id);
+    if (!prev) byId.set(ad.library_id, ad);
+    else if (!prev.end_date && ad.end_date) byId.set(ad.library_id, ad); // prefer the record carrying an end_date
+  }
+  return [...byId.values()];
+}
+
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
   const browser = await chromium.launch({ headless: true });
@@ -88,6 +142,7 @@ function pickAdvertiser(cands, brand) {
   let count = 'n/a';
   let loaded = 0;
   let text = '';
+  let textAll = '';
   try {
     await page.goto(
       `https://www.facebook.com/ads/library/?active_status=active&ad_type=all` +
@@ -140,11 +195,35 @@ function pickAdvertiser(cands, brand) {
         const cm = text.match(/~?\s*([\d,]+)\s+results?/i);
         count = cm ? cm[1] : (loaded ? loaded + '+ (count text not found; Library IDs loaded)' : 'unknown');
       }
+
+      // D-20 stopped-ad pass: active_status=all surfaces ads that have STOPPED (they
+      // carry an end_date → a full run_length_days), which the active-only pass can
+      // never see. Feeds the D-08 cause-of-death read. The active pass above remains
+      // the source for active_ad_count, so that aggregate's meaning is unchanged.
+      try {
+        await page.goto(
+          `https://www.facebook.com/ads/library/?active_status=all&ad_type=all` +
+            `&country=ALL&view_all_page_id=${resolved.pageId}&media_type=all`,
+          { waitUntil: 'domcontentloaded', timeout: 45000 }
+        );
+        await page.waitForTimeout(6500);
+        for (let i = 0; i < 6; i++) {
+          await page.mouse.wheel(0, 3200);
+          await page.waitForTimeout(1400);
+        }
+        textAll = await page.evaluate(() => document.body.innerText);
+      } catch (e) {
+        status += ' | all-pass error: ' + e.message;
+      }
     }
   } catch (e) {
     status = 'error: ' + e.message;
   }
   await browser.close();
+
+  // D-20: structured per-ad records merged across the active + stopped-ad passes,
+  // de-duped by library_id (prefer the record carrying an end_date).
+  const ads = mergeAds(parseAdsFromText(text), parseAdsFromText(textAll));
 
   const candLines = candidates
     .map((c) => `  ${c.pageId} | score=${c._score != null ? c._score.toFixed(1) : '-'} | ${c.text.replace(/\n/g, ' / ')}`)
@@ -160,6 +239,7 @@ function pickAdvertiser(cands, brand) {
       : null,
     active_ad_count: count,
     library_ids_loaded: loaded,
+    ads,
   };
   fs.writeFileSync(path.join(OUT, `${slug}.json`), JSON.stringify(adJson, null, 2));
 
@@ -172,6 +252,6 @@ function pickAdvertiser(cands, brand) {
       `TYPEAHEAD CANDIDATES:\n${candLines || '  (none — forced pageId or no matches)'}\n\n--- ADS DUMP ---\n${text}`
   );
   console.log(
-    `${slug}: status=${status} | resolved=${resolved ? resolved._name + ' (' + resolved.pageId + ')' : 'NONE'} | active_ads=${count}`
+    `${slug}: status=${status} | resolved=${resolved ? resolved._name + ' (' + resolved.pageId + ')' : 'NONE'} | active_ads=${count} | structured_ads=${ads.length}`
   );
 })();

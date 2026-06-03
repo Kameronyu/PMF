@@ -364,6 +364,11 @@ These fields are per-CREATIVE (the whole ad/page shares them), not per-pitch:
   - linked_funnel_id + link_basis: if an ad's CTA points to a page you also dumped, link them.
     cta_url if you have the destination URL, inferred if you reasoned it, unresolved if unknown.
   - multi: true if the creative genuinely runs >1 angle/niche (then capture the dominant one).
+  - start_date / run_length_days: for an AD creative, COPY both from the matching ad record in
+    ads/<SLUG>.json (the ads[] entry whose library_id = this creative's creative_id — adlib-one.js
+    extracts them deterministically from the Ad Library). For a landing_page / product_page, both are
+    null. NEVER estimate or guess run_length_days — it is script-extracted data you only carry through;
+    if the ad record has null, write null (D-20 / never-fabricate).
   - canonical_niche: null. canonical_angle: null. (ALWAYS. You do not classify. Each pitch's
     transformation is null too.)
 
