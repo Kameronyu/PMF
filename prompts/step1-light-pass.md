@@ -364,7 +364,9 @@ DO:
 3. Stamp canonical_transformation + canonical_niche + canonical_angle back onto context, and build
    COMBOS (transformation × niche) with brand_count + creative_count + which brands.
 4. Per brand: list its transformations (+ creative counts), niches, a competitive_axis call (see
-   COMPETITIVE AXIS below), and a sophistication call (Stage 1-5 + evidence).
+   COMPETITIVE AXIS below), and a sophistication call (Stage 1-5) read off the cell's claim_type
+   distribution per the SOPHISTICATION block below — the evidence line cites the claim(s) + brand
+   count that set the stage; never eyeball the stage.
 4b. COMPETITIVE AXIS (per brand) — assign exactly ONE primary axis from COMPETITIVE_AXIS_ENUM,
     read OFF the brand's OWN positioning/page. This is page-readable: you decide what the brand
     competes on from how it presents itself, WITHOUT needing to know the customer's true dream/desire.
@@ -378,6 +380,33 @@ DO:
     feeds the Phase 2 Gate-2 transparency-axis read (is community-openness a live axis in this
     territory?). If a brand's dominant axis fits none of the three values, flag it in `notes` — that
     is debug-pass signal to extend the enum, NOT a license to guess.
+SOPHISTICATION (per combo cell = transformation × niche)
+The stage = the height of the most-saturated differentiation layer competitors
+already occupy in this cell. It tells you the FLOOR you must clear to out-persuade
+them. Read it off the typed claims — do not eyeball it.
+
+Across all LIVE, in-geography brands in the cell, look at the claim_type distribution:
+  - Stage 1 — barely anyone makes the base claim yet; transformation is fresh.
+              (few brands, sparse `direct`) → floor: just state the claim.
+  - Stage 2 — multiple brands make the base claim; `enlarged` claims appearing
+              (quantified/specified/conditional: "in 14 days", "2x focus").
+              → floor: a sharper/specified claim.
+  - Stage 3 — `mechanism` claims present (outcome tied to a named how/why:
+              "via retinol microspheres", "amber backlight"); a UM exists in the cell.
+              → floor: your own mechanism/UM — a bare claim no longer competes.
+  - Stage 4 — competing mechanisms + `enhanced` claims stacking mechanism+superlative
+              ("the ONLY x clinically shown"); feature-level escalation.
+              → floor: an alternative/better Feature-UM + angle.
+  - Stage 5 — `enhanced`/extraordinary-identifier saturation: claims maxed, edge is now
+              extraordinary identifiers (named authority, major press, proprietary UM
+              competitors can't match) + angle + value model.
+              → floor: extraordinary-tier trust + angle + copy excellence.
+
+Mechanical rule: stage = the highest claim_type tier that 2+ LIVE in-geo brands deploy
+in the cell. 5+ RULE: if 5+ live brands make the same base (`direct`) claim, that claim
+is discounted — cell is ≥Stage 2 and claim-saturated. Evidence line MUST cite the
+claim(s) + brand count that set the stage.
+
 5. Saturation: count brands per COMBO CELL (transformation × niche). NEVER pool across cells.
 6. Problem-UM judgment: cluster the `problem_um_raw` causal stories. For each, count how many brands
    tell it. If 3+ brands tell the same causal story → it's a SHARED problem-mechanism (not ownable).
