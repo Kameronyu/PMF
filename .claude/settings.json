@@ -39,7 +39,22 @@
       "Bash(node runs/eink-tablets/scripts/crowdfund-fetch.js mudita-kompakt https://mudita.com/products/phones/mudita-kompakt --type=lp --out=runs/eink-tablets/marketing-corpus)",
       "Bash(node runs/eink-tablets/scripts/crowdfund-fetch.js supernote-wayback \"https://web.archive.org/web/*/supernote.com/preorder*\" --type=lp --out=runs/eink-tablets/marketing-corpus)",
       "Bash(node runs/eink-tablets/scripts/crowdfund-fetch.js remarkable-wayback \"https://web.archive.org/web/*/remarkable.com/preorder*\" --type=lp --out=runs/eink-tablets/marketing-corpus)",
-      "Bash(node runs/eink-tablets/scripts/crowdfund-fetch.js boox-wayback \"https://web.archive.org/web/*/shop.boox.com/preorder*\" --type=lp --out=runs/eink-tablets/marketing-corpus)"
+      "Bash(node runs/eink-tablets/scripts/crowdfund-fetch.js boox-wayback \"https://web.archive.org/web/*/shop.boox.com/preorder*\" --type=lp --out=runs/eink-tablets/marketing-corpus)",
+      "Bash(node tools/hooks/* *)",
+      "Bash(node tools/*.js *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node tools/hooks/route.js \"$CLAUDE_TOOL_INPUT_PATH\" validate-finder validate-dumper validate-classifier validate-revenue"
+          }
+        ]
+      }
     ]
   }
 }
