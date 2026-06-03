@@ -23,7 +23,7 @@ See: .planning/PROJECT.md · Roadmap: .planning/ROADMAP.md (rewritten 2026-06-03
 **Core value:** A reusable research engine that converts a T/P/N seed into a validated market bet plus a
 queryable bank of real, attributed customer language (verbatim, live permalinks).
 **Current focus:** Milestone 1 (Research Engine), two parallel tracks — **Track A: Competitive analysis**
-(Phase 0/1/2, closest to running) and **Track B: VOC** (Phase 3a/3b, specced).
+(Step 0/1/2, closest to running) and **Track B: VOC** (Step 3a/3b, specced).
 
 ## Current Position
 
@@ -32,11 +32,11 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 **Track A — Competitive analysis:**
 
-- M1-S1 Light pass — **BUILT** (`prompts/phase1-light-pass.md`, enriched with revenue_est + claim_type). Remaining: layer-3 scripts to run automated.
+- M1-S1 Light pass — **BUILT** (`prompts/step1-light-pass.md`, enriched with revenue_est + claim_type). Remaining: layer-3 scripts to run automated.
 - M1-S2 Market-selection gate — **DRAFTED** (`.claude/skills/market-selection/SKILL.md` + verbatim spec). Remaining: wire the S1 data contract.
 - M1-S3 Deep competitive analysis + messaging strategy — **SPECCED** (`prompts/_specs/deep-market-analysis-framework.md`).
 
-**Track B — VOC (Phase 3a/3b):** all SPECCED in `handoff-phase3-voc-build.md`; starts at the **M1-S4 codebook keystone** (everything keys off it). Not yet built.
+**Track B — VOC (Step 3a/3b):** all SPECCED in `handoff-step3-voc-build.md`; starts at the **M1-S4 codebook keystone** (everything keys off it). Not yet built.
 
 Status: **Ready to build** (rolling-wave, one stage at a time).
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
@@ -57,7 +57,7 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 
 - InkLeaf RETIRED — `runs/eink-tablets/` quarantined; not canon, not a UAT rebuild target. Learnings live in `run-retrospective.md` + `agents/implementation-notes.md`; fetch tooling rescued to `tools/`.
 - Brick model is the build law: one job per brick, deterministic → script/hook, judgment → agent, gates → agent-prep + human Decide.
-- Schema authority for the per-brand/per-market record = `prompts/_specs/` frameworks + `phase1-light-pass.md` (the older `map/data_inventory.md` base/enhanced claim_type is superseded by direct/enlarged/mechanism/enhanced).
+- Schema authority for the per-brand/per-market record = `prompts/_specs/` frameworks + `step1-light-pass.md` (the older `map/data_inventory.md` base/enhanced claim_type is superseded by direct/enlarged/mechanism/enhanced).
 - GSD used lightweight: roadmap tracking + `/gsd-plan-phase --skip-research` → `/gsd-execute-phase`; heavy ceremony stays off.
 - Verification is UAT, not unit tests — run on a reference space and Kam reads the output.
 
@@ -75,8 +75,8 @@ None tracked here.
 
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| Milestone | M2 — launch engine (Phases 4–8 + the `launch/` Shopify/Klaviyo fold) | Deferred (rolling-wave) | 2026-06-03 |
-| Capability | Vectorization / RAG vector DB | Deferred (JIT for Phase 4) | 2026-06-02 |
+| Milestone | M2 — launch engine (Steps 4–8 + the `launch/` Shopify/Klaviyo fold) | Deferred (rolling-wave) | 2026-06-03 |
+| Capability | Vectorization / RAG vector DB | Deferred (JIT for Step 4) | 2026-06-02 |
 | Capability | Persistence / substrate layer | Deferred (.md files suffice) | 2026-06-02 |
 | Capability | `space-sketcher` (partial-seed expander) | Deferred (no case yet) | 2026-06-02 |
 

@@ -6,7 +6,7 @@ Per the course correction (see `capability_inventory.md` → Foundational Unders
 
 ---
 
-## Per-brand extractor (Phase 0 — space mapping)
+## Per-brand extractor (Step 0 — space mapping)
 
 ### Distinguish the framework layers — with worked examples
 The eink-tablets run conflated framework layers: features, angles, and mechanisms ended up labelled as transformations or claims. The extractor prompt needs explicit definitional boundaries **and worked examples** — not just the definitions.md glossary.
@@ -33,7 +33,7 @@ The schema (`map/data_inventory.md` → Per-brand extractor → `claims[]`) lump
 Record the causal story (the problem mechanism — can be shared across competitors) separately from whether it is a *unique, differentiating* Problem UM. A shared causal story is a mechanism; only a uniquely-positioned one is a UM.
 
 ### Capture the targeted sub-niche
-Competitor marketing reveals which sub-niche (PMBD cluster) a brand is *aiming at* — readable from hooks, imagery, segmented creative. Add a field for the targeted sub-niche per brand. This is supply-side, distinct from VOC-validated sub-niches, which still require the Phase 3a/3b clusterer.
+Competitor marketing reveals which sub-niche (PMBD cluster) a brand is *aiming at* — readable from hooks, imagery, segmented creative. Add a field for the targeted sub-niche per brand. This is supply-side, distinct from VOC-validated sub-niches, which still require the Step 3a/3b clusterer.
 
 ### Scoping — competitive set
 A market's competitive set is everything serving the same niche × transformation, **including substitutes** (for an e-ink note tablet: iPads, paper planners, software). Scoping a scan to one product category undercounts the real competition.

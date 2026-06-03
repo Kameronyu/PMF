@@ -15,17 +15,17 @@ reference space and Kam reads it and trusts it (Track B).
 - **`capability_inventory.md` — the brick model.** One job per brick. Deterministic work (fetch, clean,
   dedupe, count/score, store, validate) = **scripts/hooks**; judgment (query design, classify, extract,
   synthesize) = **agents**; gates = agent-prep → **human Decide**. Every stage below is a brick string.
-- **`CLAUDE.md`** — agent-design rules + naming (Phase = research step 0–8; Stage = GSD build unit).
+- **`CLAUDE.md`** — agent-design rules + naming (Step = research step 0–8; Stage = GSD build unit).
 - **`definitions.md`** — locked vocabulary; every prompt loads it.
 - **Verification = UAT, not unit tests.** Run on a reference space; Kam reads the output.
 
 ## Current build state
 
-- **BUILT:** `prompts/phase1-light-pass.md` (light pass — Finder/Verifier/Dumper/Space Classifier,
+- **BUILT:** `prompts/step1-light-pass.md` (light pass — Finder/Verifier/Dumper/Space Classifier,
   enriched with `revenue_est` + `claim_type`).
 - **DRAFTED:** `.claude/skills/market-selection/SKILL.md` (the 4-gate decision skill).
 - **SPECCED (build these):** `prompts/_specs/market-selection-framework.md`,
-  `prompts/_specs/deep-market-analysis-framework.md`, and `handoff-phase3-voc-build.md` (the whole VOC chain).
+  `prompts/_specs/deep-market-analysis-framework.md`, and `handoff-step3-voc-build.md` (the whole VOC chain).
 
 ## Two tracks (independent — run in parallel sessions, `git worktree` per session so they don't clobber)
 
@@ -39,16 +39,16 @@ Goal: pick a market. Brick string: `A1 query → S1 fetch → H1/S2 verify+clean
   INPUT DATA CONTRACT lists it: claim-typing ✓ + revenue ✓ now in the light pass; still to add =
   trend-shape, adjacent-signals, market-awareness rollup). `GATE-01`.
 - **M1-S3 Deep competitive analysis + messaging strategy — SPECCED.** Build as a brick string; runs on
-  the chosen market's top ~5 brands. Two lenses (structure + messaging) → merge. Serves Phase 2 + front-half Phase 4.
+  the chosen market's top ~5 brands. Two lenses (structure + messaging) → merge. Serves Step 2 + front-half Step 4.
 
 ### Track B — VOC pipeline (the bulk; fully specced)
-**`handoff-phase3-voc-build.md` is the complete build brief** — architecture, the 3-pass pipeline, every
+**`handoff-step3-voc-build.md` is the complete build brief** — architecture, the 3-pass pipeline, every
 decision locked, prior-art steal-list. Brick string: `A1 Query Planner → S1 scraper → S2 cleaner →
 A2 Bucketer → S3 freq+intensity+co-occurrence → A3 Ladderer → H1 verbatim gate → A4 Language Analyzer →
 S4 copy bank → D1 sub-niche call`.
 - **M1-S4 Codebook + per-quote record schema (KEYSTONE) — BUILD FIRST.** Everything in VOC keys off it.
   `VOC-01/02`. (definitions.md PMBD×tier + workflow.md battery, compiled into a tagging contract in the
-  `phase1-light-pass.md` format: closed enums hook-rejected, open fields verbatim.)
+  `step1-light-pass.md` format: closed enums hook-rejected, open fields verbatim.)
 - **M1-S5** Query Planner (3 lanes + no-clean-venue handling) — `VOC-03`.
 - **M1-S6** Scraper (Reddit official commercial API) + cleaner (raw-immutable copy) + verbatim-gate hook — `VOC-04/05`.
 - **M1-S7** Bucketer (pass 1, cheap, whole corpus) + intensity scorer (VADER+engagement+length) — `VOC-06/07`.
@@ -60,8 +60,8 @@ S4 copy bank → D1 sub-niche call`.
 
 ### Cross-cutting (after the tracks)
 - **M1-S12** Templatize light pass + extract `deliverable-templates.md` — `TOOL-01/02`.
-- **M1-S13** Phase 3c mechanism research (after a market is picked) — `UM-01`.
-- **M1-S14** Phase 3d loop-back (augment-not-overwrite; `depth_pass` + `extracted_at`) — `LOOP-01`.
+- **M1-S13** Step 3c mechanism research (after a market is picked) — `UM-01`.
+- **M1-S14** Step 3d loop-back (augment-not-overwrite; `depth_pass` + `extracted_at`) — `LOOP-01`.
 
 ## Recommended order (ASAP)
 
@@ -88,12 +88,12 @@ running it; first 2–3 runs are debugging, not research** (`run-retrospective.m
   a script slices from the raw immutable copy and string-verifies; reject on mismatch. No LLM authors a
   customer sentence into the bank — that's the moat.
 - **Normalization breaks char-offsets** — keep a raw immutable copy, index offsets into *that*.
-- **Schema authority:** `prompts/_specs/` frameworks + `phase1-light-pass.md` win. `map/data_inventory.md`
+- **Schema authority:** `prompts/_specs/` frameworks + `step1-light-pass.md` win. `map/data_inventory.md`
   is reference only (its `base/enhanced` claim_type is superseded by `direct/enlarged/mechanism/enhanced`).
 
 ## Reservoir (mine when building; not runnable specs)
 
-`workflow.md` (phase theory + the PMBD battery = the classifier's schema spine), `run-retrospective.md`
+`workflow.md` (step theory + the PMBD battery = the classifier's schema spine), `run-retrospective.md`
 (run lessons), `agents/implementation-notes.md` (layer-conflation worked examples — **critical** for the
 codebook + every classify step).
 

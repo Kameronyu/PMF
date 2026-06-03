@@ -40,7 +40,7 @@ These have to resolve before the persistence layer can be designed. Not resolvin
 1. **VOC unit-of-record granularity.** Is `voc_record_id` = one post/comment/review, or one *PMBD instance* extracted from a post (one review can contain many PMBDs)? Affects clusterer logic (5+ rule operates at whichever level you pick) and storage volume.
 2. **Investigation scope.** Is the map one global store across all investigations, or scoped per `investigation_id`? Locked decision lean: one global (per Kam: "stack persistent patterns across spaces"). But cost/complexity of cross-investigation joins is non-trivial.
 3. **Competitive classifier as distinct Op.** Per-brand extractor's output includes `claims[]` with claim_type/UM_type — that's classification, not raw extraction. Two options: (a) bundle inside per-brand extractor; (b) split into raw extractor + competitive classifier. Inventory currently does (a) implicitly. Decision parked per Kam.
-4. **Multi-pass writes.** Per-brand extractor runs shallow in Phase 0, deep in Phase 2. Locked decision lean: augment, not overwrite (per Kam: "deep diving is expensive, gap-check first"). Implies `depth_pass` field on records or versioned writes. Schema implication noted in cap table.
+4. **Multi-pass writes.** Per-brand extractor runs shallow in Step 0, deep in Step 2. Locked decision lean: augment, not overwrite (per Kam: "deep diving is expensive, gap-check first"). Implies `depth_pass` field on records or versioned writes. Schema implication noted in cap table.
 5. **N/A in classifier output.** Locked decision says N/A is valid for any universal-schema field. Implies sparse storage (record can have most fields null) — fine for document stores, fine for SQL with nullable cols, awkward for tightly-typed schemas. Flagged for substrate decision.
 
 ---
@@ -74,9 +74,9 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 **Read by:**
 - Market aggregator (rollups across brands)
 - Gap analysis / Gate 1 (claim counts, enhanced claim counts, sophistication, UM availability per brand)
-- Sophistication assessment (Phase 2)
-- Gate 2 (Phase 2)
-- Phase 4 — define dependent (proven) variables; steal proven angles/UMs/claims
+- Sophistication assessment (Step 2)
+- Gate 2 (Step 2)
+- Step 4 — define dependent (proven) variables; steal proven angles/UMs/claims
 
 **Note:** Output is *already doing competitive classification* — claim_type, UM_type, angle driver/pole/tier are differentiator-lever framework outputs, not raw text. Worth flagging when classifier-split question gets decided.
 
@@ -100,8 +100,8 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 
 **Read by:**
 - Gap analysis / Gate 1 (Market Sophistication variable: claim count, enhanced claim count, competitor sophistication, UM availability)
-- Sophistication assessment (Phase 2)
-- Underserved + hungry filter (Phase 1)
+- Sophistication assessment (Step 2)
+- Underserved + hungry filter (Step 1)
 
 ---
 
@@ -125,9 +125,9 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 **Source metadata:** `source_url`, `extracted_at`, `platform`. Author = brand, not consumer.
 
 **Read by:**
-- Phase 2 deep study (compose with per-brand extractor)
-- Gate 2 (Phase 2 — competitive depth)
-- Phase 4 — steal proven hooks/angles/objection handles
+- Step 2 deep study (compose with per-brand extractor)
+- Gate 2 (Step 2 — competitive depth)
+- Step 4 — steal proven hooks/angles/objection handles
 
 ---
 
@@ -146,9 +146,9 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 **Source metadata:** `source_url`, `extracted_at`.
 
 **Read by:**
-- Phase 2 deep study
+- Step 2 deep study
 - Gate 2
-- Phase 4 — define dependent variables (proven offer mechanics)
+- Step 4 — define dependent variables (proven offer mechanics)
 
 ---
 
@@ -167,8 +167,8 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 
 **Read by:**
 - Gap analysis (proven spend signal feeds Desire to Solve)
-- Phase 2 deep study
-- Phase 4 — macro test selection (which channels to deploy on)
+- Step 2 deep study
+- Step 4 — macro test selection (which channels to deploy on)
 
 ---
 
@@ -187,8 +187,8 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 
 **Read by:**
 - Gap analysis / Gate 1 (Market Growth variable: trend velocity, adjacent trend signals)
-- Phase 1 filters: evergreen, why now, emerging
-- Phase 0 mapping, Phase 2 market eval
+- Step 1 filters: evergreen, why now, emerging
+- Step 0 mapping, Step 2 market eval
 
 ---
 
@@ -208,8 +208,8 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 
 **Read by:**
 - Gap analysis / Gate 1 (D2C Feasibility variable: mechanism efficacy, believability, economics)
-- Phase 1 filter: solvable UM
-- Phase 3c (deep mechanism research feeds Phase 4 UM choices)
+- Step 1 filter: solvable UM
+- Step 3c (deep mechanism research feeds Step 4 UM choices)
 - Product candidate discovery (input)
 
 ---
@@ -224,8 +224,8 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 **Source metadata:** generation sources (Alibaba AI, emerging-product scan venues, generative ideation transcript).
 
 **Read by:**
-- Phase 3c (downstream Human filter against avatar fit, believability, IP, etc.)
-- Phase 4 — test variable definition (new product introductions)
+- Step 3c (downstream Human filter against avatar fit, believability, IP, etc.)
+- Step 4 — test variable definition (new product introductions)
 
 ---
 
@@ -239,7 +239,7 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 **Source metadata:** per-evidence source URLs + timestamps.
 
 **Read by:**
-- Pipeline B (Phase 1: have P, need to choose T)
+- Pipeline B (Step 1: have P, need to choose T)
 - Hidden transformation discovery (cross-references with VOC review mining)
 
 ---
@@ -254,7 +254,7 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 **Source metadata:** niche venue URLs, scrape timestamps.
 
 **Read by:**
-- Pipeline C (Phase 1: have N, need to pick T and P)
+- Pipeline C (Step 1: have N, need to pick T and P)
 - Niche-scoped opportunity surfacing
 
 ---
@@ -268,7 +268,7 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 - `body_text` (raw)
 - `parent_id` (for replies/comments)
 - `scrape_context` → `transformation_id?`, `niche_id?`, `product_id?` (what query brought this in)
-- `lane` (1|2|3 if from 3a search — see Phase 3a) — optional
+- `lane` (1|2|3 if from 3a search — see Step 3a) — optional
 
 **Source metadata:** Yes, full schema attached.
 
@@ -323,11 +323,11 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 **Source metadata:** Preserved, attached to every tag.
 
 **Read by:**
-- Quote extractor (Phase 3b)
-- PMBD clusterer (Phase 3b sub-niche validation)
-- Frequency/intensity synthesizer (Phase 3a)
-- Copy bank builder (Phase 3b)
-- Phase 1 filters (describable buyer, strong desire)
+- Quote extractor (Step 3b)
+- PMBD clusterer (Step 3b sub-niche validation)
+- Frequency/intensity synthesizer (Step 3a)
+- Copy bank builder (Step 3b)
+- Step 1 filters (describable buyer, strong desire)
 
 **Open:** Whether competitive-side text also gets classified by this same Op (universal schema covers PMBD; competitive needs differentiator-lever schema). Per Kam: parked.
 
@@ -347,7 +347,7 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 
 **Read by:**
 - Copy bank builder
-- Phase 4 — pull exact language for ad copy and LP per test variable
+- Step 4 — pull exact language for ad copy and LP per test variable
 
 ---
 
@@ -369,13 +369,13 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 **Read by:**
 - Sub-niche declaration (Human)
 - Copy bank builder (organizes copy by `subniche_id`)
-- Phase 4 — sub-avatar definition
+- Step 4 — sub-avatar definition
 
 **Note:** This is the heaviest join in the entire system. Validates 5+ rule on single-individual co-occurrence — requires author-keyed queries across the full classified VOC corpus.
 
 ---
 
-### Frequency / intensity synthesizer [Op] — Phase 3a output
+### Frequency / intensity synthesizer [Op] — Step 3a output
 
 **Input:** classified VOC records (optionally filtered to a `market_id`, `subniche_id`, or `lane`).
 **Output:** ranked theme table:
@@ -388,12 +388,12 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 **Source metadata:** Aggregate level — inherits provenance via evidence quotes.
 
 **Read by:**
-- Phase 4 — angle selection (frequency × intensity → angle priority)
-- Phase 0/Phase 1 — surface high-frequency PMBDs feeding Desire to Solve (Gate 1)
+- Step 4 — angle selection (frequency × intensity → angle priority)
+- Step 0/Step 1 — surface high-frequency PMBDs feeding Desire to Solve (Gate 1)
 
 ---
 
-### Copy bank builder [Op] — Phase 3b output
+### Copy bank builder [Op] — Step 3b output
 
 **Input:** quotes from quote extractor + source metadata + classified tags.
 **Output:** queryable copy bank organized by axes:
@@ -405,10 +405,10 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 **Source metadata:** Yes, primary indexing axis.
 
 **Read by:**
-- Phase 4 — pull exact language per test variable
+- Step 4 — pull exact language per test variable
 - VOC language extractor (scoped) — same machinery, narrower query
 
-**Note:** Locked decision — VOC language extractor (Phase 4 support) is NOT a separate capability. Same as copy bank builder with a narrower scoping query. One Op, two query patterns.
+**Note:** Locked decision — VOC language extractor (Step 4 support) is NOT a separate capability. Same as copy bank builder with a narrower scoping query. One Op, two query patterns.
 
 ---
 
@@ -424,7 +424,7 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 
 **Read by:**
 - Classifier (treated as another text source after structure extraction)
-- Phase 3a Lane 3 supplementation
+- Step 3a Lane 3 supplementation
 - Gap analysis (market growth + sophistication context)
 
 ---
@@ -443,8 +443,8 @@ For each: **Input** | **Output (fields, keyed where relevant)** | **Source metad
 **Source metadata:** N/A directly — aggregate scoring layer. Provenance via input refs.
 
 **Read by:**
-- Phase 1 filters (proven spend, emerging, underserved+hungry)
-- Phase 4 — sub-avatar prioritization
+- Step 1 filters (proven spend, emerging, underserved+hungry)
+- Step 4 — sub-avatar prioritization
 
 **Note:** "One composite for now. May fragment later if downstream needs different slices." (from inventory)
 
@@ -456,13 +456,13 @@ Not built. Skipped in enumeration. Returns when partial-seed cases appear.
 
 ---
 
-## Phase walkthrough
+## Step walkthrough
 
-For each phase: research questions in order, data needed to answer, capability that produces it. Cross-references the capability blocks above. Flags joins, gaps, and decision points.
+For each step: research questions in order, data needed to answer, capability that produces it. Cross-references the capability blocks above. Flags joins, gaps, and decision points.
 
 ---
 
-### Phase 0 — Map a space
+### Step 0 — Map a space
 
 **Workflow goal:** populated map of a space; output is a map, not a hypothesis.
 
@@ -481,7 +481,7 @@ For each phase: research questions in order, data needed to answer, capability t
 - **Join:** market_aggregator joins per-brand records by `niche_id × transformation_id` → `market_id`. Needs trend velocity from trend cap.
 
 **Step 4 — Can you solve any of these problems? D2C feasibility scan.**
-- Source: **Mechanism research** (lightweight at Phase 0; deep version runs in Phase 3c).
+- Source: **Mechanism research** (lightweight at Step 0; deep version runs in Step 3c).
 - Plus: **Human** judgment (intuition, commercializability).
 - Output written: mechanism research record with `evidence_quality`, `cogs_floor_signals`, `format_candidates`. Plus Human notes (separate Human-output schema — see Open Question #6 below).
 
@@ -494,7 +494,7 @@ Per-variable data dependencies:
 | Variable | Sub-variables | Capability producing data | Notes |
 |---|---|---|---|
 | **Desire to Solve** | proven spend | Per-brand extractor (revenue est) + channel analysis (paid traffic) | |
-| | core driver proximity | Classifier (T4 driver tags) + frequency synthesizer | **Gap (P0):** workflow doesn't currently position VOC in P0. Either lightweight VOC runs in P0, or Desire to Solve uses proxy signals only at P0 and proper PMBD scoring waits for Phase 3. **Open question.** |
+| | core driver proximity | Classifier (T4 driver tags) + frequency synthesizer | **Gap (P0):** workflow doesn't currently position VOC in P0. Either lightweight VOC runs in P0, or Desire to Solve uses proxy signals only at P0 and proper PMBD scoring waits for Step 3. **Open question.** |
 | | severity | Classifier (pain intensity proxies) | Same gap |
 | | frequency | Frequency synthesizer | Same gap |
 | **D2C Feasibility** | mechanism efficacy | Mechanism research (`evidence_quality`) | |
@@ -521,7 +521,7 @@ Per-variable data dependencies:
 
 ---
 
-### Between Phase 0 and 1 — Hypothesis selection
+### Between Step 0 and 1 — Hypothesis selection
 
 **Human work.** Reads the map (per-brand records, market aggregates, gap scores) and picks a `market_id` (or `market_descriptor`) to pursue.
 
@@ -533,7 +533,7 @@ Per-variable data dependencies:
 
 ---
 
-### Phase 1 — Theorize
+### Step 1 — Theorize
 
 **Workflow goal:** given a hypothesis, solve unsolved variables.
 
@@ -566,11 +566,11 @@ Per-variable data dependencies:
 
 **Threshold application:** Human until thresholds calibrate (Downstream Under).
 
-**Phase 1 output written:** updated `hypothesis_record` with filter outcomes per market candidate. Or sub-hypothesis records per pipeline run.
+**Step 1 output written:** updated `hypothesis_record` with filter outcomes per market candidate. Or sub-hypothesis records per pipeline run.
 
 ---
 
-### Phase 2 — Competition (deep market study)
+### Step 2 — Competition (deep market study)
 
 **Workflow goal:** study the chosen market with full depth.
 
@@ -589,14 +589,14 @@ Per-variable data dependencies:
 - Output: `sophistication_assessment` record per `market_id` with per-brand stage assignments + UM availability summary.
 
 **Gate 2 — Do you still think you can win.**
-- Reads: gap analysis (Gate 1), per-brand deep records (Phase 2), sophistication assessment, VOC outputs from P3a/3b if available.
+- Reads: gap analysis (Gate 1), per-brand deep records (Step 2), sophistication assessment, VOC outputs from P3a/3b if available.
 - Framework structure locked: Product UM play 95% of time, gated by gap analysis, with proven variables stolen.
 - Output: `gate2_record` keyed by `market_id` — `decision` (go|no-go|pivot), `rationale`, `inputs_referenced[]`.
 - Locked-decision flag: Gate 2 threshold methodology is Under. Store inputs + Human decision rather than calibrated score.
 
 ---
 
-### Phase 3a — Structural map of themes
+### Step 3a — Structural map of themes
 
 **Workflow goal:** identify which themes are frequent in the avatar.
 
@@ -608,13 +608,13 @@ Per-variable data dependencies:
 
 **VOC chain (per lane):** scraper → cleaner → classifier → frequency synthesizer (and parallel branches to quote extractor, clusterer, copy bank).
 
-**Phase 3a output:** frequency synthesizer record, scoped to (`market_id`, `lane`, optionally `subniche_id`). Ranked themes by prevalence and intensity.
+**Step 3a output:** frequency synthesizer record, scoped to (`market_id`, `lane`, optionally `subniche_id`). Ranked themes by prevalence and intensity.
 
 **Joins:** classifier output joins to scraper output by `voc_record_id` (preserves source metadata). Frequency synthesizer joins classifier outputs grouped by `theme_id` + scope.
 
 ---
 
-### Phase 3b — Verbatim language bank
+### Step 3b — Verbatim language bank
 
 **Workflow goal:** capture actual words avatar uses around each theme. The copy bank.
 
@@ -622,7 +622,7 @@ Per-variable data dependencies:
 - VOC chain → quote extractor → copy bank builder
 - Plus: PMBD clusterer running on classified records (sub-niche validation).
 
-**Phase 3b output:** copy bank records + cluster records (validated sub-niches).
+**Step 3b output:** copy bank records + cluster records (validated sub-niches).
 
 **Sub-niche validation (strict — 5+ rule):**
 - PMBD clusterer joins classified records by `author_id`, checks single-individual co-occurrence of 2+ PMBDs from candidate cluster, counts distinct authors.
@@ -631,7 +631,7 @@ Per-variable data dependencies:
 
 ---
 
-### Phase 3c — UM research
+### Step 3c — UM research
 
 **Workflow goal:** understand the transformation factually + surface product candidates.
 
@@ -645,19 +645,19 @@ Per-variable data dependencies:
 
 ---
 
-### Phase 3d — Loop back
+### Step 3d — Loop back
 
-**Workflow:** revise Phase 0 and Phase 1 based on what was learned.
+**Workflow:** revise Step 0 and Step 1 based on what was learned.
 
-**Data implication:** Phase 0 records (per-brand, market aggregate, gap analysis) get re-evaluated. New `gap_score_record` written with updated inputs. Hypothesis_record updated or new one written.
+**Data implication:** Step 0 records (per-brand, market aggregate, gap analysis) get re-evaluated. New `gap_score_record` written with updated inputs. Hypothesis_record updated or new one written.
 
 **Data layer requirement:** records need versioning OR append-only with `evaluated_at` so we can see how the picture evolved.
 
 ---
 
-### Phase 4 — Test design
+### Step 4 — Test design
 
-**Workflow goal:** define what to test and why. Heavy read phase.
+**Workflow goal:** define what to test and why. Heavy read step.
 
 **Inputs (joined from across the map):**
 
@@ -682,7 +682,7 @@ Per-variable data dependencies:
 
 **Final artifact:** 7–12 creatives covering as much surface area as possible. Each creative = composite record referencing all of the above + creative-specific copy/visual outputs.
 
-**Volume profile:** Phase 4 is read-heavy on the map, low-write. Confirms the workflow.md cross-cutting note: "Phase 4 is read-heavy on accumulated Op outputs — decision gates read from the map, they don't trigger fresh research."
+**Volume profile:** Step 4 is read-heavy on the map, low-write. Confirms the workflow.md cross-cutting note: "Step 4 is read-heavy on accumulated Op outputs — decision gates read from the map, they don't trigger fresh research."
 
 ---
 
@@ -694,14 +694,14 @@ Per-variable data dependencies:
 2. **`brand_id` joins across competitive captures** — per-brand + ad + offer + channel + competitor-VOC. Wide table, dozens of brands per market.
 3. **`market_id` joins** — per-brand → market_aggregate → gate1/gate2/sophistication. Aggregation queries.
 4. **`theme_id` × `scope` rollups** — classifier → frequency synthesizer. Group-by queries.
-5. **`subniche_id` → copy bank filtered queries** — Phase 4 language pulls. Multi-axis filter (subniche × tier × theme × platform).
-6. **Cross-phase joins for Phase 4** — Gate 1 + Gate 2 + frequency + copy + competitor data. Read-heavy, many tables.
+5. **`subniche_id` → copy bank filtered queries** — Step 4 language pulls. Multi-axis filter (subniche × tier × theme × platform).
+6. **Cross-step joins for Step 4** — Gate 1 + Gate 2 + frequency + copy + competitor data. Read-heavy, many tables.
 
 ### Gaps surfaced
 
-1. **VOC positioning in Phase 0.** Gap analysis Desire to Solve variables (core driver proximity, severity, frequency) require VOC + classifier output, but the workflow doesn't explicitly run VOC in Phase 0. Either (a) lightweight VOC runs in P0, (b) Desire to Solve uses proxy signals only at P0 and full PMBD scoring waits, or (c) Gate 1 is intentionally rough at P0 and recalibrated at P3d loop-back. **Decision needed.**
+1. **VOC positioning in Step 0.** Gap analysis Desire to Solve variables (core driver proximity, severity, frequency) require VOC + classifier output, but the workflow doesn't explicitly run VOC in Step 0. Either (a) lightweight VOC runs in P0, (b) Desire to Solve uses proxy signals only at P0 and full PMBD scoring waits, or (c) Gate 1 is intentionally rough at P0 and recalibrated at P3d loop-back. **Decision needed.**
 2. **Authority proof scanner.** Gate 1 D2C Feasibility "believability — authority proof" has no capability mapped. Could be sub-routine of mechanism research, or its own Op.
-3. **Awareness level inference at scale.** Phase 4 step 4 needs awareness target per test. Classifier emits `awareness_proxies` but no dedicated awareness-stage inference Op exists. Might be derivable from classifier tags + Human, or might need its own step.
+3. **Awareness level inference at scale.** Step 4 step 4 needs awareness target per test. Classifier emits `awareness_proxies` but no dedicated awareness-stage inference Op exists. Might be derivable from classifier tags + Human, or might need its own step.
 4. **Hypothesis selection record format.** Locked as explicit Human step but no schema defined. Quick decision needed.
 5. **Human output schemas in general.** Per Kam: "outputs I read and outputs you read should not be different." Currently every capability output is machine-side. Need a parallel layer for Human-facing rendered views (filterable map views, gap dashboards, copy bank browsers). Doesn't change underlying schema but adds a rendering layer.
 
@@ -727,7 +727,7 @@ Preserved end-to-end:
 Per Kam: augment, not overwrite. Implies:
 - Per-brand record needs `depth_pass` field (shallow|deep) + `extracted_at` timestamp.
 - Mechanism research needs same.
-- Gap analysis records timestamped, never deleted (Phase 3d loop produces new gap records, not overwrites).
+- Gap analysis records timestamped, never deleted (Step 3d loop produces new gap records, not overwrites).
 - Hypothesis records timestamped + chained (each cycle's hypothesis links to previous).
 
 ### Investigation scope (lean: one global map)
@@ -751,7 +751,7 @@ Per Kam: AI outputs ≠ Human outputs. Implication for the data layer:
 With this in place, the substrate decision becomes concrete:
 
 - **Storage shape**: ~25 distinct record types, all joinable on a small set of IDs (`author_id`, `brand_id`, `market_id`, `niche_id`, `transformation_id`, `subniche_id`, `voc_record_id`, `theme_id`). Classic relational/document-store territory.
-- **Read patterns**: heavy multi-table joins for Phase 4, author-keyed cross-niche scans for PMBD clusterer, aggregations for market_aggregator and frequency synthesizer, filtered indexed queries for copy bank.
+- **Read patterns**: heavy multi-table joins for Step 4, author-keyed cross-niche scans for PMBD clusterer, aggregations for market_aggregator and frequency synthesizer, filtered indexed queries for copy bank.
 - **Write patterns**: append-mostly with augment-on-rerun; bulk writes from VOC scraper (10k+ records per investigation possibly); single-record writes for Gates and Human decisions.
 - **Scale**: many investigations × dozens of brands per × thousands to tens of thousands of VOC records per. Single-machine tractable. SQLite or duckdb both plausible; postgres if multi-process.
 - **Sparse fields**: classifier output has N/A everywhere — favors document stores or nullable-heavy SQL.
@@ -767,4 +767,4 @@ Substrate decision is now a focused question: pick the storage tech that handles
 - **View/render layer design** (Obsidian? UI? generated markdown?) — separate concern, design substrate first.
 - **Agent clustering** (which capabilities go in which agents) — locked rule: parked, designed per agent during spec writing.
 - **Classifier-same-or-different** for competitive vs VOC — parked per Kam.
-- **Pixel/purchase data** — Phases 5–8 territory, deferred entirely.
+- **Pixel/purchase data** — Steps 5–8 territory, deferred entirely.

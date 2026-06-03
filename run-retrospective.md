@@ -7,7 +7,7 @@ session transcripts + 6 run-output clusters, deduped to net-new signal against t
 current doc set (workflow / definitions / capability_inventory / implementation-notes /
 the three handoffs).
 
-**The core gap.** `workflow.md` is a *what-to-research* document — phases, research
+**The core gap.** `workflow.md` is a *what-to-research* document — steps, research
 questions, gates. The runs generated an entire *how-to-run-it* layer that lives only in
 the handoffs, the `scripts/` briefs, and the session transcripts: an orchestration
 pattern, durable tooling, deliverable templates, operational hazards, and real strategy
@@ -27,7 +27,7 @@ scattered across the three handoffs.
 - **Manual-run-at-reduced-scale-first as a methodology debugger.** [NEW] The first real run
   (05-20) existed to break the *methodology*, not to produce a deliverable — it surfaced
   the layer-conflation and per-cell-saturation bugs that became `implementation-notes.md`.
-  Phase 0 should say this explicitly: the first run on a space is a debug pass.
+  Step 0 should say this explicitly: the first run on a space is a debug pass.
 - **The 3-agent scan pattern.** [HANDOFF-ONLY] finder → **roster checkpoint** → parallel
   analyzers (one per competitor, background) → aggregator → **profile checkpoint**. One job
   per subagent; only `.md` artifacts persist; subagent invocations are ephemeral.
@@ -67,14 +67,14 @@ scattered across the three handoffs.
 
 ## 3. Deliverable templates (durable output schemas — not in `workflow.md`)
 
-These are concrete, reusable output specs the runs settled on. `workflow.md` names phases
+These are concrete, reusable output specs the runs settled on. `workflow.md` names steps
 but not their deliverables.
 
 - **`market-profile.md`** — 5 sections: market cells (niche × transformation) · per-cell
   claim-saturation · differentiation whitespace · **price-band reality vs $900** · **Gate-1
   evidence dossier** (Desire / Feasibility / Sophistication / Growth, evidence per axis).
 - **`market-opportunity.md`** — cross-market Gate-1 comparison; the **bet-selection**
-  artifact bridging Phase 0 → Phase 1.
+  artifact bridging Step 0 → Step 1.
 - **13-section granular persuasion analysis** (per brand) — every headline, hook, angle,
   testimonial, trust signal, claim, objection-handle, transformation framing, funnel
   section, **deposit-funnel evidence**, and **longest-running ad**. Verbatim.
@@ -110,17 +110,17 @@ but not their deliverables.
 Things the runs proved that `workflow.md` doesn't say:
 
 - **Winner detection = `days_running` / longest-running ad.** [NEW] Ad longevity is the
-  spend-validated-winner proxy. This is the missing concrete heuristic behind Phase 2/5
+  spend-validated-winner proxy. This is the missing concrete heuristic behind Step 2/5
   "what are the winning variables." Add it explicitly.
 - **SYNTHESIS-block flagging.** [NEW] Any AI-invented message is fenced and labeled, kept
   separate from verbatim competitor copy. Data-integrity rule for every deliverable.
 - **Gate-1 evidence dossier** operationalizes the gap formula — per-axis evidence, not a bare
-  score. Reference it in Phase 0.
+  score. Reference it in Step 0.
 - **Price-band-reality is mandatory.** [NEW] Every profile compares the $900 target against
   every competitor's actual price; price is the recurring Gate-1 risk (see §6).
 - **Category-evolution / "wedge" analysis** [NEW] — a *distinct* analysis from the
   cross-sectional scan: track each claim's lifecycle (Product UM → saturated angle →
-  commodity) to see which lanes are opening vs closing. Belongs as a Phase-0 companion.
+  commodity) to see which lanes are opening vs closing. Belongs as a Step-0 companion.
 - **Loose-niche scanning.** [NEW] A market can be entered with a *behavior-defined* niche;
   sub-niches are an **output** of the scan, not a required input (proven on Dumb-Device).
 - **Transformation scoping must actively exclude adjacent framings** (Dumb-Device was scoped
@@ -191,7 +191,7 @@ Things the runs proved that `workflow.md` doesn't say:
 - `scripts/` holds briefs + fetchers. Only `.md` persists. **Exact figures or "not found"** —
   no hand-waving. **Kam writes a schema + build-spec hand-off doc before population** — he
   specifies the output shape, the agent fills it.
-- Doc separation of concerns: `workflow.md` (phases + research questions) · `definitions.md`
+- Doc separation of concerns: `workflow.md` (steps + research questions) · `definitions.md`
   (locked vocab) · `capability_inventory.md` (capabilities + locked decisions) · `handoff.md`
   (state, "what's locked vs open," kickoff prompts at the **bottom**).
 - DR-marketing knowledge pulled **on demand** from `~/knowledge/dr-marketing/`, not loaded
@@ -206,7 +206,7 @@ Things the runs proved that `workflow.md` doesn't say:
   commands; data sources become MCP servers (future). [NEW, architecture intent]
 - **Planning doc = source of truth; AI-written handoffs are *not* locked decisions.** Always
   distinguish Kam's output from AI synthesis.
-- **Naming:** research = *Phases* (steps 0–8, defined in `workflow.md`); GSD build units = *Stages*. (An earlier draft had these reversed — corrected 2026-06-02.)
+- **Naming:** research = *Steps* (steps 0–8, defined in `workflow.md`); GSD build units = *Stages*. (An earlier draft had these reversed — corrected 2026-06-02.)
 - **Milestone split:** M1 = research system (Stages 0–3), M2 = test pipeline (Stages 4–8).
   Don't spec M2 until M1 is shaken out on 2–3 real spaces.
 - **Defer output/substrate decisions** until 2–3 prompts exist — "I don't know what the
@@ -222,11 +222,11 @@ Things the runs proved that `workflow.md` doesn't say:
 
 ## 8. What to fold where (recommendation)
 
-- **→ `workflow.md`:** the orchestration pattern (§1) referenced per phase; winner-detection
-  via `days_running` (Phase 2/5); category-evolution/wedge analysis as a Phase-0 companion;
-  loose-niche scanning (Phase 0/1); Gate-1 evidence dossier + price-band-reality (Phase 0);
-  deposit-funnel evidence (Phase 2/3b); survivorship-bias hunt + crowdfunding as a real
-  execution lane (Phase 5–8). *Phase structure stays locked — these are additions, not
+- **→ `workflow.md`:** the orchestration pattern (§1) referenced per step; winner-detection
+  via `days_running` (Step 2/5); category-evolution/wedge analysis as a Step-0 companion;
+  loose-niche scanning (Step 0/1); Gate-1 evidence dossier + price-band-reality (Step 0);
+  deposit-funnel evidence (Step 2/3b); survivorship-bias hunt + crowdfunding as a real
+  execution lane (Step 5–8). *Step structure stays locked — these are additions, not
   restructures.*
 - **→ `agents/implementation-notes.md` (or new agent specs):** the agent-brief template,
   self-audit checklists, forbidden-reading lists, shared-framework propagation,
@@ -240,12 +240,12 @@ Things the runs proved that `workflow.md` doesn't say:
 
 From `data_inventory.md` + the scans — these are real holes in `workflow.md`/`capability_inventory.md`:
 
-- **VOC isn't run in Phase 0, but Gate 1 needs it.** Gate-1 "Desire to Solve" (core-driver
-  proximity, severity, frequency) requires VOC + classifier output that Phase 0 doesn't
+- **VOC isn't run in Step 0, but Gate 1 needs it.** Gate-1 "Desire to Solve" (core-driver
+  proximity, severity, frequency) requires VOC + classifier output that Step 0 doesn't
   produce. Decide: lightweight P0 VOC, proxy signals at P0, or rough Gate-1 recalibrated at P3d.
 - **Authority-proof scanner** (Gate-1 D2C-feasibility "believability") has **no mapped capability.**
-- **Awareness-level inference** for Phase 4 has no dedicated Op (classifier emits proxies; nothing synthesizes a target).
-- **Hypothesis-selection has no record schema** — it's a first-class data-layer decision, not a mental note. The actual procedure used was: 3 candidate markets → cheap parallel Phase-0-style scans → Gate-1 cross-comparison → pick. That apparatus isn't in `workflow.md`.
+- **Awareness-level inference** for Step 4 has no dedicated Op (classifier emits proxies; nothing synthesizes a target).
+- **Hypothesis-selection has no record schema** — it's a first-class data-layer decision, not a mental note. The actual procedure used was: 3 candidate markets → cheap parallel Step-0-style scans → Gate-1 cross-comparison → pick. That apparatus isn't in `workflow.md`.
 - **Augment-not-overwrite write rule** (`depth_pass: shallow|deep` + `extracted_at`; P3d loop produces new gap records, never overwrites) is an architectural constraint stated nowhere in the locked docs.
 - **Actor/source tags** on research questions (human / AI / VOC / glimpse-trends) from Kam's original planning doc were dropped inconsistently in the `workflow.md` merge — restore them; they specify *who* does each step and *from what source*.
 - The `workflow.md:344` system note still says the map/persistence layer "has to be designed before capability specs" — **contradicts the 05-21 course correction**; soften to "deprioritized; build just-in-time."

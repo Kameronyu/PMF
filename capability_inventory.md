@@ -1,6 +1,6 @@
 # Capability Inventory
 
-The smallest single-job units the whole system composes from. **One job per brick, each routed to one executor** (see `CLAUDE.md`: deterministic jobs are scripts/hooks, only judgment jobs are agents). Phases are not monolithic prompts; they are **compositions of bricks**. This replaces the old flat "Op" tag, which lumped fetch + classify + extract together.
+The smallest single-job units the whole system composes from. **One job per brick, each routed to one executor** (see `CLAUDE.md`: deterministic jobs are scripts/hooks, only judgment jobs are agents). Steps are not monolithic prompts; they are **compositions of bricks**. This replaces the old flat "Op" tag, which lumped fetch + classify + extract together.
 
 Run learnings not yet folded into bricks or specs live in `run-retrospective.md` — drain the relevant section when you build that part (its §8 maps what folds where).
 
@@ -29,12 +29,12 @@ Run learnings not yet folded into bricks or specs live in `run-retrospective.md`
 
 ---
 
-## Phases as brick compositions
+## Steps as brick compositions
 
-- **Light pass (Phase 0–1):** `A1 → S1 → H1/S2 verify+dedupe → S4 → A2 classify per-brand → S3 aggregate space → D1 Gate 1` *(already built and running as `phase1-light-pass.md`; the brick string shows how a fresh build would decompose, but it works — leave it unless it breaks)*
-- **Deep comp (Phase 2):** `A1 → S1 (ads/offers/channel) → A3 extract creative+offers → S3 aggregate → A4 cross-brand playbook → D1 Gate 2` *(old `granular-analyzer-brief.md` is throwaway; rebuild as this string)*
-- **VOC (Phase 3):** `A1 → S1 → S2 → A2 Bucketer → S3 freq+intensity+co-occurrence → A3 Ladderer → H1 verbatim gate → A4 Language Analyzer → S4 copy bank → D1 sub-niche call` *(spec: `handoff-phase3-voc-build.md`; the proven template)*
-- **Test design (Phase 4):** `S5 retrieve copy bank + competitor data → A4 synthesize options → D1 the big DR session (angles, variables, test)`
+- **Light pass (Step 0–1):** `A1 → S1 → H1/S2 verify+dedupe → S4 → A2 classify per-brand → S3 aggregate space → D1 Gate 1` *(already built and running as `step1-light-pass.md`; the brick string shows how a fresh build would decompose, but it works — leave it unless it breaks)*
+- **Deep comp (Step 2):** `A1 → S1 (ads/offers/channel) → A3 extract creative+offers → S3 aggregate → A4 cross-brand playbook → D1 Gate 2` *(old `granular-analyzer-brief.md` is throwaway; rebuild as this string)*
+- **VOC (Step 3):** `A1 → S1 → S2 → A2 Bucketer → S3 freq+intensity+co-occurrence → A3 Ladderer → H1 verbatim gate → A4 Language Analyzer → S4 copy bank → D1 sub-niche call` *(spec: `handoff-step3-voc-build.md`; the proven template)*
+- **Test design (Step 4):** `S5 retrieve copy bank + competitor data → A4 synthesize options → D1 the big DR session (angles, variables, test)`
 
 ---
 
@@ -45,7 +45,7 @@ Run learnings not yet folded into bricks or specs live in `run-retrospective.md`
 - Per-brand extractor → `S1 + A2 + A3` (was one "Op"; it is three jobs)
 - Market aggregator → `S3 (+ A4 for the pattern read)`
 
-**Deep brand/market study (Phase 2)**
+**Deep brand/market study (Step 2)**
 - Ad creative + visual extractor → `S1 + A3`
 - Offer/bundle structure extractor → `S1 + A3`
 - Channel analysis → `S1 + S3`
@@ -69,20 +69,20 @@ Run learnings not yet folded into bricks or specs live in `run-retrospective.md`
 - VOC language extractor (scoped) → `S5` (query the copy bank, same store, narrower scope)
 
 **Orchestration (the wiring, not a brick)**
-- Pipelines A/B/C/D, Phase 3d loop → composition logic that sequences bricks per input shape.
+- Pipelines A/B/C/D, Step 3d loop → composition logic that sequences bricks per input shape.
 
 ---
 
 ## Locked decisions
 
 1. **One job per brick, routed to one executor.** Deterministic → script/hook. Judgment → agent. An "agent that cleans/counts/stores" is a category error. (See `CLAUDE.md`.)
-2. **Per-brand extractor stays shallow.** Depth in Phase 2 comes from *composing* bricks around one brand (`S1 + A3` for ads, offers, channel), not from a smarter extractor.
-3. **3a and 3b are distinct.** Frequency aggregate (`S3`, Phase 3a) and copy bank (`A4 + S4`, Phase 3b) both branch downstream of the classifier (`A2`).
+2. **Per-brand extractor stays shallow.** Depth in Step 2 comes from *composing* bricks around one brand (`S1 + A3` for ads, offers, channel), not from a smarter extractor.
+3. **3a and 3b are distinct.** Frequency aggregate (`S3`, Step 3a) and copy bank (`A4 + S4`, Step 3b) both branch downstream of the classifier (`A2`).
 4. **Universal classifier, one schema.** `A2` reads any cleaned text from any source against one schema. N/A is valid. Source metadata is preserved and attached, never routes to source-specific schemas.
-5. **Mechanism research = one capability.** Phase 0 commercializability + Phase 3c science are the same `A1 + S1 + A4`, different output framing.
+5. **Mechanism research = one capability.** Step 0 commercializability + Step 3c science are the same `A1 + S1 + A4`, different output framing.
 6. **Cleaner is dumb first.** `S2` = 30 lines of regex now; modular contract lets it be swapped later without touching downstream.
 7. **VOC chain is a brick string, not one op.** Branches at the classifier (`A2`) output into `A3/S3/A4`.
-8. **Hypothesis selection is an explicit `D1`** between Phase 0 and Phase 1. Not invisible glue.
+8. **Hypothesis selection is an explicit `D1`** between Step 0 and Step 1. Not invisible glue.
 9. **Gate 2 = "do I want to run ads for this."** `D1` after deep research; Gate 1 (`D1`) gates whether the space is worth pursuing at all.
 10. **Synthesize (A4) ≠ Decide (D1).** A4 reports what the data says, organized. D1 is your prescriptive strategy call on top. Agents stop at A4.
 
@@ -92,7 +92,7 @@ Run learnings not yet folded into bricks or specs live in `run-retrospective.md`
 
 > **Course correction (2026-05-21).** Persistence (`S4`) is **deprioritized.** PMF ships brands; the manual workflow + research questions already deliver that (proven on the eink run). Build tooling **just-in-time**: automate a brick only once it is the repeated bottleneck across brand-ships. `S4` is no longer a hard gate on agent specs. See `agents/implementation-notes.md`.
 
-1. **Map / persistence layer (`S4`/`S5`).** Every brick reads from and writes to a shared store; Phase 4 is read-heavy on accumulated outputs. Affects every brick's output schema (structured, dedupable, joinable). Interim: flat `.md`. Build the real store when manual friction justifies it.
+1. **Map / persistence layer (`S4`/`S5`).** Every brick reads from and writes to a shared store; Step 4 is read-heavy on accumulated outputs. Affects every brick's output schema (structured, dedupable, joinable). Interim: flat `.md`. Build the real store when manual friction justifies it.
 2. **Authorship + source-metadata pass-through.** Every VOC brick must preserve author ID, platform, venue, URL, timestamp, engagement. Non-negotiable for the 5+ co-occurrence rule. Architectural constraint, not a feature.
 
 ---
@@ -107,4 +107,4 @@ Run learnings not yet folded into bricks or specs live in `run-retrospective.md`
 
 ## Brick count
 
-12 brick types across 4 executors. `A5 Generate` and the heavy `S4`/`S5` store are deferred. Everything else is built or specced. Final *agent* count is still decided per spec — a phase may run two adjacent agent bricks (e.g. `A2 + A3`) in one call when there is no cost reason to split, but they stay separate brick *types*.
+12 brick types across 4 executors. `A5 Generate` and the heavy `S4`/`S5` store are deferred. Everything else is built or specced. Final *agent* count is still decided per spec — a step may run two adjacent agent bricks (e.g. `A2 + A3`) in one call when there is no cost reason to split, but they stay separate brick *types*.

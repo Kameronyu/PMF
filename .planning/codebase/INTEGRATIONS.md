@@ -96,7 +96,7 @@ Light Phone).
 - Primary: Claude's built-in WebFetch tool (used directly by analyzer agents)
 - Fallback / Cloudflare bypass: `crowdfund-fetch.js` with `--out=runs/eink-tablets/marketing-corpus`
   (same Playwright script, repurposed for any JS-rendered site)
-- LP-hunt query template (from `prompts/phase1-light-pass.md`): `<brand> students|college|...`,
+- LP-hunt query template (from `prompts/step1-light-pass.md`): `<brand> students|college|...`,
   `<brand> focus|distraction-free`, plus URL patterns `/clp/ /lp/ /pages/ /campaigns/ ...`
 
 **Output location:** `runs/eink-tablets/marketing-corpus/<brand>/` — structured `.md` analysis
@@ -154,7 +154,7 @@ Harbor, TCL, XPPen, iReader, Hanvon, Ridibooks, Pubu (24 domains)
 
 **What it provides:**
 - Mechanism research: known biological pathways, evidence quality, IP signals
-- Used in Phase 3c (UM research) — understand what the transformation does factually
+- Used in Step 3c (UM research) — understand what the transformation does factually
 
 **How it's accessed:**
 - Cited as tool in `capability_inventory.md` → Mechanism research Op:
@@ -163,7 +163,7 @@ Harbor, TCL, XPPen, iReader, Hanvon, Ridibooks, Pubu (24 domains)
 - Outputs land in mechanism research records (currently produced manually in runs)
 
 **Current status:** Mechanism research capability is defined but not yet run for the eink
-arc (Phase 3 not yet executed).
+arc (Step 3 not yet executed).
 
 ---
 
@@ -187,7 +187,7 @@ arc (Phase 3 not yet executed).
 
 **What it provides:**
 - Large-scale demographic and category market research
-- Feeds Phase 3a Lane 3 (adjacent context in niche venue)
+- Feeds Step 3a Lane 3 (adjacent context in niche venue)
 - Cross-referenced with VOC to validate avatar characteristics at scale
 - Reduces "Frankenstein avatar" risk by grounding niche claims in non-noisy large datasets
 
@@ -203,7 +203,7 @@ arc (Phase 3 not yet executed).
 ## Reddit / Amazon / TikTok / YouTube / Facebook / Quora (VOC Sources)
 
 **What it provides:**
-- Raw voice-of-customer (VOC) text for Phase 3a/3b PMBD mining
+- Raw voice-of-customer (VOC) text for Step 3a/3b PMBD mining
 - Sub-niche validation (5+ co-occurrence rule)
 - Verbatim copy bank (exact buyer language for ad copy)
 
@@ -211,9 +211,9 @@ arc (Phase 3 not yet executed).
 - `capability_inventory.md` defines VOC scraper as an Op that "may fragment into
   platform-specific scrapers (Reddit JSON, Amazon scrape, TikTok, YouTube) under one
   umbrella capability"
-- No scrapers currently built; VOC phases not yet run in the eink arc
+- No scrapers currently built; VOC steps not yet run in the eink arc
 
-**Current status:** Capability designed but not implemented. Phase 3 is explicitly marked
+**Current status:** Capability designed but not implemented. Step 3 is explicitly marked
 "Not yet run. Full theory in the reservoir" in `flow.md`.
 
 ---
@@ -229,7 +229,7 @@ arc (Phase 3 not yet executed).
 - Named as sources in `capability_inventory.md` → Trend/temporal signal Op
 - Currently accessed manually by human or general web search during runs
 
-**Current status:** Capability defined; partially used manually in Phase 0 runs.
+**Current status:** Capability defined; partially used manually in Step 0 runs.
 
 ---
 
@@ -242,11 +242,11 @@ arc (Phase 3 not yet executed).
 | Brand DTC websites | No | Fallback only | Active, WebFetch primary |
 | Wayback Machine | No | Via `crowdfund-fetch.js` | Active, category evolution |
 | SimilarWeb | Yes (manual login) | Yes (`sw-sweep.js`) | Active, eink arc |
-| scite / academic lit | No (MCP) | No | Planned, Phase 3c |
-| Alibaba | No | No | Planned, Phase 3c |
-| Mintel / IBISWorld | Yes (subscription) | No | Planned, Phase 3a |
-| Reddit/Amazon/TikTok/YouTube | No | No | Planned, Phase 3b VOC chain |
-| Google Trends / Glimpse | No | No | Planned, Phase 0/1 trend signals |
+| scite / academic lit | No (MCP) | No | Planned, Step 3c |
+| Alibaba | No | No | Planned, Step 3c |
+| Mintel / IBISWorld | Yes (subscription) | No | Planned, Step 3a |
+| Reddit/Amazon/TikTok/YouTube | No | No | Planned, Step 3b VOC chain |
+| Google Trends / Glimpse | No | No | Planned, Step 0/1 trend signals |
 
 ---
 

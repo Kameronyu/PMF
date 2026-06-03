@@ -1,5 +1,5 @@
 <!-- SOURCE-OF-TRUTH STRATEGY SPEC (verbatim, untouched). Build prompts FROM this; do not re-litigate.
-     This is PMF Phase 2 (deep market study) + the front half of Phase 4 (the merge). Kam's original. -->
+     This is PMF Step 2 (deep market study) + the front half of Step 4 (the merge). Kam's original. -->
 
 # Deep Market Analysis Framework
 

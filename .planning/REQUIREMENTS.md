@@ -1,16 +1,16 @@
 # PMF — Requirements (Milestone 1: Research Engine)
 
-Scope: **M1 — the research engine**, two tracks: **Track A competitive analysis** (Phase 0/1/2 — light pass [built] → market-selection gate [drafted] → deep analysis [specced]) and **Track B VOC** (Phase 3a/3b — specced in `handoff-phase3-voc-build.md`). Source of truth: `ROADMAP.md` + `prompts/_specs/` (the strategy frameworks) + `handoff-phase3-voc-build.md`. **InkLeaf is RETIRED** (quarantined to `_quarantine/`) — not an instance to regenerate, not a UAT rebuild target.
+Scope: **M1 — the research engine**, two tracks: **Track A competitive analysis** (Step 0/1/2 — light pass [built] → market-selection gate [drafted] → deep analysis [specced]) and **Track B VOC** (Step 3a/3b — specced in `handoff-step3-voc-build.md`). Source of truth: `ROADMAP.md` + `prompts/_specs/` (the strategy frameworks) + `handoff-step3-voc-build.md`. **InkLeaf is RETIRED** (quarantined to `_quarantine/`) — not an instance to regenerate, not a UAT rebuild target.
 
-Naming: **Stage** = GSD build unit; **Phase** = PMF research step 0–8. REQ-IDs below are capabilities, mapped to Stages by the roadmap.
+Naming: **Stage** = GSD build unit; **Step** = PMF research step 0–8. REQ-IDs below are capabilities, mapped to Stages by the roadmap.
 
 ---
 
 ## v1 Requirements (M1)
 
-### VOC — Voice-of-Customer engine (Phase 3a/3b, critical path)
+### VOC — Voice-of-Customer engine (Step 3a/3b, critical path)
 
-- [ ] **VOC-01**: The classifier codebook exists as a machine contract — compiles `definitions.md` (PMBD × T1–T4 ladder, 6 belief surfaces, sub-niche 5+ rule) + `workflow.md` PMBD battery into a tagging contract in `phase1-light-pass.md` format (closed enums hook-rejected off-list, open fields captured verbatim)
+- [ ] **VOC-01**: The classifier codebook exists as a machine contract — compiles `definitions.md` (PMBD × T1–T4 ladder, 6 belief surfaces, sub-niche 5+ rule) + `workflow.md` PMBD battery into a tagging contract in `step1-light-pass.md` format (closed enums hook-rejected off-list, open fields captured verbatim)
 - [ ] **VOC-02**: A per-quote record schema is defined (`raw_text, char_offsets, author_id, permalink, upvotes, pmbd_letter, tier, belief_surface, sub_niche_id, trigger, intensity`) with two materialized views off one store — frequency brief + copy bank
 - [ ] **VOC-03**: The Query Planner agent generates three search lanes (population-wide / in-niche / adjacent-context) and explicitly handles the no-clean-niche-venue case
 - [ ] **VOC-04**: A Reddit scraper runs on Reddit's official commercial API, preserving author_id / permalink / timestamp / upvotes; a cleaner keeps a raw immutable copy and normalizes only a working copy
@@ -24,7 +24,7 @@ Naming: **Stage** = GSD build unit; **Phase** = PMF research step 0–8. REQ-IDs
 
 ### TOOL — Reusable research tooling
 
-- [ ] **TOOL-01**: `phase1-light-pass.md` (finder / verifier / dumper / classifier) is templatized with parameterized niche / transformation / venue slots so a new run uses it without editing the spec
+- [ ] **TOOL-01**: `step1-light-pass.md` (finder / verifier / dumper / classifier) is templatized with parameterized niche / transformation / venue slots so a new run uses it without editing the spec
 - [ ] **TOOL-02**: A standalone `deliverable-templates.md` (10+ output schemas) and an agent-brief template (role + inputs + rules + schema + self-audit checklist + output path) are extracted from existing briefs
 
 ### GATE — Market bet selection
@@ -33,25 +33,25 @@ Naming: **Stage** = GSD build unit; **Phase** = PMF research step 0–8. REQ-IDs
 
 ### UM — Mechanism research
 
-- [ ] **UM-01**: Phase 3c mechanism research is run on the winning market's transformation, producing a mechanism doc + product-candidate list
+- [ ] **UM-01**: Step 3c mechanism research is run on the winning market's transformation, producing a mechanism doc + product-candidate list
 
 ### LOOP — Loop back
 
-- [ ] **LOOP-01**: Phase 3d revises the Phase 0/1 hypothesis records given Phase 3a/3b/3c learnings (augment-not-overwrite; `depth_pass` + `extracted_at` versioning)
+- [ ] **LOOP-01**: Step 3d revises the Step 0/1 hypothesis records given Step 3a/3b/3c learnings (augment-not-overwrite; `depth_pass` + `extracted_at` versioning)
 
 ---
 
 ## v2 / Deferred (next milestone — M2 launch engine)
 
-Deferred to Milestone 2 (rolling-wave; do not plan before M1 shakes out): test design (Phase 4), language packs, hook test (Phase 5), deposit-funnel build + belief-installation sequence + creatives (Phase 6), eval / kill gates (Phase 7), iterate-or-destroy (Phase 8). Full breakdown in `BUILD-STATE.md` §Milestone 2.
+Deferred to Milestone 2 (rolling-wave; do not plan before M1 shakes out): test design (Step 4), language packs, hook test (Step 5), deposit-funnel build + belief-installation sequence + creatives (Step 6), eval / kill gates (Step 7), iterate-or-destroy (Step 8). Full breakdown in `BUILD-STATE.md` §Milestone 2.
 
 ---
 
 ## Out of Scope (M1)
 
-- **Phase 4 copywriting** — VOC ends at a stored, queryable copy bank; writing copy from it is Phase 4 (M2).
-- **Phase 3c as a built agent beyond UM-01's research run** — mechanism research uses existing tools (scite/web), not a new agent pipeline in M1.
-- **Vector DB / RAG embeddings** — JIT; add when Phase 4 needs semantic retrieval.
+- **Step 4 copywriting** — VOC ends at a stored, queryable copy bank; writing copy from it is Step 4 (M2).
+- **Step 3c as a built agent beyond UM-01's research run** — mechanism research uses existing tools (scite/web), not a new agent pipeline in M1.
+- **Vector DB / RAG embeddings** — JIT; add when Step 4 needs semantic retrieval.
 - **Persistence / substrate layer** — DEFERRED; `.md` files suffice until manual friction demands a store.
 - **`space-sketcher`** — DEFERRED; no partial-seed case yet.
 - **InkLeaf research run** — RETIRED, quarantined to `_quarantine/`. Not regenerated, not used as a UAT corpus. Learnings already mined into `run-retrospective.md` + `agents/implementation-notes.md`.
@@ -60,9 +60,9 @@ Deferred to Milestone 2 (rolling-wave; do not plan before M1 shakes out): test d
 
 ## Traceability
 
-REQ-ID → Stage (GSD phase index in parens). Naming: the Stage is the identifier; the GSD phase index is mechanical. 15/15 v1 REQs mapped, each to exactly one stage.
+REQ-ID → Stage (GSD step index in parens). Naming: the Stage is the identifier; the GSD step index is mechanical. 15/15 v1 REQs mapped, each to exactly one stage.
 
-| Requirement | Stage | Serves PMF Phase | Status |
+| Requirement | Stage | Serves PMF Step | Status |
 |-------------|-------|------------------|--------|
 | GATE-01 | M1-S2 (market-selection gate) | 0 gate | **Drafted** |
 | TOOL-01 | M1-S1 (light pass) + M1-S12 | 0, 1 | Light pass **built**; templatize pending |
@@ -82,5 +82,5 @@ REQ-ID → Stage (GSD phase index in parens). Naming: the Stage is the identifie
 | LOOP-01 | M1-S14 | 3d | Pending |
 
 **Coverage: 16/16 mapped.** Note: Track A's deep competitive analysis + messaging strategy (M1-S3,
-`prompts/_specs/deep-market-analysis-framework.md`) serves Phase 2 + front-half Phase 4 and is not yet a
+`prompts/_specs/deep-market-analysis-framework.md`) serves Step 2 + front-half Step 4 and is not yet a
 numbered v1 REQ — it's a specced capability feeding the launch engine; promote to a REQ when M2 is planned.

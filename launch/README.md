@@ -1,6 +1,6 @@
 # launch — raw import, to be reconciled
 
-The InkLeaf Shopify + Klaviyo + landing-page build/deploy machinery, imported raw from the external build folders on 2026-06-02. **Not cleaned yet.** This becomes the **reusable new-store setup module** (the Phase-6 launch-ops layer): one product-agnostic runbook any store fills with its inputs, plus an agent that drives the browser through it while a human handles the gates.
+The InkLeaf Shopify + Klaviyo + landing-page build/deploy machinery, imported raw from the external build folders on 2026-06-02. **Not cleaned yet.** This becomes the **reusable new-store setup module** (the Step-6 launch-ops layer): one product-agnostic runbook any store fills with its inputs, plus an agent that drives the browser through it while a human handles the gates.
 
 ## What's here
 

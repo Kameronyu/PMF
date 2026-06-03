@@ -8,7 +8,7 @@
 PMF/
 ├── README.md                      # Entry point — reads "start with handoff.md"
 ├── definitions.md                 # Locked vocabulary / source-of-truth glossary
-├── workflow.md                    # Stages 0–8 spec with per-phase research questions + gate formulas
+├── workflow.md                    # Stages 0–8 spec with per-step research questions + gate formulas
 ├── capability_inventory.md        # ~20 atomic capabilities + locked design decisions
 ├── flow.md                        # Thin skeleton of the pipeline (layer 1 overview)
 ├── handoff.md                     # Session entry point: current state, locked/open, kickoff prompts
@@ -19,7 +19,7 @@ PMF/
 ├── map/
 │   └── data_inventory.md          # What each capability produces/consumes; joins; open schema questions
 ├── prompts/
-│   └── phase1-light-pass.md       # Draft agent + schema spec for Phase 1 light pass (3-stage pipeline)
+│   └── step1-light-pass.md       # Draft agent + schema spec for Step 1 light pass (3-stage pipeline)
 ├── agents/
 │   └── implementation-notes.md    # Parked notes for future agent specs (not specs themselves)
 └── runs/
@@ -41,7 +41,7 @@ PMF/
 
 **`workflow.md`**
 - Stages 0–8 full spec: research questions, gate formulas, pipeline variants (A/B/C/D), PMBD question battery
-- The run spine; phase structure is locked; research question depth follows original planning doc
+- The run spine; step structure is locked; research question depth follows original planning doc
 - Cross-cutting sections at the bottom: execution principles, system constraints, reconciliation note
 
 **`capability_inventory.md`**
@@ -85,7 +85,7 @@ PMF/
 
 **Purpose:** Emerging agent prompt specs; one file currently
 
-- `prompts/phase1-light-pass.md` — draft 3-stage pipeline spec (Finder → Roster Verifier → Dumper → Space Classifier) with schema contract and determinism principle
+- `prompts/step1-light-pass.md` — draft 3-stage pipeline spec (Finder → Roster Verifier → Dumper → Space Classifier) with schema contract and determinism principle
 
 ---
 
@@ -109,8 +109,8 @@ Each run is `runs/<space>/`. The only worked example is `runs/eink-tablets/`.
 
 ```
 runs/eink-tablets/
-├── brands.md                      # Initial brand roster (Phase 0 sweep)
-├── brands/                        # Per-brand shallow records (Phase 0 extraction)
+├── brands.md                      # Initial brand roster (Step 0 sweep)
+├── brands/                        # Per-brand shallow records (Step 0 extraction)
 │   ├── Boox.md
 │   ├── Daylight.md
 │   ├── KindleScribe.md
@@ -136,7 +136,7 @@ runs/eink-tablets/
 │   │       └── ... (market-specific delta records for incumbents, full records for new brands)
 │   ├── students/                  # Same structure as faith/
 │   └── dumb-device/               # Same structure as faith/
-├── marketing-corpus/              # Deep Phase 2 marketing study per brand
+├── marketing-corpus/              # Deep Step 2 marketing study per brand
 │   ├── <brand>/
 │   │   ├── landing-pages.md       # Source file — LP copy, structure, sections verbatim
 │   │   ├── meta-ads.md            # Source file — ad copy, days_running, transformation, angle, awareness
@@ -203,7 +203,7 @@ runs/eink-tablets/
 - Lowercase, hyphenated: `runs/eink-tablets/`, `runs/<space>/`
 - Space name should be the product category or hypothesis space
 
-**Brand records (shallow Phase 0):**
+**Brand records (shallow Step 0):**
 - CamelCase at the top level: `brands/Boox.md`, `brands/KindleScribe.md`
 - Lowercase-hyphenated within market subdirectories: `markets/faith/brands/kindle-scribe.md`
 
@@ -241,7 +241,7 @@ runs/eink-tablets/
 
 **New research run:**
 - Create `runs/<space>/` directory
-- Start with `runs/<space>/brands/` for Phase 0 shallow records
+- Start with `runs/<space>/brands/` for Step 0 shallow records
 - Add `runs/<space>/scripts/analyzer-framework.md` as the shared spine before running any analyzer
 - Kickoff prompt pattern: paste from bottom of `handoff.md`
 
@@ -251,7 +251,7 @@ runs/eink-tablets/
 - Create `brands/` subdir for per-brand records
 - Output goes to `<slug>-market-profile.md`
 
-**New deep marketing study (Phase 2 depth):**
+**New deep marketing study (Step 2 depth):**
 - Create `runs/<space>/marketing-corpus/<brand>/`
 - Populate the 5 source files first, then generate outputs
 - Raw fetches go in `raw/`, screenshots in `screenshots/`
@@ -266,7 +266,7 @@ runs/eink-tablets/
 
 **New framework spec (capability or workflow update):**
 - Capabilities go in `capability_inventory.md`
-- Workflow phase changes go in `workflow.md` (structure locked; additions only)
+- Workflow step changes go in `workflow.md` (structure locked; additions only)
 - Never add new vocabulary — use `definitions.md` terms or explicitly unlock and add there
 
 **Handoff for a new session:**

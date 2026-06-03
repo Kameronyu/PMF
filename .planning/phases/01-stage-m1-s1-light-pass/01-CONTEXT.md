@@ -25,7 +25,7 @@ It finds competitor brands and emits **correctly-labeled** structured signal —
 ## Implementation Decisions
 
 ### Approach — touch-up, not rewrite
-- **D-01:** The existing `prompts/phase1-light-pass.md` already fixes the InkLeaf **structural** failures (per-cell saturation not pooled, claim≠feature, layer discipline with worked examples, problem-mechanism-vs-unique-UM as the classifier's call). Reconcile the master into **one runnable prompt** + the surgical inlines below, then **run on a reference space as a debug pass** (per `run-retrospective.md`: "first run on a space is a debug pass to break the methodology, not produce a deliverable"). Do NOT pre-load KB knowledge the run hasn't shown is needed.
+- **D-01:** The existing `prompts/step1-light-pass.md` already fixes the InkLeaf **structural** failures (per-cell saturation not pooled, claim≠feature, layer discipline with worked examples, problem-mechanism-vs-unique-UM as the classifier's call). Reconcile the master into **one runnable prompt** + the surgical inlines below, then **run on a reference space as a debug pass** (per `run-retrospective.md`: "first run on a space is a debug pass to break the methodology, not produce a deliverable"). Do NOT pre-load KB knowledge the run hasn't shown is needed.
 - **D-02:** KB **decision-procedure** knowledge stays OUT of the Phase 1 collector agents — it belongs to the Phase 2 assessor skill (built separately). Phase 1 agents get only the **definitional/classification** knowledge needed to produce the spec'd output correctly. Same KB, different cut.
 
 ### Sophistication — the one load-bearing inline (Space Classifier)
@@ -76,7 +76,7 @@ It finds competitor brands and emits **correctly-labeled** structured signal —
 - **D-11:** Web traffic source = **Semrush Trends API** (returns `monthly_visits` per domain; documented REST endpoint; ±20–40% accuracy). Free tier ≈10 req/day per account → **use multiple logins/accounts** to clear batch volume. The **multi-login wiring is left to the implementer to figure out as they actually wire it up** — not fully specced here. Manual SimilarWeb free-tier paste = **fallback** (`visits_source:"similarweb-manual"`); add `visits_source:"semrush-api"`. No auto-browser SimilarWeb scraping (ToS / ban risk). SpyFu ($89/mo) noted as a secondary fallback only.
 
 ### Claude's Discretion
-- Reconciliation mechanics — how to fold `phase1-light-pass.md`'s scaffold + agent prompts into one runnable file, exact prompt wording, and where the two inlines physically sit.
+- Reconciliation mechanics — how to fold `step1-light-pass.md`'s scaffold + agent prompts into one runnable file, exact prompt wording, and where the two inlines physically sit.
 - Hook implementation details (the rejection-hook JSON the prompt specs).
 - Whether Finder/Dumper/Classifier run as separate calls or adjacent bricks in one call (per `capability_inventory.md` brick-count note) — a cost decision, not a correctness one.
 </decisions>
@@ -87,7 +87,7 @@ It finds competitor brands and emits **correctly-labeled** structured signal —
 **Downstream agents MUST read these before planning or implementing.**
 
 ### Master spec (the file being reconciled + inlined)
-- `prompts/phase1-light-pass.md` — the master prompt: full SCHEMA (brands.json / dump.json / space-map.json with the pitch binding), closed enums, the DETERMINISTIC SCAFFOLD (specs `fetch.js` / `clean.js` / `adlib-one.js` / `dedupe.js` / `revenue-est.js` + the PostToolUse rejection hooks), and the three agent prompts. **This is the file to edit.**
+- `prompts/step1-light-pass.md` — the master prompt: full SCHEMA (brands.json / dump.json / space-map.json with the pitch binding), closed enums, the DETERMINISTIC SCAFFOLD (specs `fetch.js` / `clean.js` / `adlib-one.js` / `dedupe.js` / `revenue-est.js` + the PostToolUse rejection hooks), and the three agent prompts. **This is the file to edit.**
 
 ### Vocabulary (single source of truth — overrides KB on any conflict)
 - `definitions.md` — §"Market sophistication" (5 stages + the Stage→required-levers matrix + 5+ rule), §"Claim" / "Enhanced claim", §"UM" (Problem/Product/Feature sub-types), §"Niche" / "Transformation" / "Market". The sophistication inline (D-03) traces here.
@@ -116,7 +116,7 @@ It finds competitor brands and emits **correctly-labeled** structured signal —
 
 ### Reusable Assets
 - `tools/adlib-one.js` + `tools/crowdfund-fetch.js` — working fetchers (page-ID resolution, Cloudflare bypass) to inherit into the layer-3 fetch scripts.
-- `prompts/phase1-light-pass.md` DETERMINISTIC SCAFFOLD — already specs `fetch.js` / `clean.js` / `dedupe.js` / `revenue-est.js` and the rejection hooks (not yet built — these are the layer-3 scripts remaining).
+- `prompts/step1-light-pass.md` DETERMINISTIC SCAFFOLD — already specs `fetch.js` / `clean.js` / `dedupe.js` / `revenue-est.js` and the rejection hooks (not yet built — these are the layer-3 scripts remaining).
 
 ### Established Patterns
 - **Brick model** (the build law): deterministic jobs → scripts, judgment jobs → agents, gates → hooks (reject bad output, don't trust the prompt). Hooks run PostToolUse on each agent's Write.

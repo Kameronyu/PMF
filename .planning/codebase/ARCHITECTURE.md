@@ -13,7 +13,7 @@ This is not a software codebase. It is a **DR marketing / ecommerce research and
 **Overall:** Multi-stage research pipeline with human decision gates
 
 **Key Characteristics:**
-- Stages 0–8 describe the research sequence; GSD "Phases" are execution units (separate naming convention)
+- Stages 0–8 describe the research sequence; GSD "Steps" are execution units (separate naming convention)
 - `definitions.md` is the locked vocabulary that every agent, analyst, and document shares — never modified without explicit unlock
 - Work products are `.md` files under `runs/<space>/`; they are the de-facto persistence layer until a formal map layer is built
 - Agents are Claude Code subagent invocations, not persistent processes; they read briefs from `scripts/`, write `.md` artifacts, and terminate
@@ -96,7 +96,7 @@ Rules that govern this pattern:
 1. **Raw acquisition:** Playwright scripts (`scripts/adlib-one.js`, `scripts/crowdfund-fetch.js`) fetch landing pages, Meta Ad Library data, Kickstarter campaigns → saved as timestamped `.html`, `.png`, `.txt` in `raw/` subdirs
 2. **Per-brand extraction:** Agent reads raw/clean copy files, writes structured `.md` brand record with transformation, niche, mechanism, claims, features, ad data, sophistication signals
 3. **Market aggregation:** Aggregator agent reads all per-brand records within a market cell, produces `<slug>-market-profile.md` with claim-saturation table, differentiation whitespace, Gate-1 evidence dossier, price-band comparison
-4. **Deep marketing corpus:** For Phase 2 brands — separate `marketing-corpus/<brand>/` with 5 source files (`landing-pages.md`, `meta-ads.md`, `funnel-mechanics.md`, `partnerships.md`, `notes.md`) + generated outputs (`granular-analysis.md`, `winning-message-analysis.md`)
+4. **Deep marketing corpus:** For Step 2 brands — separate `marketing-corpus/<brand>/` with 5 source files (`landing-pages.md`, `meta-ads.md`, `funnel-mechanics.md`, `partnerships.md`, `notes.md`) + generated outputs (`granular-analysis.md`, `winning-message-analysis.md`)
 5. **Cross-space synthesis:** `market-map.md`, `market-opportunity.md`, `eink-category-evolution/evolution-profile.md`, `eink-category-evolution/transformations-flat-map.md` — written from aggregated brand records, not fresh research
 6. **Ad/copy outputs (downstream):** Stage 4 test design pulls verbatim language from the Stage 3b copy bank; Stage 6 builds creatives from that material
 
@@ -116,9 +116,9 @@ Rules that govern this pattern:
 - Depends on: `workflow.md` for depth
 
 **Layer 2 — Workflow (`workflow.md`):**
-- Purpose: Full phase structure + per-phase research questions + gate formulas; the run spine
+- Purpose: Full step structure + per-step research questions + gate formulas; the run spine
 - Contains: Stages 0–8 definitions, pipelines A/B/C/D, PMBD question battery, gap formula, gate criteria
-- Locked: Phase structure and `definitions.md` vocabulary are locked; research question depth follows original planning doc
+- Locked: Step structure and `definitions.md` vocabulary are locked; research question depth follows original planning doc
 
 **Layer 3 — Capabilities (`capability_inventory.md`):**
 - Purpose: ~20 atomic capabilities tagged Op/Orch/Human/Under; what each accepts and produces
@@ -139,7 +139,7 @@ Rules that govern this pattern:
 
 In order of authority:
 1. `definitions.md` — locked vocabulary; never modify without explicit unlock
-2. `workflow.md` — phase structure + research questions; structure locked, questions expandable
+2. `workflow.md` — step structure + research questions; structure locked, questions expandable
 3. `capability_inventory.md` — capability definitions + locked decisions (list at bottom of file)
 4. `handoff.md` — current state, what's locked vs open, kickoff prompts; session entry point
 5. Agent briefs / run artifacts — beta prompts and outputs; NOT locked decisions
@@ -176,7 +176,7 @@ In order of authority:
 - Claude Code IS the orchestrator; stage prompts become `.claude/commands/*.md` slash commands (stated intent, not yet built)
 
 **Naming split:**
-- GSD = "Phases" (execution units)
+- GSD = "Steps" (execution units)
 - Research content = "Stages" 0–8 (workflow content)
 - Milestone split: M1 = research system (Stages 0–3), M2 = test pipeline (Stages 4–8)
 

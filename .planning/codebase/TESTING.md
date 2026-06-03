@@ -159,7 +159,7 @@ The market playbook brief enforces this on the "Recommended Messages" section:
 
 Two formal gates exist in the workflow. Both are Human judgment calls, not automated scores.
 
-**Gate 1 (Phase 0) — Is the space worth pursuing?**
+**Gate 1 (Step 0) — Is the space worth pursuing?**
 
 Formula: `Gap Score = [(Desire to Solve × D2C Feasibility) − Market Sophistication] × Market Growth`
 
@@ -172,7 +172,7 @@ Evidence required per axis (not a bare score):
 Quality check: the Gate-1 evidence dossier must be per-axis evidence, not a bare score.
 Price-band reality vs $900 is mandatory in every profile.
 
-**Gate 2 (Phase 2) — Do you want to commit to running ads for this market?**
+**Gate 2 (Step 2) — Do you want to commit to running ads for this market?**
 
 Post-deep-research judgment: "Proven spend but easy competition" is the ideal. Strong UM +
 easy competition are the biggest difference-makers. Framework structure locked; threshold
@@ -196,7 +196,7 @@ finding should land:
 - Corrections to methodology (e.g., the Ad Library Page-ID sanity check, saturation-per-cell rule)
 - Durable tooling descriptions (e.g., `crowdfund-fetch.js`, `adlib-one.js`)
 - Deliverable template formalizations
-- Open gaps carried forward (e.g., VOC not run in Phase 0, authority-proof scanner missing)
+- Open gaps carried forward (e.g., VOC not run in Step 0, authority-proof scanner missing)
 - Architecture decisions (e.g., the 3-agent pattern, crash discipline at 60-65 tool uses)
 
 ---
@@ -208,7 +208,7 @@ and session-entry-point for the next Claude Code session. It must contain:
 
 1. **Current state** — what was completed, method check results, output locations
 2. **Read order** — the exact ordered list of files to read before doing anything
-3. **What's locked** — vocabulary, phase structure, methodology corrections already in the framework
+3. **What's locked** — vocabulary, step structure, methodology corrections already in the framework
 4. **What's open** — Foundational Unders, Downstream Unders, calibration items
 5. **What comes next** — specific tasks with explicit scope limits
 6. **What NOT to do** — explicit prohibitions based on prior failure modes
@@ -224,7 +224,7 @@ From `handoff.md`:
 > "Don't skip the Ad Library step. Even for free apps / non-DR brands."
 > "Don't assume a niche before reading copy."
 > "Don't bleed scope between the two parallel sessions."
-> "Don't deep-dive Phase 2 in these scans. Selection only."
+> "Don't deep-dive Step 2 in these scans. Selection only."
 
 ---
 
@@ -232,9 +232,9 @@ From `handoff.md`:
 
 These are known holes in the current QA system, carried forward for resolution:
 
-1. **VOC not run in Phase 0** — Gate-1 Desire to Solve (driver proximity, severity, frequency) requires VOC that Phase 0 doesn't produce. Decision pending: lightweight P0 VOC, proxy signals only, or rough Gate-1 recalibrated at Phase 3d.
+1. **VOC not run in Step 0** — Gate-1 Desire to Solve (driver proximity, severity, frequency) requires VOC that Step 0 doesn't produce. Decision pending: lightweight P0 VOC, proxy signals only, or rough Gate-1 recalibrated at Step 3d.
 2. **Authority-proof scanner absent** — Gate-1 D2C Feasibility "believability" axis has no capability mapped for authority proof assessment.
-3. **Awareness-level inference** — Phase 4 awareness targeting has no dedicated synthesis step; classifier emits proxies but nothing aggregates them.
+3. **Awareness-level inference** — Step 4 awareness targeting has no dedicated synthesis step; classifier emits proxies but nothing aggregates them.
 4. **Hypothesis-selection record schema missing** — hypothesis selection is an explicit Human step but has no documented record format.
 5. **Actor/source tags on research questions** dropped inconsistently from `workflow.md` — need to specify which steps are Human vs AI vs VOC vs trends-tool.
 6. **`workflow.md:344` contradiction** — still says the map/persistence layer "has to be designed before capability specs," which contradicts the 05-21 course correction; needs softening.

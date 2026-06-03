@@ -23,7 +23,7 @@ These files define what the system does and how it thinks. They are the closest 
 **Core spec files:**
 - `definitions.md` — locked vocabulary (Niche, Transformation, Market, PMBD, UM, etc.). Canonical
   reference for all agents and humans. Never modify without a version note.
-- `workflow.md` — phase structure (Phase -1 through 8), research questions per phase, gap
+- `workflow.md` — step structure (Step -1 through 8), research questions per step, gap
   formula, pipeline variants A/B/C/D. Locked structure; research-question depth locked.
 - `capability_inventory.md` — ~20 atomic capabilities tagged Op/Orch/Human/Under. Locked
   decisions section governs agent design constraints.
@@ -48,7 +48,7 @@ capability. They carry role, input contracts, hard rules, output schemas, self-a
 checklists, and exact output paths.
 
 **Canonical prompt:**
-- `prompts/phase1-light-pass.md` — full agent spec for the Phase 1 light pass: Finder +
+- `prompts/step1-light-pass.md` — full agent spec for the Step 1 light pass: Finder +
   Roster Verifier + Dumper + Space Classifier agents, plus deterministic scaffold (scripts +
   hooks), JSON schemas for `brands.json`, `dump.json`, and `space-map.json`, and closed
   enums that hook-validate.
@@ -180,7 +180,7 @@ runtime for all agent capabilities. No local models.
 - Classifier: one universal schema; N/A valid for any field; source metadata preserved
   through every link
 
-**Hook enforcement (from `prompts/phase1-light-pass.md`):**
+**Hook enforcement (from `prompts/step1-light-pass.md`):**
 - PostToolUse hooks on Write validate agent outputs against schema rules (e.g., Dumper
   cannot set `canonical_niche != null`; claims must be verbatim substrings of clean corpus)
 - Enforced by Claude Code hooks, not agent honor system

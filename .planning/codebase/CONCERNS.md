@@ -17,20 +17,20 @@
 
 ### README.md Is Stale on Multiple Points
 
-- **Issue:** `README.md` claims: (a) `workflow.md` covers "Phase −1 → 8" — no Phase -1 exists in `workflow.md`; (b) `agents/` is "not yet written; gated on map layer" — but `agents/implementation-notes.md` exists and the map-layer gate was lifted by the 05-21 course correction; (c) layout lists `map/` as "persistence layer design (foundational Under #1)" with no caveat that this is deprioritized.
+- **Issue:** `README.md` claims: (a) `workflow.md` covers "Step −1 → 8" — no Step -1 exists in `workflow.md`; (b) `agents/` is "not yet written; gated on map layer" — but `agents/implementation-notes.md` exists and the map-layer gate was lifted by the 05-21 course correction; (c) layout lists `map/` as "persistence layer design (foundational Under #1)" with no caveat that this is deprioritized.
 - **Files:** `README.md:10`, `README.md:15`, `README.md:14`
 - **Impact:** README is the first file a new session may read (it says "Entry point: `handoff.md`" but someone could read it cold). All three errors point away from the actual current state.
-- **Fix:** Remove Phase -1 reference, update `agents/` description to reflect `implementation-notes.md` existence and the lifted gate, add deprioritized caveat on `map/`.
+- **Fix:** Remove Step -1 reference, update `agents/` description to reflect `implementation-notes.md` existence and the lifted gate, add deprioritized caveat on `map/`.
 
 ---
 
-### flow.md Phase Numbering Diverges from workflow.md
+### flow.md Step Numbering Diverges from workflow.md
 
-- **Issue:** `flow.md` uses a different phase structure than `workflow.md`. In `flow.md`, "Phase 1: Sketch Your Competition" contains the Gap Analysis Agent and Gate 1 scoring — which `workflow.md` places in Phase 0. `flow.md` Phase 1 maps roughly to `workflow.md` Phases 0+1 combined. `flow.md` does not mention "Phase 1 — Theorize" at all, and Phases 4–8 are collapsed into a single stub with no sub-phase breakdown.
+- **Issue:** `flow.md` uses a different step structure than `workflow.md`. In `flow.md`, "Step 1: Sketch Your Competition" contains the Gap Analysis Agent and Gate 1 scoring — which `workflow.md` places in Step 0. `flow.md` Step 1 maps roughly to `workflow.md` Steps 0+1 combined. `flow.md` does not mention "Step 1 — Theorize" at all, and Steps 4–8 are collapsed into a single stub with no sub-step breakdown.
 - **Files:** `flow.md:19-107`, `workflow.md:11-354`
-- **Impact:** `flow.md` is untracked and appears to be a newer, parallel rewrite of the orchestration layer (it references `!Agent` directives and three layers that don't exist elsewhere). A session reading `flow.md` as the canonical flow will mis-route the Gap Analysis to Phase 1 instead of Phase 0. The two docs cannot both be correct simultaneously.
-- **Impact severity:** High — if `flow.md` is adopted as the session entry point (it's listed in the kickoff reading order for `handoff-granular-analysis.md`: it isn't, but `flow.md` as an untracked file with no pointer to it creates confusion), a session will misframe which gate belongs to which phase.
-- **Fix:** Either (a) reconcile `flow.md` with `workflow.md` phase numbering and mark `flow.md` as the operational layer-1 skeleton explicitly subordinate to `workflow.md`, or (b) deprecate `flow.md` in favor of the `prompts/phase1-light-pass.md` approach. Currently neither doc references the other.
+- **Impact:** `flow.md` is untracked and appears to be a newer, parallel rewrite of the orchestration layer (it references `!Agent` directives and three layers that don't exist elsewhere). A session reading `flow.md` as the canonical flow will mis-route the Gap Analysis to Step 1 instead of Step 0. The two docs cannot both be correct simultaneously.
+- **Impact severity:** High — if `flow.md` is adopted as the session entry point (it's listed in the kickoff reading order for `handoff-granular-analysis.md`: it isn't, but `flow.md` as an untracked file with no pointer to it creates confusion), a session will misframe which gate belongs to which step.
+- **Fix:** Either (a) reconcile `flow.md` with `workflow.md` step numbering and mark `flow.md` as the operational layer-1 skeleton explicitly subordinate to `workflow.md`, or (b) deprecate `flow.md` in favor of the `prompts/step1-light-pass.md` approach. Currently neither doc references the other.
 
 ---
 
@@ -106,10 +106,10 @@
 
 ### prompts/ and flow.md Have No Pointer From Any Navigation Doc
 
-- **Issue:** `prompts/phase1-light-pass.md` is a substantial spec (350 lines) containing JSON schemas, agent prompts, hook configs, and a deterministic scaffold for Phase 1. `flow.md` is a high-level flow skeleton (107 lines) designed as a three-layer architecture. Neither file is referenced from `README.md`, `handoff.md`, `workflow.md`, or `capability_inventory.md`. There is no way to discover either file by following the documented reading order.
-- **Files:** `prompts/phase1-light-pass.md`, `flow.md`
-- **Impact:** These are advanced work products — `phase1-light-pass.md` in particular contains the most detailed agent specs in the repo (including hook rejection rules and JSON schemas not found elsewhere). If not discoverable, they cannot be reused.
-- **Fix:** Add `prompts/` and `flow.md` to `README.md` layout. `flow.md` should be cross-referenced from `workflow.md` as the operational layer-1 companion (once the phase-numbering divergence in concern #3 is resolved).
+- **Issue:** `prompts/step1-light-pass.md` is a substantial spec (350 lines) containing JSON schemas, agent prompts, hook configs, and a deterministic scaffold for Step 1. `flow.md` is a high-level flow skeleton (107 lines) designed as a three-layer architecture. Neither file is referenced from `README.md`, `handoff.md`, `workflow.md`, or `capability_inventory.md`. There is no way to discover either file by following the documented reading order.
+- **Files:** `prompts/step1-light-pass.md`, `flow.md`
+- **Impact:** These are advanced work products — `step1-light-pass.md` in particular contains the most detailed agent specs in the repo (including hook rejection rules and JSON schemas not found elsewhere). If not discoverable, they cannot be reused.
+- **Fix:** Add `prompts/` and `flow.md` to `README.md` layout. `flow.md` should be cross-referenced from `workflow.md` as the operational layer-1 companion (once the step-numbering divergence in concern #3 is resolved).
 
 ---
 
@@ -135,11 +135,11 @@
 
 These gaps are catalogued in `run-retrospective.md:237-249` and `map/data_inventory.md:700-711` but have not been addressed in `workflow.md` or `capability_inventory.md`. Listed here for completeness; the retrospective already prescribes remedies.
 
-### Gate 1 Needs VOC That Phase 0 Doesn't Produce
+### Gate 1 Needs VOC That Step 0 Doesn't Produce
 
-- **Issue:** Gate 1's "Desire to Solve" requires core-driver proximity, severity, and frequency — all of which come from the VOC chain (classifier + frequency synthesizer). Phase 0 as specified in `workflow.md` does not run VOC. The current workaround in the eink runs was using ad library data and review signals as proxies, which is undocumented.
-- **Files:** `workflow.md:27-38` (Phase 0 Gap analysis), `map/data_inventory.md:497-498`
-- **Fix per retrospective:** Either (a) add lightweight VOC to Phase 0 scope, (b) document that Desire to Solve uses proxy signals at Gate 1 and upgrades at Phase 3d, or (c) relabel the gate.
+- **Issue:** Gate 1's "Desire to Solve" requires core-driver proximity, severity, and frequency — all of which come from the VOC chain (classifier + frequency synthesizer). Step 0 as specified in `workflow.md` does not run VOC. The current workaround in the eink runs was using ad library data and review signals as proxies, which is undocumented.
+- **Files:** `workflow.md:27-38` (Step 0 Gap analysis), `map/data_inventory.md:497-498`
+- **Fix per retrospective:** Either (a) add lightweight VOC to Step 0 scope, (b) document that Desire to Solve uses proxy signals at Gate 1 and upgrades at Step 3d, or (c) relabel the gate.
 
 ### No Capability for Authority-Proof Scanning
 
@@ -148,7 +148,7 @@ These gaps are catalogued in `run-retrospective.md:237-249` and `map/data_invent
 
 ### Hypothesis-Selection Has No Record Schema
 
-- **Issue:** The explicit Human step between Phase 0 and Phase 1 is locked as first-class, but `map/data_inventory.md` flags that the actual procedure used (3 candidate markets → parallel scans → Gate 1 cross-comparison → pick) has no schema or persistent record format.
+- **Issue:** The explicit Human step between Step 0 and Step 1 is locked as first-class, but `map/data_inventory.md` flags that the actual procedure used (3 candidate markets → parallel scans → Gate 1 cross-comparison → pick) has no schema or persistent record format.
 - **Files:** `map/data_inventory.md:524-527`, `workflow.md:44-46`
 
 ### Actor/Source Tags Dropped from workflow.md
@@ -171,9 +171,9 @@ These gaps are catalogued in `run-retrospective.md:237-249` and `map/data_invent
 |---|---|---|---|
 | 1 | `workflow.md:344` hard gate contradicts 05-21 course correction | `workflow.md`, `capability_inventory.md` | Misleads a session into waiting for the persistence layer |
 | 2 | `handoff.md` current state is ~3 weeks stale | `handoff.md`, all run artifacts | Session re-runs completed work or misses done deliverables |
-| 3 | `flow.md` phase numbering conflicts with `workflow.md` | `flow.md`, `workflow.md` | Gate 1 routed to wrong phase; framework confusion |
+| 3 | `flow.md` step numbering conflicts with `workflow.md` | `flow.md`, `workflow.md` | Gate 1 routed to wrong step; framework confusion |
 | 4 | Modified `capability_inventory.md`, `handoff.md`, `workflow.md` uncommitted | git status | State loss on branch reset |
-| 5 | `prompts/phase1-light-pass.md` and `flow.md` undiscoverable | `README.md` | Most detailed agent specs in repo never found |
+| 5 | `prompts/step1-light-pass.md` and `flow.md` undiscoverable | `README.md` | Most detailed agent specs in repo never found |
 | 6 | `run-retrospective.md` not linked, §8 recommendations unactioned | `README.md`, `handoff.md` | Full session learnings not folded into framework |
 
 ---

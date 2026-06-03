@@ -1,4 +1,4 @@
-# Phase 1 — Light Pass (agents + schema + determinism scaffold)
+# Step 1 — Light Pass (agents + schema + determinism scaffold)
 
 Goal of the light pass: from a starting point (here: **product**), find the competitor brands,
 collect each brand's marketing copy, and classify the space — what transformations/niches are
@@ -374,7 +374,7 @@ RULES:
 ## OPEN DECISIONS (ruled inline as we build; flag any to change)
 
 - **Scope = light pass.** Per-creative combo rows are captured but per-AD deep combo analysis
-  (the top-5 deep study) is Phase 2, not here. Light pass combos roll up at claim/creative level.
+  (the top-5 deep study) is Step 2, not here. Light pass combos roll up at claim/creative level.
 - **Multi-angle creatives:** capture dominant + `multi:true`. Not splitting into segments in the light pass.
 - **transformation:null is a legal final value** for a claimless cold ad (teaser) — it's a countable state, not a gap.
 - **ad↔funnel link may be unresolved** — `link_basis:"unresolved"` is legal; we don't fake clean links.

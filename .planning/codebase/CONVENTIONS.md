@@ -124,7 +124,7 @@ Each root-level doc has one job. Do not blur them:
 | File | Role | Locked? |
 |---|---|---|
 | `definitions.md` | Controlled vocabulary | Locked — do not modify |
-| `workflow.md` | Phase structure + research questions (Phases 0–8) | Phase structure locked |
+| `workflow.md` | Step structure + research questions (Steps 0–8) | Step structure locked |
 | `capability_inventory.md` | ~20 atomic capabilities + locked decisions | Capability list locked |
 | `handoff.md` | Session state, kickoffs, what's open vs locked | Updates each session |
 | `flow.md` | Thin skeleton; 3-layer overview | Reference only |
@@ -237,7 +237,7 @@ by an explicit "DO NOT read" section in every per-brand brief.
 Corrections to classification rules go in `runs/eink-tablets/scripts/analyzer-framework.md`,
 not duplicated per brief. Every analyzer reads this file. One edit propagates to all markets.
 
-### Closed enums (from `prompts/phase1-light-pass.md`)
+### Closed enums (from `prompts/step1-light-pass.md`)
 Some fields are closed-set; off-list values are hard rejects:
 - `awareness`: `unaware | problem-aware | solution-aware | product-aware | most-aware`
 - `channel`: `dtc | marketplace | crowdfunding`
@@ -259,7 +259,7 @@ Prevents editorializing from contaminating the copy bank.
 
 ## Naming Decisions and System Terminology
 
-- Framework uses **Stages** (0–8) for research content; **Phases** for GSD execution. Do not swap.
+- Framework uses **Stages** (0–8) for research content; **Steps** for GSD execution. Do not swap.
 - M1/M2/etc. are market labels for the e-ink run, not universal
 - "Under" means an item is not built enough to spec; "locked" means the decision is final
 - "Beta prompts" = briefs written for a specific run, not locked agent specs

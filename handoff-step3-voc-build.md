@@ -1,6 +1,6 @@
-# Build Brief — Phase 3 VOC Pipeline (for GSD)
+# Build Brief — Step 3 VOC Pipeline (for GSD)
 
-This is the single context bundle for building PMF's **Phase 3 (customer research / VOC)** pipeline.
+This is the single context bundle for building PMF's **Step 3 (customer research / VOC)** pipeline.
 GSD: read this top to bottom, then read the locked canon (§2). **Do not regenerate the canon** —
 build *from* it. Everything in §4 is already decided in conversation with Kam (2026-06-01); don't
 re-litigate it.
@@ -9,19 +9,19 @@ re-litigate it.
 
 ## 0. Naming guardrail (read first)
 
-PMF already has **research Phases 0–8** (its workflow vocabulary — see `workflow.md`). To avoid
-collision, **GSD's build units are called "stages."** When this doc says "Phase 3" it means PMF's
-*research* phase (VOC). When it says "stage," it means a GSD build unit. Never renumber or reuse
-PMF's Phase numbers.
+PMF already has **research Steps 0–8** (its workflow vocabulary — see `workflow.md`). To avoid
+collision, **GSD's build units are called "stages."** When this doc says "Step 3" it means PMF's
+*research* step (VOC). When it says "stage," it means a GSD build unit. Never renumber or reuse
+PMF's Step numbers.
 
 ---
 
 ## 1. Scope (what GSD is building — and what it is NOT)
 
-**Building:** the Phase 3 VOC engine — **3a (frequency/structural map)** + **3b (verbatim copy
+**Building:** the Step 3 VOC engine — **3a (frequency/structural map)** + **3b (verbatim copy
 bank)**. Reddit-first. A **reusable, templated** spec (placeholders for niche / transformation /
 venues; the e-ink market is just the first instantiation), in the format of
-`prompts/phase1-light-pass.md`.
+`prompts/step1-light-pass.md`.
 
 Concretely the deliverables are:
 - The **classifier codebook** (the keystone contract — see §5).
@@ -31,11 +31,11 @@ Concretely the deliverables are:
 
 **NOT building (out of scope, do not drift into):**
 - **3c** (UM / mechanism / science research — different operation, different tools).
-- **Phase 4 copywriting.** Phase 3 ends at a stored, queryable copy bank. Writing copy *from* it
-  (the two-pass draft→RAG-language-transform method Kam described) is Phase 4.
-- The whole PMF research method (Phases 0–8). Just the VOC engine.
+- **Step 4 copywriting.** Step 3 ends at a stored, queryable copy bank. Writing copy *from* it
+  (the two-pass draft→RAG-language-transform method Kam described) is Step 4.
+- The whole PMF research method (Steps 0–8). Just the VOC engine.
 - Vectorization / RAG DB — **JIT only.** Build the structured attributed store now; add embeddings
-  when Phase 4 actually needs semantic retrieval. Don't build the vector DB up front.
+  when Step 4 actually needs semantic retrieval. Don't build the vector DB up front.
 
 ---
 
@@ -44,13 +44,13 @@ Concretely the deliverables are:
 1. `definitions.md` — locked vocabulary. PMBD × T1–T4 ladder, niche/transformation, sub-niche
    (5+ single-individual co-occurrence rule), awareness, four drivers, UM types. **The codebook is
    this, compiled into a machine contract.**
-2. `workflow.md` — Phase 3a/3b sections carry the **PMBD research-question battery** (Belief 6
+2. `workflow.md` — Step 3a/3b sections carry the **PMBD research-question battery** (Belief 6
    surfaces · Experiences · Motif · Pain ladder · Desire ladder · co-occurrence · differentiator
    hunt · three search lanes). **This battery IS the classifier's schema spine.**
 3. `capability_inventory.md` — the VOC chain (~7 ops: scraper → cleaner → classifier → quote
    extractor + frequency synthesizer + clusterer → copy bank) and the locked decisions
    (one universal classifier/schema, source-metadata pass-through, 3a vs 3b branch at classifier).
-4. `prompts/phase1-light-pass.md` — **the FORMAT to match**: schema contract + deterministic
+4. `prompts/step1-light-pass.md` — **the FORMAT to match**: schema contract + deterministic
    scaffold + hooks that reject bad output + thin per-agent prompts. Mirror this structure.
 5. Memory `reference_voc_prior_art.md` (in the project memory dir) — prior-art steal-list +
    reference repos. Summarized in §7.
@@ -60,7 +60,7 @@ Concretely the deliverables are:
 ## 3. Settled architecture — the 3-pass pipeline (one job per agent)
 
 ```
-PASS 1 (broad, whole corpus)                              = Phase 3a
+PASS 1 (broad, whole corpus)                              = Step 3a
   [script] Reddit scrape (official commercial API) → keeps author_id, permalink, ts, upvotes
   [script] clean (raw IMMUTABLE copy kept; normalize only a working copy)
   [AGENT Bucketer]  letter + raw theme + counter-signal flag + community-vocab flag
@@ -70,14 +70,14 @@ PASS 1 (broad, whole corpus)                              = Phase 3a
 
   → hot clusters (high freq × tight co-occurrence) auto-selected as deep-dive targets
 
-PASS 2 (deep, hot clusters only)                          = Phase 3b extraction
+PASS 2 (deep, hot clusters only)                          = Step 3b extraction
   [script] scrape deeper (full comment trees, adjacent venues) on the hot clusters
   [script] clean
   [AGENT Ladderer]  tier (T1–T4) + extract copy-ready verbatim spans
   [script] verbatim-gate (string-match each span to source; reject mismatch)
   [script] driver read at the CLUSTER level (one driver per sub-niche)
 
-PASS 3 (bank)                                             = Phase 3b output
+PASS 3 (bank)                                             = Step 3b output
   [AGENT Language Analyzer]  organize verbatim by theme / sub-niche / PMBD-tier into
                              copy-ready units; light-clean only, NEVER reword
   [script] store records (+ embed JIT later)
@@ -121,7 +121,7 @@ Agents = Query Planner, Bucketer, Ladderer, Language Analyzer (4). Everything el
 - **Storage contract (per-quote record):** `raw_text, char_offsets, author_id, permalink, upvotes,
   pmbd_letter, tier, belief_surface, sub_niche_id, trigger, intensity`. Two materialized views off
   this one store: **frequency brief** (aggregate, per sub-niche, laddered, driver-keyed — what Kam
-  strategizes from) + **copy bank** (records, retrievable by slot — what Phase 4 RAGs from).
+  strategizes from) + **copy bank** (records, retrievable by slot — what Step 4 RAGs from).
 - **No-LLM-generated-copy rule:** the moat vs the digital-twin wave is real attributed verbatim
   with live permalinks. Never let any agent author a customer phrase into the bank.
 
@@ -129,10 +129,10 @@ Agents = Query Planner, Bucketer, Ladderer, Language Analyzer (4). Everything el
 
 ## 5. The keystone — the classifier codebook
 
-Build this **first**; passes 1–3, the co-occurrence matrix, and the Phase-4 retrieval index all key
+Build this **first**; passes 1–3, the co-occurrence matrix, and the Step-4 retrieval index all key
 off it. It is simultaneously: the **classifier's instructions**, the **record schema**, and the
 **copy-retrieval index**. It is `definitions.md` (PMBD × tiers, 6 belief surfaces, sub-niche rule)
-+ `workflow.md`'s battery, compiled into a tagging contract, in the `phase1-light-pass.md` format
++ `workflow.md`'s battery, compiled into a tagging contract, in the `step1-light-pass.md` format
 (closed enums hook-rejected off-list; open fields captured verbatim; everything traces to real text).
 
 Note the split: **Bucketer** assigns letter + raw theme (whole corpus, cheap). **Ladderer** assigns
@@ -192,7 +192,7 @@ the copy bank** (UAT), not unit tests — prompt/research quality isn't test-pas
 - **Vindicta run outputs** (what the method produced — broad pass + scoped deep-dives) —
   `~/Documents/Vindicta/Vindicta*.docx`. Evidence that the real method was broad-pass-then-scoped
   deep-dives, which IS the 3a→3b structure.
-- **Format reference:** `prompts/phase1-light-pass.md`.
+- **Format reference:** `prompts/step1-light-pass.md`.
 
 ---
 

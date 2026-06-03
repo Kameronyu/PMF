@@ -3,9 +3,9 @@ name: market-selection
 description: >-
   Evaluate candidate transformation-niche pairs (NTPs) through four ordered kill-gates —
   Demand, Product, Sophistication, Awareness — and rank the survivors for testing. Run this
-  AFTER a light-pass market scan (prompts/phase1-light-pass.md) has produced the per-brand +
+  AFTER a light-pass market scan (prompts/step1-light-pass.md) has produced the per-brand +
   per-market data contract, when deciding which NTP(s) to take into deep competitor analysis.
-  This is PMF Phase 0/1 Gate 1 (the bet-selection decision). It does NOT pick the market — it
+  This is PMF Step 0/1 Gate 1 (the bet-selection decision). It does NOT pick the market — it
   produces gate verdicts + a ranked survivor list and presents them for the human's call.
 ---
 
@@ -31,10 +31,10 @@ competition has already said.
 
 - `definitions.md` — locked vocabulary: PMBD, transformation, niche, UM types, awareness stages,
   the four drivers, sophistication stages. Every label you assign traces here.
-- `workflow.md` Phase 0 — the locked gap variables (Desire to Solve · D2C Feasibility · Market
+- `workflow.md` Step 0 — the locked gap variables (Desire to Solve · D2C Feasibility · Market
   Sophistication · Market Growth). The gates below are these variables, unrolled.
 - The **light-pass output** for this space (`runs/<space>/` — the `space-map.json` / market
-  aggregate + per-brand records produced by `prompts/phase1-light-pass.md`). This is your data.
+  aggregate + per-brand records produced by `prompts/step1-light-pass.md`). This is your data.
 - `agents/implementation-notes.md` — the layer-discipline worked examples (Gate 3 depends on them).
 
 ## Inputs
@@ -122,7 +122,7 @@ The existence question: is anyone *provably* paying for this transformation, for
   = KILL** (fad signature; current revenue can clear the floor and vanish in 6 months).
 - **1.3 Score demand magnitude** (ranking only, does not kill): market size (total proven spend
   across qualifiers) + demand **intensity** (severity · frequency · core-driver proximity — the
-  axis revenue doesn't capture). *Intensity needs VOC; at Phase 0 use proxy signals and mark it
+  axis revenue doesn't capture). *Intensity needs VOC; at Step 0 use proxy signals and mark it
   `intensity: proxy`. It ranks survivors, it never kills — so the VOC-not-run-at-P0 gap does not
   block this gate.*
 
@@ -209,7 +209,7 @@ rescues a pair that failed the proven-spend floor or the sophistication gate.**
 ## OUTPUT
 
 Write to `runs/<space>/market-selection.md` (cross-pair, the bet-selection artifact bridging
-Phase 0 → Phase 1). One record per candidate pair, then the ranked survivor table.
+Step 0 → Step 1). One record per candidate pair, then the ranked survivor table.
 
 **Per-pair record (the synthesis the agent produces):**
 - **Pair:** `<transformation> × <niche>`
