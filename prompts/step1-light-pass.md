@@ -69,7 +69,7 @@ Crowdfunding brands set `channel:"crowdfunding"` and fill the block instead of `
 
 ### `dump.json` — Dumper output (one per brand). **No transformation/niche classification.**
 The **creative is the unit of record.** Each ad / landing page / product page is one creative.
-A creative always has a niche-target read + angle + awareness; it MAY carry zero claims.
+A creative always has a niche-target read + angle; it MAY carry zero claims.
 ```json
 {
   "slug": "string",
@@ -87,8 +87,6 @@ A creative always has a niche-target read + angle + awareness; it MAY carry zero
       "angle_raw": "the emotional frame in the copy's own terms — OPEN, not an enum",
       "canonical_angle": null,
       "angle_basis": "observed | inferred",
-      "awareness": "one of AWARENESS_ENUM",
-      "awareness_basis": "observed | inferred",
 
       "pitches": [
         {
@@ -109,7 +107,7 @@ A creative always has a niche-target read + angle + awareness; it MAY carry zero
 }
 ```
 - `transformation` and `canonical_niche` are **always null here** — the classifier fills them.
-- A cold ad with no claim: `claims: []`, but `angle`/`awareness`/`niche_raw` still filled.
+- A cold ad with no claim: `claims: []`, but `angle_raw`/`niche_raw` still filled.
 - `claims[]` strings must be **verbatim substrings of the clean copy** (hook-enforced).
 
 ### `space-map.json` — Space Classifier output (reads all `dump.json`)
@@ -159,13 +157,12 @@ A creative always has a niche-target read + angle + awareness; it MAY carry zero
 
 ### Closed enums (a value off-list is a hard reject)
 ```
-AWARENESS_ENUM:        unaware | problem-aware | solution-aware | product-aware | most-aware
 CHANNEL_ENUM:          dtc | marketplace | crowdfunding
 CLAIM_TYPE_ENUM:       direct | enlarged | mechanism | enhanced   (classifier assigns per claim; off-list = hard reject)
 COMPETITIVE_AXIS_ENUM: function-capability-price | visual-statement | community-openness   (classifier assigns one primary axis per brand; off-list = hard reject)
 ```
 Open (captured verbatim by the dumper, clustered by the classifier): claims · mechanism · niche · angle.
-Closed (dumper picks from the enum, hook-rejected off-list): awareness · channel · lane.
+Closed (dumper picks from the enum, hook-rejected off-list): channel · lane.
 Classifier-assigned, hook-rejected off-list: claim_type (the classifier types each claim once the space is in view — see AGENT 3) · competitive_axis (one primary page-read axis per brand, with a page-quoted basis — see AGENT 3).
 
 ---
@@ -190,7 +187,7 @@ Classifier-assigned, hook-rejected off-list: claim_type (the classifier types ea
 - DUMPER: reject if any creative has `canonical_niche != null` / `canonical_angle != null`, or any
   pitch has `transformation != null` (dumper must not classify). Reject if any pitch `claims[]`
   string is not a verbatim substring of that brand's `clean/` corpus (kills hallucinated/paraphrased
-  claims). Reject `awareness` off-enum. Reject if `angle_basis`/`awareness_basis` missing.
+  claims). Reject if `angle_basis` missing.
 - CLASSIFIER: reject if any assigned `canonical` transformation/niche/angle has zero raw variants
   tracing to real dumps. Reject saturation computed across cells (must be per combo cell). Reject any
   `claim_type` off CLAIM_TYPE_ENUM; reject a combo missing `claim_count`/`enhanced_claim_count`; reject
@@ -322,17 +319,14 @@ These fields are per-CREATIVE (the whole ad/page shares them), not per-pitch:
   - angle_raw: the emotional frame in the copy's OWN terms — verbatim/near-verbatim, OPEN (no enum).
     e.g. "you keep restarting the same chapter", "be the calm parent", "what doctors use". Describe
     the frame as the copy lands it; do not force it into a category.
-  - awareness: pick ONE from {unaware, problem-aware, solution-aware, product-aware, most-aware}.
-  - angle_basis / awareness_basis: "observed" if the copy states it; "inferred" if you judged it.
-    Be honest — a claimless cold ad's awareness is almost always "inferred".
+  - angle_basis: "observed" if the copy states it; "inferred" if you judged it.
   - linked_funnel_id + link_basis: if an ad's CTA points to a page you also dumped, link them.
     cta_url if you have the destination URL, inferred if you reasoned it, unresolved if unknown.
   - multi: true if the creative genuinely runs >1 angle/niche (then capture the dominant one).
   - canonical_niche: null. canonical_angle: null. (ALWAYS. You do not classify. Each pitch's
     transformation is null too.)
 
-DEFINITIONS (load definitions.md). The ONLY closed-set label you pick here is awareness. You
-EXTRACT claims / mechanism / niche_raw / angle_raw / problem_um_raw verbatim in the copy's own words.
+DEFINITIONS (load definitions.md). You pick NO closed-set label here — you EXTRACT claims / mechanism / niche_raw / angle_raw / problem_um_raw verbatim in the copy's own words.
 You never name a transformation, canonical niche, canonical angle, or competitive_axis — those are the
 classifier's calls. Output ONLY valid dump.json.
 ```
@@ -410,3 +404,4 @@ RULES:
 - **transformation:null is a legal final value** for a claimless cold ad (teaser) — it's a countable state, not a gap.
 - **ad↔funnel link may be unresolved** — `link_basis:"unresolved"` is legal; we don't fake clean links.
 - **Dedup keys:** ads by `library_id`, pages by canonical URL, brands by domain.
+- **Awareness dropped from the light pass (D-05)** — per-creative tag isn't decision-useful for the market-pick map; real awareness read is a Phase 2 per-funnel job.
