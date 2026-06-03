@@ -1,81 +1,260 @@
 # Roadmap: PMF — Milestone 1 (Research Engine)
 
-> **Naming (locked).** **Phase** = PMF research step 0–8 (`workflow.md`), immutable. **Stage** = GSD
-> build unit (`M1-S{n}`). **Milestone** = a group of stages. Never reuse Phase numbers for build units.
+> **Naming (locked).** The GSD phase index (1, 2, 3…) is mechanical bookkeeping; the human identifier
+> is the **Stage** (`M1-S{n}`). **"Phase" is reserved for PMF research steps 0–8** (`workflow.md`) and
+> appears below only as a *Serves* label, never as an identifier. GSD phase-N = build **Stage M1-SN**.
 >
-> **InkLeaf is RETIRED.** The `runs/eink-tablets/` research run + its throwaway briefs are quarantined
-> to `_quarantine/`. It was the first bare-minimum instance — not canon, not a UAT rebuild target, not
-> a source of durable prompts. Mine learnings only from `run-retrospective.md` + `agents/implementation-notes.md`.
-> Durable fetch tooling was rescued to `tools/`. The launch machinery lives in `launch/` (M2 source).
+> **InkLeaf is RETIRED.** The `runs/eink-tablets/` research run + throwaway briefs are quarantined to
+> `_quarantine/` — not canon, not a UAT rebuild target. Learnings live in `run-retrospective.md` +
+> `agents/implementation-notes.md`; fetch tooling rescued to `tools/`. Launch machinery → `launch/` (M2).
 
 ## Overview
 
-M1 builds the reusable **research engine**: a T/P/N seed → a validated market bet + a queryable bank
-of attributed customer language. Everything composes from the **brick model** (`capability_inventory.md`
-— one job per brick; deterministic work = scripts/hooks, judgment = agents; gates are agent-prep → human).
+M1 builds the reusable **research engine**: a T/P/N seed → a validated market bet + a queryable bank of
+attributed customer language. Everything composes from the **brick model** (`capability_inventory.md` —
+one job per brick; deterministic = scripts/hooks, judgment = agents; gates = agent-prep → human Decide).
 
-Two tracks make up M1:
+Two tracks (independent — runnable in parallel via `git worktree`):
+- **Track A — Competitive analysis** (Phase 0/1/2): light pass **BUILT** → market-selection gate
+  **DRAFTED** → deep analysis **SPECCED**. Picks the market.
+- **Track B — VOC** (Phase 3a/3b): **SPECCED** in `handoff-phase3-voc-build.md`; the codebook keystone
+  (S4) unblocks the rest. Produces the copy bank.
 
-- **Track A — Competitive analysis** (PMF Phase 0/1/2): find competitors → analyze the space → **pick a
-  market (Gate 1)** → study the winner's marketing deeply → **messaging strategy (Gate 2)**. The light
-  pass is **built**; the market-selection gate is **drafted**; deep analysis is **specced**.
-- **Track B — VOC** (PMF Phase 3a/3b): Reddit customer-language mining → attributed copy bank. Fully
-  **specced** in `handoff-phase3-voc-build.md`; the original critical path; not yet built.
+**M2 — launch engine** (Phases 4–8 + the `launch/` machinery) is deferred, rolling-wave.
 
-**M2 — Launch engine** (Phases 4–8 + the `launch/` Shopify/Klaviyo/LP machinery) is deferred, rolling-wave.
+Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec ready — build it).
 
-## Status legend
+## Phases
 
-`BUILT` · `DRAFTED` (exists, needs finishing/wiring) · `SPECCED` (spec ready — build it) · `TO-BUILD` (no spec yet)
+- [~] **Stage M1-S1: Light pass** — `BUILT`; competitor find + space classify (feeds Gate 1)
+- [~] **Stage M1-S2: Market-selection gate** — `DRAFTED`; 4 gates → ranked survivors → human pick
+- [ ] **Stage M1-S3: Deep competitive analysis + messaging strategy** — `SPECCED`
+- [ ] **Stage M1-S4: VOC codebook + record schema** — `SPECCED` (keystone — build first for Track B)
+- [ ] **Stage M1-S5: Query Planner agent** — `SPECCED`
+- [ ] **Stage M1-S6: Scraper + cleaner + verbatim gate** — `SPECCED`
+- [ ] **Stage M1-S7: Bucketer (pass 1) + intensity scorer** — `SPECCED`
+- [ ] **Stage M1-S8: Frequency + co-occurrence clustering** — `SPECCED`
+- [ ] **Stage M1-S9: Ladderer (pass 2)** — `SPECCED`
+- [ ] **Stage M1-S10: Language Analyzer + copy bank** — `SPECCED`
+- [ ] **Stage M1-S11: End-to-end VOC UAT** — `SPECCED`
+- [ ] **Stage M1-S12: Tooling templatization + deliverable templates** — `SPECCED`
+- [ ] **Stage M1-S13: Phase 3c mechanism research** — `SPECCED`
+- [ ] **Stage M1-S14: Phase 3d loop-back** — `SPECCED`
 
-## Stages
+## Phase Details
 
-### Track A — Competitive analysis (Phase 0/1/2)
+### Phase 1: Stage M1-S1 — Light pass
+**Goal**: The light pass (Finder → Roster Verifier → Dumper → Space Classifier) finds competitor brands and classifies the space — transformations/niches sold, per-cell saturation, typed claims, and a revenue signal — emitting the data the Gate-1 market-selection skill consumes.
+**Serves PMF Phase**: 0 / 1
+**Depends on**: Nothing
+**Requirements**: TOOL-01 (partial)
+**Status**: BUILT (`prompts/phase1-light-pass.md`, enriched with `revenue_est` + `claim_type`); layer-3 scripts remaining.
+**Success Criteria** (what must be TRUE):
+  1. `prompts/phase1-light-pass.md` emits `brands.json` + `dump.json` + `space-map.json` with the pitch binding (claims↔mechanism↔problem-UM bound, not parallel arrays), per-combo-cell saturation, `revenue_est`, and `claim_type` (direct/enlarged/mechanism/enhanced).
+  2. The layer-3 scripts it specs exist — `fetch.js` / `clean.js` / `dedupe.js` / `revenue-est.js` + the rejection-hook JSON — so a run is reproducible (mine `tools/adlib-one.js` + `tools/crowdfund-fetch.js`).
+  3. Running on a real T/P/N produces a clean space map with no cross-cell saturation pooling and no layer conflation (feature≠claim, mechanism≠transformation).
+  4. Kam scans a bucketed sample and confirms letters / themes / typed claims are assigned the way he would.
+**Plans**: TBD
 
-- **M1-S1 — Light pass** · `BUILT` — Finder + Roster Verifier + Dumper + Space Classifier, enriched with
-  `revenue_est` (traffic×CVR×AOV + review-proxy) and `claim_type` (direct/enlarged/mechanism/enhanced).
-  → `prompts/phase1-light-pass.md`. **Remaining:** layer-3 scripts (`fetch`/`clean`/`dedupe`/`revenue-est`)
-  to run automated; optional brick-split per the brick model. *(Serves Phase 0/1; feeds Gate 1.)*
-- **M1-S2 — Market-selection gate** · `DRAFTED` — the 4-gate decision skill (Demand → Product →
-  Sophistication → Awareness → ranked survivors → **human picks**). → `.claude/skills/market-selection/SKILL.md`,
-  spec `prompts/_specs/market-selection-framework.md`. **Remaining:** wire the S1 data contract
-  (claim-typing, revenue, trend shape, awareness rollup). *(GATE-01.)*
-- **M1-S3 — Deep competitive analysis + messaging strategy** · `SPECCED` — two lenses (structure +
-  messaging) over one competitor pool → merged deployable plan; **human Gate 2**. Build as a brick string.
-  → spec `prompts/_specs/deep-market-analysis-framework.md`. *(Serves Phase 2 + front-half Phase 4.)*
+### Phase 2: Stage M1-S2 — Market-selection gate
+**Goal**: The 4-gate market-selection skill (Demand → Product → Sophistication → Awareness) runs candidate NTPs through ordered kill-gates, ranks survivors with per-axis evidence, and presents them for the human bet pick — the calibrated methodology that replaces the bare gap score.
+**Serves PMF Phase**: 0 gate (Gate 1)
+**Depends on**: Stage M1-S1 (the light pass produces the gate inputs)
+**Requirements**: GATE-01
+**Status**: DRAFTED (`.claude/skills/market-selection/SKILL.md` + verbatim spec `prompts/_specs/market-selection-framework.md`); data-contract wiring remaining.
+**Success Criteria** (what must be TRUE):
+  1. The skill runs the four gates in fixed order with the kill rules, stops at the first kill, and outputs ranked survivors citing evidence per axis (exact figures or "not found" — no hand-waving).
+  2. The S1 data contract the gates consume is wired: claim-typing ✓ + revenue ✓ in the light pass; trend-shape + adjacent-signals + market-awareness rollup added; any missing input is surfaced as `DATA GAP`, never guessed.
+  3. The skill stops at A4 (ranked survivors); the human makes the D1 bet pick, recorded as the input to downstream stages. Per-cell saturation honored; never pooled.
+  4. Kam runs candidate NTPs and judges the kill/survive verdicts + ranking sound.
+**Plans**: TBD
 
-### Track B — VOC pipeline (Phase 3a/3b) — `SPECCED` (`handoff-phase3-voc-build.md`)
+### Phase 3: Stage M1-S3 — Deep competitive analysis + messaging strategy
+**Goal**: Deep analysis of the chosen market's top ~5 brands via two lenses (structure + messaging) over one competitor pool, merged into a deployable plan — proven angles / dead ground / whitespace / container / awareness calibration — with a human Gate 2 win-decision.
+**Serves PMF Phase**: 2 (+ front-half Phase 4)
+**Depends on**: Stage M1-S2 (a chosen market)
+**Requirements**: (no v1 REQ — specced capability feeding M2; promote when M2 is planned)
+**Status**: SPECCED (`prompts/_specs/deep-market-analysis-framework.md`).
+**Success Criteria** (what must be TRUE):
+  1. A deep-pass prompt is built as a brick string from the framework spec (structure lens + messaging lens + the merge), running only on the chosen market's top ~5 brands.
+  2. Winner detection uses `days_running` (longest-running ad = spend-validated); every deliverable fences AI inference from observed competitor copy (SYNTHESIS-block rule).
+  3. The merge produces one congruent plan: proven angles, dead ground, whitespace, the funnel container, and per-angle awareness calibration.
+  4. Kam reads it and judges the messaging strategy congruent with the differentiated edge from S1/S2 (Gate 2).
+**Plans**: TBD
 
-- **M1-S4 — Classifier codebook + per-quote record schema** (keystone) — VOC-01, VOC-02.
-- **M1-S5 — Query Planner agent** (3 lanes + no-clean-venue handling) — VOC-03.
-- **M1-S6 — Scraper + cleaner + verbatim-gate hook** — VOC-04, VOC-05.
-- **M1-S7 — Bucketer agent (pass 1) + intensity scorer** — VOC-06, VOC-07.
-- **M1-S8 — Frequency + co-occurrence clustering** (the novel per-individual piece) — VOC-08.
-- **M1-S9 — Ladderer agent (pass 2)** — VOC-09.
-- **M1-S10 — Language Analyzer + copy-bank store** — VOC-10.
-- **M1-S11 — End-to-end VOC UAT** on a reference subreddit — VOC-11.
+### Phase 4: Stage M1-S4 — VOC codebook + record schema
+**Goal**: The classifier codebook exists as a machine contract (PMBD × T1–T4 ladder + battery, compiled), with the per-quote record schema and the two materialized-view contracts defined — the keystone every later VOC stage keys off.
+**Serves PMF Phase**: 3a / 3b (keystone)
+**Depends on**: Nothing (Track B keystone; build first)
+**Requirements**: VOC-01, VOC-02
+**Status**: SPECCED (`handoff-phase3-voc-build.md` §5).
+**Success Criteria** (what must be TRUE):
+  1. A codebook file exists in `phase1-light-pass.md` format with closed enums (PMBD letter, T1–T4 tier, 6 belief surfaces) and open fields (raw theme, trigger, community-vocab) cleanly separated, traceable to `definitions.md` + `workflow.md`.
+  2. The per-quote record schema lists every locked field — `raw_text, char_offsets, author_id, permalink, upvotes, pmbd_letter, tier, belief_surface, sub_niche_id, trigger, intensity` — with types/enums.
+  3. Two materialized-view contracts are written off the one store: a frequency-brief view (aggregate per sub-niche) and a copy-bank view (per-record, slot-retrievable).
+  4. Kam reads the codebook and confirms it captures the PMBD battery without rewording his strategy vocabulary.
+**Plans**: TBD
 
-### Cross-cutting
+### Phase 5: Stage M1-S5 — Query Planner agent
+**Goal**: A Query Planner agent generates the three search lanes (population-wide / in-niche / adjacent-context) for a given niche/transformation and explicitly handles the no-clean-niche-venue case.
+**Serves PMF Phase**: 3a
+**Depends on**: Stage M1-S4 (codebook defines what's queried for)
+**Requirements**: VOC-03
+**Status**: SPECCED.
+**Success Criteria** (what must be TRUE):
+  1. Given a niche + transformation seed, the agent emits three labeled lanes as concrete subreddit/query targets.
+  2. When no clean anchor subreddit exists (behavior-defined niche), it produces a documented fallback rather than inventing a fake venue.
+  3. An optional manual seed-injection slot is available but not required to run.
+  4. Kam reads a sample lane plan and judges the venues sensible.
+**Plans**: TBD
 
-- **M1-S12 — Tooling templatization + deliverable templates** — TOOL-01, TOOL-02.
-- **M1-S13 — Phase 3c mechanism research** (after a market is picked) — UM-01.
-- **M1-S14 — Phase 3d loop-back** (augment-not-overwrite) — LOOP-01.
+### Phase 6: Stage M1-S6 — Scraper + cleaner + verbatim gate
+**Goal**: A Reddit scraper on the official commercial API pulls posts with full source metadata; a thin cleaner keeps a raw immutable copy; a hook string-matches every extracted span to source and rejects mismatches.
+**Serves PMF Phase**: 3a
+**Depends on**: Stage M1-S4 (schema), Stage M1-S5 (query outputs)
+**Requirements**: VOC-04, VOC-05
+**Status**: SPECCED.
+**Success Criteria** (what must be TRUE):
+  1. The scraper runs on Reddit's official commercial API and persists `author_id`, `permalink`, `timestamp`, `upvotes` on every record.
+  2. The cleaner writes a raw immutable copy and normalizes only a separate working copy, so char-offsets index into the untouched raw text.
+  3. The verbatim-gate hook slices a span by `(author_id, source, char-offsets)`, string-verifies against the raw copy, and rejects on mismatch — no LLM emits quote text.
+  4. A manual test with a deliberately altered span is rejected; a correct span passes.
+**Plans**: TBD
 
-## Suggested order
+### Phase 7: Stage M1-S7 — Bucketer (pass 1) + intensity scorer
+**Goal**: The Bucketer agent classifies the whole corpus cheaply — PMBD letter + raw theme + counter-signal flag + community-vocab flag — returning row-ids + tags only; a deterministic intensity scorer ranks every record without discarding any.
+**Serves PMF Phase**: 3a
+**Depends on**: Stage M1-S4, Stage M1-S6
+**Requirements**: VOC-06, VOC-07
+**Status**: SPECCED.
+**Success Criteria** (what must be TRUE):
+  1. The Bucketer runs via cheap-filter → classify and returns `(row_id, pmbd_letter, raw_theme, counter_signal, vocab_flag)` tuples with zero quote text emitted.
+  2. The intensity scorer assigns every record a score from VADER + engagement + length, deterministically, deleting nothing (low-intensity records persist, ranked low).
+  3. Off-list PMBD letters are hook-rejected; raw-theme open text is captured verbatim.
+  4. Kam scans a bucketed sample and confirms letters/themes are assigned the way he would.
+**Plans**: TBD
 
-Track A and Track B are independent and can run in **parallel sessions** (use `git worktree` per session
-so they don't clobber each other). Track A is closest to running (S1 built, S2 drafted) — finishing S1's
-scripts + S2's wiring lets you pick a market now. Track B (VOC) starts at the **S4 codebook keystone** —
-everything in VOC keys off it.
+### Phase 8: Stage M1-S8 — Frequency + co-occurrence clustering
+**Goal**: Deterministic scripts compute unique-user frequency (synonym-deduped) and a binary user×theme incidence matrix, clustering users into candidate sub-niches and auto-selecting hot clusters — the novel per-individual co-occurrence piece.
+**Serves PMF Phase**: 3a
+**Depends on**: Stage M1-S7
+**Requirements**: VOC-08
+**Status**: SPECCED.
+**Success Criteria** (what must be TRUE):
+  1. Frequency is counted by unique users (one prolific poster ≠ a trend), synonym codes union-find-deduped before counting.
+  2. A binary user×theme incidence matrix captures ALL of a user's qualifying quotes — never best-post scoring.
+  3. A clustering method (k-modes / LCA / Leiden) groups users into candidate sub-niches; hot clusters auto-flagged as pass-2 targets.
+  4. Candidate sub-niches surface with unique-user co-occurrence counts so the 5+ single-individual rule is checkable.
+**Plans**: TBD
 
-## M2 — Launch engine (deferred)
+### Phase 9: Stage M1-S9 — Ladderer (pass 2)
+**Goal**: The Ladderer agent deep-dives the hot clusters only — assigning T1–T4 tier and extracting copy-ready verbatim spans (as offsets), with the driver read once per sub-niche cluster.
+**Serves PMF Phase**: 3b
+**Depends on**: Stage M1-S8
+**Requirements**: VOC-09
+**Status**: SPECCED.
+**Success Criteria** (what must be TRUE):
+  1. The Ladderer runs only on auto-selected hot clusters, not the whole corpus.
+  2. Each laddered record carries a T1–T4 tier and copy-ready spans as `(author_id, source, char-offsets)` — passing the S6 verbatim gate.
+  3. The driver is read once per sub-niche cluster, not per quote.
+  4. Kam reviews a laddered hot cluster and confirms tier assignments match his ladder.
+**Plans**: TBD
 
-Generalize `launch/` (the imported InkLeaf Shopify + Klaviyo + landing-page build/deploy machinery) into
-one product-agnostic new-store setup module + an agent that drives the browser through it with human gates.
-PMF Phases 4–8 (test design, hook test, build-a-brand/funnel, eval, iterate). Plan after M1 produces a bet
-+ copy bank. Full source state in `launch/README.md`.
+### Phase 10: Stage M1-S10 — Language Analyzer + copy bank
+**Goal**: The Language Analyzer organizes the verbatim by theme / sub-niche / tier into copy-ready units (light-clean only, never reword) and persists to the copy-bank store, materializing both the frequency brief and the copy bank.
+**Serves PMF Phase**: 3b
+**Depends on**: Stage M1-S9
+**Requirements**: VOC-10
+**Status**: SPECCED.
+**Success Criteria** (what must be TRUE):
+  1. Verbatim is organized into copy-ready units grouped by theme / sub-niche / PMBD-tier; no customer sentence is reworded or authored by the agent.
+  2. The copy-bank store persists per-quote records retrievable by slot (theme / sub-niche / tier).
+  3. The two materialized views — frequency brief and copy bank — both render off the single store.
+  4. A spot-check confirms every stored quote traces to a live permalink + char-offsets in the raw copy.
+**Plans**: TBD
+
+### Phase 11: Stage M1-S11 — End-to-end VOC UAT
+**Goal**: The full VOC pipeline runs end-to-end on a reference subreddit and Kam reads the resulting copy bank — the M1 VOC acceptance gate.
+**Serves PMF Phase**: 3a / 3b validation
+**Depends on**: Stage M1-S10
+**Requirements**: VOC-11
+**Status**: SPECCED.
+**Success Criteria** (what must be TRUE):
+  1. One run takes a reference subreddit from scrape → bucket → frequency/cluster → ladder → copy bank with no manual hand-patching between stages.
+  2. The output copy bank is populated with attributed verbatim (permalinks resolve) organized by sub-niche and tier.
+  3. Kam reads the copy bank end-to-end and judges it trustworthy and reusable (the M1 core-value test).
+  4. Any failure surfaces as a readable artifact (which stage, which records), not a silent drop.
+**Plans**: TBD
+
+### Phase 12: Stage M1-S12 — Tooling templatization + deliverable templates
+**Goal**: The Phase 0/1 tooling is made reusable — `phase1-light-pass.md` parameterized into niche/transformation/venue slots, plus a standalone `deliverable-templates.md` and an agent-brief template.
+**Serves PMF Phase**: 0, 1
+**Depends on**: Stage M1-S1
+**Requirements**: TOOL-01, TOOL-02
+**Status**: SPECCED.
+**Success Criteria** (what must be TRUE):
+  1. `phase1-light-pass.md` has parameterized niche / transformation / venue slots; a new run uses it without editing the spec body.
+  2. A standalone `deliverable-templates.md` consolidates the output schemas.
+  3. A standalone agent-brief template captures role + inputs + rules + schema + self-audit checklist + output path.
+  4. Kam points a fresh hypothetical run at the templates and confirms nothing instance-specific is hardcoded.
+**Plans**: TBD
+
+### Phase 13: Stage M1-S13 — Phase 3c mechanism research
+**Goal**: Mechanism (UM) research is run on the winning market's transformation, producing a mechanism doc + product-candidate list.
+**Serves PMF Phase**: 3c
+**Depends on**: Stage M1-S2 (the selected bet)
+**Requirements**: UM-01
+**Status**: SPECCED.
+**Success Criteria** (what must be TRUE):
+  1. A mechanism doc explains the winning transformation's underlying mechanism, sourced (scite / web).
+  2. A product-candidate list is produced, filtered against avatar fit / believability / economics heuristics.
+  3. Kam reads the mechanism doc + candidate list and judges them sufficient to inform a future test design.
+**Plans**: TBD
+
+### Phase 14: Stage M1-S14 — Phase 3d loop-back
+**Goal**: The Phase 0/1 hypothesis records are revised given Phase 3a/3b/3c learnings — augment, not overwrite, with `depth_pass` + `extracted_at` versioning.
+**Serves PMF Phase**: 3d
+**Depends on**: Stage M1-S10 (copy bank), Stage M1-S13 (mechanism research)
+**Requirements**: LOOP-01
+**Status**: SPECCED.
+**Success Criteria** (what must be TRUE):
+  1. The original Phase 0/1 hypothesis records are updated by augmentation — prior values preserved, not overwritten.
+  2. Each revised record carries a `depth_pass` marker and an `extracted_at` timestamp.
+  3. Kam can diff before/after and see exactly what Phase 3 changed about the original bet.
+**Plans**: TBD
+
+## Progress
+
+**Execution order:** Two parallel tracks. Track A: S1 → S2 → S3 (pick a market, then study it). Track B
+(VOC): S4 keystone → S5 → S6 → S7 → S8 → S9 → S10 → S11. Cross-cutting: S12 (any time), S13 (after S2),
+S14 (after S10 + S13). Tracks A and B are independent — run in parallel `git worktree` sessions.
+
+| Phase | Stage | Status | Plans |
+|-------|-------|--------|-------|
+| 1 | M1-S1 Light pass | Built (scripts pending) | 0/TBD |
+| 2 | M1-S2 Market-selection gate | Drafted | 0/TBD |
+| 3 | M1-S3 Deep competitive analysis | Specced | 0/TBD |
+| 4 | M1-S4 VOC codebook (keystone) | Specced | 0/TBD |
+| 5 | M1-S5 Query Planner | Specced | 0/TBD |
+| 6 | M1-S6 Scraper + cleaner + gate | Specced | 0/TBD |
+| 7 | M1-S7 Bucketer + intensity | Specced | 0/TBD |
+| 8 | M1-S8 Frequency + co-occurrence | Specced | 0/TBD |
+| 9 | M1-S9 Ladderer | Specced | 0/TBD |
+| 10 | M1-S10 Language Analyzer + copy bank | Specced | 0/TBD |
+| 11 | M1-S11 End-to-end VOC UAT | Specced | 0/TBD |
+| 12 | M1-S12 Templatization | Specced | 0/TBD |
+| 13 | M1-S13 Mechanism research | Specced | 0/TBD |
+| 14 | M1-S14 Loop-back | Specced | 0/TBD |
 
 ---
 
-*Rewritten 2026-06-03: reorganized into the two-track research engine, build-state-aware; InkLeaf retired;
-brick model is the build law. Supersedes the prior VOC-only 12-stage roadmap.*
+## Next milestone: M2 — Launch / Execution Engine (deferred)
+
+M2 (PMF Phases 4–8 + the `launch/` Shopify/Klaviyo/LP machinery generalized into a reusable new-store
+setup) is the next milestone, deliberately deferred. Plan it via `/gsd-new-milestone` after M1 produces
+a validated bet + copy bank. Source state in `launch/README.md`.
+
+---
+
+*Rewritten 2026-06-03: two-track research engine, build-state-aware, InkLeaf retired — kept in GSD
+`### Phase N` format so the tooling resolves stages. Supersedes the prior VOC-only 12-stage roadmap.*
