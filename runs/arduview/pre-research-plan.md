@@ -44,6 +44,8 @@ Hold all territories LOOSELY. The run should also flag any UNANTICIPATED cluster
 ### Comparable-bet brands that MUST be in the pool (wide-net requirement)
 The bet validates only if structurally-similar bets are present. The Finder must reach beyond near-identical clones to brands making the same structural bet (novel-hardware-as-lead): e.g. Nothing Phone (transparent-back / glyph — the direct novelty-tech-as-identity analog), Flipper Zero (bought-but-signals-membership maker object), exotic-display / transparent-electronics gadgets, clear-shell retro handhelds, Arduboy itself and its clones, maker/open-hardware crowdfunding projects (Crowd Supply, Kickstarter, Indiegogo). An empty comparable-bet pool reads identically to a failed bet — false-negatives kill live opportunities silently, so the net width is load-bearing.
 
+**Seeded comparables are BET-EVIDENCE, not saturation-evidence.** The named seeds (Nothing, Flipper, Arduboy, etc.) are guaranteed into the pool to prove "this structural bet won durably at scale" — they answer the bet's durability question. They MUST NOT have their (often massive, cross-category) revenue counted into a maker-niche saturation cell: Nothing Phone at phone-scale does not make the maker handheld niche saturated. The Classifier tags these as `comparable_bet_seed: true` and reads them as bet-durability evidence only; their counts are excluded from per-cell saturation exactly the way dead/region-only brands are excluded from live saturation (D-08 discipline). Two jobs, kept separate: they prove the bet, not the cell.
+
 ### The maker sub-identity fork the run should help discriminate (context for the report-back)
 The maker bet's strength depends on WHICH maker identity is real, and these have different durability/UM implications:
 - **builder/skill-signal** — flex is "I built this"; a bought-cool object reads slightly wrong → transparency weak.
@@ -74,6 +76,7 @@ The run cannot fully resolve this (it is partly a VOC question), but sorting com
 > Layer B — the flat lists the scripts read. Headings are load-bearing; contents are bulleted strings.
 
 ### LP-hunt query terms
+> Search queries — territory-derived, rich (no leading `/`, so the parser routes these to lpQueries). Replaces any prior product's hardcoded template.
 - retro-handheld
 - transparent / clear-shell gadget
 - maker / open-hardware
@@ -81,8 +84,16 @@ The run cannot fully resolve this (it is partly a VOC question), but sorting com
 - novelty-tech / collectible
 - gift
 - learn-to-code / STEM
-
-(Replaces any prior product's hardcoded template.)
+> URL-path patterns — LEAN. Hardware-gadget brands segment by product line, not by buyer-transformation, so paths are mostly generic commerce + the few maker pages that live at predictable paths. These leading-`/` bullets route to lpPaths and prevent fallback to the InkLeaf territory-path template (`/focus` `/students` `/parents`), which is wrong for this product type.
+- /products/
+- /collections/
+- /shop/
+- /store
+- /hackable
+- /open-source
+- /sdk
+- /docs
+- /pages/
 
 ### Comparable-bet seed brands (Finder must reach these)
 - Nothing Phone (transparent-back / glyph — novelty-tech-as-identity analog)
