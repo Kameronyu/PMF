@@ -1,23 +1,50 @@
 // Meta Ad Library lookup by ADVERTISER PAGE (kills keyword-collision noise).
-//   node adlib-one.js <slug> "<brand name>" [pageId]
+//   node adlib-one.js <slug> "<brand name>" [pageId] [--out=./ads]
 // If a numeric pageId is given as the 3rd arg, the typeahead step is skipped
 // and that page is queried directly (use to fix a mis-resolved auto-pick).
 // Otherwise: land on a page with the search box -> type brand -> read typeahead
 // (each <li role=option> carries id="pageID:NNN") -> auto-pick the genuine
 // advertiser -> load view_all_page_id -> read the exact active-ad count + dump.
-// Output: runs/eink-tablets/adlibrary/<slug>_adv.txt (+ _adv.png)
+// Output: <out>/<slug>.json (+ <out>/<slug>_adv.png + <out>/<slug>_adv.txt for debug)
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
 
-const slug = process.argv[2];
-const brand = process.argv[3] || slug;
-const forcedPageId = (process.argv[4] && /^\d+$/.test(process.argv[4])) ? process.argv[4] : null;
+const rawArgs = process.argv.slice(2);
+const flagArgs = rawArgs.filter(a => a.startsWith('--'));
+const posArgs = rawArgs.filter(a => !a.startsWith('--'));
+
+const opts = Object.fromEntries(
+  flagArgs.map(a => {
+    const [k, v] = a.replace(/^--/, '').split('=');
+    return [k, v ?? true];
+  })
+);
+
+if (opts.help) {
+  console.log(
+    'Usage: node adlib-one.js <slug> "<brand name>" [pageId] [--out=./ads]\n' +
+    '\n' +
+    'Fetch Meta Ad Library by advertiser page ID (kills keyword-collision noise).\n' +
+    '  slug      Brand slug for output filename\n' +
+    '  brand     Brand name to search (quoted if multi-word)\n' +
+    '  pageId    Optional: skip typeahead, use this page ID directly\n' +
+    '  --out     Output directory (default: ./ads)\n' +
+    '  --help    Show this help\n'
+  );
+  process.exit(0);
+}
+
+const slug = posArgs[0];
+const brand = posArgs[1] || slug;
+const forcedPageId = (posArgs[2] && /^\d+$/.test(posArgs[2])) ? posArgs[2] : null;
+
 if (!slug) {
-  console.error('usage: node adlib-one.js <slug> "<brand name>" [pageId]');
+  console.error('usage: node adlib-one.js <slug> "<brand name>" [pageId] [--out=./ads]');
   process.exit(1);
 }
-const OUT = '/home/kyu3/PMF/runs/eink-tablets/adlibrary';
+
+const OUT = opts.out || './ads';
 
 const FAV_CAT = /(technolog|electronic|computer|software|product|company|brand|retail|shopping|store|gadget)/i;
 const BAD_CAT = /(agency|fan page|fan club|news|media|blog|community|gamer|musician|artist|public figure|personal blog)/i;
@@ -122,6 +149,21 @@ function pickAdvertiser(cands, brand) {
   const candLines = candidates
     .map((c) => `  ${c.pageId} | score=${c._score != null ? c._score.toFixed(1) : '-'} | ${c.text.replace(/\n/g, ' / ')}`)
     .join('\n');
+
+  // Emit structured ads/<brand>.json (spec scaffold contract)
+  const adJson = {
+    slug,
+    brand_query: brand,
+    status,
+    resolved_advertiser: resolved
+      ? { name: resolved._name, pageId: resolved.pageId, followers: resolved._followers }
+      : null,
+    active_ad_count: count,
+    library_ids_loaded: loaded,
+  };
+  fs.writeFileSync(path.join(OUT, `${slug}.json`), JSON.stringify(adJson, null, 2));
+
+  // Keep _adv.txt for debug
   fs.writeFileSync(
     path.join(OUT, `${slug}_adv.txt`),
     `# ${slug}\nbrand_query: ${brand}\nstatus: ${status}\n` +
