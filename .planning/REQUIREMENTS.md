@@ -25,6 +25,9 @@ Naming: **Stage** = GSD build unit; **Step** = PMF research step 0–8. REQ-IDs 
 ### TOOL — Reusable research tooling
 
 - [ ] **TOOL-01**: `step1-light-pass.md` (finder / verifier / dumper / classifier) is templatized with parameterized niche / transformation / venue slots so a new run uses it without editing the spec
+- [ ] **BET-01**: Every Phase 1 run consumes a per-run **bet brief** (prose context, injected verbatim into Finder + Classifier, never hook-validated); `fetch.js` reads the brief's `PIPELINE INPUTS` lists; the bet brief is hand-filled from `prompts/_templates/pre-research-plan.template.md` (planning-phase generator deferred — M1-S0 SEEDED)
+- [ ] **TREND-01**: Each brand carries a `demand_trend` (shape ∈ steady/rising/parabolic-spike/declining/unknown + window + source + basis), populated by a real Google Trends ~5yr fetch — guards the Gate-1 fad-death / parabolic-spike kill (a field with no source silently disables it)
+- [ ] **NET-01**: The Finder casts a wide net by buyer-substitutability AND structural-bet-similarity (not spec-match), spanning all bet-brief territories + named comparable-bet seeds — an empty comparable pool must not be mistakable for a failed bet
 - [ ] **TOOL-02**: A standalone `deliverable-templates.md` (10+ output schemas) and an agent-brief template (role + inputs + rules + schema + self-audit checklist + output path) are extracted from existing briefs
 
 ### GATE — Market bet selection

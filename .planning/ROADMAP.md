@@ -27,6 +27,7 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
 
 ## Phases
 
+- [ ] **Stage M1-S0: Pre-research planning (bet brief)** — `SEEDED` (not built); the deliberate pre-Step-1 step that authors the per-run bet brief + pipeline inputs. Hand-filled from `prompts/_templates/pre-research-plan.template.md` for now (worked example: `runs/arduview/pre-research-plan.md`); the generator skill is deferred until the operator architects it. Phase 1 already consumes the brief (D-13).
 - [~] **Stage M1-S1: Light pass** — `BUILT`; competitor find + space classify (feeds Gate 1)
 - [~] **Stage M1-S2: Market-selection gate** — `DRAFTED`; 4 gates → ranked survivors → human pick
 - [ ] **Stage M1-S3: Deep competitive analysis + messaging strategy** — `SPECCED`
@@ -48,20 +49,23 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
 **Goal**: The light pass (Finder → Roster Verifier → Dumper → Space Classifier) finds competitor brands and classifies the space — transformations/niches sold, per-cell saturation, typed claims, and a revenue signal — emitting the data the Gate-1 market-selection skill consumes.
 **Serves PMF Step**: 0 / 1
 **Depends on**: Nothing
-**Requirements**: TOOL-01 (partial)
-**Status**: BUILT (`prompts/step1-light-pass.md`, enriched with `revenue_est` + `claim_type`); layer-3 scripts remaining.
-**Build inputs (read first)**: `prompts/step1-light-pass.md` (the prompt — its DETERMINISTIC SCAFFOLD section specs every script + hook to build) · `capability_inventory.md` (brick split: A1 query / S1 fetch / S2 clean / dedupe / H1 hooks) · `tools/adlib-one.js` + `tools/crowdfund-fetch.js` (page-ID-resolution + Cloudflare-bypass to inherit) · `run-retrospective.md` §2/§4 + `agents/implementation-notes.md` (fetch lessons: keyword-collision, page-ID resolution, SimilarWeb blocked) · `definitions.md` · `CLAUDE.md`.
+**Requirements**: TOOL-01 (partial), BET-01, TREND-01, NET-01
+**Status**: BUILT but **needs revision** — structural feedback folded into CONTEXT 2026-06-03 (bet brief, `demand_trend` + Trends source, open `bet_type`, wide-net Finder, multi-domain examples). Built-but-unrun; deltas hit 01-01/02/04. RE-PLAN PENDING.
+**Build inputs (read first)**: `01-CONTEXT.md` (decisions incl. the 2026-06-03 revision + the `<revision_impact>` block — read FIRST) · `prompts/step1-light-pass.md` (the prompt being edited) · `prompts/_templates/pre-research-plan.template.md` + `runs/arduview/pre-research-plan.md` (the bet brief Phase 1 consumes) · `capability_inventory.md` · `tools/adlib-one.js` + `tools/crowdfund-fetch.js` (inherit) · `run-retrospective.md` §2/§4 + `agents/implementation-notes.md` · `definitions.md` · `CLAUDE.md`.
 **Success Criteria** (what must be TRUE):
-  1. `prompts/step1-light-pass.md` emits `brands.json` + `dump.json` + `space-map.json` with the pitch binding (claims↔mechanism↔problem-UM bound, not parallel arrays), per-combo-cell saturation, `revenue_est`, and `claim_type` (direct/enlarged/mechanism/enhanced).
-  2. The layer-3 scripts it specs exist — `fetch.js` / `clean.js` / `dedupe.js` / `revenue-est.js` + the rejection-hook JSON — so a run is reproducible (mine `tools/adlib-one.js` + `tools/crowdfund-fetch.js`).
+  1. `prompts/step1-light-pass.md` emits `brands.json` + `dump.json` + `space-map.json` with the pitch binding, per-combo-cell saturation, `revenue_est`, and `claim_type` (direct/enlarged/mechanism/enhanced).
+  2. The layer-3 scripts exist — `fetch.js` / `clean.js` / `dedupe.js` / `revenue-est.js` + the rejection-hook JSON — so a run is reproducible.
   3. Running on a real T/P/N produces a clean space map with no cross-cell saturation pooling and no layer conflation (feature≠claim, mechanism≠transformation).
   4. Kam scans a bucketed sample and confirms letters / themes / typed claims are assigned the way he would.
-**Plans**: 5 plans
-- [x] 01-01-PLAN.md — reconcile step1-light-pass.md: strip awareness (D-05), inline the D-03 sophistication ladder
-- [x] 01-02-PLAN.md — layer-3 fetch + clean scripts (tools/fetch.js, tools/clean.js)
-- [x] 01-03-PLAN.md — layer-3 transform scripts (tools/dedupe.js, tools/revenue-est.js) + adlib-one.js touch-up
-- [x] 01-04-PLAN.md — PostToolUse rejection hooks + four per-agent validators
-- [ ] 01-05-PLAN.md — debug run on a reference T/P/N + Kam's bucketed-sample confirmation (UAT)
+  5. The agents consume a per-run **bet brief** as prose context (D-13); `fetch.js` reads the brief's `PIPELINE INPUTS` (LP-hunt terms + comparable seeds + trend toggle), NOT a hardcoded template (D-16); the brief is never hook-validated.
+  6. Each brand carries a populated `demand_trend` (shape + window + source + basis) fed by a real Google Trends fetch (D-15); the durability column is not empty `unknown` across the board.
+  7. `bet_type` is an OPEN classifier-named/clustered/evidence-traced field with a `bet_type_basis` (amended D-12); no `competitive_axis` closed enum remains; the Finder casts a wide net by substitutability AND bet-similarity (D-17).
+**Plans**: 5 built + re-plan pending (see `01-CONTEXT.md` `<revision_impact>`)
+- [x] 01-01-PLAN.md — **needs revision**: open `bet_type`, `<bet_brief>` consumption, `demand_trend` field, wide-net Finder, multi-domain examples, provenance note
+- [x] 01-02-PLAN.md — **needs revision**: add Google Trends source, read LP-hunt from the bet brief
+- [x] 01-03-PLAN.md — unaffected
+- [x] 01-04-PLAN.md — **needs revision**: validate-classifier open `bet_type` + `demand_trend`-missing reject
+- [ ] 01-05-PLAN.md — debug run (runs once after the revisions land; consumes the Arduview brief)
 
 ### Phase 2: Stage M1-S2 — Market-selection gate
 **Goal**: The 4-gate market-selection skill (Demand → Product → Sophistication → Awareness) runs candidate NTPs through ordered kill-gates, ranks survivors with per-axis evidence, and presents them for the human bet pick — the calibrated methodology that replaces the bare gap score.

@@ -75,19 +75,33 @@ It finds competitor brands and emits **correctly-labeled** structured signal —
 - **D-10:** Never ship a fabricated or empty traffic number as data. `revenue_est` always carries `method` + `confidence`; if `monthly_visits` is null → `method:"review_proxy"` (`confidence:"low"`) or explicit null — never "PENDING" shipped as if populated (the InkLeaf failure: SimilarWeb PENDING on all 31 records).
 - **D-11:** Web traffic source = **Semrush Trends API** (returns `monthly_visits` per domain; documented REST endpoint; ±20–40% accuracy). Free tier ≈10 req/day per account → **use multiple logins/accounts** to clear batch volume. The **multi-login wiring is left to the implementer to figure out as they actually wire it up** — not fully specced here. Manual SimilarWeb free-tier paste = **fallback** (`visits_source:"similarweb-manual"`); add `visits_source:"semrush-api"`. No auto-browser SimilarWeb scraping (ToS / ban risk). SpyFu ($89/mo) noted as a secondary fallback only.
 
-### Competitive axis — per-competitor, page-readable (Gate-2 input)
-- **D-12 (competitive axis):** Capture, **per competitor**, the **competitive axis** = what competitors in this territory actually compete on. It is **page-readable** — you can see what axis a market competes on from the competitor's own positioning/page, WITHOUT knowing the customer's true dream/desire. Its purpose: it is a **Gate 2 (Phase 2) input** — it tells the market-selection skill whether transparency/openness is a *live differentiating axis* in that territory.
-  - **Closed enum (single primary axis per competitor):**
-    `competitive_axis: function-capability-price | visual-statement | community-openness`
-    - `function-capability-price` — competes on what it does / specs / features / cost.
-    - `visual-statement` — competes as a visual showpiece / object-as-statement / aesthetic identity.
-    - `community-openness` — competes on community, openness, transparency.
-  - **Evidence required:** a `competitive_axis_basis` string quoting/citing the page signal the axis call is read off (same discipline as the D-03 sophistication evidence line — read it off the page, do not eyeball it).
-  - **Populated for EVERY captured brand** (page-readable regardless of live/dead/region-only — consistent with D-06 flag-don't-drop). It is a per-brand descriptor, NOT a per-cell saturation count, so the live-status exclusion (D-08) does NOT apply to whether the field is populated.
-  - **Executor = the CLASSIFIER (judgment), NOT the Dumper.** The Dumper is hard-bounded to "must not classify" (its hook rejects any classification field). `competitive_axis` is a judgment read, so the Classifier assigns it. It lives in the `space-map.json` `per_brand[]` block (the per-brand Classifier-written structure) — this respects one-writer-per-file (the Classifier solely owns space-map.json; the Dumper never touches it).
-  - **Quality check (hook):** the Classifier validator (`tools/hooks/validate-classifier.js`, Plan 04) must reject any brand whose `competitive_axis` is off-enum, and reject a missing/empty `competitive_axis_basis` when `competitive_axis` is set. This makes the field hook-enforced based on the rest of the prompt.
-  - **Debug-pass note:** if the Plan-05 reference run surfaces a market whose dominant axis fits none of the three enum values, that is expected debug-pass signal — the enum gets extended then, not pre-emptively now ("first run = debug pass").
-  - *Naming note: `definitions.md` has no "axis"/"positioning" term; `competitive_axis` is a new per-brand descriptor that does not collide with the differentiator-lever or sophistication vocabulary. It describes the SHAPE of competition in the territory, not a buyer-side PMBD or a differentiator lever you pull.*
+### Bet type — per-competitor, page-readable, OPEN field (Gate-2 input)
+- **D-12 (AMENDED 2026-06-03 — was a closed enum, now OPEN):** Capture, **per competitor**, the structural **bet** it runs = what kind of differentiation it leads with (the SHAPE of competition in that territory). Page-readable — read off the competitor's own positioning/page, WITHOUT knowing the customer's true dream/desire. Purpose: a **Gate-2 (Stage M1-S2) input** telling the market-selection skill whether the bet under test (e.g. novel-hardware-as-lead) is a *live differentiating axis* in that territory.
+  - **OPEN field `bet_type` — NOT a closed enum.** Superseded the original `competitive_axis` closed enum (`function-capability-price | visual-statement | community-openness`), which baked in one product domain's categories (the §4a over-reach). `bet_type` is now classifier-**named + clustered + evidence-traced**, exactly like `transformation` / `niche` / `angle` already work: the Classifier reads each competitor's lead and names the bet in the space's own terms, then unifies variants into canonical bet_types across all brands.
+  - **Evidence required:** a `bet_type_basis` string quoting/citing the page signal the call is read off (same discipline as the D-03 sophistication evidence line — read it off the page, do not eyeball it).
+  - **Populated for EVERY captured brand** (page-readable regardless of live/dead/region-only — consistent with D-06 flag-don't-drop). Per-brand descriptor, NOT a per-cell saturation count, so the D-08 live-status exclusion does NOT gate whether the field is populated.
+  - **Executor = the CLASSIFIER (judgment), NOT the Dumper.** Lives in `space-map.json` `per_brand[]` (Classifier solely owns space-map.json). The Classifier also lists canonical `bet_types[]` with raw variants, same as `transformations[]`.
+  - **Quality check (hook):** `tools/hooks/validate-classifier.js` rejects a brand with `bet_type` null/empty or with a missing/empty `bet_type_basis` — and rejects any canonical `bet_type` whose variants don't trace to real per-brand reads. It does **NOT** reject "off-enum" (there is no enum). This is the D-14 rule applied: open categorization, traceability-checked, never enum-checked.
+  - *Naming note: `definitions.md` has no "bet"/"axis" term; `bet_type` is a new per-brand descriptor that does not collide with the differentiator-lever or sophistication vocabulary.*
+
+### Structural feedback — REVISION 2026-06-03 (bet brief + open categorization)
+> Source: the product-agnostic Phase 1 structural-feedback review. Captured AFTER 01-01..04 executed (built, not yet run — 01-05 debug pass pending), so these are **deltas on a built-but-unrun pipeline**, not a rebuild. See the "Revision impact" block at the end for which built plans change.
+
+- **D-13 (bet brief = prose context, NEVER schema):** Every Phase 1 run consumes a per-run **bet brief** authored by the operator (the §6 planning step; hand-filled from a template for now). It is injected **verbatim as prose** into the Finder + Classifier prompts in a `<bet_brief>` block. It has **no schema and is NEVER hook-validated.** Three strict layers: **(A)** prose brief → agent judgment context; **(B)** a fenced `PIPELINE INPUTS` block in the brief (flat lists: LP-hunt terms, comparable-bet seed brands, trend-source toggle) → scripts read it with a tolerant parse; **(C)** the output schema (`brands/dump/space-map.json`) → hooks. **Hooks only ever touch layer C.** A messy/rich brief can degrade quality, never hard-fail the pipeline. This makes consumption non-brittle by design — the brief deliberately has no clean output schema.
+  - The bet brief states: the **bet** (a differentiator × a niche × an **OPEN transformation slot** — the operator does NOT supply the transformation; competitors reveal it, it is an OUTPUT), operator **definitions** of the interpretation-heavy terms (pinned once, no stage re-interprets), and **what the run reports back per structurally-similar competitor** (the transformation they attach, the mechanism they actually LEAD with, whether the bet won durably, which niche).
+  - Failure mode it kills: handed only a product, the Classifier reports a literal product feature as the UM/transformation (interpretation-soup). Given a bet, its job becomes answerable: "find brands making a structurally-similar bet, report what transformation THEY attach and whether it won durably."
+
+- **D-14 (closed-enum rule — LOCKED):** Closed / hook-rejected enums ONLY for **finite universal vocabularies** that are DR-theory or data-structure primitives — `channel`, `lane`, `claim_type` (the sophistication ladder), revenue `method`, `visits_source`, `demand_trend.shape`. **OPEN** (classifier-named + clustered + evidence-traced) for any **product-varying categorization** — `bet_type`, `transformation`, `niche`, `angle`. `competitive_axis` was the lone violation (fixed in amended D-12).
+
+- **D-15 (`demand_trend` field + a real fetch SOURCE — §2):** Add per-brand `demand_trend: { shape, window, source, basis }` with **`shape` a closed enum** `steady | rising | parabolic-spike | declining | unknown` (`unknown` = escape valve) + a hook rejecting the field missing. **AND** add an actual trend SOURCE to the fetch stage — **Google Trends per brand/category term, ~5yr window** — that populates it. Both halves are required: a field with no source returns `unknown` for every brand and silently disables the fad-death / durability check, which is the **single most load-bearing anti-fad signal** (Gate-1 parabolic-spike kill). Load-bearing especially for novelty-tech bets.
+
+- **D-16 (LP-hunt query template = per-run INPUT — §3):** The fixed LP-hunt query set moves OUT of `fetch.js` hardcode and becomes a **per-run input** read from the bet brief's `PIPELINE INPUTS` block. The "fixed, not agent-chosen" determinism principle stays; the *contents* become a planning deliverable built from the run's actual territories. (A hardcoded template can't self-correct mid-run; against a different product it deterministically hunts pages that don't exist and misses the ones that do.)
+
+- **D-17 (wide-net Finder — §5):** Instruct the Finder that "similar" = "a product a buyer choosing this would also cross-shop, **OR** a brand making the same structural bet," spanning the full set of bet-brief territories + the named comparable-bet seed brands. **Wide net by substitutability AND bet-similarity, never by spec match.** Rationale: a bet validates only if structurally-similar bets are in the pool; **an empty comparable-bet pool reads identically to a failed bet** — a false-negative that silently kills a live opportunity. The territory list + comparable seeds are per-run inputs from the brief.
+
+- **D-18 (multi-domain claim-typing examples + feature-trap — §7):** The Classifier's claim-typing worked examples must span a **RANGE of domains** likely in the pool, each shown typed across the four `claim_type` values — not one product's domain. Include ≥1 **feature-vs-claim trap** (a striking product FEATURE shown as feature/mechanism, NOT promoted to a claim, beside a real outcome-claim) — the inoculation against miscounting a headline feature as a claim and inflating the stage/saturation read. `definitions.md` stays as-is; the gap is only the multi-domain example range. (Judgment edit — no schema change.)
+
+- **D-19 (provenance note + visible anti-fluke floor — §8):** (a) One-line provenance note in `space-map.json`: *"Canonical transformations are claim-categories competitors ASSERT, not validated customer transformations — true transformation is a later VOC/review-mine finding."* (b) Make the anti-fluke floor (2+ brands at scale; 7+ day ad longevity to qualify a creative) **VISIBLE** in the output rather than only reconstructable later; enforcement stays decision-time (D-09 — Phase 1 never hard-gates).
 
 ### Claude's Discretion
 - Reconciliation mechanics — how to fold `step1-light-pass.md`'s scaffold + agent prompts into one runnable file, exact prompt wording, and where the two inlines physically sit.
@@ -154,11 +168,16 @@ It finds competitor brands and emits **correctly-labeled** structured signal —
 
 ### Phase 2 — market-selection skill (separate session, runs while light pass runs)
 - Applies the comp-revenue **demand floor** ($300–500K) — the gate D-09 keeps out of Phase 1.
-- Reads the per-brand `competitive_axis` (D-12) as the **Gate-2 transparency-axis input**: it tells the skill whether transparency/openness (`community-openness`) is a *live differentiating axis* in the territory, without the skill re-deriving it from the pages.
+- Reads the per-brand `bet_type` (amended D-12) as the **Gate-2 structural-bet input**: it tells the skill whether the bet under test is a *live differentiating axis* in the territory, without the skill re-deriving it from the pages.
+- Assembles the **`bet_type × niche × durability` crossing** (the direct readout of the bet — "bet B × niche N: 4 brands tried it, 3 won durably"). Per operator decision this is **decision-time / gap-analysis synthesis, NOT a Phase 1 output cell** — Phase 1 only collects the three ingredients (`bet_type`, `niche`, `demand_trend`/durability) cleanly per brand; the skill crosses them (§4b).
+- **Community-heat read** (passionate-but-under-monetized niches a pure supply-side-spend map under-counts) = a **separate read**, NOT collected in Phase 1. Assessor must not treat thin maker-niche spend as an automatic kill — that judgment lives in the separate read.
 - Reads the flagged dead/region-only brands (D-06/D-08) through **different lenses, never double-counted**:
   - **Dead brand = post-mortem, not a model.** Classify cause of death from creative run-length: *long run then stop* = fatigue/operator-quit → steal the proven angle + note the whitespace that just opened; *short run then vanish* = angle failed / fad → avoid. Dead brands are OUT of the live saturation count but IN as a zero-attribution-risk **angle archive**.
   - **Region-only brand = channel-edge signal.** Proven-elsewhere transformation with the competitor absent from your channel = first-mover distribution edge. Filed to a **separate channel-edge output**, never the saturation count.
   - **Finished crowdfunding projects** = prime **structure-lens** material (full post-campaign update logs → will-it-ship credibility moves); "finished is better than live" for that lens.
+
+### §6 — the PLANNING phase (SEEDED, not built this session)
+- A deliberate pre-research step that runs **before** Phase 1 and produces the per-run **pre-research plan / bet brief** (the inputs the determinism locks in: bet, definitions, territory net, LP-hunt terms, trend-source confirmation, in-domain examples). **The automated skill is DEFERRED — operator does not have time to architect it cleanly now.** For now the brief is **hand-filled from a template** (`prompts/_templates/pre-research-plan.template.md`; worked example `runs/arduview/pre-research-plan.md`). Planted as a roadmap seed (a future PMF pre-research Step + a GSD stage to build the generator). Principle to hold: **with a product, the operator makes the BET before looking** — no agent derives the bet from the product alone.
 
 ### Other build sessions
 - **Nicely-formatted deliverable / output templating** = M1-S12. Phase 1 ends at clean structured JSON.
@@ -168,6 +187,22 @@ It finds competitor brands and emits **correctly-labeled** structured signal —
 - Worked/negative-example expansion per agent (the 4th gray area) — user deprioritized. Revisit ONLY if the debug run shows layer conflation surviving the current inline examples.
 
 </deferred>
+
+<revision_impact>
+## Revision impact — which built plans change (for the re-plan)
+
+The pipeline is **built but never run** (01-01..04 done; 01-05 debug pass pending). These deltas edit built artifacts in place — not a rebuild.
+
+| Built plan | Status | Delta from this revision |
+|---|---|---|
+| 01-01 (reconcile prompt + schema) | done → **revise** | amend-D-12 (open `bet_type`, drop `competitive_axis` enum); D-13 (`<bet_brief>` consumption block in Finder + Classifier); D-15 (`demand_trend` field); D-17 (wide-net Finder); D-18 (multi-domain examples + feature-trap); D-19 (provenance note + visible floor) |
+| 01-02 (`fetch.js` + `clean.js`) | done → **revise** | D-15 (add Google Trends ~5yr source); D-16 (read LP-hunt template from the bet brief's PIPELINE INPUTS instead of hardcode) |
+| 01-03 (`dedupe.js` + `revenue-est.js`) | done → **untouched** | none |
+| 01-04 (hooks) | done → **revise** | amend-D-12 (`validate-classifier`: open `bet_type` non-null+basis+traceable, drop axis-enum reject); D-15 (reject `demand_trend` missing) |
+| 01-05 (debug run + UAT) | pending → **runs once after** | runs for the first time once the above land; now also consumes the Arduview bet brief |
+
+Untouched build that stands: `clean.js`, `dedupe.js`, `revenue-est.js`, `validate-finder.js`, `validate-revenue.js`, `validate-dumper.js`.
+</revision_impact>
 
 ---
 
