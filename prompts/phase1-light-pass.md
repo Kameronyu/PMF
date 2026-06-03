@@ -44,7 +44,17 @@ correctly" problem is solved by **hooks that reject bad output**, not by trustin
       "ads_flag": "yes | no | unsure",
       "crowdfunding": null,
       "found_by": ["query string(s) that surfaced this brand"],
-      "relevance": "one line — why this brand belongs in the roster"
+      "relevance": "one line — why this brand belongs in the roster",
+      "price_points": ["observed price string(s) from the product/pricing page, verbatim — '$329', '$19/mo'; [] if none found"],
+      "revenue_est": {
+        "_note": "populated by revenue-est.js, NOT the Finder — agents never compute revenue",
+        "value_usd_monthly": null,
+        "method": "traffic_formula | review_proxy | disclosed | null",
+        "confidence": "high | medium | low",
+        "inputs": { "monthly_visits": null, "visits_source": "similarweb-manual | similarweb-api | proxy | review-proxy | null",
+                    "cvr_assumption": 0.02, "aov_usd": null, "aov_source": "observed-price | estimate | null" },
+        "notes": "string"
+      }
     }
   ],
   "dropped": [ { "brand": "string", "url": "string|null", "reason": "one line" } ]
@@ -118,7 +128,10 @@ A creative always has a niche-target read + angle + awareness; it MAY carry zero
       "creative_count": 14 } ],
   "combos": [
     { "transformation": "focus-productivity", "niche": "students",
-      "brand_count": 3, "creative_count": 9, "brands": ["slug","..."] }
+      "brand_count": 3, "creative_count": 9, "brands": ["slug","..."],
+      "claim_count": 9, "enhanced_claim_count": 2,
+      "claims": [ { "text": "stay locked in for hours", "type": "direct" },
+                  { "text": "2x deeper work, clinically measured", "type": "enhanced" } ] }
   ],
   "per_brand": [
     { "slug": "string",
@@ -136,9 +149,11 @@ A creative always has a niche-target read + angle + awareness; it MAY carry zero
 ```
 AWARENESS_ENUM:  unaware | problem-aware | solution-aware | product-aware | most-aware
 CHANNEL_ENUM:    dtc | marketplace | crowdfunding
+CLAIM_TYPE_ENUM: direct | enlarged | mechanism | enhanced   (classifier assigns per claim; off-list = hard reject)
 ```
 Open (captured verbatim by the dumper, clustered by the classifier): claims · mechanism · niche · angle.
 Closed (dumper picks from the enum, hook-rejected off-list): awareness · channel · lane.
+Classifier-assigned, hook-rejected off-list: claim_type (the classifier types each claim once the space is in view — see AGENT 3).
 
 ---
 
@@ -156,6 +171,7 @@ Closed (dumper picks from the enum, hook-rejected off-list): awareness · channe
    sees raw HTML. (This is the "agent reading copy reads clean copy" rule, enforced by file layout.)
 3. `adlib-one.js` — page-ID-resolved Meta Ad Library pull → `ads/<brand>.json`.
 4. `dedupe.js` — merges Finder brands by domain → clean `brands.json`.
+5. `revenue-est.js` — computes `revenue_est.value_usd_monthly` per brand, **deterministically (no LLM computes revenue — it is arithmetic)**. Formula: `monthly_visits × cvr_assumption × aov_usd`. `cvr_assumption` defaults to **0.02** (industry 2–2.5%; stored as an assumption, never a measured fact). `aov_usd` derived from `price_points` (else operator-set). `monthly_visits` from the traffic source: operator-pasted SimilarWeb free-tier figure (`visits_source:"similarweb-manual"`) or a proxy API. **Fallback when `monthly_visits` is null:** `method:"review_proxy"` — units ≈ review_count × category multiplier, × AOV, `confidence:"low"`. Worked example: `300,000 × 0.02 × $60 = $360,000/mo`.
 
 **Hooks (PostToolUse on each agent's Write — reject, don't trust):**
 - DUMPER: reject if any creative has `canonical_niche != null` / `canonical_angle != null`, or any
@@ -163,7 +179,11 @@ Closed (dumper picks from the enum, hook-rejected off-list): awareness · channe
   string is not a verbatim substring of that brand's `clean/` corpus (kills hallucinated/paraphrased
   claims). Reject `awareness` off-enum. Reject if `angle_basis`/`awareness_basis` missing.
 - CLASSIFIER: reject if any assigned `canonical` transformation/niche/angle has zero raw variants
-  tracing to real dumps. Reject saturation computed across cells (must be per combo cell).
+  tracing to real dumps. Reject saturation computed across cells (must be per combo cell). Reject any
+  `claim_type` off CLAIM_TYPE_ENUM; reject a combo missing `claim_count`/`enhanced_claim_count`; reject
+  `enhanced_claim_count` > `claim_count`.
+- REVENUE: `revenue-est.js` must not emit `value_usd_monthly` without a `method`+`confidence`; reject
+  `method:"traffic_formula"` when `inputs.monthly_visits` is null (use `review_proxy` instead).
 - FINDER: reject `channel`/`lane` off-enum; reject brand row missing `url` or `sells_observed`.
 
 *(Hook configs are JSON in settings — written after these prompts are approved. Listed here so the
@@ -204,7 +224,9 @@ For each brand return (exact schema — brands.json):
   brand, slug, url (real DTC/product page, NOT a review article), product_observed (verbatim, what
   it physically is), sells_observed (their words for what it does — RAW, do not classify),
   channel (dtc|marketplace|crowdfunding), lane, ads_flag (yes|no|unsure), crowdfunding (block or null),
-  found_by (the query that surfaced it), relevance (one line — why this brand belongs in the roster).
+  found_by (the query that surfaced it), relevance (one line — why this brand belongs in the roster),
+  price_points (observed price string(s) from the product/pricing page, verbatim — for AOV; [] if none).
+  Leave revenue_est null — a script (revenue-est.js) computes it; you never estimate revenue.
 
 RULES:
 - Observation only. product_observed / sells_observed are copied, never interpreted. Do NOT tag
@@ -315,6 +337,18 @@ DO:
    claims promise, not a feature/spec/angle. Because you label the pitch (not the creative), each
    transformation stays BOUND to its pitch's mechanism + problem_um — never analyzed in a vacuum.
    This lets you ask "transformation X is achieved by which mechanisms / justified by which cause?"
+1b. TYPE each claim — assign exactly one CLAIM_TYPE_ENUM value, the sophistication-ladder read
+    (traces to definitions.md stages). This is the load-bearing field for Gate 3 downstream:
+      - direct    — bare outcome promise ("removes wrinkles", "blocks distractions").
+      - enlarged  — specified / quantified / conditional ("removes wrinkles in 14 days", "2x focus").
+      - mechanism — claim tied to a named how/why ("removes wrinkles via retinol microspheres").
+      - enhanced  — claim stacked on a UM or superlative differentiation ("the ONLY retinol clinically
+                    shown to…", "patented amber backlight no competitor can run").
+    LAYER DISCIPLINE (do not conflate — a mistype here corrupts the stage read):
+      - A FEATURE is not a claim. "thinnest 4.5mm / 16K stylus / faster refresh" = features → NOT typed.
+      - A MECHANISM alone is not a claim; it becomes claim_type:"mechanism" only when bound to an outcome.
+      - "Paper-like feel" = a decayed Product-UM now a saturated minimalism ANGLE → NOT a claim.
+    Per combo cell, output `claim_count`, `enhanced_claim_count`, and the typed `claims[]` list.
 2. Cluster niche_raw signals into canonical NICHES the same way.
 2b. Cluster angle_raw signals into canonical ANGLES the same way (the emotional-frame families
     actually run in this space — emergent, not a fixed list). List raw variants under each.
