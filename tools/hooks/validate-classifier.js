@@ -6,8 +6,8 @@
 //   3. Any claim_type off CLAIM_TYPE_ENUM (direct|enlarged|mechanism|enhanced).
 //   4. A combo missing claim_count or enhanced_claim_count.
 //   5. enhanced_claim_count > claim_count in any combo.
-//   6. D-12: per_brand[] competitive_axis off COMPETITIVE_AXIS_ENUM.
-//   7. D-12: missing or empty competitive_axis_basis when competitive_axis is set.
+//   6. amend-D-12: per_brand[] bet_type null/empty, OR bet_type_basis missing/empty (OPEN field — traceability-checked, NEVER enum-checked: D-14).
+//   7. amend-D-12: any canonical bet_types[] entry whose raw_variants do not trace to real per-brand bet_type reads.
 //   8. D-04: sophistication string is non-empty when combos exist for a brand.
 // Usage: node tools/hooks/validate-classifier.js <path-to-space-map.json>
 // Exit 0 = pass. Exit 2 + stderr = reject.
@@ -29,7 +29,6 @@ if (!filePath) {
 }
 
 const CLAIM_TYPE_ENUM = new Set(['direct', 'enlarged', 'mechanism', 'enhanced']);
-const COMPETITIVE_AXIS_ENUM = new Set(['function-capability-price', 'visual-statement', 'community-openness']);
 
 let raw;
 try {
@@ -131,26 +130,39 @@ for (let i = 0; i < combos.length; i++) {
   }
 }
 
-// --- Rules 6–8: per_brand competitive_axis and sophistication ---
+// --- Rules 6–8: per_brand bet_type and sophistication ---
+
+const betTypes = data.bet_types || [];
+for (let i = 0; i < betTypes.length; i++) {
+  const b = betTypes[i];
+  const label = b.canonical || `bet_types[${i}]`;
+  const variants = b.raw_variants;
+  if (!Array.isArray(variants) || variants.length === 0) {
+    violations.push(`REJECT: bet_type "${label}" has zero raw_variants — canonical bet_type must trace to real per-brand reads (traceability-checked, never enum-checked: D-14)`);
+  }
+}
 
 const perBrand = data.per_brand || [];
 for (let i = 0; i < perBrand.length; i++) {
   const brand = perBrand[i];
   const label = brand.slug || `per_brand[${i}]`;
 
-  // Rule 6: competitive_axis off enum (D-12)
-  if (brand.competitive_axis !== undefined && brand.competitive_axis !== null) {
-    if (!COMPETITIVE_AXIS_ENUM.has(brand.competitive_axis)) {
-      violations.push(`REJECT: brand "${label}" competitive_axis "${brand.competitive_axis}" off COMPETITIVE_AXIS_ENUM (function-capability-price|visual-statement|community-openness)`);
-    }
-
-    // Rule 7: competitive_axis_basis must be present and non-empty when competitive_axis is set (D-12)
+  // Rule 6 (amend-D-12): bet_type is an OPEN field — reject null/empty, NEVER enum-check (D-14).
+  if (
+    brand.bet_type === undefined ||
+    brand.bet_type === null ||
+    typeof brand.bet_type !== 'string' ||
+    brand.bet_type.trim() === ''
+  ) {
+    violations.push(`REJECT: brand "${label}" bet_type is null/empty — every captured brand must carry a named bet_type (OPEN field, named in the space's own terms)`);
+  } else {
+    // Rule 7 (amend-D-12): bet_type_basis must be present + non-empty when bet_type is set.
     if (
-      !brand.competitive_axis_basis ||
-      typeof brand.competitive_axis_basis !== 'string' ||
-      brand.competitive_axis_basis.trim() === ''
+      !brand.bet_type_basis ||
+      typeof brand.bet_type_basis !== 'string' ||
+      brand.bet_type_basis.trim() === ''
     ) {
-      violations.push(`REJECT: brand "${label}" competitive_axis is set ("${brand.competitive_axis}") but competitive_axis_basis is missing or empty — axis call requires page-quoted evidence`);
+      violations.push(`REJECT: brand "${label}" bet_type is set ("${brand.bet_type}") but bet_type_basis is missing or empty — bet_type call requires page-quoted evidence`);
     }
   }
 
