@@ -60,7 +60,7 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
 - [x] 01-01-PLAN.md — reconcile step1-light-pass.md: strip awareness (D-05), inline the D-03 sophistication ladder
 - [x] 01-02-PLAN.md — layer-3 fetch + clean scripts (tools/fetch.js, tools/clean.js)
 - [x] 01-03-PLAN.md — layer-3 transform scripts (tools/dedupe.js, tools/revenue-est.js) + adlib-one.js touch-up
-- [ ] 01-04-PLAN.md — PostToolUse rejection hooks + four per-agent validators
+- [x] 01-04-PLAN.md — PostToolUse rejection hooks + four per-agent validators
 - [ ] 01-05-PLAN.md — debug run on a reference T/P/N + Kam's bucketed-sample confirmation (UAT)
 
 ### Phase 2: Stage M1-S2 — Market-selection gate
