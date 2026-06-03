@@ -1,0 +1,32 @@
+{
+  "slug": "skeleton-key",
+  "creatives": [
+    {
+      "creative_id": "https://www.crowdsupply.com/overkill-research/skeleton-key",
+      "type": "product_page",
+      "url": "https://www.crowdsupply.com/overkill-research/skeleton-key",
+      "ad_id": null,
+      "page_id": null,
+      "start_date": null,
+      "run_length_days": null,
+      "format": "page",
+      "niche_raw": null,
+      "angle_raw": null,
+      "canonical_angle": null,
+      "angle_basis": "inferred",
+      "pitches": [
+        {
+          "claims": [],
+          "mechanism": [],
+          "problem_um_raw": [],
+          "transformation": null
+        }
+      ],
+      "canonical_niche": null,
+      "linked_funnel_id": null,
+      "link_basis": "unresolved",
+      "multi": false
+    }
+  ],
+  "notes": "Skeleton Key URL returned 404 Not Found at Crowd Supply — the specific project page is no longer accessible. Crowd Supply campaign has ended or the URL is stale. No marketing copy captured. Cannot produce verbatim claims. Brand kept in brands.json per D-06 flag-don't-drop; dump reflects the blocked page state. This is a legitimate fetch failure to log."
+}

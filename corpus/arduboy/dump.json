@@ -1,0 +1,44 @@
+{
+  "slug": "arduboy",
+  "creatives": [
+    {
+      "creative_id": "https://www.arduboy.com",
+      "type": "product_page",
+      "url": "https://www.arduboy.com",
+      "ad_id": null,
+      "page_id": null,
+      "start_date": null,
+      "run_length_days": null,
+      "format": "page",
+      "niche_raw": "makers, coders, open-source hobbyists, community game developers",
+      "angle_raw": "the open-source game platform you build and program yourself — community is the product",
+      "canonical_angle": null,
+      "angle_basis": "observed",
+      "pitches": [
+        {
+          "claims": ["Learn to code and create your own games"],
+          "mechanism": ["open-source Arduino-IDE-compatible hardware (ATmega32U4 + OLED)", "community guides and tutorials built in"],
+          "problem_um_raw": [],
+          "transformation": null
+        },
+        {
+          "claims": ["300+ Games"],
+          "mechanism": ["W25Q128 flash holding community-made games"],
+          "problem_um_raw": [],
+          "transformation": null
+        },
+        {
+          "claims": ["A miniature game system the size of a credit card"],
+          "mechanism": ["credit-card form factor", "USB-C and Link Cable"],
+          "problem_um_raw": [],
+          "transformation": null
+        }
+      ],
+      "canonical_niche": null,
+      "linked_funnel_id": null,
+      "link_basis": "unresolved",
+      "multi": false
+    }
+  ],
+  "notes": "Arduboy page prominently features open-source community framing, learn-to-code angle, and game library. 'Transparent' hardware is implied by the open-source/Arduino culture (PCB visible in photos) but NOT explicitly led as the headline. The community and hackability are the primary lead. Note: Arduboy Mini [Kickstarter Funded!] mentioned in community forum — mini variant exists."
+}

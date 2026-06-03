@@ -1,0 +1,44 @@
+{
+  "slug": "analogue-pocket",
+  "creatives": [
+    {
+      "creative_id": "https://www.analogue.co/pocket",
+      "type": "product_page",
+      "url": "https://www.analogue.co/pocket",
+      "ad_id": null,
+      "page_id": null,
+      "start_date": null,
+      "run_length_days": null,
+      "format": "page",
+      "niche_raw": "retro gaming enthusiasts, collectors of original game cartridges, audiophile-level gamers who demand authentic hardware, FPGA hobbyists",
+      "angle_raw": "authentic tribute to portable gaming history — real hardware, not emulation; the scholarly definitive version for those who demand no compromises",
+      "canonical_angle": null,
+      "angle_basis": "observed",
+      "pitches": [
+        {
+          "claims": ["A tribute to portable gaming.", "No emulation."],
+          "mechanism": ["Completely engineered in", "two FPGAs"],
+          "problem_um_raw": ["Completely engineered in *two FPGAs. No emulation."],
+          "transformation": null
+        },
+        {
+          "claims": ["The most advanced display in handheld gaming."],
+          "mechanism": ["3.5\", 615 ppi, LCD", "1600x1440 resolution", "Gorilla© Glass"],
+          "problem_um_raw": [],
+          "transformation": null
+        },
+        {
+          "claims": ["A multi-video-game-system portable handheld."],
+          "mechanism": ["compatible with the 2,780+ Game Boy, Game Boy Color & Game Boy Advance game cartridge library", "cartridge adapters for Game Gear, Neo Geo Pocket Color, TurboGrafx-16, Atari Lynx"],
+          "problem_um_raw": [],
+          "transformation": null
+        }
+      ],
+      "canonical_niche": null,
+      "linked_funnel_id": null,
+      "link_basis": "unresolved",
+      "multi": false
+    }
+  ],
+  "notes": "Analogue Pocket leads with hardware authenticity ('No emulation') as its primary structural bet — positioned against emulation as inferior. The anti-emulation frame is the explicit problem-UM: emulation is a compromise, FPGA is authentic. Secondary pitch: advanced display and scholarly preservation mission ('openFPGA'). Price: $239.99. Currently in stock (Ships June 2026 stated on page)."
+}

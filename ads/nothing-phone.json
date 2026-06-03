@@ -1,0 +1,13 @@
+{
+  "slug": "nothing-phone",
+  "brand_query": "Nothing Phone",
+  "status": "ok",
+  "resolved_advertiser": {
+    "name": "Nothing Phone",
+    "pageId": "853473044714402",
+    "followers": 8700
+  },
+  "active_ad_count": "0",
+  "library_ids_loaded": 0,
+  "ads": []
+}

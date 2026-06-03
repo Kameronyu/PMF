@@ -1,0 +1,44 @@
+{
+  "slug": "thumby",
+  "creatives": [
+    {
+      "creative_id": "https://thumby.us",
+      "type": "product_page",
+      "url": "https://thumby.us",
+      "ad_id": null,
+      "page_id": null,
+      "start_date": null,
+      "run_length_days": null,
+      "format": "page",
+      "niche_raw": "makers, hobbyist programmers, keychain/EDC gadget collectors, kids and beginners learning to code",
+      "angle_raw": "impossibly tiny but fully real — the charm of extreme miniaturization; best friend for your keys",
+      "canonical_angle": null,
+      "angle_basis": "observed",
+      "pitches": [
+        {
+          "claims": ["Thumby™ is an itty-bitty game system at the tips of your thumbs, a best friend for your keys, and an easy learning tool all-in-one"],
+          "mechanism": ["Raspberry Pi RP2040 processor", "72×40 px Monochrome OLED", "MicroPython / Blockly / Arduino C/C++", "Thumby Code Editor website", "Thumby Arcade community games"],
+          "problem_um_raw": [],
+          "transformation": null
+        },
+        {
+          "claims": ["Start playing right away with preloaded games"],
+          "mechanism": ["preloaded games in flash storage"],
+          "problem_um_raw": [],
+          "transformation": null
+        },
+        {
+          "claims": [],
+          "mechanism": ["MicroPython implementation of Python 3 optimized to run on microcontrollers", "Thumby MicroPython API"],
+          "problem_um_raw": [],
+          "transformation": null
+        }
+      ],
+      "canonical_niche": null,
+      "linked_funnel_id": null,
+      "link_basis": "unresolved",
+      "multi": false
+    }
+  ],
+  "notes": "Thumby leads with extreme miniaturization ('world's smallest / itty-bitty') as the headline novelty. Dual pitch: EDC charm object AND learn-to-code tool. Kickstarter funded 2021, 13x goal, 4,502 backers. Third-party press quotes ('Probably the World's Smallest Game Console' — Nintendo Life) used as trust signals. No explicit transformation promise — novelty + community are the leads."
+}

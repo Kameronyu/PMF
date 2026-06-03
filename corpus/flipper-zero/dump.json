@@ -1,0 +1,50 @@
+{
+  "slug": "flipper-zero",
+  "creatives": [
+    {
+      "creative_id": "https://flipperzero.one",
+      "type": "product_page",
+      "url": "https://flipperzero.one",
+      "ad_id": null,
+      "page_id": null,
+      "start_date": null,
+      "run_length_days": null,
+      "format": "page",
+      "niche_raw": "pentesters, geeks, hardware hackers, open-source enthusiasts, makers who want to explore digital systems",
+      "angle_raw": "a toy-like body that hides serious hacker hardware — carries a personality (cyber-dolphin) and signals membership in the hacker scene",
+      "canonical_angle": null,
+      "angle_basis": "observed",
+      "pitches": [
+        {
+          "claims": ["portable multi-tool for pentesters and geeks in a toy-like body"],
+          "mechanism": ["Sub-1 GHz transceiver (CC1101)", "125 kHz RFID", "NFC (13.56 MHz)", "Infrared transceiver", "Bluetooth LE 5.4", "GPIO pins", "iButton 1-Wire", "MicroSD card slot"],
+          "problem_um_raw": [],
+          "transformation": null
+        },
+        {
+          "claims": ["fully open-source and customizable, so you can extend it in whatever way you like"],
+          "mechanism": ["open-source firmware", "GPIO pins 3.3V logic levels (5V tolerant for input)", "MicroSD card for apps and data"],
+          "problem_um_raw": [],
+          "transformation": null
+        },
+        {
+          "claims": ["Explore any kind of access control system, RFID, radio protocols, and debug hardware using GPIO pins"],
+          "mechanism": ["CC1101 universal transceiver", "125 kHz RFID antenna on bottom", "NFC module 13.56 MHz"],
+          "problem_um_raw": ["The idea of Flipper Zero is to combine all the hardware tools you'd need for exploration and development on the go"],
+          "transformation": null
+        },
+        {
+          "claims": ["It can interact with digital systems in real life and grow while you use it"],
+          "mechanism": ["upgradeable firmware via USB/BLE", "community app ecosystem"],
+          "problem_um_raw": [],
+          "transformation": null
+        }
+      ],
+      "canonical_niche": null,
+      "linked_funnel_id": null,
+      "link_basis": "unresolved",
+      "multi": false
+    }
+  ],
+  "notes": "Flipper Zero leads with the multi-tool hardware breadth as the pitch — NOT a single transformation promise. The dolphin personality / 'toy-like body' frames the serious hardware in a playful collector-object angle. Active Facebook ads: 48 current, 117 total structured ads in ads/flipper-zero.json."
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "pimoroni",
+  "creatives": [
+    {
+      "creative_id": "https://shop.pimoroni.com",
+      "type": "product_page",
+      "url": "https://shop.pimoroni.com",
+      "ad_id": null,
+      "page_id": null,
+      "start_date": null,
+      "run_length_days": null,
+      "format": "page",
+      "niche_raw": "makers, Raspberry Pi hobbyists, open-source hardware enthusiasts, educators",
+      "angle_raw": "the definitive maker store — everything you need to build and hack",
+      "canonical_angle": null,
+      "angle_basis": "observed",
+      "pitches": [
+        {
+          "claims": [],
+          "mechanism": [],
+          "problem_um_raw": [],
+          "transformation": null
+        }
+      ],
+      "canonical_niche": null,
+      "linked_funnel_id": null,
+      "link_basis": "unresolved",
+      "multi": false
+    }
+  ],
+  "notes": "Pimoroni homepage title is 'The ultimate Maker store - Pimoroni' — the primary identity claim. The page fetched largely contained currency/cookie boilerplate with no strong marketing copy beyond the store-identity headline. PicoSystem (hackable game console for makers) not prominently surfaced on homepage. Sparse claims available from this fetch — maker-store identity positioning only."
+}

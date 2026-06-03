@@ -1,0 +1,38 @@
+{
+  "slug": "gameshell",
+  "creatives": [
+    {
+      "creative_id": "https://www.clockworkpi.com/gameshell",
+      "type": "product_page",
+      "url": "https://www.clockworkpi.com/gameshell",
+      "ad_id": null,
+      "page_id": null,
+      "start_date": null,
+      "run_length_days": null,
+      "format": "page",
+      "niche_raw": "indie game developers, hardware hackers, retro game collectors, maker/DIY enthusiasts",
+      "angle_raw": "the maker's game console — you build it, hack it, and make it yours",
+      "canonical_angle": null,
+      "angle_basis": "observed",
+      "pitches": [
+        {
+          "claims": ["An Open Source Portable Game Console"],
+          "mechanism": ["ClockworkPi development board (Quad-core Cortex-A7 CPU, Mali GPU, WiFi & Bluetooth, 1GB DDR3)", "KEYPAD module with Arduino compatibility (ATmega168P)", "runs PICO-8, LOVE2D, PyGame, Libretro and other game engines"],
+          "problem_um_raw": [],
+          "transformation": null
+        },
+        {
+          "claims": [],
+          "mechanism": ["modular swappable parts — kit assembly"],
+          "problem_um_raw": [],
+          "transformation": null
+        }
+      ],
+      "canonical_niche": null,
+      "linked_funnel_id": null,
+      "link_basis": "unresolved",
+      "multi": false
+    }
+  ],
+  "notes": "GameShell led with 'Ideal for Indie Game Developers, Hackers & Retro Games Collectors' as its niche statement. Open-source modular kit. Crowdfunding origin (Kickstarter, funded and shipped). The page copy is sparse — 'An Open Source Portable Game Console' is the primary identity claim. No strong outcome-transformation verbal claims visible."
+}

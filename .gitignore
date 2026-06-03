@@ -1,0 +1,5 @@
+# Raw HTML corpus (large, reproducible from fetch.js)
+corpus/*/raw/
+
+# Ad library screenshots (binary, large)
+ads/*_adv.png

@@ -1,0 +1,32 @@
+{
+  "slug": "anbernic",
+  "creatives": [
+    {
+      "creative_id": "https://anbernic.com",
+      "type": "product_page",
+      "url": "https://anbernic.com",
+      "ad_id": null,
+      "page_id": null,
+      "start_date": null,
+      "run_length_days": null,
+      "format": "page",
+      "niche_raw": "retro gaming enthusiasts, budget-conscious portable gamers, emulation fans who want to play classic console libraries",
+      "angle_raw": "more games, better hardware, lower price — the value-spec retro handheld for serious emulation fans",
+      "canonical_angle": null,
+      "angle_basis": "observed",
+      "pitches": [
+        {
+          "claims": [],
+          "mechanism": ["multiple chip sets (RK3326, RK3566, SP-A133P)", "multiple screen sizes and form factors", "Linux/Android OS", "broad game compatibility"],
+          "problem_um_raw": [],
+          "transformation": null
+        }
+      ],
+      "canonical_niche": null,
+      "linked_funnel_id": null,
+      "link_basis": "unresolved",
+      "multi": false
+    }
+  ],
+  "notes": "Anbernic homepage is primarily a product catalog with spec listings and pricing. No strong verbal outcome-claims — the bet is value/breadth (many models, many price points, broad emulation compatibility). No explicit maker/hackable framing. 0 active ads in ad library. Positioned squarely in retro-emulation territory, NOT maker/open-source territory."
+}

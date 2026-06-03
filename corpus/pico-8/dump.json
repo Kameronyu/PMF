@@ -1,0 +1,38 @@
+{
+  "slug": "pico-8",
+  "creatives": [
+    {
+      "creative_id": "https://www.lexaloffle.com/pico-8.php",
+      "type": "product_page",
+      "url": "https://www.lexaloffle.com/pico-8.php",
+      "ad_id": null,
+      "page_id": null,
+      "start_date": null,
+      "run_length_days": null,
+      "format": "page",
+      "niche_raw": "indie game developers, maker/hobbyist coders, people who want to make and share tiny games, creative programmers",
+      "angle_raw": "constraints spark creativity — make a whole game in one sitting, share it instantly; the cozy development environment",
+      "canonical_angle": null,
+      "angle_basis": "observed",
+      "pitches": [
+        {
+          "claims": ["PICO-8 is a  fantasy console  for making, sharing and playing tiny games and"],
+          "mechanism": ["128x128 16 colours display", "32k cart size", "4 channel chip blerps", "P8 Lua code", "built-in sprite, map, sound, music editors", "online cartridge browser SPLORE"],
+          "problem_um_raw": ["The harsh limitations of PICO-8 are carefully chosen to be fun to work with, to encourage small but expressive designs, and to give cartridges made with PICO-8 their own particular look and feel."],
+          "transformation": null
+        },
+        {
+          "claims": ["Create a whole game or program in one sitting without needing to leave the cosy development environment!"],
+          "mechanism": ["all creative tools built into the console (code, music, sound, sprites, maps)"],
+          "problem_um_raw": [],
+          "transformation": null
+        }
+      ],
+      "canonical_niche": null,
+      "linked_funnel_id": null,
+      "link_basis": "unresolved",
+      "multi": false
+    }
+  ],
+  "notes": "PICO-8 is software (fantasy console), not hardware. Price $14.99. The 'constraints spark creativity' frame is a distinctive angle — limits as a feature, not a flaw. Learn-to-code and game-making niche. Very active community (Cartverse, SPLORE browser, forum). No physical product, relevant as a competing attention/budget destination for the maker/code-your-own-game niche."
+}

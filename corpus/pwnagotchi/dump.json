@@ -1,0 +1,38 @@
+{
+  "slug": "pwnagotchi",
+  "creatives": [
+    {
+      "creative_id": "https://pwnagotchi.ai",
+      "type": "product_page",
+      "url": "https://pwnagotchi.ai",
+      "ad_id": null,
+      "page_id": null,
+      "start_date": null,
+      "run_length_days": null,
+      "format": "page",
+      "niche_raw": "hacker community, WiFi security researchers, makers who build Raspberry Pi projects, nostalgic millennial hackers who had Tamagotchis",
+      "angle_raw": "a cute AI pet that also hacks WiFi — membership signal for the hacker scene, wrapped in nostalgia and personality",
+      "canonical_angle": null,
+      "angle_basis": "observed",
+      "pitches": [
+        {
+          "claims": ["Pwnagotchi: Deep Reinforcement Learning for WiFi pwning!"],
+          "mechanism": ["A2C-based AI powered by bettercap", "running on a Raspberry Pi Zero W", "learns from its surrounding WiFi environment"],
+          "problem_um_raw": ["To give hackers an excuse to learn about reinforcement learning and WiFi networking—and have a reason to get out for more walks."],
+          "transformation": null
+        },
+        {
+          "claims": [],
+          "mechanism": [],
+          "problem_um_raw": ["enjoying the nostalgic delight of being strangely emotionally attached to a handheld automata yet again"],
+          "transformation": null
+        }
+      ],
+      "canonical_niche": null,
+      "linked_funnel_id": null,
+      "link_basis": "unresolved",
+      "multi": false
+    }
+  ],
+  "notes": "Pwnagotchi is a community project (no DTC store, no price, no commerce page). Relevant as a cultural marker for the maker/hacker niche — 'bought-but-signals-membership' object behavior pattern. The Tamagotchi nostalgia frame is explicitly used. No product purchase possible; flagged as community-project in brands.json. Claims here are from the community wiki page, not a store."
+}
