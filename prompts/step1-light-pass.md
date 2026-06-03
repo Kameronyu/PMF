@@ -51,7 +51,7 @@ correctly" problem is solved by **hooks that reject bad output**, not by trustin
         "value_usd_monthly": null,
         "method": "traffic_formula | review_proxy | disclosed | null",
         "confidence": "high | medium | low",
-        "inputs": { "monthly_visits": null, "visits_source": "similarweb-manual | similarweb-api | proxy | review-proxy | null",
+        "inputs": { "monthly_visits": null, "visits_source": "similarweb-manual | semrush-api | proxy | review-proxy | null",
                     "cvr_assumption": 0.02, "aov_usd": null, "aov_source": "observed-price | estimate | null" },
         "notes": "string"
       }
@@ -138,7 +138,7 @@ A creative always has a niche-target read + angle; it MAY carry zero claims.
       "competitive_axis": "function-capability-price | visual-statement | community-openness",
       "competitive_axis_basis": "page-quoted signal the axis call is read off — verbatim/cited, not eyeballed",
       "sophistication": "stage 1-5 + one-line evidence" } ],
-  "saturation": [ { "transformation": "focus-productivity", "brand_count": 7, "saturated": true } ]
+  "saturation": [ { "transformation": "focus-productivity", "niche": "students", "brand_count": 3, "saturated": false } ]
 }
 ```
 - Saturation = brand_count within a **combo cell (transformation × niche)**, never pooled across cells.
@@ -181,7 +181,7 @@ Classifier-assigned, hook-rejected off-list: claim_type (the classifier types ea
    sees raw HTML. (This is the "agent reading copy reads clean copy" rule, enforced by file layout.)
 3. `adlib-one.js` — page-ID-resolved Meta Ad Library pull → `ads/<brand>.json`.
 4. `dedupe.js` — merges Finder brands by domain → clean `brands.json`.
-5. `revenue-est.js` — computes `revenue_est.value_usd_monthly` per brand, **deterministically (no LLM computes revenue — it is arithmetic)**. Formula: `monthly_visits × cvr_assumption × aov_usd`. `cvr_assumption` defaults to **0.02** (industry 2–2.5%; stored as an assumption, never a measured fact). `aov_usd` derived from `price_points` (else operator-set). `monthly_visits` from the traffic source: operator-pasted SimilarWeb free-tier figure (`visits_source:"similarweb-manual"`) or a proxy API. **Fallback when `monthly_visits` is null:** `method:"review_proxy"` — units ≈ review_count × category multiplier, × AOV, `confidence:"low"`. Worked example: `300,000 × 0.02 × $60 = $360,000/mo`.
+5. `revenue-est.js` — computes `revenue_est.value_usd_monthly` per brand, **deterministically (no LLM computes revenue — it is arithmetic)**. Formula: `monthly_visits × cvr_assumption × aov_usd`. `cvr_assumption` defaults to **0.02** (industry 2–2.5%; stored as an assumption, never a measured fact). `aov_usd` derived from `price_points` (else operator-set). `monthly_visits` from the traffic source: Semrush Trends API (`visits_source:"semrush-api"`) as primary; operator-pasted SimilarWeb free-tier (`visits_source:"similarweb-manual"`) as fallback. **Fallback when `monthly_visits` is null:** `method:"review_proxy"` — units ≈ review_count × category multiplier, × AOV, `confidence:"low"`. Worked example: `300,000 × 0.02 × $60 = $360,000/mo`.
 
 **Hooks (PostToolUse on each agent's Write — reject, don't trust):**
 - DUMPER: reject if any creative has `canonical_niche != null` / `canonical_angle != null`, or any
