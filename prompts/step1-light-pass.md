@@ -124,6 +124,8 @@ A creative always has a niche-target read + angle; it MAY carry zero claims.
   "angles": [
     { "canonical": "shameful-behavior-pain", "raw_variants": ["still doomscrolling at 2am","you keep restarting the chapter"],
       "creative_count": 14 } ],
+  "bet_types": [
+    { "canonical": "novel-hardware-as-lead", "raw_variants": ["the foldable e-ink device","programmable paper tablet"], "brand_count": 3 } ],
   "combos": [
     { "transformation": "focus-productivity", "niche": "students",
       "brand_count": 3, "creative_count": 9, "brands": ["slug","..."],
@@ -135,8 +137,8 @@ A creative always has a niche-target read + angle; it MAY carry zero claims.
     { "slug": "string",
       "transformations": [ {"canonical":"...", "creative_count": 4} ],
       "niches": ["canonical","..."],
-      "competitive_axis": "function-capability-price | visual-statement | community-openness",
-      "competitive_axis_basis": "page-quoted signal the axis call is read off — verbatim/cited, not eyeballed",
+      "bet_type": "the structural bet this brand leads with, NAMED in the space's own terms — OPEN, not an enum",
+      "bet_type_basis": "page-quoted signal the bet_type call is read off — verbatim/cited, not eyeballed",
       "sophistication": "stage 1-5 + one-line evidence" } ],
   "saturation": [ { "transformation": "focus-productivity", "niche": "students", "brand_count": 3, "saturated": false } ]
 }
@@ -144,26 +146,23 @@ A creative always has a niche-target read + angle; it MAY carry zero claims.
 - Saturation = brand_count within a **combo cell (transformation × niche)**, never pooled across cells.
 - Every `transformation`/`canonical_niche`/`canonical_angle` the classifier assigns must trace to
   raw values (`claims`/`niche_raw`/`angle_raw`) actually present in the dumps (hook-checkable).
-- `competitive_axis` (per brand) = what competitors in this territory actually compete on, read off
-  the brand's OWN positioning/page (page-readable; you do NOT need to know the customer's true
-  dream/desire). One PRIMARY axis per brand from the closed enum:
-  - `function-capability-price` — competes on what it does / specs / features / cost.
-  - `visual-statement` — competes as a visual showpiece / object-as-statement / aesthetic identity.
-  - `community-openness` — competes on community, openness, transparency.
-  Populated for EVERY captured brand (live/dead/region-only alike — it is a per-brand descriptor, NOT
-  a live-saturation count, so D-08 live-only exclusion does not apply). The Classifier assigns it; it
-  feeds the Phase 2 Gate-2 transparency-axis read. `competitive_axis_basis` MUST quote/cite the page
-  signal it is read off (same discipline as the sophistication evidence line — hook-checkable).
+- `bet_type` (per brand) = the structural bet the brand LEADS with — what kind of differentiation it
+  competes on — read off the brand's OWN positioning/page (page-readable; you do NOT need to know the
+  customer's true dream/desire). It is OPEN: the Classifier names each brand's lead bet in the space's
+  own terms, then unifies variants into canonical `bet_types[]` (same shape as `transformations[]`).
+  Populated for EVERY captured brand (live/dead/region-only — it is a per-brand descriptor, NOT a
+  live-saturation count, so D-08 live-only exclusion does NOT apply). `bet_type_basis` MUST
+  quote/cite the page signal (same discipline as the sophistication evidence line — hook-checkable
+  for traceability, never for enum membership). Feeds the Phase 2 Gate-2 structural-bet read.
 
 ### Closed enums (a value off-list is a hard reject)
 ```
 CHANNEL_ENUM:          dtc | marketplace | crowdfunding
 CLAIM_TYPE_ENUM:       direct | enlarged | mechanism | enhanced   (classifier assigns per claim; off-list = hard reject)
-COMPETITIVE_AXIS_ENUM: function-capability-price | visual-statement | community-openness   (classifier assigns one primary axis per brand; off-list = hard reject)
 ```
-Open (captured verbatim by the dumper, clustered by the classifier): claims · mechanism · niche · angle.
+Open (captured verbatim by the dumper, clustered by the classifier): claims · mechanism · niche · angle · bet_type.
 Closed (dumper picks from the enum, hook-rejected off-list): channel · lane.
-Classifier-assigned, hook-rejected off-list: claim_type (the classifier types each claim once the space is in view — see AGENT 3) · competitive_axis (one primary page-read axis per brand, with a page-quoted basis — see AGENT 3).
+Classifier-assigned, hook-rejected off-list: claim_type (the classifier types each claim once the space is in view — see AGENT 3).
 
 ---
 
@@ -191,8 +190,10 @@ Classifier-assigned, hook-rejected off-list: claim_type (the classifier types ea
 - CLASSIFIER: reject if any assigned `canonical` transformation/niche/angle has zero raw variants
   tracing to real dumps. Reject saturation computed across cells (must be per combo cell). Reject any
   `claim_type` off CLAIM_TYPE_ENUM; reject a combo missing `claim_count`/`enhanced_claim_count`; reject
-  `enhanced_claim_count` > `claim_count`. Reject any per-brand `competitive_axis` off
-  COMPETITIVE_AXIS_ENUM; reject a missing/empty `competitive_axis_basis` when `competitive_axis` is set.
+  `enhanced_claim_count` > `claim_count`. Reject any per-brand `bet_type` that is null/empty or
+  whose `bet_type_basis` is missing/empty; reject any canonical `bet_type` whose `raw_variants` do
+  not trace to real per-brand reads (traceability-checked, same shape as transformation/niche/angle
+  — NEVER enum-checked, there is no enum: D-14).
 - REVENUE: `revenue-est.js` must not emit `value_usd_monthly` without a `method`+`confidence`; reject
   `method:"traffic_formula"` when `inputs.monthly_visits` is null (use `review_proxy` instead).
 - FINDER: reject `channel`/`lane` off-enum; reject brand row missing `url` or `sells_observed`.
@@ -327,7 +328,7 @@ These fields are per-CREATIVE (the whole ad/page shares them), not per-pitch:
     transformation is null too.)
 
 DEFINITIONS (load definitions.md). You pick NO closed-set label here — you EXTRACT claims / mechanism / niche_raw / angle_raw / problem_um_raw verbatim in the copy's own words.
-You never name a transformation, canonical niche, canonical angle, or competitive_axis — those are the
+You never name a transformation, canonical niche, canonical angle, or bet_type — those are the
 classifier's calls. Output ONLY valid dump.json.
 ```
 
@@ -363,23 +364,21 @@ DO:
     actually run in this space — emergent, not a fixed list). List raw variants under each.
 3. Stamp canonical_transformation + canonical_niche + canonical_angle back onto context, and build
    COMBOS (transformation × niche) with brand_count + creative_count + which brands.
-4. Per brand: list its transformations (+ creative counts), niches, a competitive_axis call (see
-   COMPETITIVE AXIS below), and a sophistication call (Stage 1-5) read off the cell's claim_type
+4. Per brand: list its transformations (+ creative counts), niches, a bet_type call (see
+   BET TYPE below), and a sophistication call (Stage 1-5) read off the cell's claim_type
    distribution per the SOPHISTICATION block below — the evidence line cites the claim(s) + brand
    count that set the stage; never eyeball the stage.
-4b. COMPETITIVE AXIS (per brand) — assign exactly ONE primary axis from COMPETITIVE_AXIS_ENUM,
-    read OFF the brand's OWN positioning/page. This is page-readable: you decide what the brand
-    competes on from how it presents itself, WITHOUT needing to know the customer's true dream/desire.
-      - function-capability-price — competes on what it does / specs / features / cost.
-      - visual-statement — competes as a visual showpiece / object-as-statement / aesthetic identity.
-      - community-openness — competes on community, openness, transparency.
-    Populate it for EVERY captured brand (live, dead, or region-only alike — it is a per-brand
+4b. BET TYPE (per brand) — read OFF the brand's OWN positioning/page what structural bet it leads
+    with. This is page-readable: you decide from how the brand presents itself, WITHOUT needing to
+    know the customer's true dream/desire. NAME the structural bet in the space's own terms — do NOT
+    pick from a fixed list, there is no enum; this is OPEN like transformation/niche/angle.
+    Populate for EVERY captured brand (live, dead, or region-only alike — it is a per-brand
     descriptor, not a live-saturation count, so the live-only exclusion does NOT apply here).
-    Record a `competitive_axis_basis` that QUOTES/CITES the page signal you read the axis off — same
-    discipline as the sophistication evidence line: read it off the page, do NOT eyeball it. This
-    feeds the Phase 2 Gate-2 transparency-axis read (is community-openness a live axis in this
-    territory?). If a brand's dominant axis fits none of the three values, flag it in `notes` — that
-    is debug-pass signal to extend the enum, NOT a license to guess.
+    Record a `bet_type_basis` that QUOTES/CITES the page signal you read the bet off — same
+    discipline as the sophistication evidence line: read it off the page, do NOT eyeball it.
+    Then unify the per-brand bet_type reads into canonical `bet_types[]` with `raw_variants`,
+    exactly as you cluster transformations — variants must trace back to real per-brand reads.
+    This feeds the Phase 2 Gate-2 structural-bet read.
 SOPHISTICATION (per combo cell = transformation × niche)
 The stage = the height of the most-saturated differentiation layer competitors
 already occupy in this cell. It tells you the FLOOR you must clear to out-persuade
@@ -418,8 +417,9 @@ RULES:
 - Transformation ≠ feature ≠ angle ≠ mechanism. (Worked examples from definitions.md: "paper-like feel"
   = decayed Product-UM acting as a minimalism ANGLE, not a transformation. "AI note-taking" = a
   mechanism/feature, not a transformation. "thinnest 4.5mm" = a feature, not a claim.)
-- competitive_axis is ONE primary axis per brand, on the closed enum, with a page-quoted basis — never
-  an eyeballed call, never off-enum.
+- bet_type is the structural bet each brand leads with, NAMED in the space's own terms (OPEN — no
+  enum), with a page-quoted basis — never eyeballed; canonical bet_types[] must trace to real
+  per-brand reads.
 - Output ONLY valid space-map.json.
 ```
 
