@@ -9,6 +9,7 @@
 //   6. amend-D-12: per_brand[] bet_type null/empty, OR bet_type_basis missing/empty (OPEN field — traceability-checked, NEVER enum-checked: D-14).
 //   7. amend-D-12: any canonical bet_types[] entry whose raw_variants do not trace to real per-brand bet_type reads.
 //   8. D-04: sophistication string is non-empty when combos exist for a brand.
+//   9. D-15: per_brand[] demand_trend missing, OR demand_trend.shape off DEMAND_TREND_SHAPE_ENUM (steady|rising|parabolic-spike|declining|unknown).
 // Usage: node tools/hooks/validate-classifier.js <path-to-space-map.json>
 // Exit 0 = pass. Exit 2 + stderr = reject.
 'use strict';
@@ -29,6 +30,7 @@ if (!filePath) {
 }
 
 const CLAIM_TYPE_ENUM = new Set(['direct', 'enlarged', 'mechanism', 'enhanced']);
+const DEMAND_TREND_SHAPE_ENUM = new Set(['steady', 'rising', 'parabolic-spike', 'declining', 'unknown']);
 
 let raw;
 try {
@@ -164,6 +166,14 @@ for (let i = 0; i < perBrand.length; i++) {
     ) {
       violations.push(`REJECT: brand "${label}" bet_type is set ("${brand.bet_type}") but bet_type_basis is missing or empty — bet_type call requires page-quoted evidence`);
     }
+  }
+
+  // D-15: demand_trend must be present, and shape must be on the closed enum.
+  const dt = brand.demand_trend;
+  if (dt === undefined || dt === null || typeof dt !== 'object') {
+    violations.push(`REJECT: brand "${label}" demand_trend is missing — every captured brand must carry a demand_trend (the fad-death/durability signal); shape "unknown" is allowed but the field must exist`);
+  } else if (!DEMAND_TREND_SHAPE_ENUM.has(dt.shape)) {
+    violations.push(`REJECT: brand "${label}" demand_trend.shape "${dt.shape}" off DEMAND_TREND_SHAPE_ENUM (steady|rising|parabolic-spike|declining|unknown)`);
   }
 
   // Rule 8: D-04 sophistication backstop — non-empty when combos exist
