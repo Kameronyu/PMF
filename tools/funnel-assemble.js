@@ -468,6 +468,8 @@ function generateFunnelId(competitor, normalizedUrl) {
   // --- Process hand-fed crowdfunding LPs (D-19) — zero-ad funnels ---
   // A crowdfunding LP with no Meta ads is a VALID funnel (empty bound_ads[]).
   // Validation comes from Currency B (amount_raised / backers) via crowdfund-fetch.js.
+  // WR-04: track only actually-written funnels (skipped entries must not inflate the count).
+  let cfWritten = 0;
   for (const lpEntry of crowdfundLps) {
     const rawUrl = typeof lpEntry === 'string' ? lpEntry : lpEntry.url;
     const cfMeta  = typeof lpEntry === 'object' ? lpEntry : {};
@@ -537,6 +539,7 @@ function generateFunnelId(competitor, normalizedUrl) {
     };
 
     fs.writeFileSync(path.join(OUT, `${funnel_id}.json`), JSON.stringify(funnel_package, null, 2));
+    cfWritten = cfWritten + 1; // WR-04: count only actually-written CF funnels
 
     const line = `[CF-OK] funnel_id=${funnel_id} url=${norm} bound_ads=0 rendered=${landing_page_body !== null}`;
     results.push(line);
@@ -570,7 +573,8 @@ function generateFunnelId(competitor, normalizedUrl) {
   fs.writeFileSync(logPath, results.join('\n') + '\n');
 
   // One-line console summary
-  const funnelCount = clusters.size + crowdfundLps.length;
+  // WR-04: use cfWritten (actually written) not crowdfundLps.length (input list length)
+  const funnelCount = clusters.size + cfWritten;
   console.log(
     `[funnel-assemble] done — competitor=${competitor} funnels=${funnelCount} errors=${errors.length} ambiguous=${ambiguous.length}`
   );
