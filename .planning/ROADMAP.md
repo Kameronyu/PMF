@@ -72,14 +72,16 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
 **Serves PMF Step**: 0 gate (Gate 1)
 **Depends on**: Stage M1-S1 (the light pass produces the gate inputs)
 **Requirements**: GATE-01
-**Status**: DRAFTED (`.claude/skills/market-selection/SKILL.md` + verbatim spec `prompts/_specs/market-selection-framework.md`); data-contract wiring remaining.
-**Build inputs (read first)**: `.claude/skills/market-selection/SKILL.md` (the skill — its INPUT DATA CONTRACT lists every gate input) · `prompts/_specs/market-selection-framework.md` (the verbatim framework) · `prompts/step1-light-pass.md` (S1 — the upstream producer of the gate inputs) · `workflow.md` Step 0 (the gap variables) · `capability_inventory.md` · `definitions.md`.
+**Status**: DRAFTED. Authoritative decision procedure = `prompts/_specs/market-selection-assessor-spec.md` (the assessor agent spec — supersedes the older `market-selection-framework.md`). The existing `.claude/skills/market-selection/SKILL.md` is STALE (full awareness Gate 4, no demand_trend/bet_type) — bring it in line. Remaining: reconcile the assessor INPUT CONTRACT to the post-2026-06-03 S1 output (competitive_axis → OPEN bet_type per amend-D-12; demand_trend/run_length_days now present; awareness dropped → Gate 4 deferred), then wire it.
+**Build inputs (read first)**: `prompts/_specs/market-selection-assessor-spec.md` (AUTHORITATIVE — the four-gate decision procedure, marketing knowledge, resolved judgments; carries a reconciliation note on the stale input field) · `.claude/skills/market-selection/SKILL.md` (the build target to bring in line — currently stale) · `prompts/_specs/market-selection-framework.md` (older framework, superseded by the assessor spec) · `prompts/step1-light-pass.md` (S1 — the upstream producer; its current schema IS the real input contract: bet_type, demand_trend, run_length_days, per-cell saturation, no awareness) · `workflow.md` Step 0 (the gap variables) · `capability_inventory.md` · `definitions.md`.
 **Success Criteria** (what must be TRUE):
   1. The skill runs the four gates in fixed order with the kill rules, stops at the first kill, and outputs ranked survivors citing evidence per axis (exact figures or "not found" — no hand-waving).
-  2. The S1 data contract the gates consume is wired: claim-typing ✓ + revenue ✓ in the light pass; trend-shape + adjacent-signals + market-awareness rollup added; any missing input is surfaced as `DATA GAP`, never guessed.
-  3. The skill stops at A4 (ranked survivors); the human makes the D1 bet pick, recorded as the input to downstream stages. Per-cell saturation honored; never pooled.
+  2. The S1 data contract the gates consume is wired to the CURRENT S1 output: claim-typing ✓ + revenue ✓ + demand_trend ✓ + run_length_days/structured ads ✓ + OPEN bet_type (Gate 2.2 reads it, no closed axis enum). Awareness is NOT an S1 input (dropped, D-05) → Gate 4 is deferred to the deep-research step, survivors marked provisional. Any missing/`unknown` input is surfaced as `DATA GAP`, never guessed.
+  3. The skill runs Gates 1–3, stops at the first kill, outputs a ranked PROVISIONAL survivor set (Gate 4 pending); the human makes the bet pick, recorded as the input to downstream stages. Per-cell saturation honored; never pooled.
   4. Kam runs candidate NTPs and judges the kill/survive verdicts + ranking sound.
-**Plans**: TBD
+**Plans**: 2 plans (2 waves)
+- [ ] 02-01-PLAN.md — Rewrite SKILL.md in place: inline the spec, reconcile the input contract to real S1 output, wire D-01..D-10, resolve the repo-root path mismatch, inject DR-KB via read_first (Wave 1)
+- [ ] 02-02-PLAN.md — Exercise the rewritten skill against real Arduview data → produce runs/arduview/market-selection.md (6 per-cell gate records); Kam judges verdicts + ranking sound (Wave 2, human UAT)
 
 ### Phase 3: Stage M1-S3 — Deep competitive analysis + messaging strategy
 **Goal**: Deep analysis of the chosen market's top ~5 brands via two lenses (structure + messaging) over one competitor pool, merged into a deployable plan — proven angles / dead ground / whitespace / container / awareness calibration — with a human Gate 2 win-decision.
