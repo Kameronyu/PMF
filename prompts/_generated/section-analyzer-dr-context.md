@@ -1,6 +1,6 @@
 ========================================================================
-=== DR MARKETING KNOWLEDGE FILES (auto-injected by inject-dr.js) ===
-=== Section Analyzer context — USE AS CLASSIFICATION RUBRICS      ===
+=== DR MARKETING KNOWLEDGE FILES (bundled by inject-dr.js — NOT auto-injected) ===
+=== Section Analyzer reads/receives this bundle — USE AS CLASSIFICATION RUBRICS  ===
 === Files: 6 target | Loaded: 6 | Max chars: 120000 ===
 ========================================================================
 

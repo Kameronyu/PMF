@@ -1,9 +1,11 @@
 #!/usr/bin/env node
-// inject-dr.js — Runtime DR-file auto-injection hook for the Section Analyzer.
-// Reads the six fixed DR marketing files from ~/knowledge/dr-marketing/ and
-// concatenates them (in stable order, with attribution headers) to stdout or a
-// temp file. The Section Analyzer orchestrator pastes this combined block into
-// the Section Analyzer's context window before each run.
+// inject-dr.js — DR-file BUNDLER for the Section Analyzer (NOT an auto-injection hook).
+// There is NO harness auto-injection — the analyzer runs as a subagent where settings
+// hooks don't fire. This script reads the six fixed DR marketing files from
+// ~/knowledge/dr-marketing/ and concatenates them (in stable order, with attribution
+// headers) into a generated bundle (default: prompts/_generated/section-analyzer-dr-context.md;
+// --stdout to emit instead). The analyzer's spawn-prompt assembler injects that bundle, or
+// the analyzer Reads it as its first step, before each run.
 //
 // Security: the six filenames are a hardcoded allowlist — no filename is taken
 // from argv or any untrusted input. Each resolved path is checked to stay under
@@ -169,8 +171,8 @@ for (const filename of DR_ALLOWLIST) {
 // --- Assemble output ---
 const header = [
   '='.repeat(72),
-  '=== DR MARKETING KNOWLEDGE FILES (auto-injected by inject-dr.js) ===',
-  '=== Section Analyzer context — USE AS CLASSIFICATION RUBRICS      ===',
+  '=== DR MARKETING KNOWLEDGE FILES (bundled by inject-dr.js — NOT auto-injected) ===',
+  '=== Section Analyzer reads/receives this bundle — USE AS CLASSIFICATION RUBRICS  ===',
   `=== Files: ${DR_ALLOWLIST.length} target | Loaded: ${loadedCount} | Max chars: ${maxChars} ===`,
   '='.repeat(72),
   '',

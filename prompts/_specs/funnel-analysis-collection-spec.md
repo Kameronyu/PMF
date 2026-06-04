@@ -255,7 +255,7 @@ The implementer is not assumed to know DR marketing. Below: exactly which DR sou
 
 **Hard rule on how DR knowledge is used — read this before §11 details:**
 - For every agent EXCEPT the Section Analyzer: the **orchestrator** reads DR files and BAKES the needed concepts, vocab, and decision rules INTO the prompt it writes. It does NOT inject raw DR docs into those agents' contexts. Those runtime agents receive self-contained prompts with the distilled logic written out.
-- **The Section Analyzer is the exception: it DOES read DR files at runtime.** The orchestrator builds a hook that auto-injects the DR files named below (§11) into the Section Analyzer's context window when it runs. The operator does not hand-pick context per funnel — the hook injects the chosen set every time. This doc specifies WHICH files (the marketing-strategy call). The orchestrator/implementer determines the right WAY to implement the injection hook (how files are loaded, trimmed, ordered, cached, kept within context limits) — that is an implementation decision, not specified here.
+- **The Section Analyzer is the exception: it DOES get the DR files at runtime — via a generated BUNDLE, NOT auto-injection.** There is NO harness auto-injection (the analyzer runs as a subagent where settings hooks do not fire — see the DR-bundle failure that shipped exactly this lie). `tools/hooks/inject-dr.js` concatenates the DR files named below (§11) into `prompts/_generated/section-analyzer-dr-context.md`; the analyzer's spawn-prompt assembler injects that bundle (plus the cleaned funnel copy) into the analyzer's context, or the analyzer Reads it as its first step. The operator does not hand-pick context per funnel — the bundle carries the chosen set every time. This doc specifies WHICH files (the marketing-strategy call). The implementer decides the WAY the bundle is loaded/trimmed/ordered/cached and how it is injected into or read by the analyzer — that is an implementation decision, not specified here.
 - Mechanical agents (Scraper/Assembler, Cleaner, Validation Scorer) NEVER get DR anything.
 
 ### Scraper / Assembler — DR files needed: NONE
@@ -267,8 +267,8 @@ Produces clean section-marked copy. Mechanical. (It marks structural breaks, it 
 ### Validation Scorer — DR files needed: NONE
 Arithmetic on §3 currencies. Mechanical.
 
-### Section Analyzer — these DR files are AUTO-INJECTED into its context at runtime
-Per the §11 rule, the orchestrator builds a hook that injects these files into the Section Analyzer's context window when it runs. This doc picks the files (the strategy call); the implementer decides how to load/trim/order them. What each supplies:
+### Section Analyzer — these DR files are bundled into its context at runtime (via inject-dr.js, NOT auto-injection)
+Per the §11 rule, `tools/hooks/inject-dr.js` bundles these files into `prompts/_generated/section-analyzer-dr-context.md`, which the analyzer's spawn-prompt assembler injects (or the analyzer Reads as its first step) when it runs — there is no auto-injection hook. This doc picks the files (the strategy call); the implementer decides how to load/trim/order them. What each supplies:
 
 - **`persuasion--carl-weische.md`** — the six cold-offer persuasion elements (social proof, authority, certainty/risk-reversal, scarcity, urgency, exclusivity) and the objection→element mapping. Core source for `execution_type` values and belief anchors 6–9.
 - **`funnel-architecture--carl-weische.md`** — the four funnel types, the V-shape awareness model, the pre-sale 4-part framework, the 8-step advertorial structure, the six-section sales page. Core source for `funnel_sequence`, `awareness_entry`, and the belief INSTALL ORDER behind anchors 1–5.
@@ -282,7 +282,7 @@ Optional/secondary (inject only if testing shows the analyzer needs deeper cover
 - `landing-pages--carl-weische.md` (page-section job recognition)
 - `consumer-psychology--carl-weische.md` (awareness-level reading depth)
 
-**Do NOT inject all DR files.** The six files above are the load-bearing set to auto-inject into the Section Analyzer's context. The full library spans four educators with overlapping/competing vocab; injecting everything creates conflicting terminology and context bloat that degrades classification. Inject the six; the optional/secondary files are added only if testing shows the analyzer needs deeper coverage on a specific axis.
+**Do NOT bundle all DR files.** The six files above are the load-bearing set to bundle into the Section Analyzer's context. The full library spans four educators with overlapping/competing vocab; bundling everything creates conflicting terminology and context bloat that degrades classification. Bundle the six; the optional/secondary files are added only if testing shows the analyzer needs deeper coverage on a specific axis.
 
 ### Anything left open that is NOT marketing knowledge
 For any schema-format, tag-serialization, file-naming, or storage-location question that is NOT about marketing: do not decide it from DR files and do not improvise. Conform to what already exists in the PMF-workspace repo (§0). If the repo is silent, flag it for the operator rather than guessing.
@@ -307,7 +307,7 @@ This section reports the state of the MARKETING-STRATEGY decisions only. It does
 
 **Implementation decisions explicitly left to the implementer (NOT specified here — out of my lane):**
 - How the scraper/assembler is actually built (render method, URL normalization implementation, clustering, storage)
-- How the DR-file auto-injection hook works (loading, trimming, ordering, caching, context limits) (§11)
+- How the DR-file bundle is built + injected/read (inject-dr.js loading, trimming, ordering, caching, context limits) (§11)
 - Schema serialization, tag formats, file naming, storage location — conform to the PMF-workspace repo (§0)
 - Model choice / cost tier per agent
 - Whether each piece is, in fact, ready to build — that is the implementer's call, not this doc's
