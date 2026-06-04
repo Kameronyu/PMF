@@ -45,6 +45,8 @@ if (opts.help || !opts.space || !opts.query) {
     '  --query        required. the belief / section to write (free text)',
     '  --belief       prefilter: only this belief_id (e.g. it-will-ship)',
     '  --proof-tier   prefilter: only this proof_tier (e.g. "Tier 1")',
+    '  --source-type  prefilter: only this source_type (e.g. crowdfunding, dtc)',
+    '  --routing-flag prefilter: only this routing_flag (e.g. structure_only, messaging_full, both)',
     '  --top          number of records to return (default 6)',
     '  --json         emit JSON instead of the injection text block',
     '  --out          write to a file instead of stdout',
@@ -77,11 +79,13 @@ if (!!meta.is_stub !== isStub()) {
 
 // --- 1. structured prefilter (free; labels already present) ---
 const norm = s => String(s == null ? '' : s).trim().toLowerCase();
-if (opts.belief)        records = records.filter(r => norm(r.belief_id)  === norm(opts.belief));
-if (opts['proof-tier']) records = records.filter(r => norm(r.proof_tier) === norm(opts['proof-tier']));
+if (opts.belief)           records = records.filter(r => norm(r.belief_id)   === norm(opts.belief));
+if (opts['proof-tier'])    records = records.filter(r => norm(r.proof_tier)  === norm(opts['proof-tier']));
+if (opts['source-type'])   records = records.filter(r => norm(r.source_type) === norm(opts['source-type']));
+if (opts['routing-flag'])  records = records.filter(r => norm(r.routing_flag) === norm(opts['routing-flag']));
 
 if (records.length === 0) {
-  console.error('[warn] prefilter eliminated all records — relax --belief/--proof-tier.');
+  console.error('[warn] prefilter eliminated all records — relax --belief/--proof-tier/--source-type/--routing-flag.');
 }
 
 (async () => {
@@ -99,7 +103,7 @@ if (records.length === 0) {
   if (opts.json) {
     const out = JSON.stringify({
       query: opts.query, space, backend: backendName(),
-      prefilter: { belief: opts.belief || null, proof_tier: opts['proof-tier'] || null },
+      prefilter: { belief: opts.belief || null, proof_tier: opts['proof-tier'] || null, source_type: opts['source-type'] || null, routing_flag: opts['routing-flag'] || null },
       results: ranked.map(({ r, sim }) => ({ sim, ...r, vector: undefined })),
     }, null, 2);
     return write(out);
@@ -108,7 +112,7 @@ if (records.length === 0) {
   const lines = [];
   lines.push(`=== WINNING-FUNNEL RAG · space=${space} · backend=${backendName()}${meta.is_stub ? ' · STUB(lexical-only)' : ''} ===`);
   lines.push(`Query: ${opts.query}`);
-  const pf = [opts.belief && `belief=${opts.belief}`, opts['proof-tier'] && `proof_tier=${opts['proof-tier']}`].filter(Boolean).join(', ');
+  const pf = [opts.belief && `belief=${opts.belief}`, opts['proof-tier'] && `proof_tier=${opts['proof-tier']}`, opts['source-type'] && `source_type=${opts['source-type']}`, opts['routing-flag'] && `routing_flag=${opts['routing-flag']}`].filter(Boolean).join(', ');
   lines.push(`Prefilter: ${pf || 'none'} · returned ${ranked.length} of ${index.records.length} indexed`);
   lines.push('Use these as STRUCTURAL/PERSUASIVE reference for how proven funnels install this belief — adapt, do not copy verbatim into a different transformation.');
   lines.push('');

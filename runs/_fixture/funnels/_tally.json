@@ -1,0 +1,155 @@
+{
+  "_meta": {
+    "space": "_fixture",
+    "generated_at": "2026-06-04T06:09:09.739Z",
+    "threshold": 5,
+    "total_funnels": 1,
+    "total_move_keys": 14,
+    "dead_ground_count": 0,
+    "whitespace_count": 14,
+    "low_n_warning": true
+  },
+  "dead_ground": [],
+  "whitespace": [
+    {
+      "move": "backer-unboxing-photos",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "it-will-ship"
+      ]
+    },
+    {
+      "move": "campaign-clock",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "act-now"
+      ]
+    },
+    {
+      "move": "dated-production-photo",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "trust-the-brand-or-founder"
+      ]
+    },
+    {
+      "move": "delivered-counter",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "it-will-ship"
+      ]
+    },
+    {
+      "move": "early-bird-allocation",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "act-now"
+      ]
+    },
+    {
+      "move": "exploded-diagram",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "mechanism-is-the-reason"
+      ]
+    },
+    {
+      "move": "factory-named",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "trust-the-brand-or-founder"
+      ]
+    },
+    {
+      "move": "founder-on-camera",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "trust-the-brand-or-founder"
+      ]
+    },
+    {
+      "move": "live-remaining-count",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "act-now"
+      ]
+    },
+    {
+      "move": "module-naming",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "mechanism-is-the-reason"
+      ]
+    },
+    {
+      "move": "open-source-claim",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "mechanism-is-the-reason"
+      ]
+    },
+    {
+      "move": "price-step",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "act-now"
+      ]
+    },
+    {
+      "move": "skin-in-game",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "trust-the-brand-or-founder"
+      ]
+    },
+    {
+      "move": "update-timeline",
+      "funnel_count": 1,
+      "funnels": [
+        "gameshell-kickstarter"
+      ],
+      "belief_ids": [
+        "it-will-ship"
+      ]
+    }
+  ]
+}
