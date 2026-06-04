@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: "Completed 03-02-PLAN.md (post-binding bricks: crowdfund-fetch Currency-B + funnel-clean + funnel-score)"
-last_updated: "2026-06-04T01:51:48.766Z"
+status: verifying
+stopped_at: "Completed 03-03-PLAN.md (judgment layer: Router + Section Analyzer + inject-dr + validate-analyzer)"
+last_updated: "2026-06-04T02:02:21.662Z"
 last_activity: 2026-06-04
 progress:
   total_phases: 14
   completed_phases: 1
   total_plans: 11
-  completed_plans: 8
-  percent: 73
+  completed_plans: 9
+  percent: 82
 ---
 
 # Project State
@@ -40,7 +40,7 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 **Track B — VOC (Step 3a/3b):** all SPECCED in `handoff-step3-voc-build.md`; starts at the **M1-S4 codebook keystone** (everything keys off it). Not yet built.
 
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
 Last activity: 2026-06-04
 
@@ -73,6 +73,9 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 03]: ssrfGuard() ported from funnel-assemble.js to crowdfund-fetch.js — operator-supplied CF URLs need same SSRF protection (T-03-05)
 - [Phase 03]: validation_lane is array not string to carry both A+B lanes simultaneously without a combined/merged field (D-09 invariant)
 - [Phase 03]: extractReviewBlocks() runs on raw HTML before stripToText() — container class attributes only detectable before tag stripping
+- [Phase 03]: Controlled vocab resolved without ratification gate (D-15 overrides spec §12): EXECUTION_TYPE_ENUM 13 values, PROOF_TIER_ENUM Tier1/2/3, MOVE_ENUM 15 lever tags; claim_type REUSED from step1
+- [Phase 03]: inject-dr.js emits to stdout by default; orchestrator pastes block into Analyzer context (FILE injection, not RAG)
+- [Phase 03]: validate-analyzer.js verbatim-substring gate uses same non-fatal missing-corpus behavior as validate-dumper.js; awareness_entry enum (unaware/problem-aware/solution-aware/product-aware/offer-aware) added to funnel_fields validation
 
 ### Pending Todos
 
@@ -96,9 +99,10 @@ None tracked here.
 | Phase 02 P02 | 30 | 1 tasks | 1 files |
 | Phase 03 P01 | 5 | 2 tasks | 2 files |
 | Phase 03 P02 | 6 | 3 tasks | 3 files |
+| Phase 03 P03 | 7 | 3 tasks | 3 files |
 
 ## Session Continuity
 
-Last session: 2026-06-04T01:51:48.763Z
-Stopped at: Completed 03-02-PLAN.md (post-binding bricks: crowdfund-fetch Currency-B + funnel-clean + funnel-score)
+Last session: 2026-06-04T02:02:21.659Z
+Stopped at: Completed 03-03-PLAN.md (judgment layer: Router + Section Analyzer + inject-dr + validate-analyzer)
 Resume file: None

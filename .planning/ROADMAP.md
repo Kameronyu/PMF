@@ -99,7 +99,7 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
 **Plans**: 4 plans (4 waves) — collection layer only; birdseye merge + Gate 2 deferred.
 - [x] 03-01-PLAN.md — Scraper binding spine: extend adlib-one.js (destination_url) + funnel-assemble.js (normalize/cluster/render) (Wave 1)
 - [x] 03-02-PLAN.md — Mechanical bricks: crowdfund-fetch Currency-B parser + funnel-clean + funnel-score (Wave 2)
-- [ ] 03-03-PLAN.md — Judgment agent: funnel-deep-pass.md (Router + Section Analyzer) + inject-dr.js + validate-analyzer.js (Wave 3)
+- [x] 03-03-PLAN.md — Judgment agent: funnel-deep-pass.md (Router + Section Analyzer) + inject-dr.js + validate-analyzer.js (Wave 3)
 - [ ] 03-04-PLAN.md — Store (funnel-store.js) + ROADMAP rewrite + debug-notes scaffold + live smoke test (Wave 4)
 
 ### Phase 4: Stage M1-S4 — VOC codebook + record schema
