@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-04-PLAN.md (Task 4 D-17 smoke test deferred by operator)
-last_updated: "2026-06-04T05:06:56.019Z"
-last_activity: 2026-06-04 -- Phase 15 execution started
+stopped_at: "Completed 16-01-PLAN.md (Wave-0 setup: venv + 3 data artifacts + spawn convention)"
+last_updated: "2026-06-04T07:53:45.360Z"
+last_activity: 2026-06-04
 progress:
   total_phases: 16
   completed_phases: 2
-  total_plans: 16
-  completed_plans: 10
-  percent: 63
+  total_plans: 22
+  completed_plans: 14
+  percent: 64
 ---
 
 # Project State
@@ -22,13 +22,13 @@ See: .planning/PROJECT.md · Roadmap: .planning/ROADMAP.md (rewritten 2026-06-03
 
 **Core value:** A reusable research engine that converts a T/P/N seed into a validated market bet plus a
 queryable bank of real, attributed customer language (verbatim, live permalinks).
-**Current focus:** Phase 15 — stage-m1-s15-funnel-architect-copywriter
+**Current focus:** Phase 16 — asset-classifier-image-and-video-bricks
 (Step 0/1/2, closest to running) and **Track B: VOC** (Step 3a/3b, specced).
 
 ## Current Position
 
-Phase: 15 (stage-m1-s15-funnel-architect-copywriter) — EXECUTING
-Plan: 1 of 5
+Phase: 16 (asset-classifier-image-and-video-bricks) — EXECUTING
+Plan: 2 of 6
 Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
 Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
@@ -40,9 +40,9 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 **Track B — VOC (Step 3a/3b):** all SPECCED in `handoff-step3-voc-build.md`; starts at the **M1-S4 codebook keystone** (everything keys off it). Not yet built.
 
-Status: Executing Phase 15
+Status: Ready to execute
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
-Last activity: 2026-06-04 -- Phase 15 execution started
+Last activity: 2026-06-04
 
 Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not yet run end-to-end through the new pipeline)
 
@@ -79,6 +79,8 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 03]: funnel_id + space sanitized to [a-z0-9._-] before write path (T-03-13 compliance)
 - [Phase 03]: birdseye-computed fields (merge/synthesis) NOT added to funnel-store.js — collection records only
 - [Phase 03]: D-17 plumbing smoke test DEFERRED by operator at plan 03-04 closeout — validated-by-construction (syntax checks + prior Self-Check PASSes), end-to-end live run deferred to D-02 after market pick
+- [Phase 16]: .venv is project-level venv; all Python bricks use .venv/bin/python explicit spawn (PEP 668 box)
+- [Phase 16]: section-table.json in tools/asset/ (product-agnostic default); per-run overrides at runs/<space>/asset-classify/
 
 ### Pending Todos
 
@@ -101,6 +103,7 @@ None tracked here.
 |---|-------------|------|--------|-----------|
 | 260603-wfz | Fix funnel Section Analyzer to be orchestrator-managed (deterministic DR + funnel-body injection) | 2026-06-04 | 7081458 | [260603-wfz-fix-funnel-section-analyzer-to-be-orches](./quick/260603-wfz-fix-funnel-section-analyzer-to-be-orches/) |
 | 260603-x8o | Author /funnel-deep-pass orchestrator skill consolidating the funnel deep-pass workflow (source of truth; agent prompts folded in, schema referenced) | 2026-06-04 | 8e45fa6 | [260603-x8o-author-funnel-deep-pass-orchestrator-ski](./quick/260603-x8o-author-funnel-deep-pass-orchestrator-ski/) |
+| Phase 16-asset-classifier-image-and-video-bricks P01 | 144 | 3 tasks | 6 files |
 
 ## Deferred Items
 
@@ -120,6 +123,6 @@ None tracked here.
 
 ## Session Continuity
 
-Last session: 2026-06-04T02:23:32.783Z
-Stopped at: Completed 03-04-PLAN.md (Task 4 D-17 smoke test deferred by operator)
+Last session: 2026-06-04T07:53:45.357Z
+Stopped at: Completed 16-01-PLAN.md (Wave-0 setup: venv + 3 data artifacts + spawn convention)
 Resume file: None
