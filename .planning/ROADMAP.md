@@ -294,7 +294,33 @@ a validated bet + copy bank. Source state in `launch/README.md`.
   4. The RAG supports per-section source-routed retrieval (source_type/routing scoping), with the index carrying the needed field.
   5. Every assumed-but-absent field (`belief_kind`/`source_routing`) is either added upstream or resolved by derivation, with the decision recorded.
   6. The full chain runs end-to-end against the synthetic fixture: funnel store → architect → brief → copywriter → prose. Live-on-real-funnels validation explicitly deferred to D-02.
-**Plans**: TBD (run /gsd-plan-phase 15 to break down — expect ~architect / copywriter / shared-substrate plans)
+**Plans**: 5 plans in 4 waves
+Plans:
+- [ ] 15-01-PLAN.md — belief_kind schema extension: schema doc + fixture + validator (Wave 0)
+- [ ] 15-02-PLAN.md — RAG source routing + claim-tally script: vectorize/rag-query extend + funnel-claim-tally.js (Wave 0)
+- [ ] 15-03-PLAN.md — Funnel Architect skill: inject-funnel-architect-dr.js + SKILL.md (Wave 1)
+- [ ] 15-04-PLAN.md — Copywriter skill: inject-copywriter-dr.js + SKILL.md (Wave 2)
+- [ ] 15-05-PLAN.md — End-to-end operator verification: all injection points + fixture chain (Wave 3)
+
+### Phase 16: Stage M1-S16 — Asset Classifier (image + video bricks)
+**Goal**: A product-agnostic brick string turns a folder of raw product images/videos into a queryable, claim-tagged manifest (`IMAGES.md`/`VIDEOS.md` + `images.json`/`videos.json`) that the LP-build/copywriter agents (Phase 15) pull from to place the right asset behind each belief they install. Designed backward from the consumer: the PRIMARY KEY is the product claim an asset visually proves + strength, not the slot. Section is a derived convenience.
+**Serves PMF Step**: 4 (launch LP-build support — same Step-4/launch-adjacent pull-forward as M1-S15).
+**Depends on**: Phase 15 (consumer — the Funnel Architect/Copywriter that query the manifest by belief); soft — the classifier can be built and UAT'd standalone against the Arduview asset set before S15 consumes it. Section list ultimately wires to the deep-analysis funnel container (M1-S3), default crowdfunding/DTC sections until then.
+**Requirements**: TBD (planning to assign ASSET-IDs).
+**Status**: SPECCED + PROVEN. Spec authority: `prompts/_specs/image-classifier-brick.md` (images + the 5fps-montage video extension). Live proof on real Arduview shots: `runs/arduview/_asset-classify-proof.md` — validated copy→PIL-downscale→vision→claim-tagged record; auto-surfaced dedupe + background-disqualifier + no-clean-hero gap.
+**Brick string** (brick model: deterministic→script/hook, judgment→agent, gate→human): (1) fetch [script] (2) probe [script] (3) relevance-bucket [cheap agent] (4) role-classify [agent — core judgment, fan-out one subagent per asset] (5) map+rank [script] (6) pick gate [🧑] (7) emit manifest [script] (8) upload+url-backfill [script, Shopify Files; video CDN URLs are hashed]. Video adds probe-video + sample-at-5fps + montage-into-timestamped-contact-sheets so the vision agent comprehends the whole clip in order.
+**Known gaps from proof (resolve in planning, do not pre-decide)**:
+  - No ffmpeg on the box → video sample/montage needs a decoder (`pip install av` or `imageio[ffmpeg]`). Images work via PIL today.
+  - Section list is default crowdfunding/DTC; wire to the funnel container from M1-S3 deep analysis once available.
+  - Per-product claim list is a per-launch input (Arduview worked instance defined in the spec) — decide where it's authored/stored.
+  - `eligible_sections` routing kept in a deterministic table (claim→sections), NOT in the agent — confirm the table lives as an editable artifact.
+**Success Criteria** (what must be TRUE):
+  1. The 8-brick string exists per the spec, each brick the right executor (scripts deterministic, the two judgment reads are agents, the pick is a human gate).
+  2. `role-classify` emits the claim-tagged record (claim + strength + pixel evidence, grounded — tags only what's visible), fanned out one subagent per asset.
+  3. Running the string on the real Arduview asset set produces `IMAGES.md`/`VIDEOS.md` + JSON the builder can query by claim+strength, with dedupe, disqualifiers, and a gap list.
+  4. Video bricks extract at 5fps and montage into timestamped sheets; the agent returns a segment timeline + motion_value + best_use (hero_loop/feature_demo) + poster_frame.
+  5. UAT: the human reads the manifest and makes the per-section picks (gate); the picks are usable by Phase 15.
+**Plans**: TBD (run /gsd-plan-phase 16 to break down — expect ~image-string / video-string / manifest-contract plans).
 
 ---
 
