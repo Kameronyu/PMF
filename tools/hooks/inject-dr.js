@@ -100,8 +100,9 @@ function isUnderDrDir(resolvedPath) {
 
 // --- Load files ---
 const parts = [];
-let totalChars = 0;
-let trimmed    = false;
+let totalChars  = 0;
+let trimmed     = false;
+let loadedCount = 0; // IN-03: count successfully-read files (not parts.length, which varies on truncation)
 
 for (const filename of DR_ALLOWLIST) {
   // Double-check: filename must not contain path separators or '..' sequences.
@@ -156,6 +157,7 @@ for (const filename of DR_ALLOWLIST) {
 
   parts.push(block);
   totalChars += block.length;
+  loadedCount = loadedCount + 1; // IN-03: increment once per successfully-read file
 }
 
 // --- Assemble output ---
@@ -163,7 +165,7 @@ const header = [
   '='.repeat(72),
   '=== DR MARKETING KNOWLEDGE FILES (auto-injected by inject-dr.js) ===',
   '=== Section Analyzer context — USE AS CLASSIFICATION RUBRICS      ===',
-  `=== Files: ${DR_ALLOWLIST.length} target | Loaded: ${parts.length - (trimmed ? 0 : 0)} | Max chars: ${maxChars} ===`,
+  `=== Files: ${DR_ALLOWLIST.length} target | Loaded: ${loadedCount} | Max chars: ${maxChars} ===`,
   '='.repeat(72),
   '',
   'These files supply the vocabulary, frameworks, and decision rules for:',
