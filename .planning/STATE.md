@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
+status: executing
 stopped_at: Completed 03-04-PLAN.md (Task 4 D-17 smoke test deferred by operator)
-last_updated: "2026-06-04T02:44:19.745Z"
-last_activity: 2026-06-04
+last_updated: "2026-06-04T05:06:56.019Z"
+last_activity: 2026-06-04 -- Phase 15 execution started
 progress:
-  total_phases: 14
+  total_phases: 16
   completed_phases: 2
-  total_plans: 11
+  total_plans: 16
   completed_plans: 10
-  percent: 91
+  percent: 63
 ---
 
 # Project State
@@ -22,13 +22,13 @@ See: .planning/PROJECT.md · Roadmap: .planning/ROADMAP.md (rewritten 2026-06-03
 
 **Core value:** A reusable research engine that converts a T/P/N seed into a validated market bet plus a
 queryable bank of real, attributed customer language (verbatim, live permalinks).
-**Current focus:** Phase 03 — stage-m1-s3-deep-competitive-analysis-messaging-strategy
+**Current focus:** Phase 15 — stage-m1-s15-funnel-architect-copywriter
 (Step 0/1/2, closest to running) and **Track B: VOC** (Step 3a/3b, specced).
 
 ## Current Position
 
-Phase: 4
-Plan: Not started
+Phase: 15 (stage-m1-s15-funnel-architect-copywriter) — EXECUTING
+Plan: 1 of 5
 Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
 Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
@@ -40,9 +40,9 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 **Track B — VOC (Step 3a/3b):** all SPECCED in `handoff-step3-voc-build.md`; starts at the **M1-S4 codebook keystone** (everything keys off it). Not yet built.
 
-Status: Phase complete — ready for verification
+Status: Executing Phase 15
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
-Last activity: 2026-06-04 - Completed quick task 260603-x8o: /funnel-deep-pass orchestrator skill (source of truth)
+Last activity: 2026-06-04 -- Phase 15 execution started
 
 Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not yet run end-to-end through the new pipeline)
 
