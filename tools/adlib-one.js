@@ -196,27 +196,6 @@ async function extractAdCards(page) {
   });
 }
 
-// Merge DOM-extracted card data into text-parsed ad records.
-// Text-parse provides the date/run fields; DOM-extract provides the binding-spine fields.
-// never-fabricate: if no DOM record matches a library_id, the new fields = null.
-function mergeCardData(ads, cardData) {
-  const byId = new Map();
-  for (const c of cardData) {
-    if (!byId.has(c.library_id)) byId.set(c.library_id, c);
-  }
-  return ads.map(ad => {
-    const card = byId.get(ad.library_id);
-    return {
-      ...ad,
-      destination_url: card ? (card.destination_url || null) : null,
-      cta_text: card ? (card.cta_text || null) : null,
-      headline: card ? (card.headline || null) : null,
-      impression_bucket: card ? (card.impression_bucket || null) : null,
-      platforms: card ? (card.platforms || null) : null,
-    };
-  });
-}
-
 // Text-chunk fallback extraction for fields that sometimes surface in innerText
 // (headline often visible in text dumps; impression_bucket on EU view).
 // Fills in null fields on the ad record from the text chunk when DOM extraction missed them.
