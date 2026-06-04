@@ -296,9 +296,9 @@ a validated bet + copy bank. Source state in `launch/README.md`.
   6. The full chain runs end-to-end against the synthetic fixture: funnel store → architect → brief → copywriter → prose. Live-on-real-funnels validation explicitly deferred to D-02.
 **Plans**: 5 plans in 4 waves
 Plans:
-- [ ] 15-01-PLAN.md — belief_kind schema extension: schema doc + fixture + validator (Wave 0)
-- [ ] 15-02-PLAN.md — RAG source routing + claim-tally script: vectorize/rag-query extend + funnel-claim-tally.js (Wave 0)
-- [ ] 15-03-PLAN.md — Funnel Architect skill: inject-funnel-architect-dr.js + SKILL.md (Wave 1)
+- [x] 15-01-PLAN.md — belief_kind schema extension: schema doc + fixture + validator (Wave 0)
+- [x] 15-02-PLAN.md — RAG source routing + claim-tally script: vectorize/rag-query extend + funnel-claim-tally.js (Wave 0)
+- [x] 15-03-PLAN.md — Funnel Architect skill: inject-funnel-architect-dr.js + SKILL.md (Wave 1)
 - [ ] 15-04-PLAN.md — Copywriter skill: inject-copywriter-dr.js + SKILL.md (Wave 2)
 - [ ] 15-05-PLAN.md — End-to-end operator verification: all injection points + fixture chain (Wave 3)
 
