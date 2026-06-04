@@ -42,7 +42,7 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 Status: Phase complete — ready for verification
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
-Last activity: 2026-06-04
+Last activity: 2026-06-04 - Completed quick task 260603-wfz: deterministic analyzer-context injection
 
 Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not yet run end-to-end through the new pipeline)
 
@@ -89,6 +89,12 @@ None tracked here.
 - Track B M1-S5: the open "no-clean-niche-venue" design problem (behavior-defined niches have no anchor subreddit) — flagged for the Query Planner stage.
 - Track B M1-S6: Reddit ingestion must run on the official commercial API (GummySearch died Nov 2025 over API licensing).
 - Track A M1-S1 revenue signal: monthly-visits source is manual-paste / review-proxy (no paid SimilarWeb API) — `revenue_est.method/confidence` keeps it swappable.
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260603-wfz | Fix funnel Section Analyzer to be orchestrator-managed (deterministic DR + funnel-body injection) | 2026-06-04 | 7081458 | [260603-wfz-fix-funnel-section-analyzer-to-be-orches](./quick/260603-wfz-fix-funnel-section-analyzer-to-be-orches/) |
 
 ## Deferred Items
 
