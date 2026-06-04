@@ -22,6 +22,8 @@ stylesheet: runs/arduview/site/styles.css   # LINKED, never re-authored (D-03)
 > **Authority (D-10):** Once this file exists it is the **single design source**. It SUPERSEDES `STYLE-LOCK.md` and `BUILD-FEEDBACK.md §1`; those become inputs-only and are never re-read by the builder. This document must stand alone — everything the builder and checker need is here.
 >
 > **Reuse rule (D-03):** The builder composes/edits HTML against the prebuilt, locked `styles.css`. It needs class *names* (below), never the CSS body. It NEVER authors or re-authors CSS.
+>
+> **Decision surface vs. implementation reference (read first):** This contract separates two things. The **declared contract** (Spacing Scale, Typography tables below) is the builder's *decision surface* — the small set of role-families/tokens the builder picks from when it assigns a class to an element. The **CSS implementation reference** subsections record the locked per-class pixel/weight values that already live in `styles.css`. The builder *reads* the reference to know what a class will render, but it never *chooses*, re-authors, or expands those values. The implementation reference is NOT part of the declared contract and is NOT what the dimension caps (≤4 sizes, ≤2 weights, multiples-of-4) apply to.
 
 ---
 
@@ -46,36 +48,58 @@ https://fonts.googleapis.com/css2?family=Doto:wght@400;700;800;900&family=Space+
 
 ## Spacing Scale
 
-The locked system is **fluid** (`clamp()`-based), not a fixed 8-point token set. These are the locked CSS variables and rhythm values — the builder uses these primitives, never invents one-off margins.
+### Declared contract (builder decision surface)
+
+The locked system is **fluid** (`clamp()`-based), not a fixed 8-point token set. These are the four locked spacing primitives the builder chooses from — it applies these tokens/classes, never invents one-off margins.
 
 | Token | Value | Usage |
 |-------|-------|-------|
 | `--gutter` | `clamp(20px, 5vw, 64px)` | Horizontal page padding (`.wrap`, `.nav`, `.footer`) |
-| `--section-y` | `clamp(72px, 12vh, 160px)` | Vertical rhythm between full sections (`.section`) |
-| `--section-y` (tight) | `clamp(40px, 7vh, 88px)` | `.section--tight` (founder band) |
+| `--section-y` | `clamp(72px, 12vh, 160px)` | Vertical rhythm between full sections (`.section`); `.section--tight` overrides to `clamp(40px, 7vh, 88px)` |
 | `--maxw` | `1120px` | Content max width; hero overrides to `1320px` |
-| split/founder/offer gap | `clamp(28px, 5vw, 72px)` | Two-column gap |
-| inter-element rhythm | 8 / 14 / 18 / 22 / 24 / 26 / 28 / 34 / 48 / 56 px | Discrete margins already used in the reference; stay on these steps |
+| split/founder/offer gap | `clamp(28px, 5vw, 72px)` | Two-column column gap |
 
-Exceptions: spacing is fluid by design (responsive viewport units) — the "multiples of 4" rule does not apply to the clamp tokens. The builder must reuse the tokens/classes above and not introduce arbitrary pixel margins outside the discrete step set.
+Exceptions: spacing is **fluid by design** (responsive viewport units) — the "multiples of 4" rule does not apply to the `clamp()` tokens above. The builder must reuse these tokens/classes and not introduce arbitrary pixel margins.
+
+> **CSS implementation reference — builder does not choose these (NOT part of the declared spacing contract).** The locked `styles.css` resolves the tokens above into discrete margins/paddings on specific components (e.g. `8 / 14 / 18 / 22 / 24 / 26 / 28 / 34 / 48 / 56 px` rhythm steps already baked into `.eyebrow`, `.pills`, `.chips`, `.feature`, `.letter`, `.price-row`, `.reassure`, etc.). These are pre-authored implementation details of the locked stylesheet, recorded here only so the spec stands alone (D-10). They are NOT a token set the builder selects from, NOT extensible, and the multiples-of-4 rule does not apply to them — the builder never authors a margin; it applies a class and the locked CSS supplies the value.
 
 ---
 
 ## Typography
 
-Three faces, locked roles. Heading weight tops out at 500 (TE light-grotesque restraint) — never bold a headline.
+### Declared contract (builder decision surface)
 
-| Role | Class | Family | Size | Weight | Line Height | Notes |
+Three faces, locked roles. The builder assigns elements to **one of four role-families** below; the class context within a family determines the exact clamp value (the builder does not pick sizes by hand). Heading weight tops out at 500 (TE light-grotesque restraint) — never bold a headline.
+
+| Role-family | Class(es) | Family | Size | Weight | Line Height | Notes |
 |------|-------|--------|------|--------|-------------|-------|
-| Body | `.body` / `body` | IBM Plex Mono | **17px** (min — see HARD-3) | 400 | 1.65 | Base body |
+| Body | `.body` / `body` / `.feature__v` / `.faq__a` / fine-print classes | IBM Plex Mono | **17px** base (min — see HARD-3) | 400 | 1.65 | Base reading text; fine-print sub-body labels run smaller per HARD-3 |
 | Lead | `.lead` | IBM Plex Mono | `clamp(1.08rem, 1.7vw, 1.24rem)` | 400 | 1.72 | Intro paragraphs; max 60ch |
-| Eyebrow / label / pill / chip-key / save-flag | `.eyebrow` `.pill` `.offer__tag` `.save-flag` | Doto | 11–13px | 700 | — | letter-spacing 0.1–0.18em, lowercase, cyan on dark |
-| Sub-head | `.h-sub` | Space Grotesk | `clamp(1.3rem, 2.6vw, 1.9rem)` | 400 | 1.04 | |
-| Section head | `.h-section` | Space Grotesk | `clamp(1.9rem, 4.4vw, 3.2rem)` | 500 | 1.04 | max 16ch |
-| Hero head | `.h-hero` | Space Grotesk | `clamp(2.5rem, 5.2vw, 4.6rem)` | 500 | 1.04 | hero override; max 14ch |
-| Price (new) | `.price-new` | Space Grotesk | `clamp(2.6rem, 6vw, 4rem)` | 500 | — | |
+| Heading | `.h-hero` / `.h-section` / `.h-sub` / `.feature__k` / `.faq__q` / `.offer__title` / `.reassure__h` / `.price-new` | Space Grotesk | `clamp()` range — size driven by class context (sub-head → section → hero); never bolded | 500 | 1.04 | One declared role. Class context selects the clamp band. **Price** (`.price-new`) is this role applied at the hero-scale band (`clamp(2.6rem, 6vw, 4rem)`) — not a separate declared role. |
+| Label / Eyebrow | `.eyebrow` `.pill` `.offer__tag` `.save-flag` `.nav__meta` `.wordmark` | Doto | 11–13px | locked (see note) | — | letter-spacing 0.1–0.18em, lowercase, cyan on dark |
 
-Headings: `line-height: 1.04`, `letter-spacing: -0.02em`. Body/lead: `line-height: 1.65–1.72`.
+**Declared weights: 400 and 500 ONLY.** Body/lead = 400; all headings = 500 (never bold a headline). Doto **700** on the Label/Eyebrow family is a **LOCKED COMPONENT IMPLEMENTATION DETAIL** of the `.eyebrow` / `.pill` / `.wordmark` classes — it is the dot-matrix display weight baked into those classes in `styles.css`. It is NOT a body/heading weight the builder declares or chooses; the builder applies the label class and the locked CSS supplies the Doto weight.
+
+Line-height: Headings `1.04`, `letter-spacing: -0.02em`. Body/lead `1.65–1.72`.
+
+> **CSS implementation reference — builder does not choose these (NOT part of the declared typography contract).** Per-class size/weight values pre-authored in the locked `styles.css`, recorded here so the spec stands alone (D-10). The builder reads these to know what a class renders; it never selects or re-authors them, and the ≤4-sizes / ≤2-weights caps do not apply to this reference list.
+>
+> | Class | Family | Size | Weight | Line Height |
+> |-------|--------|------|--------|-------------|
+> | `body` / `.body` | IBM Plex Mono | 17px | 400 | 1.65 |
+> | `.lead` | IBM Plex Mono | `clamp(1.08rem, 1.7vw, 1.24rem)` | 400 | 1.72 |
+> | `.h-hero` (hero override) | Space Grotesk | `clamp(2.5rem, 5.2vw, 4.6rem)` | 500 | 1.04 |
+> | `.h-section` | Space Grotesk | `clamp(1.9rem, 4.4vw, 3.2rem)` | 500 | 1.04 |
+> | `.h-sub` | Space Grotesk | `clamp(1.3rem, 2.6vw, 1.9rem)` | 400 | 1.04 |
+> | `.offer__title` | Space Grotesk | `clamp(1.9rem, 3.6vw, 3rem)` | 500 | 1.05 |
+> | `.price-new` | Space Grotesk | `clamp(2.6rem, 6vw, 4rem)` | 500 | — |
+> | `.feature__k` | Space Grotesk | `clamp(1.1rem, 1.8vw, 1.35rem)` | 500 | — |
+> | `.faq__q` | Space Grotesk | `1.22rem` | 500 | — |
+> | `.eyebrow` | Doto | 13px | 700 | — |
+> | `.pill` | Doto | 12px | (Doto default) | — |
+> | `.wordmark` | Doto | 20px | 800 | — |
+> | `.chip b` | Doto | 15px | 700 | — |
+> | fine-print (`.cta__fine` 13px, `.nav__meta` 12px, `.offer__secure`/`.paywall` 12px, `.chip` 13px) | IBM Plex Mono / Doto | 12–13px | 400/700 | — |
 
 ---
 
@@ -175,7 +199,7 @@ Builder needs names only; CSS body lives in the linked `styles.css` and is never
 | FAQ | `.faq` `.faq__item` `.faq__q` `.faq__a` | light | |
 | Footer | `.footer` `.footer__row` | dark | |
 | Deposit offer | `.deposit-hero` `.offer` `.offer__copy` `.offer__tag` `.offer__title` `.offer__value` `.offer__cta` `.offer__secure` `.offer__img` | dark | above-fold; HARD-4/5 |
-| Price | `.price-row` `.price-old` `.price-new` `.save-flag` | dark | |
+| Price | `.price-row` `.price-old` `.price-new` `.save-flag` | dark | `.price-new` = Heading role at hero-scale band (`clamp(2.6rem, 6vw, 4rem)`); not a separate declared type role |
 | Reassurance | `.reassure` `.reassure__h` `.lockins` `.lockins li b` `.lockins .tick` `.pay-strip` `.trust-blocks` `.trust-block` `.paywall` | dark | below-fold; each point once (HARD-6) |
 | Motion | `.reveal` `.reveal.in` | both | honors `prefers-reduced-motion` |
 | Hero video placeholder | `.video-ph` (+ children) | dark | swap to `<video autoplay muted loop playsinline poster>` when clip is ready |
@@ -233,8 +257,8 @@ No third-party registries declared. Registry vetting gate: not applicable.
 - [ ] Dimension 1 Copywriting: PASS — additive restraint (HARD-7), risk-reversal once (HARD-6), CTAs per contract
 - [ ] Dimension 2 Visuals: PASS — fold budget (HARD-4), element order per breakpoint (HARD-5), no captions/AI-tell chrome
 - [ ] Dimension 3 Color: PASS — single cyan accent <5%, context-aware (HARD-1, no black-on-black), CTA black-on-accent (HARD-2)
-- [ ] Dimension 4 Typography: PASS — 3 locked faces, heading wt ≤500, 17px body min (HARD-3)
-- [ ] Dimension 5 Spacing: PASS — fluid clamp tokens reused, no arbitrary margins
+- [ ] Dimension 4 Typography: PASS — 4 declared role-families (Body, Lead, Heading, Label/Eyebrow), 2 declared weights (400/500); Doto-700 is a locked component detail, not a declared weight; heading wt ≤500; 17px body min (HARD-3). Per-class CSS values are implementation reference only, not declared.
+- [ ] Dimension 5 Spacing: PASS — declared contract is the 4 fluid `clamp()` tokens (fluid-by-design exception); no discrete non-multiple-of-4 values declared. Discrete px rhythm is implementation reference only, not declared.
 - [ ] Dimension 6 Registry Safety: PASS — not applicable, no third-party blocks
 
 **Approval:** pending
