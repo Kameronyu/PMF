@@ -3,3 +3,6 @@ corpus/*/raw/
 
 # Ad library screenshots (binary, large)
 ads/*_adv.png
+
+# Python virtual environment (PEP 668 — use .venv/bin/python explicitly)
+.venv/
