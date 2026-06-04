@@ -1,7 +1,8 @@
 ---
 phase: 17
 slug: lp-builder-implement-arduview-landing-and-deposit-pages-from
-status: draft
+status: approved
+reviewed_at: 2026-06-04
 shadcn_initialized: false
 preset: none
 created: 2026-06-04
