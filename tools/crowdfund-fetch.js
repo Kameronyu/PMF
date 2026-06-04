@@ -105,6 +105,13 @@ function isPrivateIp(ip) {
 }
 
 async function ssrfGuard(urlStr) {
+  // WR-03 (DNS-rebinding / TOCTOU): There is an inherent gap between this dns.lookup()
+  // call and the browser's own DNS resolution in page.goto(). An attacker controlling
+  // DNS could return a public IP here and a private IP to the browser (DNS rebinding).
+  // Mitigation: the context.route() interceptor (WR-01) re-runs ssrfGuard() on every
+  // navigation hop, substantially reducing the effective attack window. Full IP-pinning
+  // is not practical with Playwright's high-level API without a custom proxy. Residual
+  // risk accepted and documented; the interceptor is the primary enforcement layer.
   try {
     const u = new URL(urlStr);
     if (u.protocol !== 'https:' && u.protocol !== 'http:') return false;
