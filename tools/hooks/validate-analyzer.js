@@ -127,6 +127,41 @@ const BIRDSEYE_ONLY_FIELDS = ['consensus', 'divergence', 'unusual', 'pool', 'poo
 // lives at corpus/<funnel_id>/_funnel-clean.json or corpus/<funnel_id>/clean.txt or similar.
 // Fallback search strategy mirrors validate-dumper.js findCleanDir: walk up from the
 // output file's directory, try multiple plausible locations.
+
+// WR-02: The Section Analyzer is instructed to quote verbatim from the CLEANED body
+// (HTML stripped, entities decoded). The verbatim gate must therefore compare against
+// the same cleaned text. Never compare against raw landing_page_body — entity-encoded
+// HTML will cause false-rejects for any substring that contains decoded characters
+// (e.g. "&" from "&amp;", "'" from "&#39;"). If only raw HTML is available, apply
+// the same stripToText transform that funnel-clean.js uses before verifying.
+
+// Minimal entity-decode + tag-strip mirror of funnel-clean.js stripToText.
+// Kept inline so this hook has no runtime dependency on funnel-clean.js.
+function stripToTextForVerify(html) {
+  let s = html.slice(0, 2_000_000);
+  s = s.replace(/<script[\s\S]*?<\/script>/gi, '');
+  s = s.replace(/<style[\s\S]*?<\/style>/gi, '');
+  s = s.replace(/<nav[\s\S]*?<\/nav>/gi, '');
+  s = s.replace(/<header[\s\S]*?<\/header>/gi, '');
+  s = s.replace(/<footer[\s\S]*?<\/footer>/gi, '');
+  s = s.replace(/<[^>]{0,500}>/g, ' ');
+  s = s
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&#x27;/g, "'")
+    .replace(/&#x2F;/g, '/')
+    .replace(/&mdash;/g, '—')
+    .replace(/&ndash;/g, '–')
+    .replace(/&hellip;/g, '…');
+  s = s.replace(/[ \t]+$/gm, '');
+  s = s.replace(/\n{4,}/g, '\n\n\n');
+  return s.trim();
+}
+
 function findCleanedBody(funnel_id, outputDir) {
   if (!funnel_id) return null;
 
@@ -152,8 +187,15 @@ function findCleanedBody(funnel_id, outputDir) {
     }
   }
 
-  // Also try loading from a funnel_package JSON (landing_page_body or cleaned_body field)
+  // Also try loading from a funnel_package JSON (cleaned_body or landing_page_body field).
+  // WR-05: include the funnel-clean.js default output path funnels-clean/<funnel_id>-clean.json.
+  // WR-02: ONLY use pkg.cleaned_body (already decoded/stripped) as the comparison corpus.
+  //        If only landing_page_body (raw HTML) is present, run it through stripToTextForVerify
+  //        so entity-decoded characters in verbatim quotes are not wrongly rejected.
   const packageCandidates = [
+    // funnel-clean.js default output (WR-05: was missing from candidates)
+    path.join(outputDir, '..', 'funnels-clean', `${funnel_id}-clean.json`),
+    path.join(process.cwd(), 'funnels-clean', `${funnel_id}-clean.json`),
     path.join(outputDir, `${funnel_id}.json`),
     path.join(outputDir, '..', `${funnel_id}.json`),
     path.join(process.cwd(), 'runs', funnel_id + '.json'),
@@ -162,8 +204,11 @@ function findCleanedBody(funnel_id, outputDir) {
     if (fs.existsSync(c)) {
       try {
         const pkg = JSON.parse(fs.readFileSync(c, 'utf8'));
-        // Accept cleaned_body (from funnel-clean.js) or landing_page_body (raw)
-        return pkg.cleaned_body || pkg.landing_page_body || null;
+        // Prefer cleaned_body (already entity-decoded + tag-stripped by funnel-clean.js)
+        if (pkg.cleaned_body) return pkg.cleaned_body;
+        // Fall back to landing_page_body, but apply the same strip transform so the
+        // comparison corpus matches what the analyzer was shown (WR-02).
+        if (pkg.landing_page_body) return stripToTextForVerify(pkg.landing_page_body);
       } catch (_) {
         // non-fatal
       }
@@ -191,7 +236,27 @@ if (!belief_records) {
 // --- Load cleaned funnel body for verbatim gate ---
 const outputDir   = path.dirname(path.resolve(filePath));
 const cleanedBody = findCleanedBody(funnel_id, outputDir);
-let cleanedBodyLoaded = cleanedBody !== null && cleanedBody.length > 0;
+const cleanedBodyLoaded = cleanedBody !== null && cleanedBody.length > 0;
+
+// WR-05: If the corpus cannot be found, fail immediately with a distinct config-error
+// rather than accumulating per-ref REJECTs that look like content hallucinations.
+// This keeps "corpus wiring problem" clearly separated from real verbatim failures.
+if (!cleanedBodyLoaded) {
+  const hasVerbatimRefs = Array.isArray(belief_records) && belief_records.some(
+    r => Array.isArray(r.verbatim_refs) && r.verbatim_refs.some(
+      v => v && typeof v.text === 'string' && v.text.trim() !== ''
+    )
+  );
+  if (hasVerbatimRefs) {
+    console.error(
+      `CONFIG-ERROR: cleaned funnel body not found for funnel_id="${funnel_id}" — ` +
+      `verbatim gate cannot run. Ensure funnel-clean.js has been run and its output ` +
+      `(funnels-clean/${funnel_id}-clean.json) is accessible from the validator's working directory. ` +
+      `Cannot distinguish corpus-wiring failure from real verbatim hallucinations — aborting.`
+    );
+    process.exit(2);
+  }
+}
 
 // --- Accumulate violations ---
 const violations = [];
