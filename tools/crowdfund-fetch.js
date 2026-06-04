@@ -199,23 +199,27 @@ function parseCurrencyBStats(text, html) {
   //     "This project was not successfully funded" / "Funding Unsuccessful"
   // Indiegogo: "In Demand" (=> funded) / "Funding" / "Closed" (ambiguous)
   // Crowd Supply: "Funded" / "Not funded"
+  //
+  // IN-02: check failed BEFORE funded so the more-specific failure signal wins.
+  // Dropped bare \bfailed\b (fires on incidental marketing copy like "we never failed
+  // our backers") in favour of status-anchored phrases only.
   let funded_vs_failed = null;
   if (
+    /not\s+successfully\s+funded/i.test(t) ||
+    /funding\s+unsuccessful/i.test(t) ||
+    /\bnot\s+funded\b/i.test(t) ||
+    /\bcampaign\s+(?:has\s+)?failed\b/i.test(t) ||
+    /\bfunding\s+(?:has\s+)?failed\b/i.test(t)
+  ) {
+    // Explicit failure — status-anchored phrases only (IN-02: no bare \bfailed\b)
+    funded_vs_failed = 'failed';
+  } else if (
     /successfully\s+funded/i.test(t) ||
     /\bfunded\b/i.test(t) ||
     /\bin\s+demand\b/i.test(t) ||
     /\bgoal\s+reached\b/i.test(t)
   ) {
     funded_vs_failed = 'funded';
-  }
-  if (
-    /not\s+successfully\s+funded/i.test(t) ||
-    /funding\s+unsuccessful/i.test(t) ||
-    /\bnot\s+funded\b/i.test(t) ||
-    /\bfailed\b/i.test(t)
-  ) {
-    // Failed signal overrides (more specific)
-    funded_vs_failed = 'failed';
   }
 
   // ---- delivered_vs_not ----------------------------------------------------
