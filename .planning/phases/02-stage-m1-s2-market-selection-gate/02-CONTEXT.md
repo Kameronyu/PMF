@@ -76,10 +76,15 @@ ranked survivor list; never writes "we should test X."
   Classifier (`prompts/step1-light-pass.md` step 6: cluster `problem_um_raw`, 3+ brands = SHARED/not-
   ownable, 1 = candidate Problem-UM) — it just has **no output slot** in `space-map.json`. Fix = a
   **thin S1 schema patch**: add `mechanisms_in_play[]` (each: mechanism/story, `brand_count`,
-  `shared|unique`) so the Classifier writes what it already clusters. **Phase 2's skill CONSUMES this
-  field; it does not re-derive or infer.** Cross-phase dependency: a small Phase-1 add. Until it lands,
-  the skill emits `DATA GAP: mechanisms_in_play (S1 computes it, no output slot yet)` on Gate 2.2/3.3
-  and runs those sub-checks at lowered confidence — never invents the cluster.
+  `shared|unique`) so the Classifier writes what it already clusters. **Source = `mechanism[]`** (rich,
+  30/36 pitches non-empty), **not `problem_um_raw`** (sparse, 6/36, correct-for-space). Once the field
+  exists, Phase 2's skill CONSUMES it directly. **No re-fetch / no research — schema + re-aggregate only.**
+  - **The real structural fix is specced in** `01-DEBUG-RUN-NOTES.md` **BREAK 5** (folds into the same S1
+    revision as the Trends fix). Cross-phase dependency — a small Phase-1 add, NOT built in Phase 2.
+  - **Stopgap until the slot lands:** the skill reads
+    `.claude/skills/market-selection/mechanisms-in-play-stopgap.md` and **derives** the shared-vs-unique
+    read on the fly from the recorded per-pitch `mechanism[]` in the dumps, labeled `[INFERENCE]`. It does
+    **NOT** emit a bare `DATA GAP` and skip the check — the raw material is present, so it derives + flags.
 
 ### Operator overrides — read from the run brief, no schema
 - **D-06:** The assessor reads the run's `pre-research-plan.md` (the bet brief) as **run-context** and
@@ -141,6 +146,9 @@ ranked survivor list; never writes "we should test X."
   spec to inline. Carries a reconciliation note (bottom) on the stale `competitive_axis` field.
 - `.claude/skills/market-selection/SKILL.md` — the **build target** (currently STALE: full Gate-4
   awareness, no `demand_trend`/`bet_type`). Bring in line with the spec + reconciled contract.
+- `.claude/skills/market-selection/mechanisms-in-play-stopgap.md` — **read at decision-time** until the
+  S1 `mechanisms_in_play[]` slot lands (D-05): how to derive the shared-vs-unique mechanism read from the
+  recorded per-pitch `mechanism[]`, labeled `[INFERENCE]`.
 - `prompts/_specs/market-selection-framework.md` — older framework, **superseded** by the assessor spec.
 
 ### Upstream producer — the REAL input contract (read the actual shapes)
