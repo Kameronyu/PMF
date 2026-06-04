@@ -80,7 +80,7 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
   3. The skill runs Gates 1–3, stops at the first kill, outputs a ranked PROVISIONAL survivor set (Gate 4 pending); the human makes the bet pick, recorded as the input to downstream stages. Per-cell saturation honored; never pooled.
   4. Kam runs candidate NTPs and judges the kill/survive verdicts + ranking sound.
 **Plans**: 2 plans (2 waves)
-- [ ] 02-01-PLAN.md — Rewrite SKILL.md in place: inline the spec, reconcile the input contract to real S1 output, wire D-01..D-10, resolve the repo-root path mismatch, inject DR-KB via read_first (Wave 1)
+- [x] 02-01-PLAN.md — Rewrite SKILL.md in place: inline the spec, reconcile the input contract to real S1 output, wire D-01..D-10, resolve the repo-root path mismatch, inject DR-KB via read_first (Wave 1)
 - [ ] 02-02-PLAN.md — Exercise the rewritten skill against real Arduview data → produce runs/arduview/market-selection.md (6 per-cell gate records); Kam judges verdicts + ranking sound (Wave 2, human UAT)
 
 ### Phase 3: Stage M1-S3 — Deep competitive analysis + messaging strategy
@@ -95,7 +95,11 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
   2. Winner detection uses `days_running` (longest-running ad = spend-validated); every deliverable fences AI inference from observed competitor copy (SYNTHESIS-block rule).
   3. The merge produces one congruent plan: proven angles, dead ground, whitespace, the funnel container, and per-angle awareness calibration.
   4. Kam reads it and judges the messaging strategy congruent with the differentiated edge from S1/S2 (Gate 2).
-**Plans**: TBD
+**Plans**: 4 plans (4 waves) — collection layer only; birdseye merge + Gate 2 deferred (Goal + Success Criteria rewrite is task 03-04-02)
+- [ ] 03-01-PLAN.md — Scraper binding spine: extend adlib-one.js (destination_url) + funnel-assemble.js (normalize/cluster/render) (Wave 1)
+- [ ] 03-02-PLAN.md — Mechanical bricks: crowdfund-fetch Currency-B parser + funnel-clean + funnel-score (Wave 2)
+- [ ] 03-03-PLAN.md — Judgment agent: funnel-deep-pass.md (Router + Section Analyzer) + inject-dr.js + validate-analyzer.js (Wave 3)
+- [ ] 03-04-PLAN.md — Store (funnel-store.js) + ROADMAP rewrite + debug-notes scaffold + live smoke test (Wave 4)
 
 ### Phase 4: Stage M1-S4 — VOC codebook + record schema
 **Goal**: The classifier codebook exists as a machine contract (PMBD × T1–T4 ladder + battery, compiled), with the per-quote record schema and the two materialized-view contracts defined — the keystone every later VOC stage keys off.
@@ -247,8 +251,8 @@ S14 (after S10 + S13). Tracks A and B are independent — run in parallel `git w
 | Phase | Stage | Status | Plans |
 |-------|-------|--------|-------|
 | 1 | M1-S1 Light pass | Built (scripts pending) | 0/TBD |
-| 2 | M1-S2 Market-selection gate | Drafted | 0/TBD |
-| 3 | M1-S3 Deep competitive analysis | Specced | 0/TBD |
+| 2 | 1/2 | In Progress|  |
+| 3 | M1-S3 Deep competitive analysis (collection layer) | Planned | 0/4 |
 | 4 | M1-S4 VOC codebook (keystone) | Specced | 0/TBD |
 | 5 | M1-S5 Query Planner | Specced | 0/TBD |
 | 6 | M1-S6 Scraper + cleaner + gate | Specced | 0/TBD |
