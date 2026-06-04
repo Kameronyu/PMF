@@ -57,8 +57,10 @@ function pickAdvertiser(cands, brand) {
     const lines = c.text.split('\n').map((x) => x.trim()).filter(Boolean);
     const name = lines[0] || '';
     const meta = c.text.toLowerCase();
-    const fol = (c.text.match(/([\d.]+)\s*([KM]?)\s*follow/i) || [0, 0, '']);
-    let followers = parseFloat(fol[1]) || 0;
+    // IN-05: include commas in capture so "12,000 followers" isn't truncated to 12.
+    // Strip commas before parseFloat, consistent with backer_count handling in crowdfund-fetch.js.
+    const fol = (c.text.match(/([\d,.]+)\s*([KM]?)\s*follow/i) || [0, 0, '']);
+    let followers = parseFloat(String(fol[1]).replace(/,/g, '')) || 0;
     if (fol[2].toUpperCase() === 'K') followers *= 1e3;
     if (fol[2].toUpperCase() === 'M') followers *= 1e6;
     let score = 0;
