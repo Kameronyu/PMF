@@ -1,0 +1,5 @@
+{
+  "sections": ["hero", "feature_transparency", "feature_scale", "feature_games", "feature_maker", "lifestyle", "specs", "social_proof", "offer", "final_cta"],
+  "video_slots": ["hero_loop", "feature_demo"],
+  "_note": "Default crowdfunding/DTC section list. brick 5 (asset-map-rank.js) takes --section-list=<path> to override when M1-S3 deep-analysis produces a funnel structure."
+}
