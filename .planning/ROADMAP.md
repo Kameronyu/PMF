@@ -274,6 +274,28 @@ M2 (PMF Steps 4–8 + the `launch/` Shopify/Klaviyo/LP machinery generalized int
 setup) is the next milestone, deliberately deferred. Plan it via `/gsd-new-milestone` after M1 produces
 a validated bet + copy bank. Source state in `launch/README.md`.
 
+### Phase 15: Stage M1-S15 — Funnel Architect + Copywriter (Step-4 copy generation)
+**Goal**: Two coupled judgment skills exist that turn the deep-analysis funnel store into finished crowdfunding copy. The **Funnel Architect** reads the funnel store (funnel fields + belief_records[]) + deterministically-injected DR knowledge + operator run-context, and produces a congruent funnel DESIGN + COPY BRIEF (belief chain in order, install spec per belief, single governing angle, awareness-calibrated structure, offer/urgency, dead-ground/whitespace). The **Copywriter** consumes that brief + per-section RAG'd verbatim copy and writes the finished prose in the locked format. Both are operator-spec'd; this phase builds them together so the shared copy-brief contract is designed with producer AND consumer in view.
+**Serves PMF Step**: 4 (test design / copy generation — the downstream "Step-4 machinery")
+**Depends on**: Stage M1-S3 (the Section Analyzer + funnel store that produces belief_records). HARD DATA DEPENDENCY: the store is EMPTY except a synthetic fixture until a real market run — built + verified against the fixture now; live-on-real-funnels validation rides D-02.
+**Requirements**: FUNNEL-01 (architect), FUNNEL-02 (copywriter)
+**Status**: SPECCED. Operator specs in hand (Funnel Architect Skill + Copywriter Skill prompts) = behavior authority.
+**Reuses (already built this session, to be committed as the base)**: `tools/lib/embed.js`, `tools/funnel-vectorize.js`, `tools/funnel-rag-query.js` (Voyage RAG), `runs/_fixture/funnels/` (verification scaffold). The interim `.claude/skills/copywrite/` wiring stub is REPLACED by the real copywriter and removed.
+**Known gaps from audit (resolve in planning, do not pre-decide)**:
+  - `belief_kind` (crowdfunding-specific | general-DR) — assumed per-belief by the specs; ABSENT from the 6a/6b schema. Decide: extend the Section Analyzer upstream, or derive in the architect.
+  - `source_routing` (per-belief) — ABSENT; only funnel-level `routing_flag` + `source_type` exist. Decide if per-belief routing is needed.
+  - RAG cannot scope by source — `funnel-rag-query.js` filters only `belief_id`/`proof_tier`, and `funnel-vectorize.js` drops `source_type` from the index. The copywriter spec REQUIRES per-section source-routed retrieval → extend both.
+  - DR injection NOT wired for either skill — build `inject-funnel-architect-dr.js` + `inject-copywriter-dr.js` bundlers + `read_first` bundles, EXACTLY mirroring the market-selection deterministic pattern. Both specs say "auto-injected" — the SAME mislabel that caused a zero-grounding run; replace with the deterministic Read.
+  - `claim-tally` pre-pass — listed as an architect input; ABSENT (deferred to birdseye). Decide if needed now.
+**Success Criteria** (what must be TRUE):
+  1. A `funnel-architect` skill implements its operator spec (congruency law, three-layer authority model, awareness→structure, design procedure, named failure modes) and emits a COPY BRIEF in a defined, documented format.
+  2. A `copywriter` skill implements its operator spec (the two rules, locked format rules, RAG-vs-KB separation) and consumes the architect's brief + per-section RAG'd verbatim to write finished prose.
+  3. Both skills' DR knowledge is injected DETERMINISTICALLY (bundler + `read_first` bundle, market-selection pattern), verified present in context — NOT "auto-injected".
+  4. The RAG supports per-section source-routed retrieval (source_type/routing scoping), with the index carrying the needed field.
+  5. Every assumed-but-absent field (`belief_kind`/`source_routing`) is either added upstream or resolved by derivation, with the decision recorded.
+  6. The full chain runs end-to-end against the synthetic fixture: funnel store → architect → brief → copywriter → prose. Live-on-real-funnels validation explicitly deferred to D-02.
+**Plans**: TBD (run /gsd-plan-phase 15 to break down — expect ~architect / copywriter / shared-substrate plans)
+
 ---
 
 *Rewritten 2026-06-03: two-track research engine, build-state-aware, InkLeaf retired — kept in GSD
