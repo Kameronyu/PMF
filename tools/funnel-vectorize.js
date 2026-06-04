@@ -114,6 +114,8 @@ function loadUnits() {
         awareness_entry:     funnel.awareness_entry ?? null,
         validation_lane:     funnel.validation_lane ?? null,
         validation_strength: funnel.validation_strength ?? null,
+        source_type:         funnel.source_type  ?? null,
+        routing_flag:        funnel.routing_flag ?? null,
         // belief-level (the retrieval unit)
         position:        br.position ?? null,
         belief_id:       br.belief_id ?? null,
