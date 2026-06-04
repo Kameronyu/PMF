@@ -332,13 +332,18 @@ Plans:
 ### Phase 17: LP Builder — reusable copy→pretty-HTML pipeline (Arduview = first instance)
 
 **Goal:** A product-agnostic LP-builder pipeline that eats `{copy brief + visual system + assets}` and emits correct, on-brand landing/deposit HTML — deployed live, with email (Klaviyo) + checkout (Shopify) wired — under a no-rework contract where the builder is the ONLY agent that writes HTML and everything else is config-in or deterministic-token-substitution-out. Arduview is the first test instance, NOT the spec. Context: `17-CONTEXT.md`.
-**Requirements**: TBD (assigned in planning)
+**Requirements**: LPB-01, LPB-02, LPB-03, LPB-04, LPB-05, LPB-06, LPB-07, LPB-08
 **Depends on:** Phase 16 (asset bricks — `asset-upload.js` CDN backfill, optimized assets). NOT blocked on Phase 18 — the Arduview instance bootstraps its design direction from the already-locked Glasshouse system (`STYLE-LOCK.md` + `BUILD-FEEDBACK.md` §1).
 **Stages** (frozen inter-stage contracts; builder = sole HTML writer): INTERFACES spec → UI-SPEC (visual contract) → PAGE-SPEC (content contract) → asset prep → **HTML builder** [agent] → hydrate [script] → asset-upload [script] → deploy [surge].
-**Plans:** 0 plans
+**Plans:** 6 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 17 to break down)
+- [ ] 17-01-PLAN.md — INTERFACES spec: freeze every stage's I/O contract (LPB-01)
+- [ ] 17-02-PLAN.md — PAGE-SPEC content contract (Arduview) + manual-paste integration.json (LPB-02, LPB-05)
+- [ ] 17-03-PLAN.md — lp-hydrate.js token substitution + parameterized surge deploy (LPB-04, LPB-07)
+- [ ] 17-04-PLAN.md — lp-ui-check.js HARD-1..7 deterministic gate (LPB-06)
+- [ ] 17-05-PLAN.md — lp-builder SKILL: the sole, pure HTML-writing agent (LPB-03)
+- [ ] 17-06-PLAN.md — end-to-end Arduview pipeline run + live surge deploy (LPB-08)
 
 ### Phase 18: Design-research — competitor visual analysis → DESIGN-DIRECTION (feeds future UI-SPECs)
 
