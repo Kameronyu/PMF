@@ -101,9 +101,23 @@ _(to be filled after the run — checklist adapted from 01-DEBUG-RUN-NOTES.md §
 - [ ] `funnel_id` in stored files matches sanitized form (no raw URL chars in filenames)
 - [ ] DR injection: six files loaded, context cap not exceeded (check inject-dr.js stderr)
 
-### D-17 Debug breaks surfaced
+### D-17 Plumbing smoke test — STATUS: DEFERRED
 
-_(to be filled — record every break, which stage, which brand, what failed)_
+The D-17 build-validation smoke test (end-to-end brick-string run on live data with a throwaway
+analyzer call) was DEFERRED at the operator's choice during plan 03-04 execution.
+
+**Rationale for deferral:** The plumbing is validated-by-construction — each brick
+(funnel-store.js, funnel-score.js, funnel-clean.js, funnel-assemble.js, adlib-one.js,
+inject-dr.js, validate-analyzer.js) had its syntax checked and its key contracts verified by
+automated node -e checks during plans 01-03 and 03-04. Prior plans' Self-Check gates all PASSED.
+The brick interfaces are self-consistent (field names, JSON conventions, file-path conventions
+conform). However, the pipeline has NOT been run end-to-end on live data and a live-DOM or
+network failure could surface at any stage.
+
+**The real methodology-debug pass remains deferred to D-02** (after a market is picked via
+M1-S2 and a real competitor list exists). That pass is what this file is designed to capture.
+
+_(D-17 debug breaks: to be filled on first real run — record every break, which stage, which brand, what failed)_
 
 ---
 
