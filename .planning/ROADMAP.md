@@ -81,7 +81,7 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
   4. Kam runs candidate NTPs and judges the kill/survive verdicts + ranking sound.
 **Plans**: 2 plans (2 waves)
 - [x] 02-01-PLAN.md — Rewrite SKILL.md in place: inline the spec, reconcile the input contract to real S1 output, wire D-01..D-10, resolve the repo-root path mismatch, inject DR-KB via read_first (Wave 1)
-- [ ] 02-02-PLAN.md — Exercise the rewritten skill against real Arduview data → produce runs/arduview/market-selection.md (6 per-cell gate records); Kam judges verdicts + ranking sound (Wave 2, human UAT)
+- [x] 02-02-PLAN.md — Exercise the rewritten skill against real Arduview data → produce runs/arduview/market-selection.md (6 per-cell gate records); Kam judges verdicts + ranking sound (Wave 2, human UAT)
 
 ### Phase 3: Stage M1-S3 — Deep competitive analysis (collection layer)
 **Goal**: Build the COLLECTION LAYER of deep funnel analysis as a market-agnostic, ready-to-run brick string — scraper/assembler (ad→LP binding) → cleaner → two-currency validation scorer → light routing agent → Section Analyzer → JSON store — that emits validated belief-instance records + funnel-level fields, granular enough to feed a later birdseye synthesis agent. No market is picked yet; every component is parameterized on a chosen-market input. (Scope shrunk 2026-06-03, D-01.)
@@ -252,7 +252,7 @@ S14 (after S10 + S13). Tracks A and B are independent — run in parallel `git w
 | Phase | Stage | Status | Plans |
 |-------|-------|--------|-------|
 | 1 | M1-S1 Light pass | Built (scripts pending) | 0/TBD |
-| 2 | 1/2 | In Progress|  |
+| 2 | 2/2 | Complete   | 2026-06-04 |
 | 3 | M1-S3 Deep competitive analysis (collection layer) | Planned | 0/4 |
 | 4 | M1-S4 VOC codebook (keystone) | Specced | 0/TBD |
 | 5 | M1-S5 Query Planner | Specced | 0/TBD |
