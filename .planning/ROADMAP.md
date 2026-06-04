@@ -100,7 +100,7 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
 - [x] 03-01-PLAN.md — Scraper binding spine: extend adlib-one.js (destination_url) + funnel-assemble.js (normalize/cluster/render) (Wave 1)
 - [x] 03-02-PLAN.md — Mechanical bricks: crowdfund-fetch Currency-B parser + funnel-clean + funnel-score (Wave 2)
 - [x] 03-03-PLAN.md — Judgment agent: funnel-deep-pass.md (Router + Section Analyzer) + inject-dr.js + validate-analyzer.js (Wave 3)
-- [ ] 03-04-PLAN.md — Store (funnel-store.js) + ROADMAP rewrite + debug-notes scaffold + live smoke test (Wave 4)
+- [x] 03-04-PLAN.md — Store (funnel-store.js) + ROADMAP rewrite + debug-notes scaffold + live smoke test (Wave 4)
 
 ### Phase 4: Stage M1-S4 — VOC codebook + record schema
 **Goal**: The classifier codebook exists as a machine contract (PMBD × T1–T4 ladder + battery, compiled), with the per-quote record schema and the two materialized-view contracts defined — the keystone every later VOC stage keys off.
@@ -253,7 +253,7 @@ S14 (after S10 + S13). Tracks A and B are independent — run in parallel `git w
 |-------|-------|--------|-------|
 | 1 | M1-S1 Light pass | Built (scripts pending) | 0/TBD |
 | 2 | 2/2 | Complete   | 2026-06-04 |
-| 3 | 2/4 | In Progress|  |
+| 3 | 4/4 | Complete   | 2026-06-04 |
 | 4 | M1-S4 VOC codebook (keystone) | Specced | 0/TBD |
 | 5 | M1-S5 Query Planner | Specced | 0/TBD |
 | 6 | M1-S6 Scraper + cleaner + gate | Specced | 0/TBD |

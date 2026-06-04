@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: "Completed 03-03-PLAN.md (judgment layer: Router + Section Analyzer + inject-dr + validate-analyzer)"
-last_updated: "2026-06-04T02:02:21.662Z"
+stopped_at: "Checkpoint reached: 03-04 Task 4 smoke test (D-17) — awaiting human-verify"
+last_updated: "2026-06-04T02:08:28.589Z"
 last_activity: 2026-06-04
 progress:
   total_phases: 14
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 11
-  completed_plans: 9
-  percent: 82
+  completed_plans: 10
+  percent: 91
 ---
 
 # Project State
@@ -76,6 +76,8 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 03]: Controlled vocab resolved without ratification gate (D-15 overrides spec §12): EXECUTION_TYPE_ENUM 13 values, PROOF_TIER_ENUM Tier1/2/3, MOVE_ENUM 15 lever tags; claim_type REUSED from step1
 - [Phase 03]: inject-dr.js emits to stdout by default; orchestrator pastes block into Analyzer context (FILE injection, not RAG)
 - [Phase 03]: validate-analyzer.js verbatim-substring gate uses same non-fatal missing-corpus behavior as validate-dumper.js; awareness_entry enum (unaware/problem-aware/solution-aware/product-aware/offer-aware) added to funnel_fields validation
+- [Phase 03]: funnel_id + space sanitized to [a-z0-9._-] before write path (T-03-13 compliance)
+- [Phase 03]: birdseye-computed fields (merge/synthesis) NOT added to funnel-store.js — collection records only
 
 ### Pending Todos
 
@@ -100,9 +102,10 @@ None tracked here.
 | Phase 03 P01 | 5 | 2 tasks | 2 files |
 | Phase 03 P02 | 6 | 3 tasks | 3 files |
 | Phase 03 P03 | 7 | 3 tasks | 3 files |
+| Phase 03 P04 | 3 | 3 tasks | 2 files |
 
 ## Session Continuity
 
-Last session: 2026-06-04T02:02:21.659Z
-Stopped at: Completed 03-03-PLAN.md (judgment layer: Router + Section Analyzer + inject-dr + validate-analyzer)
+Last session: 2026-06-04T02:08:28.585Z
+Stopped at: Checkpoint reached: 03-04 Task 4 smoke test (D-17) — awaiting human-verify
 Resume file: None
