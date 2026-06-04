@@ -30,7 +30,7 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
 - [ ] **Stage M1-S0: Pre-research planning (bet brief)** — `SEEDED` (not built); the deliberate pre-Step-1 step that authors the per-run bet brief + pipeline inputs. Hand-filled from `prompts/_templates/pre-research-plan.template.md` for now (worked example: `runs/arduview/pre-research-plan.md`); the generator skill is deferred until the operator architects it. Phase 1 already consumes the brief (D-13).
 - [~] **Stage M1-S1: Light pass** — `BUILT`; competitor find + space classify (feeds Gate 1)
 - [~] **Stage M1-S2: Market-selection gate** — `DRAFTED`; 4 gates → ranked survivors → human pick
-- [ ] **Stage M1-S3: Deep competitive analysis + messaging strategy** — `SPECCED`
+- [ ] **Stage M1-S3: Deep competitive analysis (collection layer)** — `PLANNED` (4 plans)
 - [ ] **Stage M1-S4: VOC codebook + record schema** — `SPECCED` (keystone — build first for Track B)
 - [ ] **Stage M1-S5: Query Planner agent** — `SPECCED`
 - [ ] **Stage M1-S6: Scraper + cleaner + verbatim gate** — `SPECCED`
@@ -83,19 +83,20 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
 - [x] 02-01-PLAN.md — Rewrite SKILL.md in place: inline the spec, reconcile the input contract to real S1 output, wire D-01..D-10, resolve the repo-root path mismatch, inject DR-KB via read_first (Wave 1)
 - [ ] 02-02-PLAN.md — Exercise the rewritten skill against real Arduview data → produce runs/arduview/market-selection.md (6 per-cell gate records); Kam judges verdicts + ranking sound (Wave 2, human UAT)
 
-### Phase 3: Stage M1-S3 — Deep competitive analysis + messaging strategy
-**Goal**: Deep analysis of the chosen market's top ~5 brands via two lenses (structure + messaging) over one competitor pool, merged into a deployable plan — proven angles / dead ground / whitespace / container / awareness calibration — with a human Gate 2 win-decision.
-**Serves PMF Step**: 2 (+ front-half Step 4)
-**Depends on**: Stage M1-S2 (a chosen market)
+### Phase 3: Stage M1-S3 — Deep competitive analysis (collection layer)
+**Goal**: Build the COLLECTION LAYER of deep funnel analysis as a market-agnostic, ready-to-run brick string — scraper/assembler (ad→LP binding) → cleaner → two-currency validation scorer → light routing agent → Section Analyzer → JSON store — that emits validated belief-instance records + funnel-level fields, granular enough to feed a later birdseye synthesis agent. No market is picked yet; every component is parameterized on a chosen-market input. (Scope shrunk 2026-06-03, D-01.)
+**Serves PMF Step**: 2 (collection half)
+**Depends on**: Stage M1-S2 (a chosen market — for the real run; the build itself is market-agnostic)
 **Requirements**: (no v1 REQ — specced capability feeding M2; promote when M2 is planned)
-**Status**: SPECCED (`prompts/_specs/deep-market-analysis-framework.md`).
-**Build inputs (read first)**: `prompts/_specs/deep-market-analysis-framework.md` (the framework) · `prompts/step1-light-pass.md` (the format template + the pitch binding to inherit) · `capability_inventory.md` (brick model) · `run-retrospective.md` §4 (days_running winner detection, SYNTHESIS fencing, survivorship-bias hunt) · `agents/implementation-notes.md` (layer discipline) · `~/knowledge/dr-marketing/` (copywriting/offer/funnel for the messaging merge — read on demand).
+**Status**: PLANNED (4 plans, verified). Spec: `prompts/_specs/funnel-analysis-collection-spec.md` (collection-layer build spec, authoritative); `prompts/_specs/deep-market-analysis-framework.md` kept for the strategic "why".
+**Build inputs (read first)**: `prompts/_specs/funnel-analysis-collection-spec.md` (THE build spec — §2b binding, §3 two currencies, §4 routing flag, §5–§8 analyzer, §6 schema, §7 taxonomy, §11 DR injection) · `prompts/step1-light-pass.md` (Phase-1 brick-string + JSON-output template to inherit) · `capability_inventory.md` (brick model) · `~/knowledge/dr-marketing/` (the six files auto-injected into the Section Analyzer, §11).
 **Success Criteria** (what must be TRUE):
-  1. A deep-pass prompt is built as a brick string from the framework spec (structure lens + messaging lens + the merge), running only on the chosen market's top ~5 brands.
-  2. Winner detection uses `days_running` (longest-running ad = spend-validated); every deliverable fences AI inference from observed competitor copy (SYNTHESIS-block rule).
-  3. The merge produces one congruent plan: proven angles, dead ground, whitespace, the funnel container, and per-angle awareness calibration.
-  4. Kam reads it and judges the messaging strategy congruent with the differentiated edge from S1/S2 (Gate 2).
-**Plans**: 4 plans (4 waves) — collection layer only; birdseye merge + Gate 2 deferred (Goal + Success Criteria rewrite is task 03-04-02)
+  1. The collection layer is built as a market-agnostic brick string (scraper/assembler · cleaner · scorer · router · Section Analyzer · store), each component mapped to its brick (deterministic = script/hook, judgment = agent) and runnable the moment a market exists.
+  2. The ad→LP binding (normalized `destination_url` clustering) correctly assembles one `funnel_package` per funnel and handles the D-05 edge cases; the two validation currencies (A: ad-longevity, B: crowdfunding raise) are carried as separate lanes, never normalized.
+  3. The Section Analyzer emits belief-instance records per the §6 schema — open-with-anchors taxonomy, funnel-level-ordinal `position`, granular `execution_detail` (sub-claims recoverable) — descriptive-not-prescriptive, one funnel at a time; the §10 birdseye-completeness check passes (records sufficient to feed the later merge without re-collection).
+  4. A plumbing smoke test re-pulls 1–2 real brands with the new `destination_url` field end-to-end (cluster → render → clean → score) and a throwaway temp run confirms the analyzer emits belief records; the real methodology-debug pass is deferred until a market exists (D-02/D-17).
+**Deferred to a later phase**: the BIRDSEYE synthesis agent (A4→D1) — the merge / proven-angles / dead-ground / whitespace / awareness-calibration / Gate-2 win-decision. Collection records here are confirmed sufficient to feed it (spec §10).
+**Plans**: 4 plans (4 waves) — collection layer only; birdseye merge + Gate 2 deferred.
 - [ ] 03-01-PLAN.md — Scraper binding spine: extend adlib-one.js (destination_url) + funnel-assemble.js (normalize/cluster/render) (Wave 1)
 - [ ] 03-02-PLAN.md — Mechanical bricks: crowdfund-fetch Currency-B parser + funnel-clean + funnel-score (Wave 2)
 - [ ] 03-03-PLAN.md — Judgment agent: funnel-deep-pass.md (Router + Section Analyzer) + inject-dr.js + validate-analyzer.js (Wave 3)
