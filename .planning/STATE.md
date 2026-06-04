@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 17 context gathered (reframed as reusable LP-builder pipeline); added Phase 18 design-research
-last_updated: "2026-06-04T20:02:56.074Z"
-last_activity: 2026-06-04
+stopped_at: Phase 17 UI-SPEC approved
+last_updated: "2026-06-04T21:16:48.267Z"
+last_activity: 2026-06-04 -- Phase 17 planning complete
 progress:
   total_phases: 18
   completed_phases: 3
-  total_plans: 22
+  total_plans: 28
   completed_plans: 19
-  percent: 86
+  percent: 68
 ---
 
 # Project State
@@ -42,7 +42,7 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 Status: Ready to execute
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
-Last activity: 2026-06-04
+Last activity: 2026-06-04 -- Phase 17 planning complete
 
 Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not yet run end-to-end through the new pipeline)
 
@@ -133,6 +133,6 @@ None tracked here.
 
 ## Session Continuity
 
-Last session: 2026-06-04T20:02:56.038Z
-Stopped at: Phase 17 context gathered (reframed as reusable LP-builder pipeline); added Phase 18 design-research
-Resume file: .planning/phases/17-lp-builder-implement-arduview-landing-and-deposit-pages-from/17-CONTEXT.md
+Last session: 2026-06-04T20:43:50.151Z
+Stopped at: Phase 17 UI-SPEC approved
+Resume file: .planning/phases/17-lp-builder-implement-arduview-landing-and-deposit-pages-from/17-UI-SPEC.md
