@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Completed 16-03-PLAN.md (video bricks: probe_video.py + sample_montage.py)"
-last_updated: "2026-06-04T08:12:24.915Z"
+stopped_at: Completed 16-04-PLAN.md (validate-asset-record.js + asset-classify SKILL.md)
+last_updated: "2026-06-04T08:19:39.821Z"
 last_activity: 2026-06-04
 progress:
   total_phases: 16
   completed_phases: 2
   total_plans: 22
-  completed_plans: 16
-  percent: 73
+  completed_plans: 17
+  percent: 77
 ---
 
 # Project State
@@ -28,7 +28,7 @@ queryable bank of real, attributed customer language (verbatim, live permalinks)
 ## Current Position
 
 Phase: 16 (asset-classifier-image-and-video-bricks) — EXECUTING
-Plan: 4 of 6
+Plan: 5 of 6
 Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
 Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
@@ -84,6 +84,7 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 16]: Hamming threshold 15/64 (not spec 5/64): real img-04/img-05 burst-shot pair measures distance=12; 5 would miss them
 - [Phase 16]: asset-fetch.js uses fs.readdirSync + ext filter (no glob package in project)
 - [Phase 16]: PIL tile+timestamp instead of ffmpeg drawtext: bundled static binary may lack freetype/fontconfig; intent (5fps timestamped contact sheets) fully preserved
+- [Phase 16]: validate-asset-record.js runs as orchestrator step (not PostToolUse hook) — hooks don't fire in subagents; grounding gate rejects demonstrates[] missing evidence/motion_value at script level; video detection by presence of segments/best_use/eligible_slots fields
 
 ### Pending Todos
 
@@ -108,6 +109,7 @@ None tracked here.
 | 260603-x8o | Author /funnel-deep-pass orchestrator skill consolidating the funnel deep-pass workflow (source of truth; agent prompts folded in, schema referenced) | 2026-06-04 | 8e45fa6 | [260603-x8o-author-funnel-deep-pass-orchestrator-ski](./quick/260603-x8o-author-funnel-deep-pass-orchestrator-ski/) |
 | Phase 16-asset-classifier-image-and-video-bricks P01 | 144 | 3 tasks | 6 files |
 | Phase 16-asset-classifier-image-and-video-bricks P02 | 18 | 2 tasks | 3 files |
+| Phase 16-asset-classifier-image-and-video-bricks P04 | 5 | 2 tasks | 2 files |
 
 ## Deferred Items
 
@@ -127,6 +129,6 @@ None tracked here.
 
 ## Session Continuity
 
-Last session: 2026-06-04T08:12:21.095Z
-Stopped at: Completed 16-03-PLAN.md (video bricks: probe_video.py + sample_montage.py)
+Last session: 2026-06-04T08:19:39.818Z
+Stopped at: Completed 16-04-PLAN.md (validate-asset-record.js + asset-classify SKILL.md)
 Resume file: None
