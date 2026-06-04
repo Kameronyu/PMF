@@ -326,7 +326,7 @@ Plans:
 - [x] 16-02-PLAN.md — Image string: asset-fetch.js (--local) + probe.py (downscale + EXIF + phash dedupe) (Wave 1)
 - [x] 16-03-PLAN.md — Video string: probe_video.py + sample_montage.py (5fps + PIL timestamped sheets) — parallel to 02 (Wave 1, human-verify)
 - [x] 16-04-PLAN.md — Judgment core: validate-asset-record.js + asset-classify/SKILL.md (relevance-bucket + role-classify + comprehend-video fan-out) (Wave 2)
-- [ ] 16-05-PLAN.md — Manifest contract: asset-map-rank.js + asset-emit.js + asset-upload.js (Wave 3)
+- [x] 16-05-PLAN.md — Manifest contract: asset-map-rank.js + asset-emit.js + asset-upload.js (Wave 3)
 - [ ] 16-06-PLAN.md — UAT + human pick gate: replay the proof on the Arduview set, close brick 6 (Wave 4, human gate)
 
 ---
