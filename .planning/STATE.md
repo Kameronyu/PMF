@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Completed 16-01-PLAN.md (Wave-0 setup: venv + 3 data artifacts + spawn convention)"
-last_updated: "2026-06-04T07:53:45.360Z"
+stopped_at: Completed 16-02-PLAN.md (probe.py EXIF downscale+phash + asset-fetch.js --local brick)
+last_updated: "2026-06-04T08:00:59.209Z"
 last_activity: 2026-06-04
 progress:
   total_phases: 16
   completed_phases: 2
   total_plans: 22
-  completed_plans: 14
-  percent: 64
+  completed_plans: 15
+  percent: 68
 ---
 
 # Project State
@@ -28,7 +28,7 @@ queryable bank of real, attributed customer language (verbatim, live permalinks)
 ## Current Position
 
 Phase: 16 (asset-classifier-image-and-video-bricks) — EXECUTING
-Plan: 2 of 6
+Plan: 3 of 6
 Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
 Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
@@ -81,6 +81,8 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 03]: D-17 plumbing smoke test DEFERRED by operator at plan 03-04 closeout — validated-by-construction (syntax checks + prior Self-Check PASSes), end-to-end live run deferred to D-02 after market pick
 - [Phase 16]: .venv is project-level venv; all Python bricks use .venv/bin/python explicit spawn (PEP 668 box)
 - [Phase 16]: section-table.json in tools/asset/ (product-agnostic default); per-run overrides at runs/<space>/asset-classify/
+- [Phase 16]: Hamming threshold 15/64 (not spec 5/64): real img-04/img-05 burst-shot pair measures distance=12; 5 would miss them
+- [Phase 16]: asset-fetch.js uses fs.readdirSync + ext filter (no glob package in project)
 
 ### Pending Todos
 
@@ -104,6 +106,7 @@ None tracked here.
 | 260603-wfz | Fix funnel Section Analyzer to be orchestrator-managed (deterministic DR + funnel-body injection) | 2026-06-04 | 7081458 | [260603-wfz-fix-funnel-section-analyzer-to-be-orches](./quick/260603-wfz-fix-funnel-section-analyzer-to-be-orches/) |
 | 260603-x8o | Author /funnel-deep-pass orchestrator skill consolidating the funnel deep-pass workflow (source of truth; agent prompts folded in, schema referenced) | 2026-06-04 | 8e45fa6 | [260603-x8o-author-funnel-deep-pass-orchestrator-ski](./quick/260603-x8o-author-funnel-deep-pass-orchestrator-ski/) |
 | Phase 16-asset-classifier-image-and-video-bricks P01 | 144 | 3 tasks | 6 files |
+| Phase 16-asset-classifier-image-and-video-bricks P02 | 18 | 2 tasks | 3 files |
 
 ## Deferred Items
 
@@ -123,6 +126,6 @@ None tracked here.
 
 ## Session Continuity
 
-Last session: 2026-06-04T07:53:45.357Z
-Stopped at: Completed 16-01-PLAN.md (Wave-0 setup: venv + 3 data artifacts + spawn convention)
+Last session: 2026-06-04T08:00:59.205Z
+Stopped at: Completed 16-02-PLAN.md (probe.py EXIF downscale+phash + asset-fetch.js --local brick)
 Resume file: None

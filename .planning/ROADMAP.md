@@ -323,7 +323,7 @@ Plans:
 **Plans**: 6 plans in 5 waves
 Plans:
 - [x] 16-01-PLAN.md — Setup + data artifacts: .venv + pip (imagehash, imageio-ffmpeg) + section-table.json / section-list.default.json / CLAIM-LIST.json + spawn convention (Wave 0)
-- [ ] 16-02-PLAN.md — Image string: asset-fetch.js (--local) + probe.py (downscale + EXIF + phash dedupe) (Wave 1)
+- [x] 16-02-PLAN.md — Image string: asset-fetch.js (--local) + probe.py (downscale + EXIF + phash dedupe) (Wave 1)
 - [ ] 16-03-PLAN.md — Video string: probe_video.py + sample_montage.py (5fps + PIL timestamped sheets) — parallel to 02 (Wave 1, human-verify)
 - [ ] 16-04-PLAN.md — Judgment core: validate-asset-record.js + asset-classify/SKILL.md (relevance-bucket + role-classify + comprehend-video fan-out) (Wave 2)
 - [ ] 16-05-PLAN.md — Manifest contract: asset-map-rank.js + asset-emit.js + asset-upload.js (Wave 3)
