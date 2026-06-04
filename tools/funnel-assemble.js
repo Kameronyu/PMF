@@ -100,10 +100,16 @@ function normalizeUrl(raw) {
     // Force https
     u.protocol = 'https:';
 
-    // Strip tracking params (utm_* and fbclid)
+    // Strip tracking params: utm_*, fbclid, A/B-test params (variant, test, lp, ver),
+    // common Shopify session params (_pos, _sid, _ss, _psq), and other click-tracking ids.
     const toDelete = [];
     for (const key of u.searchParams.keys()) {
-      if (/^utm_/i.test(key) || key === 'fbclid') toDelete.push(key);
+      if (
+        /^utm_/i.test(key) ||
+        /^(variant|test|lp|ver|ref|source|medium|campaign|content|term)$/i.test(key) ||
+        /^(fbclid|gclid|gclsrc|dclid|msclkid)$/i.test(key) ||
+        /^(_pos|_sid|_ss|_psq)$/i.test(key)
+      ) toDelete.push(key);
     }
     for (const k of toDelete) u.searchParams.delete(k);
 

@@ -107,14 +107,24 @@ function loadJson(filePath) {
 /**
  * Build the stored record for one funnel:
  *   - 6a funnel-level fields from the funnel_package (with validation stamp)
+ *   - funnel_fields from the Section Analyzer beliefs JSON PREFERRED over funnelPkg.*
+ *     (the Analyzer writes primary_claim / awareness_entry / offer_mechanic /
+ *      urgency_construction inside funnel_fields; funnelPkg never carries them)
  *   - belief_records[] array (N × 6b records) from the Section Analyzer output
  *   - _provenance underscore-meta key (space-map.json convention)
+ *
+ * @param {object} funnelPkg      - funnel_package from funnel-score.js
+ * @param {Array}  beliefRecords  - belief_records[] from Section Analyzer
+ * @param {object} [funnelFields] - funnel_fields wrapper from Section Analyzer beliefs JSON
  */
-function buildStoredRecord(funnelPkg, beliefRecords) {
+function buildStoredRecord(funnelPkg, beliefRecords, funnelFields = {}) {
   const funnel_id = sanitizePathSegment(funnelPkg.funnel_id || '');
   if (!funnel_id) throw new Error('funnel_package.funnel_id missing or empty after sanitize');
 
   // 6a funnel-level fields (all present or null — never-fabricate)
+  // funnel_fields (from Section Analyzer) is PREFERRED over funnelPkg.* for the four
+  // fields the Analyzer owns; structural fields (competitor, source_type, etc.) come
+  // from funnelPkg as before.
   const record = {
     funnel_id,
     competitor:            funnelPkg.competitor            ?? null,
@@ -122,12 +132,12 @@ function buildStoredRecord(funnelPkg, beliefRecords) {
     transformation:        funnelPkg.transformation        ?? null,
     niche:                 funnelPkg.niche                 ?? null,
     routing_flag:          funnelPkg.routing_flag          ?? null,
-    primary_claim:         funnelPkg.primary_claim         ?? null,
-    claim_type:            funnelPkg.claim_type            ?? null,
-    awareness_entry:       funnelPkg.awareness_entry       ?? null,
-    funnel_sequence:       funnelPkg.funnel_sequence       ?? null,
-    offer_mechanic:        funnelPkg.offer_mechanic        ?? null,
-    urgency_construction:  funnelPkg.urgency_construction  ?? null,
+    primary_claim:         funnelFields.primary_claim         ?? funnelPkg.primary_claim         ?? null,
+    claim_type:            funnelFields.claim_type            ?? funnelPkg.claim_type            ?? null,
+    awareness_entry:       funnelFields.awareness_entry       ?? funnelPkg.awareness_entry       ?? null,
+    funnel_sequence:       funnelFields.funnel_sequence       ?? funnelPkg.funnel_sequence       ?? null,
+    offer_mechanic:        funnelFields.offer_mechanic        ?? funnelPkg.offer_mechanic        ?? null,
+    urgency_construction:  funnelFields.urgency_construction  ?? funnelPkg.urgency_construction  ?? null,
     validation_lane:       funnelPkg.validation_lane       ?? null,
     validation_strength:   funnelPkg.validation_strength   ?? null,
 
@@ -199,8 +209,14 @@ function findBeliefsForFunnel(funnel_id, beliefsDir) {
       try {
         const parsed = JSON.parse(fs.readFileSync(c, 'utf8'));
         // Accept an array directly, or an object with a belief_records[] key
-        if (Array.isArray(parsed)) return parsed;
-        if (Array.isArray(parsed.belief_records)) return parsed.belief_records;
+        if (Array.isArray(parsed)) return { records: parsed, funnel_fields: {} };
+        if (Array.isArray(parsed.belief_records)) {
+          return {
+            records: parsed.belief_records,
+            funnel_fields: (parsed.funnel_fields && typeof parsed.funnel_fields === 'object')
+              ? parsed.funnel_fields : {},
+          };
+        }
       } catch (_) { /* malformed — skip */ }
     }
   }
@@ -212,13 +228,17 @@ function findBeliefsForFunnel(funnel_id, beliefsDir) {
         const parsed = JSON.parse(fs.readFileSync(f, 'utf8'));
         const recs   = Array.isArray(parsed.belief_records) ? parsed.belief_records : parsed;
         if (Array.isArray(recs) && recs.length > 0 && recs[0].funnel_id === funnel_id) {
-          return recs;
+          return {
+            records: recs,
+            funnel_fields: (parsed.funnel_fields && typeof parsed.funnel_fields === 'object')
+              ? parsed.funnel_fields : {},
+          };
         }
       } catch (_) { /* skip */ }
     }
   }
 
-  return [];
+  return { records: [], funnel_fields: {} };
 }
 
 // ---------------------------------------------------------------------------
@@ -248,18 +268,23 @@ function findBeliefsForFunnel(funnel_id, beliefsDir) {
         process.exit(1);
       }
 
+      let funnelFields = {};
       try {
         const raw = loadJson(path.resolve(opts.beliefs));
         beliefRecords = Array.isArray(raw) ? raw
           : Array.isArray(raw.belief_records) ? raw.belief_records
           : [];
+        // Extract funnel_fields wrapper if present (Section Analyzer output shape)
+        if (!Array.isArray(raw) && raw.funnel_fields && typeof raw.funnel_fields === 'object') {
+          funnelFields = raw.funnel_fields;
+        }
       } catch (e) {
         console.error(`ERROR: failed to load belief records: ${e.message}`);
         process.exit(1);
       }
 
       try {
-        const record = buildStoredRecord(funnelPkg, beliefRecords);
+        const record = buildStoredRecord(funnelPkg, beliefRecords, funnelFields);
         const result = writeFunnelRecord(record, logLines, dryRun);
         results.push(result);
       } catch (e) {
@@ -289,13 +314,13 @@ function findBeliefsForFunnel(funnel_id, beliefsDir) {
         try {
           const funnelPkg   = loadJson(funnelFile);
           const funnel_id   = sanitizePathSegment(funnelPkg.funnel_id || '');
-          const beliefRecords = findBeliefsForFunnel(funnel_id, beliefsDir);
+          const { records: beliefRecords, funnel_fields: funnelFields } = findBeliefsForFunnel(funnel_id, beliefsDir);
 
           if (!beliefRecords.length) {
             logLines.push(`[WARN] no belief records found for ${funnel_id} — storing with empty belief_records[]`);
           }
 
-          const record = buildStoredRecord(funnelPkg, beliefRecords);
+          const record = buildStoredRecord(funnelPkg, beliefRecords, funnelFields);
           const result = writeFunnelRecord(record, logLines, dryRun);
           results.push(result);
         } catch (e) {
