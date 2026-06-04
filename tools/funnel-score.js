@@ -143,14 +143,15 @@ function daysBetween(a, b) {
 function resolveImpressionMultiplier(bucket) {
   if (!bucket) return DEFAULT_IMPRESSION_MULTIPLIER;
   const norm = String(bucket).trim().toLowerCase();
-  // Exact match first
+  // Exact match (covers all defined label variants including comma/dash/en-dash forms)
   for (const [key, val] of Object.entries(IMPRESSION_BUCKET_MULTIPLIERS)) {
     if (key.toLowerCase() === norm) return val;
   }
-  // Prefix/substring match for format variants
-  for (const [key, val] of Object.entries(IMPRESSION_BUCKET_MULTIPLIERS)) {
-    if (norm.includes(key.toLowerCase()) || key.toLowerCase().includes(norm)) return val;
-  }
+  // IN-04: dropped bidirectional includes() fallback — it is order-dependent and ambiguous.
+  // A short label like "1,000" is a substring of multiple bucket keys ("1,000 - 5,000" AND
+  // "500,000 - 1,000,000"), so the match depends on Object.keys() iteration order.
+  // Falling back to the default multiplier on an unrecognised label is safer than a
+  // confident wrong bucket assignment.
   return DEFAULT_IMPRESSION_MULTIPLIER;
 }
 
