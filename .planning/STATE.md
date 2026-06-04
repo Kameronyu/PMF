@@ -42,7 +42,7 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 Status: Phase complete — ready for verification
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
-Last activity: 2026-06-04 - Completed quick task 260603-wfz: deterministic analyzer-context injection
+Last activity: 2026-06-04 - Completed quick task 260603-x8o: /funnel-deep-pass orchestrator skill (source of truth)
 
 Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not yet run end-to-end through the new pipeline)
 
@@ -90,11 +90,17 @@ None tracked here.
 - Track B M1-S6: Reddit ingestion must run on the official commercial API (GummySearch died Nov 2025 over API licensing).
 - Track A M1-S1 revenue signal: monthly-visits source is manual-paste / review-proxy (no paid SimilarWeb API) — `revenue_est.method/confidence` keeps it swappable.
 
+### Roadmap Evolution
+
+- Phase 15 added (2026-06-04): Stage M1-S15 — Funnel Architect + Copywriter (Step-4 copy generation). Two coupled skills in one phase so the shared copy-brief contract is designed producer+consumer together. Seeded from an audit that found `belief_kind`/`source_routing` assumed-but-absent, RAG source-scoping missing, and DR injection unwired for both skills. Reuses this session's Voyage RAG tooling; the interim copywrite wiring stub is replaced.
+- Phase 16 added (2026-06-04): Stage M1-S16 — Asset Classifier (image + video bricks). Step-4/launch-adjacent pull-forward (same pattern as S15). Turns a folder of raw product images/videos into a claim-tagged manifest the LP-build/copywriter agents query by belief. SPECCED + PROVEN: spec `prompts/_specs/image-classifier-brick.md`; live vision proof on real Arduview shots in `runs/arduview/_asset-classify-proof.md` (auto-surfaced dedupe, background disqualifiers, no-clean-hero gap). Open gaps for planning: no ffmpeg → video decoder needed; section list wires to M1-S3 container; per-product claim list authorship. Videos NOT yet analyzed (user hold).
+
 ### Quick Tasks Completed
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260603-wfz | Fix funnel Section Analyzer to be orchestrator-managed (deterministic DR + funnel-body injection) | 2026-06-04 | 7081458 | [260603-wfz-fix-funnel-section-analyzer-to-be-orches](./quick/260603-wfz-fix-funnel-section-analyzer-to-be-orches/) |
+| 260603-x8o | Author /funnel-deep-pass orchestrator skill consolidating the funnel deep-pass workflow (source of truth; agent prompts folded in, schema referenced) | 2026-06-04 | 8e45fa6 | [260603-x8o-author-funnel-deep-pass-orchestrator-ski](./quick/260603-x8o-author-funnel-deep-pass-orchestrator-ski/) |
 
 ## Deferred Items
 
