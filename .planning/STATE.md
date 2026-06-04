@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 16-05-PLAN.md (asset-map-rank.js + asset-emit.js + asset-upload.js)
-last_updated: "2026-06-04T08:40:33.848Z"
+stopped_at: Phase 17 context gathered (reframed as reusable LP-builder pipeline); added Phase 18 design-research
+last_updated: "2026-06-04T20:02:56.074Z"
 last_activity: 2026-06-04
 progress:
-  total_phases: 16
-  completed_phases: 2
+  total_phases: 18
+  completed_phases: 3
   total_plans: 22
-  completed_plans: 18
-  percent: 82
+  completed_plans: 19
+  percent: 86
 ---
 
 # Project State
@@ -102,6 +102,7 @@ None tracked here.
 
 - Phase 15 added (2026-06-04): Stage M1-S15 — Funnel Architect + Copywriter (Step-4 copy generation). Two coupled skills in one phase so the shared copy-brief contract is designed producer+consumer together. Seeded from an audit that found `belief_kind`/`source_routing` assumed-but-absent, RAG source-scoping missing, and DR injection unwired for both skills. Reuses this session's Voyage RAG tooling; the interim copywrite wiring stub is replaced.
 - Phase 16 added (2026-06-04): Stage M1-S16 — Asset Classifier (image + video bricks). Step-4/launch-adjacent pull-forward (same pattern as S15). Turns a folder of raw product images/videos into a claim-tagged manifest the LP-build/copywriter agents query by belief. SPECCED + PROVEN: spec `prompts/_specs/image-classifier-brick.md`; live vision proof on real Arduview shots in `runs/arduview/_asset-classify-proof.md` (auto-surfaced dedupe, background disqualifiers, no-clean-hero gap). Open gaps for planning: no ffmpeg → video decoder needed; section list wires to M1-S3 container; per-product claim list authorship. Videos NOT yet analyzed (user hold).
+- Phase 17 added (2026-06-04): LP Builder — implement the Arduview landing + deposit pages from the (tapped) copy brief and locked "Glasshouse" visual system. Scope is front-end page implementation ONLY; copy/funnel and picture selection are upstream inputs. Seeded from a manual reference build this session (`runs/arduview/site`, live at arduview-see-through.surge.sh) whose iteration surfaced the spec gaps the phase must close via a UI-SPEC build contract: per-page above-the-fold budget (LP: title+CTA+video; deposit: image+title+CTA+51%-value), explicit element order per breakpoint, contrast/accent rules (no text on same-value bg; accent highlight readable on light AND dark — the recurring black-on-black `.hl` bug), type scale + min sizes, CTA legibility (readable face + black-on-accent, not the dot-matrix display font), decorative-vs-essential (captions removable), deposit risk-reversal placement + no-repetition rule, and a de-AI rule-set (copy AI-tells + humanizer skill; visual AI-tells: no generic centered-card/emoji-icon/gradient defaults). Existing inputs: COPY-DRAFT.md, brand-refs, HERO-VIDEO.md, STYLE-LOCK.md (partial visual contract — missing the fold/contrast/responsive layer). Suggested flow: discuss-phase (--power) → ui-phase (UI-SPEC) → plan-phase → execute-phase.
 
 ### Quick Tasks Completed
 
@@ -132,6 +133,6 @@ None tracked here.
 
 ## Session Continuity
 
-Last session: 2026-06-04T08:40:33.845Z
-Stopped at: Completed 16-05-PLAN.md (asset-map-rank.js + asset-emit.js + asset-upload.js)
-Resume file: None
+Last session: 2026-06-04T20:02:56.038Z
+Stopped at: Phase 17 context gathered (reframed as reusable LP-builder pipeline); added Phase 18 design-research
+Resume file: .planning/phases/17-lp-builder-implement-arduview-landing-and-deposit-pages-from/17-CONTEXT.md
