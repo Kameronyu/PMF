@@ -366,6 +366,32 @@ function generateFunnelId(competitor, normalizedUrl) {
     Object.defineProperty(navigator, 'plugins',    { get: () => [1, 2, 3, 4, 5] });
   });
 
+  // T-03-01 (WR-01): Re-validate EVERY navigation/redirect target against the SSRF guard.
+  // ssrfGuard() only checks the initial URL; page.goto follows 30x redirects to the final
+  // host. Register a request interceptor so each hop is checked. If the redirected host
+  // resolves to a private range, abort the navigation before the browser connects.
+  // Raw-IP case handled inline (synchronous) to avoid abort-after-connect timing issues.
+  await context.route('**/*', async (route) => {
+    const reqUrl = route.request().url();
+    try {
+      const u = new URL(reqUrl);
+      // Only gate http/https navigations (allow data:, blob:, etc. through)
+      if (u.protocol !== 'https:' && u.protocol !== 'http:') return route.continue();
+      // Raw-IP: check synchronously — if private, abort immediately
+      if (net.isIP(u.hostname)) {
+        if (isPrivateIp(u.hostname)) return route.abort();
+        return route.continue();
+      }
+      // DNS-resolved host: re-run the full ssrfGuard on each hop
+      const safe = await ssrfGuard(reqUrl);
+      if (!safe) return route.abort();
+    } catch (_) {
+      // Unparseable URL — abort to fail closed
+      return route.abort();
+    }
+    return route.continue();
+  });
+
   // --- Process each ad-url cluster → one funnel_package ---
   for (const [landing_page_url, clusterAds] of clusters) {
     const funnel_id = generateFunnelId(competitor, landing_page_url);

@@ -282,6 +282,26 @@ function parseCurrencyBStats(text, html) {
     Object.defineProperty(navigator, 'plugins', { get: () => [1, 2, 3, 4, 5] });
   });
 
+  // T-03-05 (WR-01): Re-validate EVERY navigation/redirect target against the SSRF guard.
+  // ssrfGuard() checked the initial URL above; page.goto follows 30x redirects to the final
+  // host. Register a request interceptor so each hop is checked before the browser connects.
+  await context.route('**/*', async (route) => {
+    const reqUrl = route.request().url();
+    try {
+      const u = new URL(reqUrl);
+      if (u.protocol !== 'https:' && u.protocol !== 'http:') return route.continue();
+      if (net.isIP(u.hostname)) {
+        if (isPrivateIp(u.hostname)) return route.abort();
+        return route.continue();
+      }
+      const safe = await ssrfGuard(reqUrl);
+      if (!safe) return route.abort();
+    } catch (_) {
+      return route.abort();
+    }
+    return route.continue();
+  });
+
   const page = await context.newPage();
 
   let status = 'ok';
