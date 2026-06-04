@@ -32,7 +32,7 @@ Naming: **Stage** = GSD build unit; **Step** = PMF research step 0–8. REQ-IDs 
 
 ### GATE — Market bet selection
 
-- [ ] **GATE-01**: The three existing market profiles (faith / students / dumb-device) are cross-scored on Desire × Feasibility − Sophistication × Growth and the InkLeaf market bet is selected (human decision, framework-assisted)
+- [x] **GATE-01**: The three existing market profiles (faith / students / dumb-device) are cross-scored on Desire × Feasibility − Sophistication × Growth and the InkLeaf market bet is selected (human decision, framework-assisted)
 
 ### UM — Mechanism research
 
