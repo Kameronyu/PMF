@@ -81,6 +81,7 @@ trust the prompt.
   "position": "int — funnel-level ordinal (1st, 2nd, 3rd belief-instance encountered across the whole funnel); NOT page-local; see §5 / D-12",
   "belief_id": "string — one of the 9 anchors (preferred) or a new proposed belief_id if none fits",
   "belief_confidence": "'high' | 'low' — LOW for any belief_id that is NOT one of the 9 anchors (overflow beliefs must be flagged for review)",
+  "belief_kind": "'crowdfunding-specific' | 'general-dr' — see BELIEF_KIND_ENUM; which category of belief this is; crowdfunding-specific = beliefs that only appear in crowdfunding funnels (e.g. it-will-ship, trust-the-brand-or-founder as founder-credibility); general-dr = beliefs that appear in any DR funnel",
   "execution_type": "string — see EXECUTION_TYPE_ENUM below; HOW the belief is installed",
   "execution_detail": "string — GRANULAR free text; specific enough that the sub-claim is recoverable; NOT 'they build trust' but 'founder names the exact factory, shows a dated production photo, and states he placed the full MOQ order himself — installing ship-confidence via founder financial skin-in-game'",
   "proof_tier": "string — 'Tier1' | 'Tier2' | 'Tier3' — see PROOF_TIER_ENUM",
@@ -141,6 +142,11 @@ BELIEF_ID_ANCHORS:      problem-exists | problem-matters | past-solutions-failed
                         its-worth-the-price | act-now
                         (open-with-anchors: prefer an anchor; if none fits, propose a new belief_id
                         AND set belief_confidence to 'low')
+
+BELIEF_KIND_ENUM:       crowdfunding-specific | general-dr
+                        crowdfunding-specific = beliefs that only appear in crowdfunding funnels
+                                                (e.g. it-will-ship, trust-the-brand-or-founder as founder-credibility)
+                        general-dr            = beliefs that appear in any DR funnel
 ```
 
 ---
