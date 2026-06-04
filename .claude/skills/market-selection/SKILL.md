@@ -44,27 +44,38 @@ competition has already said.
   §"Supply-side validation stance" + §"Deferred reads". Read as layer-A prose, never schema,
   never hook-validated (D-06). For the Arduview run: `runs/arduview/pre-research-plan.md`.
 
-### SUPPORTING KNOWLEDGE (auto-injected — read as reference, NOT as the procedure)
+### SUPPORTING KNOWLEDGE — read the bundle (NOT auto-injected; you MUST Read it)
 
-The four-gate framework inlined below is the procedure. These DR files are SUPPORTING KNOWLEDGE
-so you correctly understand the terms you manipulate — what a Stage-4 claim is, what a real
-differentiator looks like, how sophistication and awareness differ. Consult them to classify
-and judge correctly; do NOT let them override the procedure.
+The four-gate framework inlined below is the procedure. The DR files are SUPPORTING KNOWLEDGE so
+you correctly understand the terms you manipulate — what a Stage-4 claim is, what a real
+differentiator looks like, how sophistication and awareness differ, and the difficulty model the
+ranking uses. Consult them to classify and judge correctly; do NOT let them override the procedure.
 
-- `~/knowledge/dr-marketing/consumer-psychology--carl-weische.md` — sophistication-stage +
-  awareness-stage tables + Mass Desire core drivers (belonging/status/comparison = legitimate
-  demand, not weak demand — grounds override #4).
-- `~/knowledge/dr-marketing/brand-building--spencer-origins.md` — sophistication progression
-  (Stage 3 = mechanism, 4 = claim escalation, 5 = reset), 5 mechanism types,
-  dead-ground/whitespace rule (5+ same claim = dead).
-- `~/knowledge/dr-marketing/ecommerce--mark-builds-brands.md` — anti-fluke thresholds (multi-
-  competitor, trend durability, ad longevity). **CAUTION: its $300–500K/mo revenue floor is
-  MISCALIBRATED for this product category — do NOT apply it.** The operator minimum from the
-  run context is the only absolute bar; absent that, qualify on signals 2 or 3 and state no
-  floor was set.
-- `~/knowledge/dr-marketing/differentiator-framework__2_.md` — market-vs-angle test, me-too
-  failure pattern, worked failures (for Gate 2.2 real-axis read and the don't-merge-markets
-  judgment).
+These files are bundled into ONE generated file. **There is NO auto-injection — you must Read it:**
+
+- `.claude/skills/market-selection/_dr-context.generated.md` — all five DR files below,
+  concatenated. ONE Read loads them all. If it is missing or stale, regenerate with
+  `node tools/hooks/inject-market-selection-dr.js` then Read it. **Do NOT proceed without it** —
+  the 2026-06 Arduview run executed the entire gate with ZERO DR grounding because this step was
+  silently skipped (SKILL.md falsely claimed the files were auto-injected; no such mechanism
+  exists, and the assessor runs as a subagent where settings hooks do not fire).
+
+Bundled files (sources under `~/knowledge/dr-marketing/`; Read them individually only if the
+bundle is unavailable):
+- `consumer-psychology--carl-weische.md` — sophistication-stage + awareness-stage tables + Mass
+  Desire core drivers (belonging/status/comparison = legitimate demand, not weak demand — grounds
+  override #4).
+- `differentiator-framework__2_.md` — market-vs-angle test, me-too failure pattern, buyer≠user
+  (for Gate 2.2 real-axis read and the don't-merge-markets judgment).
+- `brand-building--spencer-origins.md` — sophistication progression (Stage 3 = mechanism, 4 =
+  claim escalation, 5 = reset), 5 mechanism types, dead-ground/whitespace rule (5+ same claim =
+  dead).
+- `product-research--spencer-origins.md` — the 3-variable difficulty model (desire × awareness ×
+  sophistication) used in SURVIVOR RANKING, plus the over-studying guardrail.
+- `ecommerce--mark-builds-brands.md` — anti-fluke thresholds (multi-competitor, trend durability,
+  ad longevity). **CAUTION: its $300–500K/mo revenue floor is MISCALIBRATED for this product
+  category — do NOT apply it.** The operator minimum from the run context is the only absolute
+  bar; absent that, qualify on signals 2 or 3 and state no floor was set.
 
 ---
 
@@ -76,7 +87,9 @@ The skill expects:
 - `runs/<space>/space-map.json` — cell aggregate + per-brand fields
 - `runs/<space>/brands.json` — per-brand facts
 - `runs/<space>/ads/<brand>.json` — per-ad longevity records
-- `runs/<space>/corpus/<brand>/dump.json` — per-brand creative dumps (Gate 2.2 / 3.3 mechanism derivation)
+- `runs/<space>/corpus/<brand>/dump.json` — per-brand creative dumps. NOTE: as of BREAK 5 the gate no
+  longer reads these — the mechanisms-in-play read now comes from `space-map.json mechanisms_in_play[]`.
+  Listed for provenance only; not a required gate input.
 - `runs/<space>/pre-research-plan.md` — prose operator overrides
 
 ### Arduview run — PATH MISMATCH (load-bearing)
@@ -122,7 +135,7 @@ Exact figure or "not found"; no hand-waving.
 | Canonical bet list | `space-map.json` | `bet_types[]` | top-level OPEN list: `novel-hardware-as-lead`, `open-source-hackability-as-lead`, `hardware-authenticity-as-lead`, `value-breadth-as-lead`, `maker-ecosystem-store` |
 | Price conditioning | `brands.json` | `price_points[]` | verbatim |
 | Product / channel | `brands.json` | `product_observed`, `channel` | dtc / marketplace / crowdfunding |
-| Mechanisms-in-play | Derived — see DATA GAP note below | — | ABSENT from space-map.json; derive via stopgap |
+| Mechanisms-in-play (Gate 2.2 / 3.3-S3) | `space-map.json` | top-level `mechanisms_in_play[]` (space-wide catalog) + `combos[].mechanisms_in_play[]` (cell-scoped) | BREAK 5 RESOLVED — field is now present. Read it directly; `ownability:"shared"` (3+ brands) = taken, `"unique"` (≤2) = ownable. No corpus derivation, no `[INFERENCE]`. |
 
 ### Gate 3 inputs — Sophistication
 
@@ -140,16 +153,13 @@ Two bare DATA GAPs:
 2. `revenue_est.value_usd_monthly: null` — most/all brands (D-03). Weight remaining signals
    (ad longevity, crowdfunding); state no revenue floor was applied.
 
-The THIRD field that appears DATA-GAP-shaped — `mechanisms_in_play[]` — is **NOT** a bare DATA
-GAP for this run. The `space-map.json` output slot is absent (a cross-phase Phase-1 add per
-`01-DEBUG-RUN-NOTES.md` BREAK 5, not built here), BUT at decision-time the skill READS
-`.claude/skills/market-selection/mechanisms-in-play-stopgap.md` and DERIVES the
-shared-vs-unique mechanism read on the fly from per-pitch `mechanism[]` in
-`corpus/<brand>/dump.json` → `creatives[].pitches[].mechanism[]` (canonical-layout label
-`runs/<space>/corpus/<brand>/dump.json`; for the Arduview run the dumps are at repo-root
-`corpus/<brand>/dump.json`). Fence the derived read `[INFERENCE]`, surface `n=` per cluster,
-lower the cell's confidence. Do NOT emit a bare `DATA GAP` and skip the mechanism check for
-this field — the raw material is present, so derive it.
+The THIRD field once treated as DATA-GAP-shaped — `mechanisms_in_play[]` — is **RESOLVED**
+(BREAK 5 fixed, `01-DEBUG-RUN-NOTES.md`). `space-map.json` now carries it as a first-class field:
+a top-level space-wide catalog AND a per-combo `mechanisms_in_play[]` on each cell. **Read it
+directly** — it is OBSERVED data, not an `[INFERENCE]` derivation. The old corpus-derivation
+stopgap (`mechanisms-in-play-stopgap.md`) is RETIRED; do not derive from `corpus/<brand>/dump.json`
+anymore. For Gate 3.3-S3, read the cell's `combos[].mechanisms_in_play[]`: `ownability:"shared"`
+means the mechanism is taken in that cell; `"unique"` means ownable.
 
 ---
 
@@ -302,17 +312,15 @@ actually named; use that.
 
 The named axis that passes **IS the UM**. This gate and UM identification are one finding.
 
-**Mechanisms-in-play (D-05 stopgap):** Gate 2.2 also needs to know which mechanisms the cell's
-competitors lead with. Since `mechanisms_in_play[]` is absent from `space-map.json`, DERIVE
-this read using the procedure in
-`.claude/skills/market-selection/mechanisms-in-play-stopgap.md`:
-- Source: `corpus/<brand>/dump.json` → `creatives[].pitches[].mechanism[]`
-- Collect from LIVE, in-geo brands in this cell; exclude `comparable_bet_seed` + dead/region-only
-- Cluster near-duplicates by meaning; count distinct brands per cluster
-- Classify: shared (3+ brands) = not ownable; unique (1 brand) = ownable
-- Scope per cell — a cross-cell mechanism is not taken here
-- Use `mechanism[]` as primary; `problem_um_raw` only as secondary when non-empty
-- Fence the entire derived read `[INFERENCE]` with `n=` per cluster; lower cell confidence
+**Mechanisms-in-play (BREAK 5 — now a first-class field):** Gate 2.2 also needs to know which
+mechanisms the cell's competitors lead with. **Read `combos[].mechanisms_in_play[]` for this cell**
+from `space-map.json` (and the top-level `mechanisms_in_play[]` for the space-wide view). Each entry
+is `{canonical, brand_count, ownability, brands[]}`:
+- `ownability:"shared"` (3+ distinct live brands in this cell) = NOT ownable / taken
+- `ownability:"unique"` (≤2) = ownable; `brand_count:1` is a clean candidate UM, `2` is borderline
+- Already scoped per cell + excludes `comparable_bet_seed` and dead/region-only (done upstream by S1)
+This is OBSERVED data — do NOT fence `[INFERENCE]`, do NOT derive from corpus dumps. The old
+`mechanisms-in-play-stopgap.md` is RETIRED.
 
 A real differentiator at 2.2 can also JUSTIFY a price premium flagged at 2.1c — connect them.
 
@@ -369,10 +377,10 @@ S4 → enhanced claim on the UM · S5 → identity / extraordinary identificatio
 #### 3.3 Executability
 
 - **S1/S2:** UM has room for a clean statement. Executable.
-- **S3:** is the Gate-2 UM real AND **not already in the mechanisms-in-play set** (derived via
-  the stopgap above — `[INFERENCE]`)? If already claimed by a qualifying competitor → not a
-  differentiator → KILL. **Do NOT emit a bare `DATA GAP` here** — derive the mechanism set from
-  the corpus dumps and proceed, fenced `[INFERENCE]`.
+- **S3:** is the Gate-2 UM real AND **not already in the cell's `mechanisms_in_play[]` set**? Read
+  `combos[].mechanisms_in_play[]` for this cell (BREAK 5 — observed data in `space-map.json`). If the
+  UM's mechanism matches one with `ownability:"shared"` → claimed by qualifying competitors → not a
+  differentiator → KILL. `ownability:"unique"` → open. No corpus derivation, no `[INFERENCE]`.
 - **S4:** run the enhanced claim through (a) desirable to the niche AND (b) believable.
   Fail either → KILL. **Believability resolved:** reason FRESH at the enhanced claim — given the
   enhanced claim + the mechanism/reason-why + the target niche, does the stated mechanism
@@ -478,7 +486,7 @@ One record per candidate cell (transformation × niche), then the ranked survivo
   trend shape · demand magnitude (size + intensity, intensity flagged proxy/VOC). Durability
   UNKNOWN for this run — state blockers.
 - **Gate 2 — Product:** pass/kill · named UM axis (`bet_type` + `bet_type_basis`) · believability
-  tier · efficacy + economics evidence · mechanisms-in-play `[INFERENCE]` read.
+  tier · efficacy + economics evidence · mechanisms-in-play read (from `combos[].mechanisms_in_play[]` — observed, cite `ownability` + `brand_count`).
 - **Gate 3 — Sophistication:** pass/kill · stage (per-cell typed claims) · required move ·
   executability · defense-quality · dead-ground vs whitespace (per cell).
 - **Gate 4 — Awareness:** PENDING DEEP-RESEARCH STEP.
@@ -490,9 +498,9 @@ One record per candidate cell (transformation × niche), then the ranked survivo
   and the required move is/isn't executable · awareness PENDING DEEP-RESEARCH STEP.
 
 **SYNTHESIS fencing:** every claim of fact cites observed evidence (brand, figure, source). Any
-AI **inference** (a stage read, an intensity proxy, a bridged estimate, the mechanisms-in-play
-cluster) is fenced and labeled `[INFERENCE]` with `n=` per cluster — never blended into observed
-data.
+AI **inference** (a stage read, an intensity proxy, a bridged estimate) is fenced and labeled
+`[INFERENCE]` — never blended into observed data. NOTE: `mechanisms_in_play[]` is now OBSERVED
+data read from `space-map.json` (BREAK 5), no longer an `[INFERENCE]` cluster — cite it as fact.
 
 **Which overrides were applied** (or "ran generic, no overrides provided").
 
@@ -519,7 +527,7 @@ to test).
 - [ ] **Layer discipline?** No feature labeled a claim, no mechanism labeled a transformation.
 - [ ] **DATA GAPs surfaced, not guessed?** Every missing input is `DATA GAP:`, not an invented
       value. `demand_trend: unknown` and `revenue_est: null` are surfaced; `mechanisms_in_play[]`
-      is derived `[INFERENCE]` from corpus dumps (not a bare DATA GAP).
+      is READ from `space-map.json` (BREAK 5 resolved) — observed, not derived, not a DATA GAP.
 - [ ] **A4 not D1?** Output stops at ranked PROVISIONAL survivors; no "we should test X."
 - [ ] **Soft-gate mode applied?** Hard kills are flags + ranking penalties; all 6 cells carried
       through to the output.

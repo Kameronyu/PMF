@@ -2,7 +2,6 @@
   "_provenance": "Canonical transformations are claim-categories competitors ASSERT, not validated customer transformations — true transformation is a later VOC/review-mine finding.",
   "_anti_fluke_floor": "2+ brands at scale; 7+ day ad longevity to qualify a creative. These floors are surfaced here for Phase 2 decision-time use — Phase 1 never hard-gates on them.",
   "_comparable_bet_seed_note": "Brands tagged comparable_bet_seed:true (arduboy, flipper-zero, nothing-phone, skeleton-key) are BET-EVIDENCE — they demonstrate 'novel-hardware-as-lead bet won durably at scale.' Their brand counts are EXCLUDED from per-cell saturation exactly as dead/region-only brands are excluded from live saturation (D-08). Two jobs kept separate: they prove the bet, not the cell.",
-
   "transformations": [
     {
       "canonical": "maker-identity",
@@ -61,7 +60,6 @@
       "creative_count": 3
     }
   ],
-
   "niches": [
     {
       "canonical": "maker-diy-hobbyists",
@@ -105,7 +103,6 @@
       "brand_count": 2
     }
   ],
-
   "angles": [
     {
       "canonical": "community-membership-signal",
@@ -149,7 +146,6 @@
       "creative_count": 1
     }
   ],
-
   "bet_types": [
     {
       "canonical": "novel-hardware-as-lead",
@@ -198,22 +194,269 @@
       "brand_count": 3
     }
   ],
-
+  "mechanisms_in_play": [
+    {
+      "canonical": "Distinctive low-res / monochrome / pixel display as the medium",
+      "raw_variants": [
+        "72×40 px Monochrome OLED",
+        "128x128 16 colours display",
+        "32k cart size",
+        "very special black and white screen — not backlit, but super reflective",
+        "LED pixel art display (Pixoo, Ditoo, Times Gate)"
+      ],
+      "brand_count": 4,
+      "ownability": "shared"
+    },
+    {
+      "canonical": "Code-the-hardware-yourself / built-in dev toolchain (Arduino-compatible SDK + editors)",
+      "raw_variants": [
+        "MicroPython / Blockly / Arduino C/C++",
+        "Thumby Code Editor website",
+        "MicroPython implementation of Python 3 optimized to run on microcontrollers",
+        "Thumby MicroPython API",
+        "KEYPAD module with Arduino compatibility (ATmega168P)",
+        "P8 Lua code",
+        "built-in sprite, map, sound, music editors",
+        "all creative tools built into the console (code, music, sound, sprites, maps)"
+      ],
+      "brand_count": 3,
+      "ownability": "shared"
+    },
+    {
+      "canonical": "Built-in synth/sequencer/drum-machine engine",
+      "raw_variants": [
+        "16 sound drum machine and sequencer",
+        "deep bass line synthesizer with sequencer",
+        "studio quality sound",
+        "4 channel chip blerps"
+      ],
+      "brand_count": 2,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "Cartridge-based game library / one-cart-fits-all compatibility",
+      "raw_variants": [
+        "compatible with the 2,780+ Game Boy, Game Boy Color & Game Boy Advance game cartridge library",
+        "cartridge adapters for Game Gear, Neo Geo Pocket Color, TurboGrafx-16, Atari Lynx",
+        "The biggest collection of classic, licensed video game cartridges",
+        "One cart fits all"
+      ],
+      "brand_count": 2,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "Online cartridge/community browser for sharing creations",
+      "raw_variants": [
+        "online cartridge browser SPLORE",
+        "community of pixel artists, makers, desk setup lovers"
+      ],
+      "brand_count": 2,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "RP2040 / Raspberry Pi single-board-computer core",
+      "raw_variants": [
+        "Raspberry Pi RP2040 processor",
+        "running on a Raspberry Pi Zero W"
+      ],
+      "brand_count": 2,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "Runs existing game engines / emulation core (PICO-8, LOVE2D, etc.)",
+      "raw_variants": [
+        "runs PICO-8, LOVE2D, PyGame, Libretro and other game engines",
+        "Pixel perfect emulation"
+      ],
+      "brand_count": 2,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "App-controlled animations / pixel-art creation",
+      "raw_variants": [
+        "app-controlled animations and pixel art creation",
+        "smart widgets (time, weather, notifications)"
+      ],
+      "brand_count": 1,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "Caseless single-PCB design — cost savings reinvested in components",
+      "raw_variants": [
+        "designed on a single multiple-layer circuit board using high quality components",
+        "no need for an outer case — by saving this cost, high quality components could be used to guarantee the best possible sound",
+        "single PCB design with no case — cost savings passed on"
+      ],
+      "brand_count": 1,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "FPGA-based hardware-accurate (not emulated)",
+      "raw_variants": [
+        "Completely engineered in",
+        "two FPGAs"
+      ],
+      "brand_count": 1,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "Long battery life",
+      "raw_variants": [
+        "1 month battery life"
+      ],
+      "brand_count": 1,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "Modder-grade display upgrade for retro shells (Game Boy IPS swap)",
+      "raw_variants": [
+        "IPS LCD for Game Boy",
+        "compatible shells",
+        "modern look with this new FunnyPlaying display"
+      ],
+      "brand_count": 1,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "Novel analog input device (crank / flip-out controller)",
+      "raw_variants": [
+        "an analog controller that flips out from the side",
+        "crank — analog input device"
+      ],
+      "brand_count": 1,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "On-device AI agent that learns from its environment",
+      "raw_variants": [
+        "A2C-based AI powered by bettercap",
+        "learns from its surrounding WiFi environment"
+      ],
+      "brand_count": 1,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "Preloaded games / cartridge library ship-with-content (play right away)",
+      "raw_variants": [
+        "preloaded games in flash storage",
+        "Thumby Arcade community games"
+      ],
+      "brand_count": 1,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "Premium high-density display / build materials (high ppi LCD, Gorilla Glass)",
+      "raw_variants": [
+        "3.5\", 615 ppi, LCD",
+        "1600x1440 resolution",
+        "Gorilla© Glass"
+      ],
+      "brand_count": 1,
+      "ownability": "unique"
+    },
+    {
+      "canonical": "Quad-core / multi-part modular dev board (swappable kit assembly)",
+      "raw_variants": [
+        "ClockworkPi development board (Quad-core Cortex-A7 CPU, Mali GPU, WiFi & Bluetooth, 1GB DDR3)",
+        "modular swappable parts — kit assembly"
+      ],
+      "brand_count": 1,
+      "ownability": "unique"
+    }
+  ],
   "combos": [
     {
       "transformation": "maker-identity",
       "niche": "maker-diy-hobbyists",
       "brand_count": 5,
       "creative_count": 5,
-      "brands": ["thumby", "gameshell", "pwnagotchi", "pimoroni", "sparkfun"],
+      "brands": [
+        "thumby",
+        "gameshell",
+        "pwnagotchi",
+        "pimoroni",
+        "sparkfun"
+      ],
       "claim_count": 3,
       "enhanced_claim_count": 0,
       "claims": [
-        { "text": "fully open-source and customizable, so you can extend it in whatever way you like", "type": "direct" },
-        { "text": "An Open Source Portable Game Console", "type": "direct" },
-        { "text": "Pwnagotchi: Deep Reinforcement Learning for WiFi pwning!", "type": "direct" }
+        {
+          "text": "fully open-source and customizable, so you can extend it in whatever way you like",
+          "type": "direct"
+        },
+        {
+          "text": "An Open Source Portable Game Console",
+          "type": "direct"
+        },
+        {
+          "text": "Pwnagotchi: Deep Reinforcement Learning for WiFi pwning!",
+          "type": "direct"
+        }
       ],
-      "anti_fluke": { "brands_at_scale": 5, "qualifying_creatives": 0 },
+      "mechanisms_in_play": [
+        {
+          "canonical": "Code-the-hardware-yourself / built-in dev toolchain (Arduino-compatible SDK + editors)",
+          "brand_count": 2,
+          "ownability": "unique",
+          "brands": [
+            "gameshell",
+            "thumby"
+          ]
+        },
+        {
+          "canonical": "RP2040 / Raspberry Pi single-board-computer core",
+          "brand_count": 2,
+          "ownability": "unique",
+          "brands": [
+            "pwnagotchi",
+            "thumby"
+          ]
+        },
+        {
+          "canonical": "Distinctive low-res / monochrome / pixel display as the medium",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "thumby"
+          ]
+        },
+        {
+          "canonical": "On-device AI agent that learns from its environment",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "pwnagotchi"
+          ]
+        },
+        {
+          "canonical": "Preloaded games / cartridge library ship-with-content (play right away)",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "thumby"
+          ]
+        },
+        {
+          "canonical": "Quad-core / multi-part modular dev board (swappable kit assembly)",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "gameshell"
+          ]
+        },
+        {
+          "canonical": "Runs existing game engines / emulation core (PICO-8, LOVE2D, etc.)",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "gameshell"
+          ]
+        }
+      ],
+      "anti_fluke": {
+        "brands_at_scale": 5,
+        "qualifying_creatives": 0
+      },
       "_note": "Comparable_bet_seeds (arduboy, flipper-zero) EXCLUDED from brand_count per D-08 + brief. They are bet-evidence, not saturation-evidence. Adafruit also excluded — claims array is empty (catalog page, no verbal transformation claims typed)."
     },
     {
@@ -221,29 +464,160 @@
       "niche": "maker-diy-hobbyists",
       "brand_count": 2,
       "creative_count": 3,
-      "brands": ["thumby", "pico-8"],
+      "brands": [
+        "thumby",
+        "pico-8"
+      ],
       "claim_count": 3,
       "enhanced_claim_count": 0,
       "claims": [
-        { "text": "Thumby™ is an itty-bitty game system at the tips of your thumbs, a best friend for your keys, and an easy learning tool all-in-one", "type": "direct" },
-        { "text": "PICO-8 is a  fantasy console  for making, sharing and playing tiny games and", "type": "direct" },
-        { "text": "Create a whole game or program in one sitting without needing to leave the cosy development environment!", "type": "direct" }
+        {
+          "text": "Thumby™ is an itty-bitty game system at the tips of your thumbs, a best friend for your keys, and an easy learning tool all-in-one",
+          "type": "direct"
+        },
+        {
+          "text": "PICO-8 is a  fantasy console  for making, sharing and playing tiny games and",
+          "type": "direct"
+        },
+        {
+          "text": "Create a whole game or program in one sitting without needing to leave the cosy development environment!",
+          "type": "direct"
+        }
       ],
-      "anti_fluke": { "brands_at_scale": 2, "qualifying_creatives": 0 }
+      "mechanisms_in_play": [
+        {
+          "canonical": "Code-the-hardware-yourself / built-in dev toolchain (Arduino-compatible SDK + editors)",
+          "brand_count": 2,
+          "ownability": "unique",
+          "brands": [
+            "pico-8",
+            "thumby"
+          ]
+        },
+        {
+          "canonical": "Distinctive low-res / monochrome / pixel display as the medium",
+          "brand_count": 2,
+          "ownability": "unique",
+          "brands": [
+            "pico-8",
+            "thumby"
+          ]
+        },
+        {
+          "canonical": "Built-in synth/sequencer/drum-machine engine",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "pico-8"
+          ]
+        },
+        {
+          "canonical": "Online cartridge/community browser for sharing creations",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "pico-8"
+          ]
+        },
+        {
+          "canonical": "Preloaded games / cartridge library ship-with-content (play right away)",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "thumby"
+          ]
+        },
+        {
+          "canonical": "RP2040 / Raspberry Pi single-board-computer core",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "thumby"
+          ]
+        }
+      ],
+      "anti_fluke": {
+        "brands_at_scale": 2,
+        "qualifying_creatives": 0
+      }
     },
     {
       "transformation": "learn-to-code",
       "niche": "learn-to-code-students",
       "brand_count": 2,
       "creative_count": 2,
-      "brands": ["thumby", "pico-8"],
+      "brands": [
+        "thumby",
+        "pico-8"
+      ],
       "claim_count": 2,
       "enhanced_claim_count": 0,
       "claims": [
-        { "text": "Thumby™ is an itty-bitty game system at the tips of your thumbs, a best friend for your keys, and an easy learning tool all-in-one", "type": "direct" },
-        { "text": "Create a whole game or program in one sitting without needing to leave the cosy development environment!", "type": "direct" }
+        {
+          "text": "Thumby™ is an itty-bitty game system at the tips of your thumbs, a best friend for your keys, and an easy learning tool all-in-one",
+          "type": "direct"
+        },
+        {
+          "text": "Create a whole game or program in one sitting without needing to leave the cosy development environment!",
+          "type": "direct"
+        }
       ],
-      "anti_fluke": { "brands_at_scale": 2, "qualifying_creatives": 0 },
+      "mechanisms_in_play": [
+        {
+          "canonical": "Code-the-hardware-yourself / built-in dev toolchain (Arduino-compatible SDK + editors)",
+          "brand_count": 2,
+          "ownability": "unique",
+          "brands": [
+            "pico-8",
+            "thumby"
+          ]
+        },
+        {
+          "canonical": "Distinctive low-res / monochrome / pixel display as the medium",
+          "brand_count": 2,
+          "ownability": "unique",
+          "brands": [
+            "pico-8",
+            "thumby"
+          ]
+        },
+        {
+          "canonical": "Built-in synth/sequencer/drum-machine engine",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "pico-8"
+          ]
+        },
+        {
+          "canonical": "Online cartridge/community browser for sharing creations",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "pico-8"
+          ]
+        },
+        {
+          "canonical": "Preloaded games / cartridge library ship-with-content (play right away)",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "thumby"
+          ]
+        },
+        {
+          "canonical": "RP2040 / Raspberry Pi single-board-computer core",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "thumby"
+          ]
+        }
+      ],
+      "anti_fluke": {
+        "brands_at_scale": 2,
+        "qualifying_creatives": 0
+      },
       "_note": "Arduboy excluded (comparable_bet_seed); meowbit excluded (page 404, no claims captured)."
     },
     {
@@ -251,15 +625,74 @@
       "niche": "retro-gamers",
       "brand_count": 3,
       "creative_count": 4,
-      "brands": ["analogue-pocket", "evercade", "bitboy"],
+      "brands": [
+        "analogue-pocket",
+        "evercade",
+        "bitboy"
+      ],
       "claim_count": 3,
       "enhanced_claim_count": 0,
       "claims": [
-        { "text": "Relive and Discover Gaming's Greatest", "type": "direct" },
-        { "text": "A tribute to portable gaming.", "type": "direct" },
-        { "text": "No emulation.", "type": "direct" }
+        {
+          "text": "Relive and Discover Gaming's Greatest",
+          "type": "direct"
+        },
+        {
+          "text": "A tribute to portable gaming.",
+          "type": "direct"
+        },
+        {
+          "text": "No emulation.",
+          "type": "direct"
+        }
       ],
-      "anti_fluke": { "brands_at_scale": 3, "qualifying_creatives": 0 },
+      "mechanisms_in_play": [
+        {
+          "canonical": "Cartridge-based game library / one-cart-fits-all compatibility",
+          "brand_count": 2,
+          "ownability": "unique",
+          "brands": [
+            "analogue-pocket",
+            "evercade"
+          ]
+        },
+        {
+          "canonical": "FPGA-based hardware-accurate (not emulated)",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "analogue-pocket"
+          ]
+        },
+        {
+          "canonical": "Modder-grade display upgrade for retro shells (Game Boy IPS swap)",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "bitboy"
+          ]
+        },
+        {
+          "canonical": "Premium high-density display / build materials (high ppi LCD, Gorilla Glass)",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "analogue-pocket"
+          ]
+        },
+        {
+          "canonical": "Runs existing game engines / emulation core (PICO-8, LOVE2D, etc.)",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "evercade"
+          ]
+        }
+      ],
+      "anti_fluke": {
+        "brands_at_scale": 3,
+        "qualifying_creatives": 0
+      },
       "_note": "Anbernic excluded from typed claims (no verbal claims captured from their page). Miyoo excluded (defunct/region-only, D-08). Analogue Pocket 'No emulation' is a problem-UM frame (disqualifying alternative), typed as direct — it's a bare identity statement."
     },
     {
@@ -267,16 +700,94 @@
       "niche": "edc-aesthetic-collectors",
       "brand_count": 3,
       "creative_count": 4,
-      "brands": ["playdate", "pocket-operator", "divoom"],
+      "brands": [
+        "playdate",
+        "pocket-operator",
+        "divoom"
+      ],
       "claim_count": 4,
       "enhanced_claim_count": 0,
       "claims": [
-        { "text": "Playdate is familiar, but unlike anything you've ever seen", "type": "direct" },
-        { "text": "Bring personality, widgets and pixel visuals into your workspace", "type": "direct" },
-        { "text": "a wall of sound in your pocket.", "type": "direct" },
-        { "text": "pocket operators are small, ultra-portable music devices, with studio quality sound and the flexibility to make music on the go. affordable for everyone and compatible with all other music gear.", "type": "enlarged" }
+        {
+          "text": "Playdate is familiar, but unlike anything you've ever seen",
+          "type": "direct"
+        },
+        {
+          "text": "Bring personality, widgets and pixel visuals into your workspace",
+          "type": "direct"
+        },
+        {
+          "text": "a wall of sound in your pocket.",
+          "type": "direct"
+        },
+        {
+          "text": "pocket operators are small, ultra-portable music devices, with studio quality sound and the flexibility to make music on the go. affordable for everyone and compatible with all other music gear.",
+          "type": "enlarged"
+        }
       ],
-      "anti_fluke": { "brands_at_scale": 3, "qualifying_creatives": 0 },
+      "mechanisms_in_play": [
+        {
+          "canonical": "Distinctive low-res / monochrome / pixel display as the medium",
+          "brand_count": 2,
+          "ownability": "unique",
+          "brands": [
+            "divoom",
+            "playdate"
+          ]
+        },
+        {
+          "canonical": "App-controlled animations / pixel-art creation",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "divoom"
+          ]
+        },
+        {
+          "canonical": "Built-in synth/sequencer/drum-machine engine",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "pocket-operator"
+          ]
+        },
+        {
+          "canonical": "Caseless single-PCB design — cost savings reinvested in components",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "pocket-operator"
+          ]
+        },
+        {
+          "canonical": "Long battery life",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "pocket-operator"
+          ]
+        },
+        {
+          "canonical": "Novel analog input device (crank / flip-out controller)",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "playdate"
+          ]
+        },
+        {
+          "canonical": "Online cartridge/community browser for sharing creations",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "divoom"
+          ]
+        }
+      ],
+      "anti_fluke": {
+        "brands_at_scale": 3,
+        "qualifying_creatives": 0
+      },
       "_note": "Nothing Phone excluded (comparable_bet_seed). 'pocket operators are small, ultra-portable...studio quality sound' typed enlarged: specifies quality level (studio quality) and condition (on the go). 'affordable for everyone' adds comparative framing."
     },
     {
@@ -284,228 +795,561 @@
       "niche": "edc-aesthetic-collectors",
       "brand_count": 1,
       "creative_count": 3,
-      "brands": ["pocket-operator"],
+      "brands": [
+        "pocket-operator"
+      ],
       "claim_count": 3,
       "enhanced_claim_count": 0,
       "claims": [
-        { "text": "pocket operators are small, ultra-portable music devices, with studio quality sound and the flexibility to make music on the go. affordable for everyone and compatible with all other music gear.", "type": "enlarged" },
-        { "text": "a wall of sound in your pocket.", "type": "direct" },
-        { "text": "affordable for everyone and compatible with all other music gear.", "type": "direct" }
+        {
+          "text": "pocket operators are small, ultra-portable music devices, with studio quality sound and the flexibility to make music on the go. affordable for everyone and compatible with all other music gear.",
+          "type": "enlarged"
+        },
+        {
+          "text": "a wall of sound in your pocket.",
+          "type": "direct"
+        },
+        {
+          "text": "affordable for everyone and compatible with all other music gear.",
+          "type": "direct"
+        }
       ],
-      "anti_fluke": { "brands_at_scale": 1, "qualifying_creatives": 0 },
+      "mechanisms_in_play": [
+        {
+          "canonical": "Built-in synth/sequencer/drum-machine engine",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "pocket-operator"
+          ]
+        },
+        {
+          "canonical": "Caseless single-PCB design — cost savings reinvested in components",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "pocket-operator"
+          ]
+        },
+        {
+          "canonical": "Long battery life",
+          "brand_count": 1,
+          "ownability": "unique",
+          "brands": [
+            "pocket-operator"
+          ]
+        }
+      ],
+      "anti_fluke": {
+        "brands_at_scale": 1,
+        "qualifying_creatives": 0
+      },
       "_note": "Single brand — below the 2+ anti-fluke floor. Not saturated."
     }
   ],
-
   "per_brand": [
     {
       "slug": "arduboy",
-      "transformations": [ { "canonical": "maker-identity", "creative_count": 1 }, { "canonical": "learn-to-code", "creative_count": 1 } ],
-      "niches": ["maker-diy-hobbyists"],
+      "transformations": [
+        {
+          "canonical": "maker-identity",
+          "creative_count": 1
+        },
+        {
+          "canonical": "learn-to-code",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "maker-diy-hobbyists"
+      ],
       "comparable_bet_seed": true,
       "bet_type": "open-source-hackability-as-lead",
       "bet_type_basis": "Page leads: 'open source — Learn to code and create your own games'; ATmega32U4 Arduino-IDE-flashable hardware positioned as the headline differentiator; '300+ Games' and community-made content second.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — in maker-identity × maker-diy cell: claims are sparse direct statements ('Learn to code and create your own games', '300+ Games'). Floor: just state the claim."
     },
     {
       "slug": "thumby",
-      "transformations": [ { "canonical": "maker-identity", "creative_count": 1 }, { "canonical": "learn-to-code", "creative_count": 1 } ],
-      "niches": ["maker-diy-hobbyists", "learn-to-code-students", "edc-aesthetic-collectors"],
+      "transformations": [
+        {
+          "canonical": "maker-identity",
+          "creative_count": 1
+        },
+        {
+          "canonical": "learn-to-code",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "maker-diy-hobbyists",
+        "learn-to-code-students",
+        "edc-aesthetic-collectors"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "novel-hardware-as-lead",
       "bet_type_basis": "Page leads with 'itty-bitty game system' miniaturization as the headline; 'Probably the World's Smallest Game Console' (Nintendo Life) used as the primary trust signal. Smallness IS the differentiator, not the software or community alone.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — direct claim only ('itty-bitty game system...easy learning tool all-in-one'). No quantified or mechanism-bound claims."
     },
     {
       "slug": "flipper-zero",
-      "transformations": [ { "canonical": "maker-identity", "creative_count": 1 } ],
-      "niches": ["maker-diy-hobbyists"],
+      "transformations": [
+        {
+          "canonical": "maker-identity",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "maker-diy-hobbyists"
+      ],
       "comparable_bet_seed": true,
       "bet_type": "novel-hardware-as-lead",
       "bet_type_basis": "Page leads: 'portable multi-tool for pentesters and geeks in a toy-like body' — the exotic hardware breadth (CC1101, RFID, NFC, IR, BLE, GPIO, iButton) IS the headline. The dolphin-personality framing wraps serious hardware in a collectible-object frame.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 2 — enlarged claims present: 'Sub-1 GHz...up to 50 meters' (range-specified), 'up to 28 days battery life' (quantified). Floor: a sharper/specified claim."
     },
     {
       "slug": "nothing-phone",
-      "transformations": [ { "canonical": "novelty-object-own", "creative_count": 1 } ],
-      "niches": ["edc-aesthetic-collectors"],
+      "transformations": [
+        {
+          "canonical": "novelty-object-own",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "edc-aesthetic-collectors"
+      ],
       "comparable_bet_seed": true,
       "bet_type": "novel-hardware-as-lead",
       "bet_type_basis": "Brand identity = transparent back + Glyph Interface LED lights as the product's reason-to-exist. Current homepage: Charli xcx campaign, 'changing how things are done — with music and machines for a new generation.' The design/aesthetic hardware IS the differentiation, not specs.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — homepage at fetch time showed no typed verbal claims for the phone hardware (dominated by headphone campaign). Prior brand positioning: direct identity claim (transparent/glyph design). Floor: just state the identity."
     },
     {
       "slug": "playdate",
-      "transformations": [ { "canonical": "novelty-object-own", "creative_count": 1 } ],
-      "niches": ["edc-aesthetic-collectors"],
+      "transformations": [
+        {
+          "canonical": "novelty-object-own",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "edc-aesthetic-collectors"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "novel-hardware-as-lead",
       "bet_type_basis": "Page leads: 'Playdate is familiar, but unlike anything you've ever seen' and the crank as the explicit headline feature. 'Is it a gimmick? Nah.' — anti-gimmick framing positions the unusual hardware as genuinely functional. The crank IS the brand identity.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — direct claim ('familiar, but unlike anything you've ever seen'). No enlarged or mechanism-bound outcome claims."
     },
     {
       "slug": "anbernic",
-      "transformations": [ { "canonical": "retro-gaming-relive", "creative_count": 1 } ],
-      "niches": ["retro-gamers"],
+      "transformations": [
+        {
+          "canonical": "retro-gaming-relive",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "retro-gamers"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "value-breadth-as-lead",
       "bet_type_basis": "Page is a product catalog with multiple form factors and price points (from $49.99 to $139.99). No verbal outcome claims captured — positioned on value and breadth of device options.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — no typed claims from clean corpus; position is implied by catalog breadth, not verbal claim."
     },
     {
       "slug": "miyoo",
-      "transformations": [ { "canonical": "retro-gaming-relive", "creative_count": 0 } ],
-      "niches": ["retro-gamers"],
+      "transformations": [
+        {
+          "canonical": "retro-gaming-relive",
+          "creative_count": 0
+        }
+      ],
+      "niches": [
+        "retro-gamers"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "value-breadth-as-lead",
       "bet_type_basis": "Known marketplace positioning based on Finder research: Miyoo Mini positioned on compactness and emulation breadth at budget pricing. Site offline at fetch time; basis from prior knowledge of brand.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — no claims captured (site offline); brand excluded from live saturation counts (defunct/region-only per D-08)."
     },
     {
       "slug": "pimoroni",
-      "transformations": [ { "canonical": "maker-identity", "creative_count": 1 } ],
-      "niches": ["maker-diy-hobbyists"],
+      "transformations": [
+        {
+          "canonical": "maker-identity",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "maker-diy-hobbyists"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "maker-ecosystem-store",
       "bet_type_basis": "Page title: 'The ultimate Maker store - Pimoroni' — positioned as the definitive maker electronics destination, not around a single product differentiator.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — identity claim only; no typed verbal transformation claims captured from this page."
     },
     {
       "slug": "sparkfun",
-      "transformations": [ { "canonical": "maker-identity", "creative_count": 1 } ],
-      "niches": ["maker-diy-hobbyists"],
+      "transformations": [
+        {
+          "canonical": "maker-identity",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "maker-diy-hobbyists"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "maker-ecosystem-store",
       "bet_type_basis": "SparkFun Electronics — catalog of dev boards, kits, components. Positioned as 'electronics for makers'; no single-product differentiator claim.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — catalog page; no typed verbal transformation claims."
     },
     {
       "slug": "adafruit",
-      "transformations": [ { "canonical": "maker-identity", "creative_count": 1 } ],
-      "niches": ["maker-diy-hobbyists"],
+      "transformations": [
+        {
+          "canonical": "maker-identity",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "maker-diy-hobbyists"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "maker-ecosystem-store",
       "bet_type_basis": "Identity: 'Adafruit Industries, Unique & fun DIY electronics and kits' — positioned as the maker's joyful electronics store; no single-product headline differentiator.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — catalog page; no typed verbal transformation claims."
     },
     {
       "slug": "pocket-operator",
-      "transformations": [ { "canonical": "novelty-object-own", "creative_count": 1 }, { "canonical": "music-creation", "creative_count": 1 } ],
-      "niches": ["edc-aesthetic-collectors"],
+      "transformations": [
+        {
+          "canonical": "novelty-object-own",
+          "creative_count": 1
+        },
+        {
+          "canonical": "music-creation",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "edc-aesthetic-collectors"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "novel-hardware-as-lead",
       "bet_type_basis": "Page explicitly frames the no-case exposed PCB as a cost-mechanism AND aesthetic identity: 'by placing all vital and sensitive components under the LCD display there's no need for an outer case.' The naked circuit board IS the design.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 2 — enlarged claim present: 'studio quality sound...affordable for everyone' (specified quality level); '1 month battery life' (quantified). 'a wall of sound in your pocket' = direct. Floor: sharper/specified claims."
     },
     {
       "slug": "gameshell",
-      "transformations": [ { "canonical": "maker-identity", "creative_count": 1 } ],
-      "niches": ["maker-diy-hobbyists"],
+      "transformations": [
+        {
+          "canonical": "maker-identity",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "maker-diy-hobbyists"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "open-source-hackability-as-lead",
       "bet_type_basis": "Page: 'An Open Source Portable Game Console' — 'Ideal for Indie Game Developers, Hackers & Retro Games Collectors'. Open-source modular build is the headline. Crowdfunding origin validates bet durability.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — direct identity claim ('An Open Source Portable Game Console'). No enlarged or mechanism claims."
     },
     {
       "slug": "pwnagotchi",
-      "transformations": [ { "canonical": "maker-identity", "creative_count": 1 } ],
-      "niches": ["maker-diy-hobbyists"],
+      "transformations": [
+        {
+          "canonical": "maker-identity",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "maker-diy-hobbyists"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "open-source-hackability-as-lead",
       "bet_type_basis": "Page: 'Pwnagotchi: Deep Reinforcement Learning for WiFi pwning!' — the open-source build process and hacker-community membership are the explicit value; 'an excuse to learn about reinforcement learning and WiFi networking'.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — direct identity claim. No commerce page."
     },
     {
       "slug": "skeleton-key",
-      "transformations": [ { "canonical": "maker-identity", "creative_count": 0 } ],
-      "niches": ["maker-diy-hobbyists"],
+      "transformations": [
+        {
+          "canonical": "maker-identity",
+          "creative_count": 0
+        }
+      ],
+      "niches": [
+        "maker-diy-hobbyists"
+      ],
       "comparable_bet_seed": true,
       "bet_type": "novel-hardware-as-lead",
       "bet_type_basis": "Based on Finder research: Crowd Supply open-source hardware multi-tool with visible circuitry as the explicit aesthetic. Page returned 404 at fetch time; basis from Finder's research and brief seeding.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — no claims captured (page 404). Comparable_bet_seed — excluded from saturation."
     },
     {
       "slug": "bitboy",
-      "transformations": [ { "canonical": "retro-gaming-relive", "creative_count": 1 } ],
-      "niches": ["retro-gamers"],
+      "transformations": [
+        {
+          "canonical": "retro-gaming-relive",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "retro-gamers"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "hardware-authenticity-as-lead",
       "bet_type_basis": "Page: 'Crisp and Vibrant Displays' and 'IPS LCD for Game Boy' — positioned on display upgrade quality for retro hardware modders. Sells transparent/clear shells as part of the aesthetic customization offer.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 2 — enlarged claim: 'Crisp and Vibrant Displays' with 'IPS LCD' (mechanism specified alongside quality descriptor). Floor: sharper/specified claims."
     },
     {
       "slug": "analogue-pocket",
-      "transformations": [ { "canonical": "retro-gaming-relive", "creative_count": 1 } ],
-      "niches": ["retro-gamers"],
+      "transformations": [
+        {
+          "canonical": "retro-gaming-relive",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "retro-gamers"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "hardware-authenticity-as-lead",
       "bet_type_basis": "Page: 'Completely engineered in *two FPGAs. No emulation.' — the FPGA hardware authenticity is the explicit lead differentiator, positioned against emulation as inferior.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 3 — mechanism claim present: 'A tribute to portable gaming. No emulation.' with 'Completely engineered in *two FPGAs' as the named mechanism. Outcome-tied-to-named-how = mechanism type. Also: '3.5\", 615 ppi, LCD. 1600x1440 resolution' is an enlarged claim (quantified display spec). Floor: own mechanism/UM."
     },
     {
       "slug": "evercade",
-      "transformations": [ { "canonical": "retro-gaming-relive", "creative_count": 1 } ],
-      "niches": ["retro-gamers"],
+      "transformations": [
+        {
+          "canonical": "retro-gaming-relive",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "retro-gamers"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "hardware-authenticity-as-lead",
       "bet_type_basis": "Page: 'The biggest collection of classic, licensed video game cartridges' and 'Pixel perfect emulation' — licensed physical cartridges and accurate emulation are the twin differentiators.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 2 — enlarged claim: 'The biggest collection of classic, licensed video game cartridges' (superlative quantity claim). Floor: sharper/specified claim."
     },
     {
       "slug": "meowbit",
-      "transformations": [ { "canonical": "learn-to-code", "creative_count": 0 } ],
-      "niches": ["learn-to-code-students"],
+      "transformations": [
+        {
+          "canonical": "learn-to-code",
+          "creative_count": 0
+        }
+      ],
+      "niches": [
+        "learn-to-code-students"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "open-source-hackability-as-lead",
       "bet_type_basis": "Based on Finder research: Meowbit is positioned as a 'codable console for MakeCode Arcade' — the programmable/educational angle is the lead. Product page 404 at fetch; basis from Finder research.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — no claims captured (page 404). Direct educational positioning implied."
     },
     {
       "slug": "pico-8",
-      "transformations": [ { "canonical": "learn-to-code", "creative_count": 1 }, { "canonical": "maker-identity", "creative_count": 1 } ],
-      "niches": ["learn-to-code-students", "maker-diy-hobbyists"],
+      "transformations": [
+        {
+          "canonical": "learn-to-code",
+          "creative_count": 1
+        },
+        {
+          "canonical": "maker-identity",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "learn-to-code-students",
+        "maker-diy-hobbyists"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "open-source-hackability-as-lead",
       "bet_type_basis": "Page: 'PICO-8 is a fantasy console for making, sharing and playing tiny games' — the creative constraints and self-contained development environment are the lead differentiator; 'Create a whole game or program in one sitting'.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 2 — enlarged claim: 'Create a whole game or program in one sitting' (conditioned outcome: 'in one sitting' is a time/constraint specifier). 'The harsh limitations of PICO-8 are carefully chosen to be fun to work with' = mechanism rationale. Floor: sharper/specified claims."
     },
     {
       "slug": "divoom",
-      "transformations": [ { "canonical": "novelty-object-own", "creative_count": 1 } ],
-      "niches": ["edc-aesthetic-collectors"],
+      "transformations": [
+        {
+          "canonical": "novelty-object-own",
+          "creative_count": 1
+        }
+      ],
+      "niches": [
+        "edc-aesthetic-collectors"
+      ],
       "comparable_bet_seed": false,
       "bet_type": "novel-hardware-as-lead",
       "bet_type_basis": "Page: 'Digital Art + Creative Hardware' and 'Bring personality, widgets and pixel visuals into your workspace' — the distinctive LED pixel-art display IS the product identity; visual expressiveness is the primary pitch.",
-      "demand_trend": { "shape": "unknown", "window": null, "source": null, "basis": null },
+      "demand_trend": {
+        "shape": "unknown",
+        "window": null,
+        "source": null,
+        "basis": null
+      },
       "sophistication": "Stage 1 — direct claims: 'Bring personality, widgets and pixel visuals into your workspace'. No quantified or mechanism-bound outcome claims."
     }
   ],
-
   "saturation": [
-    { "transformation": "maker-identity", "niche": "maker-diy-hobbyists", "brand_count": 5, "saturated": false, "_note": "5 live in-geo non-seed brands (thumby, gameshell, pwnagotchi, pimoroni, sparkfun). Arduboy/flipper-zero excluded (comparable_bet_seeds). Adafruit counted as brand presence but no verbal claims typed. Not saturated — claims are Stage 1 direct; no mechanism or enhanced claims in cell." },
-    { "transformation": "learn-to-code", "niche": "maker-diy-hobbyists", "brand_count": 2, "saturated": false, "_note": "thumby + pico-8. Below 5+ floor. Stage 1-2." },
-    { "transformation": "learn-to-code", "niche": "learn-to-code-students", "brand_count": 2, "saturated": false, "_note": "thumby + pico-8. Arduboy excluded (seed). Meowbit: page 404, not counted. Stage 1." },
-    { "transformation": "retro-gaming-relive", "niche": "retro-gamers", "brand_count": 3, "saturated": false, "_note": "analogue-pocket + evercade + bitboy. Anbernic counted as brand but no verbal claims typed. Miyoo excluded (defunct/region-only per D-08). Stage 2-3 range — analogue-pocket at Stage 3 (mechanism claim) but only 1 brand at that stage; 2+ brands at Stage 2." },
-    { "transformation": "novelty-object-own", "niche": "edc-aesthetic-collectors", "brand_count": 3, "saturated": false, "_note": "playdate + pocket-operator + divoom. Nothing Phone excluded (comparable_bet_seed). Stage 1-2. No mechanism or enhanced claims in cell. Space open for mechanism-level differentiation." },
-    { "transformation": "music-creation", "niche": "edc-aesthetic-collectors", "brand_count": 1, "saturated": false, "_note": "pocket-operator only. Single brand — below anti-fluke floor of 2+. Not an established market in this data set." }
+    {
+      "transformation": "maker-identity",
+      "niche": "maker-diy-hobbyists",
+      "brand_count": 5,
+      "saturated": false,
+      "_note": "5 live in-geo non-seed brands (thumby, gameshell, pwnagotchi, pimoroni, sparkfun). Arduboy/flipper-zero excluded (comparable_bet_seeds). Adafruit counted as brand presence but no verbal claims typed. Not saturated — claims are Stage 1 direct; no mechanism or enhanced claims in cell."
+    },
+    {
+      "transformation": "learn-to-code",
+      "niche": "maker-diy-hobbyists",
+      "brand_count": 2,
+      "saturated": false,
+      "_note": "thumby + pico-8. Below 5+ floor. Stage 1-2."
+    },
+    {
+      "transformation": "learn-to-code",
+      "niche": "learn-to-code-students",
+      "brand_count": 2,
+      "saturated": false,
+      "_note": "thumby + pico-8. Arduboy excluded (seed). Meowbit: page 404, not counted. Stage 1."
+    },
+    {
+      "transformation": "retro-gaming-relive",
+      "niche": "retro-gamers",
+      "brand_count": 3,
+      "saturated": false,
+      "_note": "analogue-pocket + evercade + bitboy. Anbernic counted as brand but no verbal claims typed. Miyoo excluded (defunct/region-only per D-08). Stage 2-3 range — analogue-pocket at Stage 3 (mechanism claim) but only 1 brand at that stage; 2+ brands at Stage 2."
+    },
+    {
+      "transformation": "novelty-object-own",
+      "niche": "edc-aesthetic-collectors",
+      "brand_count": 3,
+      "saturated": false,
+      "_note": "playdate + pocket-operator + divoom. Nothing Phone excluded (comparable_bet_seed). Stage 1-2. No mechanism or enhanced claims in cell. Space open for mechanism-level differentiation."
+    },
+    {
+      "transformation": "music-creation",
+      "niche": "edc-aesthetic-collectors",
+      "brand_count": 1,
+      "saturated": false,
+      "_note": "pocket-operator only. Single brand — below anti-fluke floor of 2+. Not an established market in this data set."
+    }
   ]
 }

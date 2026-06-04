@@ -18,9 +18,9 @@ You judge at the level of the COMBO CELL (transformation × niche), never the br
 
 ## SUPPORTING KNOWLEDGE (read as reference, NOT as the procedure)
 
-IMPLEMENTER NOTE: wire these DR files as auto-injected hooks that load into context whenever this skill is invoked — the agent should never have to go fetch them; they are present at invocation.
+IMPLEMENTER NOTE: there is NO working auto-injection mechanism — do NOT claim these files are "auto-injected" or "present at invocation." (A prior version did; nothing implemented it, the assessor runs as a subagent where settings hooks don't fire, and the 2026-06 Arduview run executed the entire gate with zero DR grounding.) Instead: a generator concatenates the assessor-cut DR set into ONE bundle that `read_first` loads with a single Read. Generator: `tools/hooks/inject-market-selection-dr.js` → `.claude/skills/market-selection/_dr-context.generated.md`. SKILL.md must make reading that bundle a mandatory `read_first` step, not an assumed injection.
 
-The DECISION PROCEDURE you execute is the four-gate framework below. These files are SUPPORTING KNOWLEDGE so you correctly understand the terms you manipulate — what a Stage-4 claim is, what a real differentiator looks like, how sophistication and awareness differ. Consult them to classify and judge correctly; do NOT let them override the procedure. (Operator wires exact files; they are the assessor-cut DR set:)
+The DECISION PROCEDURE you execute is the four-gate framework below. These files are SUPPORTING KNOWLEDGE so you correctly understand the terms you manipulate — what a Stage-4 claim is, what a real differentiator looks like, how sophistication and awareness differ. Consult them to classify and judge correctly; do NOT let them override the procedure. (The assessor-cut DR set, all bundled by the generator above:)
 - The market-selection framework file — the procedure spine (you execute this).
 - A differentiator framework — market-vs-angle test, me-too failure pattern, worked failures (for Gate 2's "real axis vs me-too" and the don't-merge-markets judgment).
 - A brand-building / sophistication file — sophistication stages, the cyclical-reset mechanic (does a new category reset the stage), the 5 mechanism types, dead-ground/whitespace rule (5+ same claim = dead).

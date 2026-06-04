@@ -1,0 +1,156 @@
+{
+  "_generated_by": "scoped mechanism-clustering agent (BREAK 5)",
+  "canonical_mechanisms": [
+    {
+      "canonical": "Code-the-hardware-yourself / built-in dev toolchain (Arduino-compatible SDK + editors)",
+      "raw_variants": [
+        "MicroPython / Blockly / Arduino C/C++",
+        "Thumby Code Editor website",
+        "MicroPython implementation of Python 3 optimized to run on microcontrollers",
+        "Thumby MicroPython API",
+        "KEYPAD module with Arduino compatibility (ATmega168P)",
+        "P8 Lua code",
+        "built-in sprite, map, sound, music editors",
+        "all creative tools built into the console (code, music, sound, sprites, maps)"
+      ],
+      "brands": ["thumby", "gameshell", "pico-8"]
+    },
+    {
+      "canonical": "Cartridge-based game library / one-cart-fits-all compatibility",
+      "raw_variants": [
+        "compatible with the 2,780+ Game Boy, Game Boy Color & Game Boy Advance game cartridge library",
+        "cartridge adapters for Game Gear, Neo Geo Pocket Color, TurboGrafx-16, Atari Lynx",
+        "The biggest collection of classic, licensed video game cartridges",
+        "One cart fits all"
+      ],
+      "brands": ["analogue-pocket", "evercade"]
+    },
+    {
+      "canonical": "RP2040 / Raspberry Pi single-board-computer core",
+      "raw_variants": [
+        "Raspberry Pi RP2040 processor",
+        "running on a Raspberry Pi Zero W"
+      ],
+      "brands": ["thumby", "pwnagotchi"]
+    },
+    {
+      "canonical": "Runs existing game engines / emulation core (PICO-8, LOVE2D, etc.)",
+      "raw_variants": [
+        "runs PICO-8, LOVE2D, PyGame, Libretro and other game engines",
+        "Pixel perfect emulation"
+      ],
+      "brands": ["gameshell", "evercade"]
+    },
+    {
+      "canonical": "Distinctive low-res / monochrome / pixel display as the medium",
+      "raw_variants": [
+        "72×40 px Monochrome OLED",
+        "128x128 16 colours display",
+        "32k cart size",
+        "very special black and white screen — not backlit, but super reflective",
+        "LED pixel art display (Pixoo, Ditoo, Times Gate)"
+      ],
+      "brands": ["thumby", "pico-8", "playdate", "divoom"]
+    },
+    {
+      "canonical": "Quad-core / multi-part modular dev board (swappable kit assembly)",
+      "raw_variants": [
+        "ClockworkPi development board (Quad-core Cortex-A7 CPU, Mali GPU, WiFi & Bluetooth, 1GB DDR3)",
+        "modular swappable parts — kit assembly"
+      ],
+      "brands": ["gameshell"]
+    },
+    {
+      "canonical": "Preloaded games / cartridge library ship-with-content (play right away)",
+      "raw_variants": [
+        "preloaded games in flash storage",
+        "Thumby Arcade community games"
+      ],
+      "brands": ["thumby"]
+    },
+    {
+      "canonical": "On-device AI agent that learns from its environment",
+      "raw_variants": [
+        "A2C-based AI powered by bettercap",
+        "learns from its surrounding WiFi environment"
+      ],
+      "brands": ["pwnagotchi"]
+    },
+    {
+      "canonical": "FPGA-based hardware-accurate (not emulated)",
+      "raw_variants": [
+        "Completely engineered in",
+        "two FPGAs"
+      ],
+      "brands": ["analogue-pocket"]
+    },
+    {
+      "canonical": "Premium high-density display / build materials (high ppi LCD, Gorilla Glass)",
+      "raw_variants": [
+        "3.5\", 615 ppi, LCD",
+        "1600x1440 resolution",
+        "Gorilla© Glass"
+      ],
+      "brands": ["analogue-pocket"]
+    },
+    {
+      "canonical": "Modder-grade display upgrade for retro shells (Game Boy IPS swap)",
+      "raw_variants": [
+        "IPS LCD for Game Boy",
+        "compatible shells",
+        "modern look with this new FunnyPlaying display"
+      ],
+      "brands": ["bitboy"]
+    },
+    {
+      "canonical": "Novel analog input device (crank / flip-out controller)",
+      "raw_variants": [
+        "an analog controller that flips out from the side",
+        "crank — analog input device"
+      ],
+      "brands": ["playdate"]
+    },
+    {
+      "canonical": "Caseless single-PCB design — cost savings reinvested in components",
+      "raw_variants": [
+        "designed on a single multiple-layer circuit board using high quality components",
+        "no need for an outer case — by saving this cost, high quality components could be used to guarantee the best possible sound",
+        "single PCB design with no case — cost savings passed on"
+      ],
+      "brands": ["pocket-operator"]
+    },
+    {
+      "canonical": "Built-in synth/sequencer/drum-machine engine",
+      "raw_variants": [
+        "16 sound drum machine and sequencer",
+        "deep bass line synthesizer with sequencer",
+        "studio quality sound",
+        "4 channel chip blerps"
+      ],
+      "brands": ["pocket-operator", "pico-8"]
+    },
+    {
+      "canonical": "Long battery life",
+      "raw_variants": [
+        "1 month battery life"
+      ],
+      "brands": ["pocket-operator"]
+    },
+    {
+      "canonical": "App-controlled animations / pixel-art creation",
+      "raw_variants": [
+        "app-controlled animations and pixel art creation",
+        "smart widgets (time, weather, notifications)"
+      ],
+      "brands": ["divoom"]
+    },
+    {
+      "canonical": "Online cartridge/community browser for sharing creations",
+      "raw_variants": [
+        "online cartridge browser SPLORE",
+        "community of pixel artists, makers, desk setup lovers"
+      ],
+      "brands": ["pico-8", "divoom"]
+    }
+  ]
+}

@@ -97,6 +97,67 @@ miyoo.com returned ERR_CONNECTION_REFUSED. Brand retained per D-06 (flag-don't-d
 - `meowbit` (KittenBot product URL): 404. Product page moved or discontinued.
 - These brands retained in brands.json (D-06); dump.json reflects empty creatives.
 
+**BREAK 5 (STRUCTURAL): `mechanisms_in_play` recorded per-pitch but never aggregated to `space-map.json`**
+
+> **✅ RESOLVED (2026-06-03).** `space-map.json` now carries `mechanisms_in_play[]` — top-level
+> space-wide catalog `{canonical, raw_variants[], brand_count, ownability}` + per-combo cell-scoped
+> `combos[].mechanisms_in_play[]` `{canonical, brand_count, ownability, brands[]}`. Built per the brick
+> law: the classifier agent canonicalizes `mechanism[]` (judgment); `tools/aggregate-mechanisms-in-play.js`
+> counts distinct brands + computes ownability (shared ≥3 / unique ≤2, cell-scoped) + writes (deterministic,
+> additive — verified byte-identical to HEAD on all other fields). Schema + step 6 added to
+> `prompts/step1-light-pass.md`; traceability/ownability rule added to `tools/hooks/validate-classifier.js`.
+> Stopgap (`mechanisms-in-play-stopgap.md`) RETIRED; the market-selection gate now reads the field directly
+> (no corpus derivation, no `[INFERENCE]`). Implemented as a standalone S1 touch-up rather than folded into
+> the BREAK 1 Trends fix.
+
+Surfaced during Phase 2 (M1-S2 market-selection-gate) discuss — the assessor's input contract expects a
+mechanisms-in-play list (which mechanisms competitors lead with, and whether each is **shared** = 3+ brands
+tell it → not ownable, or **unique** = 1 brand → candidate UM). It feeds **Gate 2.2** ("is your UM
+differentiated?") and **Gate 3.3-S3** ("is your mechanism already claimed by a competitor?"). S1 does **not**
+emit such a field — but the raw material **was collected** and the clustering **was instructed**; only the
+output slot is missing. Recorded-but-not-logged.
+
+**Data state confirmed (2026-06-03, across all 20 dumps):**
+- `creatives[].pitches[].mechanism[]` — present on **36/36 pitches, non-empty on 30/36**. Rich. (e.g.
+  analogue-pocket "engineered in two FPGAs / no emulation"; flipper-zero "combine all the hardware tools…";
+  pocket-operator "components under the LCD, no outer case".)
+- `creatives[].pitches[].problem_um_raw[]` — present on 36/36, **non-empty on only 6/36**. Sparse **by
+  design**: gadget/maker pages don't run pain-causal "here's why you suffer" stories. For this product class
+  `mechanism[]` is the usable signal, NOT `problem_um_raw`.
+- Classifier prompt **step 6** already instructs the shared-vs-unique cluster (3+ = SHARED/not-ownable, 1 =
+  candidate Problem-UM) — but `space-map.json` has no array to write it into, so the aggregate was never
+  produced.
+
+**Impact:** **no re-fetch / no re-scrape / no new research** — purely a schema + aggregation gap. The raw
+mechanism strings sit in the 20 `dump.json` files; the deliverable just never rolled them up. Until fixed,
+the Phase-2 gate has no clean mechanisms-in-play input (handled short-term by `mechanisms-in-play-stopgap.md`
+— derive on the fly + `[INFERENCE]` label; see that doc).
+
+**Fix needed (the real structural fix):**
+1. **Add a canonical cluster array to `space-map.json` — `mechanisms_in_play[]`**, same shape as the existing
+   `bet_types[]` / `transformations[]` arrays: each `{ canonical, raw_variants[], brand_count,
+   ownability: "shared" | "unique" }` where `shared` = 3+ distinct LIVE in-geo brands lead the same
+   mechanism (not ownable), `unique` = exactly 1 (candidate UM).
+2. **Source = `mechanism[]`** (the rich 30/36 field), **not** `problem_um_raw` (sparse). Keep the
+   `problem_um_raw` shared/unique read as a SEPARATE secondary cluster only when non-empty — never fold a
+   pain-causal story and a how-it-works mechanism into one cluster. Empty `problem_um_raw` for maker/gadget
+   spaces is expected, not a gap.
+3. **Per-cell scoping:** like saturation, the "already-claimed?" question is asked inside a combo cell
+   (transformation × niche) — a mechanism shared in a *different* cell doesn't make it taken here. Emit both
+   the space-wide canonical list (the `bet_types[]` pattern) AND per-combo presence so Gate 3.3-S3 can check
+   "is this mechanism in THIS cell's set?". Exclude `comparable_bet_seed` + dead/region-only brands from the
+   counts (same discipline as saturation, D-08).
+4. **Hook:** `validate-classifier.js` gains one rule — each `mechanisms_in_play[]` canonical must trace to
+   ≥1 real per-pitch `mechanism[]` read (same traceability as `bet_type`, D-12/D-14); `ownability` must be
+   consistent with `brand_count`. Open categorization, traceability-checked, never enum-checked.
+5. **Brick law:** canonicalize near-duplicates = Classifier (judgment); count distinct brands = the
+   aggregation script. Exactly parallel to how `bet_types[]` / `transformations[]` are already produced —
+   an additive array, not a new agent.
+
+**Scope:** ~one-plan S1 touch-up (Classifier output-schema addition + one hook rule + re-aggregate). No new
+collection. **Folds into the same S1 revision as BREAK 1** (Trends fix) — both are "the data/instruction
+exists, the output slot/source is broken."
+
 ### Self-audit: structural checks
 
 **Saturation keyed per combo cell (transformation × niche)?**
@@ -133,6 +194,7 @@ YES: arduboy (merged with arduboy-fx), flipper-zero, nothing-phone, skeleton-key
 2. **(Minor)** fetch.js batch timeout — needs parallelization or separate Trends pass.
 3. **(Minor)** miyoo.com offline, skeleton-key 404, meowbit 404 — noted, brands retained.
 4. **(Minor)** Pimoroni, SparkFun, Adafruit pages yielded only catalog copy with no verbal transformation claims — these are ecosystem-store brands where the homepage doesn't carry marketing claims. The dump correctly returns empty claims[]. Not a pipeline bug; is a genuine signal (these brands don't make transformation promises, they sell components).
+5. **(Structural)** `mechanisms_in_play[]` never aggregated to space-map.json — Classifier records `mechanism[]` per pitch (30/36 non-empty) and step 6 instructs the shared-vs-unique cluster, but there's no output slot, so the aggregate is absent. Phase-2 gate needs it (Gate 2.2 / 3.3-S3). Source = `mechanism[]` (rich), NOT `problem_um_raw` (sparse, 6/36, correct-for-space). Add a canonical cluster array (the `bet_types[]` pattern) + per-combo presence + a hook trace rule. No re-fetch — schema + re-aggregate only. Folds into the same S1 revision as gap 1. See BREAK 5.
 
 ## Task 3 — Kam's bucketed-sample verdict (HUMAN-VERIFY CHECKPOINT)
 

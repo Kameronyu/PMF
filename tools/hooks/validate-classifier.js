@@ -144,6 +144,56 @@ for (let i = 0; i < betTypes.length; i++) {
   }
 }
 
+// --- BREAK 5: mechanisms_in_play[] traceability + ownability consistency ---
+// Same discipline as bet_types: canonical is OPEN (never enum-checked); it must trace to real reads,
+// and ownability must be consistent with brand_count (shared ⟺ 3+ ; unique ⟺ ≤2). Checked at both
+// the top-level (space-wide, traces via raw_variants) and per-combo (cell-scoped, traces via brands[]).
+function checkOwnability(label, ownability, brandCount, where) {
+  if (ownability === undefined) return; // optional — only validate when present
+  if (ownability !== 'shared' && ownability !== 'unique') {
+    violations.push(`REJECT: mechanisms_in_play ${where} "${label}" ownability "${ownability}" off enum (shared|unique)`);
+    return;
+  }
+  if (typeof brandCount !== 'number') {
+    violations.push(`REJECT: mechanisms_in_play ${where} "${label}" has ownability "${ownability}" but no numeric brand_count to check it against`);
+    return;
+  }
+  if (ownability === 'shared' && brandCount < 3) {
+    violations.push(`REJECT: mechanisms_in_play ${where} "${label}" ownability=shared but brand_count=${brandCount} (<3) — shared ⟺ 3+ distinct brands`);
+  }
+  if (ownability === 'unique' && brandCount > 2) {
+    violations.push(`REJECT: mechanisms_in_play ${where} "${label}" ownability=unique but brand_count=${brandCount} (>2) — unique ⟺ ≤2 brands`);
+  }
+}
+
+const mechTop = data.mechanisms_in_play || [];
+for (let i = 0; i < mechTop.length; i++) {
+  const m = mechTop[i];
+  const label = m.canonical || `mechanisms_in_play[${i}]`;
+  if (!Array.isArray(m.raw_variants) || m.raw_variants.length === 0) {
+    violations.push(`REJECT: mechanism "${label}" has zero raw_variants — canonical mechanism must trace to real per-pitch mechanism[] reads (traceability-checked, never enum-checked: BREAK 5)`);
+  }
+  checkOwnability(label, m.ownability, m.brand_count, '(top-level)');
+}
+
+for (let i = 0; i < combos.length; i++) {
+  const c = combos[i];
+  const cellLabel = `${c.transformation} × ${c.niche}`;
+  if (c.mechanisms_in_play === undefined) continue; // backstop only validates when the field is present
+  if (!Array.isArray(c.mechanisms_in_play)) {
+    violations.push(`REJECT: combo "${cellLabel}" mechanisms_in_play is present but not an array`);
+    continue;
+  }
+  for (let j = 0; j < c.mechanisms_in_play.length; j++) {
+    const m = c.mechanisms_in_play[j];
+    const label = m.canonical || `combo[${i}].mechanisms_in_play[${j}]`;
+    if (!Array.isArray(m.brands) || m.brands.length === 0) {
+      violations.push(`REJECT: combo "${cellLabel}" mechanism "${label}" has zero brands — per-cell mechanism must trace to the cell's live brands`);
+    }
+    checkOwnability(label, m.ownability, m.brand_count, `(cell ${cellLabel})`);
+  }
+}
+
 const perBrand = data.per_brand || [];
 for (let i = 0; i < perBrand.length; i++) {
   const brand = perBrand[i];

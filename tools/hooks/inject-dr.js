@@ -67,6 +67,12 @@ if (opts.help) {
 
 // --- Constants ---
 const DR_DIR = path.join(os.homedir(), 'knowledge', 'dr-marketing');
+// Default output: a stable generated bundle the Section Analyzer prompt Reads as a
+// mandatory step. There is NO harness auto-injection (the analyzer runs as a subagent
+// where settings hooks don't fire), so the reliable path is: generate this file, then
+// the analyzer Reads it. Use --stdout to emit to stdout instead (orchestrator-paste model).
+const DEFAULT_OUT = path.resolve(__dirname, '..', '..',
+  'prompts', '_generated', 'section-analyzer-dr-context.md');
 
 // THE SIX FIXED DR FILES — hardcoded allowlist, never from argv or untrusted input.
 // Order is stable and intentional: persuasion elements first (core vocabulary),
@@ -183,18 +189,22 @@ const header = [
 const combined = header + parts.join('');
 
 // --- Emit output ---
-if (opts.out) {
-  try {
-    fs.writeFileSync(opts.out, combined, 'utf8');
-    console.log(`[inject-dr] Written ${combined.length} chars to ${opts.out} (${parts.length} file(s) loaded${trimmed ? ', TRUNCATED' : ''})`);
-  } catch (err) {
-    console.error(`[inject-dr] REJECT: cannot write to "${opts.out}" — ${err.message}`);
-    process.exit(2);
-  }
-} else {
+// Default (no --stdout): write the stable bundle the Section Analyzer prompt Reads.
+// --stdout: emit to stdout (orchestrator-paste model). --out=PATH: custom path.
+if (opts.stdout) {
   process.stdout.write(combined);
   const summary = `\n\n[inject-dr: ${combined.length} chars emitted | ${DR_ALLOWLIST.length} files targeted${trimmed ? ' | TRUNCATED at max-chars cap' : ''}]\n`;
   process.stderr.write(summary);
+} else {
+  const outPath = typeof opts.out === 'string' ? path.resolve(opts.out) : DEFAULT_OUT;
+  try {
+    fs.mkdirSync(path.dirname(outPath), { recursive: true });
+    fs.writeFileSync(outPath, combined, 'utf8');
+    console.error(`[inject-dr] wrote ${combined.length} chars (${parts.length} file(s)${trimmed ? ', TRUNCATED' : ''}) → ${outPath}`);
+  } catch (err) {
+    console.error(`[inject-dr] REJECT: cannot write to "${outPath}" — ${err.message}`);
+    process.exit(2);
+  }
 }
 
 process.exit(0);

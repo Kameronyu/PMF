@@ -1,5 +1,13 @@
 # Stopgap: mechanisms-in-play (read until `space-map.json` carries the slot)
 
+> **⛔ RETIRED (BREAK 5 resolved).** `space-map.json` now carries `mechanisms_in_play[]` as a
+> first-class field — a top-level space-wide catalog AND a per-combo `combos[].mechanisms_in_play[]`
+> (each `{canonical, raw_variants[]/brands[], brand_count, ownability:"shared"|"unique"}`). The gate
+> READS that field directly (observed data, no `[INFERENCE]`, no corpus-dump derivation). Do NOT run
+> the derivation below. Producer: `tools/aggregate-mechanisms-in-play.js` (counts/writes) off the
+> classifier's clustering; schema + step 6 in `prompts/step1-light-pass.md`; traceability enforced by
+> `tools/hooks/validate-classifier.js`. This doc is kept only as the historical record of the stopgap.
+
 **Why this exists.** Gate 2.2 ("is your UM differentiated?") and Gate 3.3-S3 ("is your mechanism already
 claimed by a competitor?") need a **mechanisms-in-play** read: which mechanisms competitors lead with in a
 cell, and whether each is **shared** (taken) or **unique** (ownable). The current `space-map.json` has **no

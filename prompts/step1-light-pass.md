@@ -134,12 +134,16 @@ A creative always has a niche-target read + angle; it MAY carry zero claims.
       "creative_count": 14 } ],
   "bet_types": [
     { "canonical": "novel-hardware-as-lead", "raw_variants": ["the foldable e-ink device","programmable paper tablet"], "brand_count": 3 } ],
+  "mechanisms_in_play": [
+    { "canonical": "the how/why a brand leads with — clustered from per-pitch mechanism[]; space-wide catalog over LIVE in-geo non-seed brands",
+      "raw_variants": ["amber distraction-free display","single PCB no case"], "brand_count": 2, "ownability": "unique" } ],
   "combos": [
     { "transformation": "focus-productivity", "niche": "students",
       "brand_count": 3, "creative_count": 9, "brands": ["slug","..."],
       "claim_count": 9, "enhanced_claim_count": 2,
       "claims": [ { "text": "stay locked in for hours", "type": "direct" },
                   { "text": "2x deeper work, clinically measured", "type": "enhanced" } ],
+      "mechanisms_in_play": [ { "canonical": "...", "brand_count": 1, "ownability": "unique", "brands": ["slug"] } ],
       "anti_fluke": { "brands_at_scale": "count of brands at scale in this cell (floor: 2+)", "qualifying_creatives": "count of creatives with run_length_days >= 7 (floor: 7+ days to qualify a creative)" } }
   ],
   "per_brand": [
@@ -483,10 +487,24 @@ is discounted — cell is ≥Stage 2 and claim-saturated. Evidence line MUST cit
 claim(s) + brand count that set the stage.
 
 5. Saturation: count brands per COMBO CELL (transformation × niche). NEVER pool across cells.
-6. Problem-UM judgment: cluster the `problem_um_raw` causal stories. For each, count how many brands
-   tell it. If 3+ brands tell the same causal story → it's a SHARED problem-mechanism (not ownable).
-   If exactly 1 brand tells it → flag it a candidate Problem-UM (uniquely owned). This shared-vs-unique
-   call can only be made here, with all brands in view — the dumper could not make it.
+6. Mechanisms-in-play judgment (PRIMARY) → `mechanisms_in_play[]`. Cluster the per-pitch `mechanism[]`
+   strings (the rich how/why field — the Feature-UM the brand leads with) into canonical mechanisms,
+   exactly as you unify `bet_types[]` (4b): each canonical carries `raw_variants` that trace back to real
+   per-pitch reads. Then per cluster, count DISTINCT brands and set `ownability`:
+     - `shared` = 3+ distinct brands lead the same mechanism → NOT ownable (taken).
+     - `unique` = ≤2 brands (1 = clean candidate UM; 2 = borderline / not-yet-shared — keep `brand_count:2`
+       so the nuance stays visible).
+   Emit BOTH: (a) the space-wide canonical `mechanisms_in_play[]` (sibling of `bet_types[]`), and (b) a
+   per-combo `mechanisms_in_play[]` on each `combos[]` cell, with `ownability` recomputed PER CELL — a
+   mechanism shared in another cell is not taken here (Gate 3.3-S3 reads the per-cell set). EXCLUDE
+   `comparable_bet_seed` and dead/region-only brands from the counts (same live-only discipline as
+   saturation, D-08). This shared-vs-unique call can only be made here, with all brands in view.
+   Source = `mechanism[]` (rich, ~30/36 non-empty); NOT `problem_um_raw`.
+7. Problem-UM judgment (SECONDARY, only when non-empty): cluster the `problem_um_raw` causal stories the
+   same shared(3+)/unique(1) way. KEEP THIS SEPARATE from `mechanisms_in_play[]` — never fold a pain-causal
+   "why you suffer" story into a how-it-works mechanism. `problem_um_raw` is sparse by design for
+   gadget/maker spaces (~6/36); empty is expected, not a gap — skip the cluster if there are no non-empty
+   entries. This is supplementary to the mechanism read above, not a substitute for it.
 
 RULES:
 - Every canonical label must trace to raw variants actually present in the dumps. No invented categories.
