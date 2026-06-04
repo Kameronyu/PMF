@@ -356,6 +356,30 @@ Plans:
 Plans:
 - [ ] TBD (run /gsd-plan-phase 18 to break down)
 
+### Phase 19: Cleanup & health: nuke e-ink (_quarantine/eink-tablets, _quarantine/archive, launch/inkleaf-*, launch/README.md), slop docs (BUILD-STATE.md, mechanisms-in-play-stopgap.md, STRATEGY-DISCUSS-HANDOFF.md, RERUN-BRIEF.md, brand-refs/*, funnels-context/*, root MARKETING-LENS.md stub), junk binaries (asset-classify/sheets ~23M, _caption_* , ads/*_adv.png); distill VOC notes from map/data_inventory.md then archive; gitignore _index.json + _*-log.txt; no-overwrite-v1 rule. Full delete lists in .planning/intel/INDEX.md and .planning/POST-RUN-HARDENING-PLAN.md (Phase 19).
+
+**Goal:** The repo carries only live, non-e-ink artifacts: every e-ink/InkLeaf relic and slop doc is hard-deleted (git history is the archive), the durable VOC/data-model design notes are distilled into a keeper before their source is removed, regenerable scratch is gitignored without dropping the tracked test fixture, the no-overwrite-v1 versioning convention is documented, and `.planning/` passes gsd-health.
+**Requirements**: none (cleanup/health phase — no mapped REQ-IDs; must-haves derive from the phase goal + CONTEXT decisions D-01..D-15)
+**Depends on:** Phase 18
+**Plans:** 5 plans
+
+Plans:
+- [ ] 19-01-PLAN.md — Distill map/data_inventory.md + BUILD-STATE.md into keeper map/data-model-notes.md (D-03/04/06; distill-before-delete)
+- [ ] 19-02-PLAN.md — Inline the image-classifier-brick.md IMAGES.md cite so launch/ can be deleted (D-13 precondition)
+- [ ] 19-03-PLAN.md — Hard-delete e-ink artifacts: _quarantine/ + launch/ (D-01/02)
+- [ ] 19-04-PLAN.md — Delete slop docs + junk binaries; remove data_inventory.md/BUILD-STATE.md gated on keeper (D-01/04/06/11/14)
+- [ ] 19-05-PLAN.md — gitignore + fixture negation + junk removal + no-overwrite-v1 rule + gsd-health (D-07..D-15)
+
+### Phase 20: Deep-pass bug fixes: funnel-clean.js markdown-heading regex, funnel-score.js fail-fast field validation, corpus-absent orchestrator guard, no-ads DTC path, light-pass SKILL precondition path, funnel-level position ordinal. (3 fixes already committed in bbff2ff.) Scope in .planning/POST-RUN-HARDENING-PLAN.md (Phase 20) and .planning/audit/08-deep-pass-bugs.md.
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 19
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 20 to break down)
+
 ---
 
 *Rewritten 2026-06-03: two-track research engine, build-state-aware, InkLeaf retired — kept in GSD
