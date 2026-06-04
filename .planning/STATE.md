@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Completed Task 1 of 02-02-PLAN.md; paused at Task 2 checkpoint:human-verify for Kam UAT"
-last_updated: "2026-06-04T01:41:55.458Z"
+stopped_at: Completed 03-01-PLAN.md (funnel binding spine)
+last_updated: "2026-06-04T01:43:37.351Z"
 last_activity: 2026-06-04
 progress:
   total_phases: 14
   completed_phases: 1
   total_plans: 11
-  completed_plans: 6
-  percent: 55
+  completed_plans: 7
+  percent: 64
 ---
 
 # Project State
@@ -28,7 +28,7 @@ queryable bank of real, attributed customer language (verbatim, live permalinks)
 ## Current Position
 
 Phase: 03 (stage-m1-s3-deep-competitive-analysis-messaging-strategy) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
 Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
@@ -68,6 +68,8 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 02]: Soft-gate mode active for first/debug run: kills become flags + ranking penalties, all 6 cells ranked
 - [Phase 02]: novelty-object-own x edc-aesthetic-collectors ranked #1: transparent OLED is unique in cell and matches cell dominant bet type novel-hardware-as-lead
 - [Phase 02]: maker-identity x maker-diy-hobbyists ranked #2: gameshell funded-shipped crowdfunding is only demand signal; community-heat read deferred per override #2
+- [Phase 03]: Per-card DOM extraction wired with TODO(D-17) markers; text-chunk fallback fills null slots; live-DOM calibration deferred to debug-run pass
+- [Phase 03]: ssrfGuard() DNS failure defaults to skip (fail-closed), not fail-open; 169.254.169.254 cloud metadata caught by link-local CIDR check
 
 ### Pending Todos
 
@@ -89,9 +91,10 @@ None tracked here.
 | Capability | `space-sketcher` (partial-seed expander) | Deferred (no case yet) | 2026-06-02 |
 | Phase 02 P01 | 8 | 2 tasks | 1 files |
 | Phase 02 P02 | 30 | 1 tasks | 1 files |
+| Phase 03 P01 | 5 | 2 tasks | 2 files |
 
 ## Session Continuity
 
-Last session: 2026-06-04T01:41:55.454Z
-Stopped at: Completed Task 1 of 02-02-PLAN.md; paused at Task 2 checkpoint:human-verify for Kam UAT
+Last session: 2026-06-04T01:43:37.348Z
+Stopped at: Completed 03-01-PLAN.md (funnel binding spine)
 Resume file: None

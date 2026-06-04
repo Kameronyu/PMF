@@ -97,7 +97,7 @@ Status legend: `BUILT` · `DRAFTED` (exists, needs finishing) · `SPECCED` (spec
   4. A plumbing smoke test re-pulls 1–2 real brands with the new `destination_url` field end-to-end (cluster → render → clean → score) and a throwaway temp run confirms the analyzer emits belief records; the real methodology-debug pass is deferred until a market exists (D-02/D-17).
 **Deferred to a later phase**: the BIRDSEYE synthesis agent (A4→D1) — the merge / proven-angles / dead-ground / whitespace / awareness-calibration / Gate-2 win-decision. Collection records here are confirmed sufficient to feed it (spec §10).
 **Plans**: 4 plans (4 waves) — collection layer only; birdseye merge + Gate 2 deferred.
-- [ ] 03-01-PLAN.md — Scraper binding spine: extend adlib-one.js (destination_url) + funnel-assemble.js (normalize/cluster/render) (Wave 1)
+- [x] 03-01-PLAN.md — Scraper binding spine: extend adlib-one.js (destination_url) + funnel-assemble.js (normalize/cluster/render) (Wave 1)
 - [ ] 03-02-PLAN.md — Mechanical bricks: crowdfund-fetch Currency-B parser + funnel-clean + funnel-score (Wave 2)
 - [ ] 03-03-PLAN.md — Judgment agent: funnel-deep-pass.md (Router + Section Analyzer) + inject-dr.js + validate-analyzer.js (Wave 3)
 - [ ] 03-04-PLAN.md — Store (funnel-store.js) + ROADMAP rewrite + debug-notes scaffold + live smoke test (Wave 4)
@@ -253,7 +253,7 @@ S14 (after S10 + S13). Tracks A and B are independent — run in parallel `git w
 |-------|-------|--------|-------|
 | 1 | M1-S1 Light pass | Built (scripts pending) | 0/TBD |
 | 2 | 2/2 | Complete   | 2026-06-04 |
-| 3 | M1-S3 Deep competitive analysis (collection layer) | Planned | 0/4 |
+| 3 | 1/4 | In Progress|  |
 | 4 | M1-S4 VOC codebook (keystone) | Specced | 0/TBD |
 | 5 | M1-S5 Query Planner | Specced | 0/TBD |
 | 6 | M1-S6 Scraper + cleaner + gate | Specced | 0/TBD |
