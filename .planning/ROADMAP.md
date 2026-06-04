@@ -329,6 +329,28 @@ Plans:
 - [x] 16-05-PLAN.md — Manifest contract: asset-map-rank.js + asset-emit.js + asset-upload.js (Wave 3)
 - [ ] 16-06-PLAN.md — UAT + human pick gate: replay the proof on the Arduview set, close brick 6 (Wave 4, human gate)
 
+### Phase 17: LP Builder — reusable copy→pretty-HTML pipeline (Arduview = first instance)
+
+**Goal:** A product-agnostic LP-builder pipeline that eats `{copy brief + visual system + assets}` and emits correct, on-brand landing/deposit HTML — deployed live, with email (Klaviyo) + checkout (Shopify) wired — under a no-rework contract where the builder is the ONLY agent that writes HTML and everything else is config-in or deterministic-token-substitution-out. Arduview is the first test instance, NOT the spec. Context: `17-CONTEXT.md`.
+**Requirements**: TBD (assigned in planning)
+**Depends on:** Phase 16 (asset bricks — `asset-upload.js` CDN backfill, optimized assets). NOT blocked on Phase 18 — the Arduview instance bootstraps its design direction from the already-locked Glasshouse system (`STYLE-LOCK.md` + `BUILD-FEEDBACK.md` §1).
+**Stages** (frozen inter-stage contracts; builder = sole HTML writer): INTERFACES spec → UI-SPEC (visual contract) → PAGE-SPEC (content contract) → asset prep → **HTML builder** [agent] → hydrate [script] → asset-upload [script] → deploy [surge].
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 17 to break down)
+
+### Phase 18: Design-research — competitor visual analysis → DESIGN-DIRECTION (feeds future UI-SPECs)
+
+**Goal:** A judgment subsystem that, for a given brand/market, picks the right competitor LPs for design inspiration, captures them, visually analyzes them, and synthesizes a `DESIGN-DIRECTION` artifact that feeds the Phase-17 UI-SPEC. Generalizes the design-direction step that was done by hand for the Arduview/Glasshouse instance.
+**Requirements**: TBD (assigned in planning)
+**Depends on:** Phase 17 (consumes Phase 17's UI-SPEC input contract). Conceptually design-research PRECEDES UI-SPEC in the data flow, but is sequenced after the builder in build-order because Phase 17's first instance already has its design direction — this phase makes that step reusable for future instances.
+**Brick string** (per PMF agent-design: judgment→agent, deterministic→script): (1) pick competitors [agent — judgment, "highly educated on how to pick competitors to visually analyze for design inspo"] (2) screenshot/capture [script] (3) visual analysis [agent] (4) synthesize DESIGN-DIRECTION [agent → feeds UI-SPEC].
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 18 to break down)
+
 ---
 
 *Rewritten 2026-06-03: two-track research engine, build-state-aware, InkLeaf retired — kept in GSD
