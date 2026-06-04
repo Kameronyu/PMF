@@ -118,6 +118,9 @@ const BELIEF_ANCHOR_SET = new Set([
   'act-now',
 ]);
 
+// belief_kind closed vocab (D1 per Phase 15) — crowdfunding-specific vs general-DR
+const BELIEF_KIND_ENUM = new Set(['crowdfunding-specific', 'general-dr']);
+
 // Birdseye-only fields that must NOT appear on belief records (§8 single-funnel discipline)
 const BIRDSEYE_ONLY_FIELDS = ['consensus', 'divergence', 'unusual', 'pool', 'pool_reasoning', 'pool-reasoning'];
 
@@ -305,6 +308,13 @@ for (let ri = 0; ri < belief_records.length; ri++) {
         `REJECT: ${rLabel} belief_id="${belief_id}" is not in the 9-anchor set but belief_confidence="${belief_confidence}" — overflow beliefs (outside the anchor set) must have belief_confidence="low" for operator review (§7/D-13)`
       );
     }
+  }
+
+  // --- Rule 2b: belief_kind closed vocab (D1 per Phase 15) ---
+  if (rec.belief_kind === undefined || rec.belief_kind === null) {
+    violations.push(`REJECT: ${rLabel} missing "belief_kind" — must be 'crowdfunding-specific' | 'general-dr'`);
+  } else if (!BELIEF_KIND_ENUM.has(rec.belief_kind)) {
+    violations.push(`REJECT: ${rLabel} belief_kind="${rec.belief_kind}" is off-enum — must be 'crowdfunding-specific' | 'general-dr'`);
   }
 
   // --- Rule 3: closed-vocab — execution_type ---
