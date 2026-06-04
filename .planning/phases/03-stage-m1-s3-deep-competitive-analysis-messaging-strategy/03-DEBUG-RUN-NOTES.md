@@ -119,6 +119,46 @@ M1-S2 and a real competitor list exists). That pass is what this file is designe
 
 _(D-17 debug breaks: to be filled on first real run — record every break, which stage, which brand, what failed)_
 
+### D-17 closure — deterministic analyzer-context injection (quick 260603-wfz, 2026-06-03)
+
+**The gap (determinism, not live-run):** The Section Analyzer runs as a subagent where settings
+hooks do not fire. It was TOLD — `read_first` / "As your FIRST step you MUST Read
+`prompts/_generated/section-analyzer-dr-context.md`" — to fetch the DR bundle, and to Read the
+cleaned funnel body. Both are LLM-compliance steps, not guarantees: one missed Read = no DR rubric
+or no funnel body in context. That is the last non-deterministic seam on the analyzer's INPUT side.
+
+**What closed it:** `tools/funnel-analyzer-context.js` assembles ONE context block deterministically:
+[DR bundle obtained by SPAWNING `inject-dr.js --stdout` — never reimplemented, never fabricated on
+failure] + [cleaned funnel body, read from the `funnel-clean.js` `<funnel_id>-clean.json` output,
+wrapped verbatim inside the analyzer's existing `<funnel_copy>` untrusted-data boundary]. The
+orchestrator embeds this block directly in the Section Analyzer's spawn prompt (per the new
+ORCHESTRATION section in `prompts/funnel-deep-pass.md`). The analyzer receives the bytes; it Reads
+neither input (Read kept only as an explicit fallback). Path segments derived from `--space` /
+`--funnel` are sanitized to `[a-z0-9._-]` via the exact `sanitizePathSegment()` copied from
+`funnel-store.js` (T-03-13 parity).
+
+**Verify commands run (real output, all PASS):**
+
+```
+$ printf '%s' '{"funnel_id":"wfz-test","competitor":"acme","landing_page_url":"http://x","landing_page_body":"<h1>KAM-VERIFY-FUNNEL-MARKER</h1><p>buy now today</p>"}' > /tmp/wfz-verify/pkg.json
+$ node tools/funnel-clean.js /tmp/wfz-verify/pkg.json --out=/tmp/wfz-verify
+[funnel-clean] wfz-test: ok (body=51 chars, reviews=0)
+[funnel-clean] output: /tmp/wfz-verify/wfz-test-clean.json
+$ node tools/funnel-analyzer-context.js --funnel=wfz-test --clean=/tmp/wfz-verify/wfz-test-clean.json > /tmp/wfz-verify/assembled.txt
+[funnel-analyzer-context] emitted 60864 chars (DR bundle 59658 chars, funnel body 51 chars) for funnel "wfz-test"
+$ grep -q "DR MARKETING KNOWLEDGE FILES" /tmp/wfz-verify/assembled.txt   # PASS — DR bundle present
+$ grep -q "KAM-VERIFY-FUNNEL-MARKER"     /tmp/wfz-verify/assembled.txt   # PASS — funnel body present
+$ grep -q "<funnel_copy>"                /tmp/wfz-verify/assembled.txt   # PASS — untrusted-data boundary present
+```
+
+The assembled block carries BOTH the DR-bundle marker AND the funnel-body marker inside the
+`<funnel_copy>` boundary — proving DR knowledge and funnel body are both embedded, deterministically,
+in one call.
+
+**Scope:** This closes the DETERMINISM gap on the analyzer's input. It does NOT replace the live
+methodology-debug smoke test — the full end-to-end run on real market data still rides **D-02**
+(after a market is picked via M1-S2 and a real competitor list exists), captured by this file above.
+
 ---
 
 ## Task 3 — Kam's belief-tagging verdict (HUMAN-VERIFY CHECKPOINT)
