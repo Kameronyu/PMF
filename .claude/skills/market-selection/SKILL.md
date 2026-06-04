@@ -108,7 +108,7 @@ Exact figure or "not found"; no hand-waving.
 | Signal | File | Real field path | Notes |
 |--------|------|-----------------|-------|
 | Revenue | `brands.json` | `revenue_est.{value_usd_monthly, method, confidence}` | null for all 20 brands this run; weight by method/confidence; distrust `review_proxy`/`low` |
-| Ad longevity | `ads/<brand>.json` | `ads[].run_length_days` | 7+ days = validated; NOT `days_running` (retired field name) |
+| Ad longevity | `ads/<brand>.json` | `ads[].run_length_days` | 7+ days = validated; field is `run_length_days` (the retired field name from older tooling is not used) |
 | Ad longevity (pre-counted) | `space-map.json` | `combos[].anti_fluke.qualifying_creatives` | PRE-COUNTED = 0 in all 6 cells this run — READ this, do not recount |
 | Crowdfunding | `brands.json` | `crowdfunding.{platform, raised, pct_funded, status}` | funded-shipped = clean validation signal |
 | Trend shape | `space-map.json` → `per_brand[]` | `demand_trend.{shape, window, source, basis}` | shape = "unknown" for ALL 20 brands this run (D-09 provisional handling, Gate 1.2) |
@@ -296,8 +296,9 @@ Check for a differentiator on mechanism AND on avatar. Neither = KILL (true me-t
 The canonical `bet_types[]` list (top-level in `space-map.json`) is OPEN — the classifier
 names whatever bet it observed, not a fixed closed enum. Gate 2.2 reasons over the OPEN
 `bet_type` the classifier named, using `bet_type_basis` as the supporting evidence.
-**Do NOT reason from any closed 3-value competitive axis enum** (function-capability-price /
-visual-statement / community-openness are dead values not present in the current output).
+**Do NOT reason from any closed competitive axis enum** — the old 3-value enum was removed from
+S1 output and is not present in the current data. The OPEN `bet_type` is what the classifier
+actually named; use that.
 
 The named axis that passes **IS the UM**. This gate and UM identification are one finding.
 
