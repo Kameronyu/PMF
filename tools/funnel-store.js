@@ -331,7 +331,11 @@ function findBeliefsForFunnel(funnel_id, beliefsDir) {
     console.log(summary);
     if (errors.length > 0) {
       for (const r of errors) console.error(`  ERROR: ${r.funnel_id}: ${r.error}`);
-      process.exit(1);
+      // IN-06: exit contract — partial success (some funnels stored, some errored) exits 0
+      // because the successes ARE written and downstream can proceed with what was stored.
+      // The error log and per-line ERROR output above surface the failures for the operator.
+      // Only exit 1 when NOTHING was successfully stored (total failure).
+      if (ok.length === 0) process.exit(1);
     }
 
   } catch (e) {
