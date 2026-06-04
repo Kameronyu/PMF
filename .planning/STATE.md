@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: "Checkpoint reached: 03-04 Task 4 smoke test (D-17) — awaiting human-verify"
-last_updated: "2026-06-04T02:08:28.589Z"
+stopped_at: Completed 03-04-PLAN.md (Task 4 D-17 smoke test deferred by operator)
+last_updated: "2026-06-04T02:23:32.786Z"
 last_activity: 2026-06-04
 progress:
   total_phases: 14
@@ -78,6 +78,7 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 03]: validate-analyzer.js verbatim-substring gate uses same non-fatal missing-corpus behavior as validate-dumper.js; awareness_entry enum (unaware/problem-aware/solution-aware/product-aware/offer-aware) added to funnel_fields validation
 - [Phase 03]: funnel_id + space sanitized to [a-z0-9._-] before write path (T-03-13 compliance)
 - [Phase 03]: birdseye-computed fields (merge/synthesis) NOT added to funnel-store.js — collection records only
+- [Phase 03]: D-17 plumbing smoke test DEFERRED by operator at plan 03-04 closeout — validated-by-construction (syntax checks + prior Self-Check PASSes), end-to-end live run deferred to D-02 after market pick
 
 ### Pending Todos
 
@@ -103,9 +104,10 @@ None tracked here.
 | Phase 03 P02 | 6 | 3 tasks | 3 files |
 | Phase 03 P03 | 7 | 3 tasks | 3 files |
 | Phase 03 P04 | 3 | 3 tasks | 2 files |
+| Phase 03 P04 | 5 | 3 tasks | 3 files |
 
 ## Session Continuity
 
-Last session: 2026-06-04T02:08:28.585Z
-Stopped at: Checkpoint reached: 03-04 Task 4 smoke test (D-17) — awaiting human-verify
+Last session: 2026-06-04T02:23:32.783Z
+Stopped at: Completed 03-04-PLAN.md (Task 4 D-17 smoke test deferred by operator)
 Resume file: None

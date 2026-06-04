@@ -39,20 +39,20 @@ completed: "2026-06-04"
 tasks_completed: 3
 tasks_total: 4
 files_created: 2
-files_modified: 0
+files_modified: 1
 ---
 
 # Phase 03 Plan 04: Store + ROADMAP + Debug Scaffold + Smoke Test Summary
 
-**S4 store (funnel-store.js) writes namespaced per-funnel JSON (6a fields + belief_records[]) under runs/<space>/funnels/; ROADMAP Phase-3 verified correct (collection-layer scope, no rewrite needed); debug-run scaffold created; smoke-test checkpoint pending human confirmation.**
+**S4 store (funnel-store.js) writes namespaced per-funnel JSON (6a fields + belief_records[]) under runs/<space>/funnels/; ROADMAP Phase-3 verified correct; debug scaffold created; D-17 smoke test DEFERRED by operator — plumbing validated-by-construction, live run deferred to D-02.**
 
 ## Performance
 
-- **Duration:** ~3 min (Tasks 1-3 complete; Task 4 awaiting human verify)
+- **Duration:** ~3 min (Tasks 1-3) + continuation closeout
 - **Started:** 2026-06-04T02:03:00Z
-- **Completed:** 2026-06-04T02:07:18Z (Tasks 1-3)
-- **Tasks:** 3/4 (Task 4 = checkpoint:human-verify, awaiting)
-- **Files created:** 2
+- **Completed:** 2026-06-04 (continuation closeout)
+- **Tasks:** 3/4 complete; Task 4 DEFERRED (operator decision — not run, not passed)
+- **Files created:** 2; Files modified: 1 (03-DEBUG-RUN-NOTES.md — deferral notice added)
 
 ## Accomplishments
 
@@ -67,7 +67,8 @@ files_modified: 0
 | 1 | funnel-store.js — S4 per-funnel JSON store | 74c5c70 | tools/funnel-store.js |
 | 2 | ROADMAP Phase-3 verify (no-op — already correct) | — | none |
 | 3 | 03-DEBUG-RUN-NOTES.md scaffold (D-18) | 7418cf7 | .planning/phases/03-.../03-DEBUG-RUN-NOTES.md |
-| 4 | Smoke test (D-17) | — | awaiting checkpoint |
+| 4 | Smoke test (D-17) | DEFERRED | operator decision — not run, not passed |
+| — | D-17 deferral recorded in debug notes | 10764fd | 03-DEBUG-RUN-NOTES.md |
 
 ## Files Created/Modified
 
@@ -105,20 +106,20 @@ All T-03-13 mitigations implemented in funnel-store.js:
 | T-03-14 (SSRF/DoS on smoke test) | Inherited from funnel-assemble.js / crowdfund-fetch.js (Plans 01-02 mitigations) | existing tools |
 | T-03-15 (info disclosure in store) | Accepted — local operator store of public competitor marketing copy, no PII | — |
 
-## Known Stubs
+## Known Stubs / Open Items
 
-None for Tasks 1-3. Task 4 (smoke test) is pending human verify — the plumbing run on live data is the gate.
+None for Tasks 1-3.
 
-## Checkpoint Status
+**Task 4 (D-17 smoke test) — DEFERRED by operator decision.** The brick string has NOT been run end-to-end on live data. Each brick is individually validated (syntax checks, acceptance criteria passed, prior Self-Check gates all PASSED on plans 01-03), but live-DOM behavior, URL normalization on real data, Section Analyzer schema compliance against real funnel input, and funnel-store.js write on real funnel_ids remain unverified. Resolution path: D-17 exercised during D-02 (first real methodology-debug run, after M1-S2 market pick). Capture document: `03-DEBUG-RUN-NOTES.md`.
 
-Task 4 (D-17 smoke test) is a `checkpoint:human-verify`. The executor halted here and returned control to the operator. The continuation agent will resume after the operator confirms the plumbing runs end-to-end.
-
-## Self-Check: PASSED (Tasks 1-3)
+## Self-Check: PASSED (Tasks 1-3; Task 4 honestly deferred)
 
 | Item | Status |
 |------|--------|
 | tools/funnel-store.js | FOUND |
-| 03-DEBUG-RUN-NOTES.md | FOUND |
+| 03-DEBUG-RUN-NOTES.md | FOUND (deferral notice added, commit 10764fd) |
 | 03-04-SUMMARY.md | FOUND (this file) |
 | commit 74c5c70 (Task 1) | FOUND |
 | commit 7418cf7 (Task 3) | FOUND |
+| commit 10764fd (D-17 deferral) | FOUND |
+| Task 4 smoke test | NOT RUN — explicitly deferred, NOT claimed as passed |
