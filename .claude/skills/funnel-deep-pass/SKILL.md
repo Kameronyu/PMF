@@ -92,6 +92,41 @@ ls runs/<space>/funnels-assembled/*.json 2>/dev/null | head -1 | grep -q . || { 
 test -f prompts/_generated/section-analyzer-dr-context.md || { echo "MISSING: DR bundle — running inject-dr.js now..."; node tools/hooks/inject-dr.js; }
 ```
 
+### PER-BRAND EXCLUDE GUARDS (D-04, D-05, D-06)
+
+Before passing a brand into the judgment loop, check BOTH of the following. Either condition
+produces an EXCLUDE — never stub placeholder data, never fabricate a funnel.
+
+```bash
+# CORPUS-ABSENT GUARD (D-04): exclude brands with no corpus whatsoever.
+# Both paths absent = no raw copy to assemble from; do not fabricate corpus.
+BRAND=<brand>
+if [ ! -f "corpus/${BRAND}/raw/home.html" ] && [ ! -f "corpus/${BRAND}/clean/home.md" ]; then
+  echo "EXCLUDE ${BRAND}: no corpus (corpus/${BRAND}/raw/home.html and corpus/${BRAND}/clean/home.md both absent) — cannot assemble a funnel. Skipping; not stubbing."
+  continue   # move to next brand in loop
+fi
+
+# NO-ADS DTC GUARD (D-05): exclude DTC brands that have no ads.
+# A DTC brand with no ads has no ad→LP funnel to reconstruct (no Currency A) and no
+# crowdfunding_stats (DTC brands must never receive fabricated crowdfunding_stats → no
+# Currency B). There is nothing legitimate to score and no ungrounded belief records to avoid.
+# EXCLUDE — do NOT stub a fake funnel package.
+SOURCE_TYPE=$(node -e "const p=require('./runs/<space>/funnels-assembled/${BRAND}*.json'[0]); console.log(p.source_type)" 2>/dev/null || echo "unknown")
+BOUND_ADS=$(node -e "const p=JSON.parse(require('fs').readFileSync(process.argv[1],'utf8')); console.log((p.bound_ads||[]).length)" runs/<space>/funnels-assembled/${BRAND}*.json 2>/dev/null || echo "0")
+if [ "$SOURCE_TYPE" = "dtc" ] && [ "$BOUND_ADS" -eq 0 ]; then
+  echo "EXCLUDE ${BRAND}: DTC brand with no bound ads — no Currency A (no ad→LP funnel to reconstruct) and no Currency B (crowdfunding_stats must not be added to DTC brands). No validation currency; cannot score. Skipping; not stubbing."
+  continue   # move to next brand in loop
+fi
+```
+
+**OPERATOR HAND-FEED ESCAPE HATCH (D-06):** If a no-ads brand's landing page is genuinely
+worth analyzing (operator judgment), the operator hand-feeds the LP as a deliberate act —
+mirroring the existing crowdfunding zero-ad hand-feed path in `tools/funnel-assemble.js`
+(lines ~474–553). That path assembles a funnel package from a manually-supplied LP URL with
+no bound ads. The pipeline NEVER auto-invents a funnel; a hand-feed is an explicit operator
+override, not a fallback. Reference `funnel-assemble.js` `--lp-url` / crowdfunding hand-feed
+block for the precedent.
+
 If anything is absent, STOP and tell the operator what is missing. Do not fabricate funnels or
 skip the context-assembly step.
 
