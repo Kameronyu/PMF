@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 19-03-PLAN.md
-last_updated: "2026-06-05T00:33:22.819Z"
+stopped_at: Completed 19-04-PLAN.md
+last_updated: "2026-06-05T00:39:08.755Z"
 last_activity: 2026-06-05
 progress:
   total_phases: 20
   completed_phases: 3
   total_plans: 33
-  completed_plans: 22
-  percent: 67
+  completed_plans: 23
+  percent: 70
 ---
 
 # Project State
@@ -28,7 +28,7 @@ queryable bank of real, attributed customer language (verbatim, live permalinks)
 ## Current Position
 
 Phase: 19 (cleanup-health-nuke-e-ink-quarantine-eink-tablets-quarantine) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
 Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
@@ -91,6 +91,8 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 19]: Source-metadata preservation chain documented as a named section anchor in data-model-notes.md keeper
 - [Phase 19]: Inline manifest format rows drawn from runs/arduview/asset-classify/IMAGES.md as the canonical shape illustration before deleting launch/
 - [Phase 19]: Atomic commits per deletion group (_quarantine/ then launch/) per D-01 revertability; no _archive/ dir created — git history is the archive
+- [Phase 19]: STRATEGY-DISCUSS-HANDOFF.md and _asset-classify-proof.md were untracked (not committed); used rm not git rm — plan said tracked but reality was untracked
+- [Phase 19]: Only 3 of sheets/ JPGs were tracked in git (vid-03 series); git rm those 3 then rm -rf the full dir to clear untracked media too
 
 ### Pending Todos
 
@@ -123,6 +125,7 @@ None tracked here.
 | Phase 19 P01 | 5 | 1 tasks | 1 files |
 | Phase 19 P02 | 3 | 1 tasks | 1 files |
 | Phase 19 P03 | 3 | 2 tasks | 696 files |
+| Phase 19 P04 | 20 | 3 tasks | 17 files |
 
 ## Deferred Items
 
@@ -142,6 +145,6 @@ None tracked here.
 
 ## Session Continuity
 
-Last session: 2026-06-05T00:33:22.816Z
-Stopped at: Completed 19-03-PLAN.md
+Last session: 2026-06-05T00:39:08.751Z
+Stopped at: Completed 19-04-PLAN.md
 Resume file: None
