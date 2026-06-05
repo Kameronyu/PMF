@@ -92,20 +92,16 @@ The skill expects:
   Listed for provenance only; not a required gate input.
 - `runs/<space>/pre-research-plan.md` — prose operator overrides
 
-### Arduview run — PATH MISMATCH (load-bearing)
+### Arduview run — canonical run-relative locations
 
-For the current Arduview debug run, the four data file sets live at **repo root**, NOT under
-`runs/arduview/`:
-- `space-map.json` → `/home/kyu3/PMF/space-map.json`
-- `brands.json` → `/home/kyu3/PMF/brands.json`
-- `ads/<brand>.json` → `/home/kyu3/PMF/ads/<brand>.json`
-- `corpus/<brand>/dump.json` → `/home/kyu3/PMF/corpus/<brand>/dump.json`
+The four data file sets for the Arduview run follow the canonical `runs/<space>/` convention:
+- `space-map.json` → `runs/arduview/space-map.json`
+- `brands.json` → `runs/arduview/brands.json`
+- `ads/<brand>.json` → `runs/arduview/ads/<brand>.json`
+- `corpus/<brand>/dump.json` → `runs/arduview/corpus/<brand>/dump.json`
+- `pre-research-plan.md` → `runs/arduview/pre-research-plan.md`
 
-Only `pre-research-plan.md` is under the run directory:
-- `pre-research-plan.md` → `/home/kyu3/PMF/runs/arduview/pre-research-plan.md`
-
-Pass the actual on-disk paths when invoking this skill against the Arduview run. Plan 02 runs
-against these exact files.
+Pass the run-relative paths when invoking this skill against the Arduview run.
 
 ---
 

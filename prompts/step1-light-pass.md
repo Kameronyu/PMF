@@ -17,7 +17,7 @@ Dumper (1 agent per brand, parallel)                        ← reads CLEAN copy
    → corpus/<brand>/dump.json   (claims + creatives, NO classification)
 [BARRIER: wait for all dumpers]
 Space Classifier (1 agent, reads ALL brands)                ← the only judgment stage
-   → space-map.json  (canonical transformations/niches + per-brand + saturation)
+   → runs/<space>/space-map.json  (canonical transformations/niches + per-brand + saturation)
 ```
 
 **Determinism principle.** Anything that can be deterministic is pulled OUT of the agents into

@@ -18,7 +18,7 @@
 //
 // Usage: node tools/aggregate-mechanisms-in-play.js
 //   [--sidecar=PATH] (default runs/arduview/_mechanisms-in-play.agent.json)
-//   [--space-map=PATH] (default space-map.json)
+//   [--space-map=PATH] (default runs/arduview/space-map.json)
 // Exit 0 = written. Exit 2 = bad input.
 'use strict';
 
@@ -32,7 +32,7 @@ const opts = Object.fromEntries(
 
 const ROOT = path.resolve(__dirname, '..');
 const SIDECAR = path.resolve(opts.sidecar || path.join(ROOT, 'runs', 'arduview', '_mechanisms-in-play.agent.json'));
-const SPACE_MAP = path.resolve(opts['space-map'] || path.join(ROOT, 'space-map.json'));
+const SPACE_MAP = path.resolve(opts['space-map'] || path.join(ROOT, 'runs', 'arduview', 'space-map.json'));
 
 function fail(msg) { console.error(`[aggregate-mechanisms] REJECT: ${msg}`); process.exit(2); }
 
