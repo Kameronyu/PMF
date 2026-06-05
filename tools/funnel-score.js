@@ -284,6 +284,21 @@ function scoreFunnelPackage(pkg) {
 }
 
 // ---------------------------------------------------------------------------
+// hasValidationCurrency(pkg) — D-02 fail-fast guard
+//
+// Returns true if the package carries at least one legitimate validation currency:
+//   Currency A = non-empty bound_ads array (scoreCurrencyA returns non-null)
+//   Currency B = present crowdfunding_stats object (scoreCurrencyB returns non-null)
+//
+// Reuses the existing scoring functions so "valid" stays single-sourced.
+// Wired at the CLI boundary only — scoreFunnelPackage is left intact so
+// any downstream caller importing the function is unaffected.
+// ---------------------------------------------------------------------------
+function hasValidationCurrency(pkg) {
+  return scoreCurrencyA(pkg.bound_ads) !== null || scoreCurrencyB(pkg.crowdfunding_stats) !== null;
+}
+
+// ---------------------------------------------------------------------------
 // Discover input funnel packages (single file or directory)
 // ---------------------------------------------------------------------------
 const results = [];
@@ -304,11 +319,27 @@ if (stat.isDirectory()) {
     process.exit(1);
   }
 
+  // D-02 no-currency flag — set true if any funnel in the batch lacks both currencies.
+  // Batch stays resilient (one bad funnel never aborts), but exits non-zero at the end
+  // so the run cannot silently pass with unscoreable packages.
+  let hadNoCurrency = false;
+
   // Resilient batch — one bad funnel never aborts (fetch.js pattern)
   for (const funnelFile of funnelFiles) {
     try {
       const raw = fs.readFileSync(funnelFile, 'utf8');
       const pkg = JSON.parse(raw);
+
+      // D-02: no-currency guard — do NOT write a scored file for packages with no currency.
+      if (!hasValidationCurrency(pkg)) {
+        const funnel_id = pkg.funnel_id || path.basename(funnelFile, '.json');
+        const line = `[NO-CURRENCY] ${path.basename(funnelFile)}: ${funnel_id} has no validation currency — neither bound_ads (Currency A) nor crowdfunding_stats (Currency B). Excluded from scored output. No-ads DTC brands must be EXCLUDED upstream, not scored — see funnel-deep-pass SKILL corpus/no-ads guard.`;
+        results.push(line);
+        console.error(line);
+        hadNoCurrency = true;
+        continue;
+      }
+
       const scored = scoreFunnelPackage(pkg);
       const funnel_id = scored.funnel_id || path.basename(funnelFile, '.json');
       const outFile = path.join(outDir, `${funnel_id}-scored.json`);
@@ -341,6 +372,12 @@ if (stat.isDirectory()) {
 
   console.log(`[funnel-score] done — ${funnelFiles.length} funnel(s) scored`);
 
+  // D-02: fail loud if any package lacked currency — run cannot pass silently
+  if (hadNoCurrency) {
+    console.error('[funnel-score] FAIL: one or more packages had no validation currency — see _funnel-score-log.txt');
+    process.exit(1);
+  }
+
 } else {
   // Single file mode
   const outDir = opts.out || path.dirname(inputPath);
@@ -348,6 +385,14 @@ if (stat.isDirectory()) {
   try {
     const raw = fs.readFileSync(inputPath, 'utf8');
     const pkg = JSON.parse(raw);
+
+    // D-02: no-currency guard — fail loud before scoring or writing any output
+    if (!hasValidationCurrency(pkg)) {
+      const funnel_id = pkg.funnel_id || path.basename(inputPath, '.json');
+      console.error(`[funnel-score] FAIL: ${funnel_id} has no validation currency — neither bound_ads (Currency A) nor crowdfunding_stats (Currency B). Nothing legitimate to score. (No-ads DTC brands must be EXCLUDED upstream, not scored — see funnel-deep-pass SKILL corpus/no-ads guard.)`);
+      process.exit(1);
+    }
+
     const scored = scoreFunnelPackage(pkg);
     const funnel_id = scored.funnel_id || path.basename(inputPath, '.json');
 
