@@ -163,18 +163,22 @@ function stripToText(html) {
   // (common LP structural containers)
   s = s.replace(/<(?:section|article|main|aside)[^>]{0,200}>/gi, SECTION_MARKER + '$&');
 
+  // Strip all remaining HTML tags (attributes and all). Bounded tag body (500 chars max).
+  s = s.replace(/<[^>]{0,500}>/g, ' ');
+
   // Insert section markers before markdown ATX headings (D-01).
   // Markdown ATX headings (## Heading) are plain text — they survive HTML tag-stripping and
   // are never caught by the HTML heading/block passes above. The clean/home.md fallback path
   // (run-notes §3 Option B) otherwise produces a flat body with zero [SECTION] markers.
   // This makes BOTH input paths (raw HTML and clean markdown) emit section markers.
+  // Runs AFTER the tag-strip (WR-01): tag-strip removes whole tags including attribute values,
+  // so a stray line-start '##' inside an HTML attribute (e.g. aria-label="## x") can't trigger
+  // a spurious marker. Markdown bodies carry no tags, so the tag-strip is a no-op for them and
+  // their headings survive intact to be marked here.
   // Regex: line-anchored, bounded — /^#{1,6}[ \t]+/gm matches start-of-line ATX headings only.
   // A mid-line '#' (e.g. "issue #47") does NOT match because '^' requires start-of-line.
   // ReDoS-safe: no nested/unbounded quantifiers — one linear pass (T-03-07).
   s = s.replace(/^#{1,6}[ \t]+/gm, SECTION_MARKER + '$&');
-
-  // Strip all remaining HTML tags (attributes and all). Bounded tag body (500 chars max).
-  s = s.replace(/<[^>]{0,500}>/g, ' ');
 
   // Decode common HTML entities
   s = s
