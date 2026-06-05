@@ -9,3 +9,13 @@ ads/*_adv.png
 
 # Asset classifier runtime output (copied media + downscaled work copies — not committed)
 assets/
+
+# Regenerable emitter side-outputs (D-10) — scratch, never committed
+_index.json
+_*-log.txt
+_*.agent.json
+_caption_*
+
+# Preserve tracked test fixtures from the patterns above (D-12)
+!runs/_fixture/
+!runs/_fixture/**
