@@ -4,7 +4,7 @@ milestone: v1.0
 milestone_name: milestone
 status: verifying
 stopped_at: Completed 20-03-PLAN.md
-last_updated: "2026-06-05T05:21:59.717Z"
+last_updated: "2026-06-05T05:31:53.965Z"
 last_activity: 2026-06-05
 progress:
   total_phases: 20
@@ -27,8 +27,8 @@ queryable bank of real, attributed customer language (verbatim, live permalinks)
 
 ## Current Position
 
-Phase: 20 (deep-pass-bug-fixes-funnel-clean-js-markdown-heading-regex-f) — EXECUTING
-Plan: 3 of 3
+Phase: 20
+Plan: Not started
 Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
 Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
@@ -50,7 +50,7 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 
 **Velocity:**
 
-- Total plans completed: 9
+- Total plans completed: 12
 - Average duration: — min
 
 ## Accumulated Context
