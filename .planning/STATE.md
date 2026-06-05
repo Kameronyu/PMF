@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 19 context gathered
-last_updated: "2026-06-04T23:11:33.223Z"
-last_activity: 2026-06-04 -- Phase 17 planning complete
+stopped_at: Completed 19-01-PLAN.md
+last_updated: "2026-06-05T00:27:31.789Z"
+last_activity: 2026-06-05
 progress:
   total_phases: 20
   completed_phases: 3
-  total_plans: 28
-  completed_plans: 19
-  percent: 68
+  total_plans: 33
+  completed_plans: 20
+  percent: 61
 ---
 
 # Project State
@@ -22,13 +22,13 @@ See: .planning/PROJECT.md · Roadmap: .planning/ROADMAP.md (rewritten 2026-06-03
 
 **Core value:** A reusable research engine that converts a T/P/N seed into a validated market bet plus a
 queryable bank of real, attributed customer language (verbatim, live permalinks).
-**Current focus:** Phase 16 — asset-classifier-image-and-video-bricks
+**Current focus:** Phase 19 — cleanup-health-nuke-e-ink-quarantine-eink-tablets-quarantine
 (Step 0/1/2, closest to running) and **Track B: VOC** (Step 3a/3b, specced).
 
 ## Current Position
 
-Phase: 16 (asset-classifier-image-and-video-bricks) — EXECUTING
-Plan: 6 of 6
+Phase: 19 (cleanup-health-nuke-e-ink-quarantine-eink-tablets-quarantine) — EXECUTING
+Plan: 2 of 5
 Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
 Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
@@ -42,7 +42,7 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 Status: Ready to execute
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
-Last activity: 2026-06-04 -- Phase 17 planning complete
+Last activity: 2026-06-05
 
 Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not yet run end-to-end through the new pipeline)
 
@@ -87,6 +87,8 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 16]: validate-asset-record.js runs as orchestrator step (not PostToolUse hook) — hooks don't fire in subagents; grounding gate rejects demonstrates[] missing evidence/motion_value at script level; video detection by presence of segments/best_use/eligible_slots fields
 - [Phase 16]: gap_list logic: section gapped if NO candidate is strong AND clean (disqualifiers:[] && dup_of:null); records with busy backgrounds route to sections but still generate a gap
 - [Phase 16]: T-16-05-02: absent video CDN URL = empty slot + warning; never fabricate /videos/c/o/v/<hash>.mp4 — hashed path must come from url-map
+- [Phase 19]: VOC-chain schemas in keeper use condensed table (not full field dumps) — handoff covers them architecturally and M1-S4 re-specs at field level
+- [Phase 19]: Source-metadata preservation chain documented as a named section anchor in data-model-notes.md keeper
 
 ### Pending Todos
 
@@ -116,6 +118,7 @@ None tracked here.
 | Phase 16-asset-classifier-image-and-video-bricks P02 | 18 | 2 tasks | 3 files |
 | Phase 16-asset-classifier-image-and-video-bricks P04 | 5 | 2 tasks | 2 files |
 | Phase 16 P05 | 15 | 3 tasks | 3 files |
+| Phase 19 P01 | 5 | 1 tasks | 1 files |
 
 ## Deferred Items
 
@@ -135,6 +138,6 @@ None tracked here.
 
 ## Session Continuity
 
-Last session: 2026-06-04T23:11:33.213Z
-Stopped at: Phase 19 context gathered
-Resume file: .planning/phases/19-cleanup-health-nuke-e-ink-quarantine-eink-tablets-quarantine/19-CONTEXT.md
+Last session: 2026-06-05T00:27:31.785Z
+Stopped at: Completed 19-01-PLAN.md
+Resume file: None
