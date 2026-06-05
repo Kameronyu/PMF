@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 19-01-PLAN.md
-last_updated: "2026-06-05T00:27:31.789Z"
+stopped_at: Completed 19-02-PLAN.md
+last_updated: "2026-06-05T00:30:12.348Z"
 last_activity: 2026-06-05
 progress:
   total_phases: 20
   completed_phases: 3
   total_plans: 33
-  completed_plans: 20
-  percent: 61
+  completed_plans: 21
+  percent: 64
 ---
 
 # Project State
@@ -28,7 +28,7 @@ queryable bank of real, attributed customer language (verbatim, live permalinks)
 ## Current Position
 
 Phase: 19 (cleanup-health-nuke-e-ink-quarantine-eink-tablets-quarantine) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
 Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
@@ -89,6 +89,7 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 16]: T-16-05-02: absent video CDN URL = empty slot + warning; never fabricate /videos/c/o/v/<hash>.mp4 — hashed path must come from url-map
 - [Phase 19]: VOC-chain schemas in keeper use condensed table (not full field dumps) — handoff covers them architecturally and M1-S4 re-specs at field level
 - [Phase 19]: Source-metadata preservation chain documented as a named section anchor in data-model-notes.md keeper
+- [Phase 19]: Inline manifest format rows drawn from runs/arduview/asset-classify/IMAGES.md as the canonical shape illustration before deleting launch/
 
 ### Pending Todos
 
@@ -119,6 +120,7 @@ None tracked here.
 | Phase 16-asset-classifier-image-and-video-bricks P04 | 5 | 2 tasks | 2 files |
 | Phase 16 P05 | 15 | 3 tasks | 3 files |
 | Phase 19 P01 | 5 | 1 tasks | 1 files |
+| Phase 19 P02 | 3 | 1 tasks | 1 files |
 
 ## Deferred Items
 
@@ -138,6 +140,6 @@ None tracked here.
 
 ## Session Continuity
 
-Last session: 2026-06-05T00:27:31.785Z
-Stopped at: Completed 19-01-PLAN.md
+Last session: 2026-06-05T00:30:12.345Z
+Stopped at: Completed 19-02-PLAN.md
 Resume file: None
