@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Completed 19-05-PLAN.md
-last_updated: "2026-06-05T00:48:09.535Z"
+status: executing
+stopped_at: Completed 20-01-PLAN.md
+last_updated: "2026-06-05T03:01:29.767Z"
 last_activity: 2026-06-05
 progress:
   total_phases: 20
   completed_phases: 4
-  total_plans: 33
-  completed_plans: 24
-  percent: 73
+  total_plans: 36
+  completed_plans: 25
+  percent: 69
 ---
 
 # Project State
@@ -22,13 +22,13 @@ See: .planning/PROJECT.md · Roadmap: .planning/ROADMAP.md (rewritten 2026-06-03
 
 **Core value:** A reusable research engine that converts a T/P/N seed into a validated market bet plus a
 queryable bank of real, attributed customer language (verbatim, live permalinks).
-**Current focus:** Phase 19 — cleanup-health-nuke-e-ink-quarantine-eink-tablets-quarantine
+**Current focus:** Phase 20 — deep-pass-bug-fixes-funnel-clean-js-markdown-heading-regex-f
 (Step 0/1/2, closest to running) and **Track B: VOC** (Step 3a/3b, specced).
 
 ## Current Position
 
-Phase: 20
-Plan: Not started
+Phase: 20 (deep-pass-bug-fixes-funnel-clean-js-markdown-heading-regex-f) — EXECUTING
+Plan: 2 of 3
 Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
 Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
 
@@ -40,7 +40,7 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 **Track B — VOC (Step 3a/3b):** all SPECCED in `handoff-step3-voc-build.md`; starts at the **M1-S4 codebook keystone** (everything keys off it). Not yet built.
 
-Status: Phase complete — ready for verification
+Status: Ready to execute
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
 Last activity: 2026-06-05
 
@@ -94,6 +94,8 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 19]: STRATEGY-DISCUSS-HANDOFF.md and _asset-classify-proof.md were untracked (not committed); used rm not git rm — plan said tracked but reality was untracked
 - [Phase 19]: Only 3 of sheets/ JPGs were tracked in git (vid-03 series); git rm those 3 then rm -rf the full dir to clear untracked media too
 - [Phase 19]: Versioning rule written to project CLAUDE.md (PMF-specific scope), not dotfiles; governs runs/<space>/... outputs and emitted bricks; guard hook deferred
+- [Phase 20]: D-01: markdown ATX heading regex /^#{1,6}[ \t]+/gm added to funnel-clean.js stripToText() before tag-strip; both HTML and markdown body paths now emit [SECTION] markers
+- [Phase 20]: D-02: hasValidationCurrency() helper wired at CLI boundary in funnel-score.js; single-file exits 1, batch sets hadNoCurrency flag and exits 1 post-loop; scoreFunnelPackage() internals unchanged
 
 ### Pending Todos
 
@@ -128,6 +130,7 @@ None tracked here.
 | Phase 19 P03 | 3 | 2 tasks | 696 files |
 | Phase 19 P04 | 20 | 3 tasks | 17 files |
 | Phase 19 P05 | 10 | 4 tasks | 2 files |
+| Phase 20-deep-pass-bug-fixes-funnel-clean-js-markdown-heading-regex-f P01 | 15 | 2 tasks | 2 files |
 
 ## Deferred Items
 
@@ -147,6 +150,6 @@ None tracked here.
 
 ## Session Continuity
 
-Last session: 2026-06-05T00:43:15.218Z
-Stopped at: Completed 19-05-PLAN.md
+Last session: 2026-06-05T03:01:29.758Z
+Stopped at: Completed 20-01-PLAN.md
 Resume file: None

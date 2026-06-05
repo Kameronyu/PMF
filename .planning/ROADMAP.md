@@ -372,13 +372,15 @@ Plans:
 
 ### Phase 20: Deep-pass bug fixes: funnel-clean.js markdown-heading regex, funnel-score.js fail-fast field validation, corpus-absent orchestrator guard, no-ads DTC path, light-pass SKILL precondition path, funnel-level position ordinal. (3 fixes already committed in bbff2ff.) Scope in .planning/POST-RUN-HARDENING-PLAN.md (Phase 20) and .planning/audit/08-deep-pass-bugs.md.
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** Apply the remaining SAFE-NOW fail-loud bug fixes from the funnel deep-pass audit (Track B) so a fresh real run surfaces a clear message instead of silently producing null/wrong-path/dropped-section/stubbed output. Fixing existing tools + prompts only — no new capabilities, no schema freeze (that is Track C / Phase 21).
+**Requirements**: none (specced hardening pass — coverage derived from CONTEXT decisions D-01..D-11; no REQUIREMENTS.md IDs map here)
 **Depends on:** Phase 19
-**Plans:** 0 plans
+**Plans:** 1/3 plans executed
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 20 to break down)
+- [x] 20-01-PLAN.md — tools fixes: funnel-clean.js markdown-heading section markers (D-01) + funnel-score.js minimal fail-fast on no-currency packages (D-02)
+- [ ] 20-02-PLAN.md — SKILL/doc consistency: corpus-absent + no-ads-DTC exclude guard (D-04/D-05/D-06), space-map.json path unification (D-07), stale Read-line scrub (D-09), architect ghost-field removal (D-10)
+- [ ] 20-03-PLAN.md — rebuild the arduview RAG index so source_type/routing_flag prefilters become operative (D-11)
 
 ---
 
