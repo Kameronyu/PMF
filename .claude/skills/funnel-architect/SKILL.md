@@ -115,10 +115,9 @@ You receive the deep-analysis output. Whatever its exact format, it gives you pe
 - validation_lane (A or B) + validation_strength (the currency-appropriate numbers)
 
 **Belief-instance records (N per funnel):**
-- position (funnel-level ordinal), belief_id (+ belief_confidence for overflow), belief_kind (crowdfunding-specific | general-DR)
+- position (funnel-level ordinal), belief_id (+ belief_confidence for overflow)
 - execution_type, execution_detail (granular — the specific install, sub-claims recoverable here)
 - proof_tier (1 self-evident/demo · 2 authority · 3 social), moves[], verbatim_refs[]
-- source_routing (which funnel type the fill should come from)
 
 **A claim tally** (deterministic pre-pass): typed sub-claims counted across the pool. 5+ funnels making the same sub-claim = dead ground; what remains = whitespace.
 
