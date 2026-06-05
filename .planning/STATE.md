@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 20-02-PLAN.md
-last_updated: "2026-06-05T05:20:00.507Z"
+status: verifying
+stopped_at: Completed 20-03-PLAN.md
+last_updated: "2026-06-05T05:21:59.717Z"
 last_activity: 2026-06-05
 progress:
   total_phases: 20
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 36
-  completed_plans: 26
-  percent: 72
+  completed_plans: 27
+  percent: 75
 ---
 
 # Project State
@@ -40,7 +40,7 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 **Track B — VOC (Step 3a/3b):** all SPECCED in `handoff-step3-voc-build.md`; starts at the **M1-S4 codebook keystone** (everything keys off it). Not yet built.
 
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
 Last activity: 2026-06-05
 
@@ -98,6 +98,7 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 20]: D-02: hasValidationCurrency() helper wired at CLI boundary in funnel-score.js; single-file exits 1, batch sets hadNoCurrency flag and exits 1 post-loop; scoreFunnelPackage() internals unchanged
 - [Phase 20]: D-04/D-05: corpus-absent and no-ads DTC brands excluded with message in funnel-deep-pass SKILL precondition — never stub or fabricate a funnel
 - [Phase 20]: D-10: belief_kind and source_routing removed from funnel-architect INPUTS spec; producer-side schema in funnel-deep-pass.md untouched (CONTRACT-GATED, deferred to Track C / Phase 21)
+- [Phase 20]: D-11: Rebuild-only — funnel-vectorize.js loadUnits() already stamps source_type/routing_flag; rebuilt gitignored scratch index with Voyage voyage-3-large 1024-dim embeddings (43 units, 4 funnels); RAG prefilters now operative
 
 ### Pending Todos
 
@@ -134,6 +135,7 @@ None tracked here.
 | Phase 19 P05 | 10 | 4 tasks | 2 files |
 | Phase 20-deep-pass-bug-fixes-funnel-clean-js-markdown-heading-regex-f P01 | 15 | 2 tasks | 2 files |
 | Phase 20-deep-pass-bug-fixes-funnel-clean-js-markdown-heading-regex-f P02 | 10 | 3 tasks | 6 files |
+| Phase 20-deep-pass-bug-fixes-funnel-clean-js-markdown-heading-regex-f P03 | 2 | 1 tasks | 0 files |
 
 ## Deferred Items
 
@@ -153,6 +155,6 @@ None tracked here.
 
 ## Session Continuity
 
-Last session: 2026-06-05T05:20:00.503Z
-Stopped at: Completed 20-02-PLAN.md
+Last session: 2026-06-05T05:21:59.714Z
+Stopped at: Completed 20-03-PLAN.md
 Resume file: None
