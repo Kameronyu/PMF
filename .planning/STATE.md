@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 19-04-PLAN.md
-last_updated: "2026-06-05T00:39:08.755Z"
+status: verifying
+stopped_at: Completed 19-05-PLAN.md
+last_updated: "2026-06-05T00:43:15.222Z"
 last_activity: 2026-06-05
 progress:
   total_phases: 20
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 33
-  completed_plans: 23
-  percent: 70
+  completed_plans: 24
+  percent: 73
 ---
 
 # Project State
@@ -40,7 +40,7 @@ Build model: brick model locked (`capability_inventory.md`) — scripts for dete
 
 **Track B — VOC (Step 3a/3b):** all SPECCED in `handoff-step3-voc-build.md`; starts at the **M1-S4 codebook keystone** (everything keys off it). Not yet built.
 
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
 Last activity: 2026-06-05
 
@@ -93,6 +93,7 @@ Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not
 - [Phase 19]: Atomic commits per deletion group (_quarantine/ then launch/) per D-01 revertability; no _archive/ dir created — git history is the archive
 - [Phase 19]: STRATEGY-DISCUSS-HANDOFF.md and _asset-classify-proof.md were untracked (not committed); used rm not git rm — plan said tracked but reality was untracked
 - [Phase 19]: Only 3 of sheets/ JPGs were tracked in git (vid-03 series); git rm those 3 then rm -rf the full dir to clear untracked media too
+- [Phase 19]: Versioning rule written to project CLAUDE.md (PMF-specific scope), not dotfiles; governs runs/<space>/... outputs and emitted bricks; guard hook deferred
 
 ### Pending Todos
 
@@ -126,6 +127,7 @@ None tracked here.
 | Phase 19 P02 | 3 | 1 tasks | 1 files |
 | Phase 19 P03 | 3 | 2 tasks | 696 files |
 | Phase 19 P04 | 20 | 3 tasks | 17 files |
+| Phase 19 P05 | 10 | 4 tasks | 2 files |
 
 ## Deferred Items
 
@@ -145,6 +147,6 @@ None tracked here.
 
 ## Session Continuity
 
-Last session: 2026-06-05T00:39:08.751Z
-Stopped at: Completed 19-04-PLAN.md
+Last session: 2026-06-05T00:43:15.218Z
+Stopped at: Completed 19-05-PLAN.md
 Resume file: None
