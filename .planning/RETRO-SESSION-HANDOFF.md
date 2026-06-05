@@ -5,7 +5,13 @@
 ## READING ORDER FOR THE NEW SESSION (operator's explicit instruction)
 1. **Run `/gsd-forensics` on the arduview run FIRST** — produce the GSD-native post-mortem before reading anything I wrote.
 2. **THEN read `.planning/audit/01–11`** (the prior raw audit) as a **cross-check only** — confirm/supplement the forensics output; do not trust it blindly.
-3. Then this handoff (decisions, workflow, narrative) + `.planning/POST-RUN-HARDENING-PLAN.md`.
+3. Then this handoff (workflow + narrative) + `.planning/POST-RUN-HARDENING-PLAN.md` (DRAFT only — see Trust Boundary).
+
+## TRUST BOUNDARY (critical — read first)
+- In `.planning/audit/` and `_marketing-decisions/`, the operator's **captured complaints — what he flagged as wrong — are valid signal.**
+- The audit's **own analysis and proposed fixes are NOT trusted** (raw-dogged). `POST-RUN-HARDENING-PLAN.md` was derived from them → it is a **draft, not authoritative**. Do not execute it as-is.
+- The redo **re-diagnoses from scratch** via `gsd-forensics`, using the complaints only as a signal of *where to look*. It does NOT carry my analysis or fixes forward.
+- **A prior Phase 20 (`deep-pass-bug-fixes`) is ALREADY committed** in git history (plans 20-01/02/03 + code review; D-04..D-10: corpus/no-ads guards, space-map unification, ghost-field removal, markdown-heading fix). Several items my raw plan lists as "Phase 20 pending" are **already done — the plan double-counts.** `gsd-forensics` reads git history and will surface the *real* remaining gaps.
 
 ## WHAT THIS SESSION WAS
 First full end-to-end run of the PMF pipeline was "arduview." This session = the post-run retrospective: diagnose every agentic failure, split marketing (operator's job) from engineering (Claude's), and produce a plan to make the pipeline internally consistent. The I/O contract between stages is the keystone, gated on the operator's marketing decisions.
@@ -42,8 +48,9 @@ First full end-to-end run of the PMF pipeline was "arduview." This session = the
 - **The 56-item agentic-failure table** with fix + status + target-phase: `.planning/POST-RUN-HARDENING-PLAN.md` (Appendix). Source detail in `.planning/audit/03,04,07,08,11`.
 - **In-chat complaints not fully in the table:** doc drift (untracked pile + no canonical source + superseded build-handoffs), dirty git worktrees, stages-don't-agree (contract gap), the raw-dogged audit itself.
 
-## OPERATOR'S TRACK — the marketing decisions that UNGATE the contract
-`runs/arduview/_marketing-decisions/` — `INDEX.md` · `light-pass.md` · `funnel-architect-copywriter.md` · `deep-funnel-pass.md` · `lp-builder.md` (~20 decisions). Plus: author the **copywriter prompt** (no skill exists yet — pending roadmap plan 15-04) and decide the **`belief_kind`/`source_routing` vocab**.
+## OPEN MARKETING PROBLEMS (operator is STILL working these — NOT decisions, NOT done)
+`runs/arduview/_marketing-decisions/` — `INDEX.md` · `light-pass.md` · `funnel-architect-copywriter.md` · `deep-funnel-pass.md` · `lp-builder.md`.
+**These are NOT the operator's locked calls.** They are the *problems that went wrong marketing-wise* in the run — open issues the operator is still working through to get the agents' **architecture + inputs/outputs** right. The marketing work is **not complete**, and these do **not** yet "ungate" anything. (The folder name "decisions" is a misnomer I introduced — read it as "marketing problems still in progress.") Related open work the operator owns: the **copywriter prompt** (no skill yet — plan 15-04) and the **`belief_kind`/`source_routing`** question. None of this is in "Locked decisions" below — that list is agentic/workflow only.
 
 ## KEY FILES (full per-doc index lives in `.planning/intel/INDEX.md`)
 - **Run outputs:** `runs/arduview/` — `market-selection.md`, `FUNNEL-DESIGN.md`, `COPY-DRAFT.md`, `HERO-VIDEO.md`, `BUILD-FEEDBACK.md`, `15-DEBUG-funnel-architect.md`, `funnels/`, `funnels-context/`, `asset-classify/`, `site/`, `brand-refs/`.
