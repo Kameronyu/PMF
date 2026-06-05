@@ -1,0 +1,74 @@
+{
+  "$schema_note": "Fixed evidence list for the pipeline soundness audit. Resolved by tools/audit-resolve.js; injected by tools/audit-inject.js. Paths are repo-root-relative. Edit the `space` block to re-target a different run. NOTHING here is free-discovery — the list is fixed; the resolver only confirms each item exists on disk.",
+  "space": "arduview",
+  "kb_root": "~/knowledge/dr-marketing",
+  "map": "marketing-lens/MAP.md",
+
+  "a_law_always_include": ["definitions.md"],
+  "_a_law_note": "A prosecutes reasoning, so it always gets the operator vocabulary file in addition to the scout-selected DR law.",
+
+  "a_run_notes": [
+    "**Operator tradeoff — the missing VOC (prosecute, do not excuse).** The operator DELIBERATELY omitted VOC (voice-of-customer / review-mine) to ship fast — a known, chosen tradeoff, not an oversight. Do NOT charge the omission as a mere gap and stop. Immediately prosecute whether the tradeoff is DR-DEFENSIBLE: does the DR law permit building a belief chain on an ASSERTED (not VOC-grounded) transformation when speed is the priority? If so, under what conditions — and were those conditions met here? Resolve VIOLATION / SURVIVED / CANNOT ASSESS against quoted law, like any other decision."
+  ],
+  "_a_run_notes_note": "RUN-SPECIFIC. audit-inject.js injects these into EVERY Reviewer A segment as an 'OPERATOR PROSECUTION NOTES (A only)' section, and per-segment segments.<seg>.run_notes are appended for that segment. NEVER injected for B. Edit per run; reviewer-a.md stays generic.",
+
+  "b_law_denylist": ["differentiator-framework", "angle.md", "definitions.md"],
+  "_b_law_note": "B is the prompt-blind grounding reviewer and must NEVER receive rule-theory (how-to-reason). audit-inject.js filters any law file whose basename equals or starts-with a denylist entry when --reviewer=B. differentiator-framework matches differentiator-framework__2_.md by prefix; angle.md and definitions.md match exactly. Enforced even if a scout slips one in.",
+
+  "segments": {
+    "A-collection": {
+      "_note": "NO REVIEWER READS RAW BRAND PAGE COPY. The corpus/<brand>/clean/*.md extracted text is INTENTIONALLY not injected — the space-map.json IS the collection-stage record, and A prosecutes the classifier's REASONING against the pre-research plan + the space-map's own classified contents. Re-deriving classifications from raw page copy is not the audit's job. The .docx product description + .xlsx BOM are external; the pre-research-plan product section is the in-context substitute. Any collection point that would require raw copy -> A returns CANNOT ASSESS by design.",
+      "prompts": ["marketing-lens/prompts/04-space-classifier.md"],
+      "evidence": [
+        { "logical": "pre-research-plan", "path": "runs/arduview/arduview-pre-research-plan.md", "role": "input", "required": true },
+        { "logical": "space-map", "path": "runs/arduview/space-map.json", "role": "output", "required": true }
+      ]
+    },
+
+    "A-market": {
+      "prompts": ["marketing-lens/prompts/05-market-selection-assessor.md"],
+      "evidence": [
+        { "logical": "space-map", "path": "runs/arduview/space-map.json", "role": "input", "required": true },
+        { "logical": "market-selection", "path": "runs/arduview/market-selection.md", "role": "output", "required": true }
+      ]
+    },
+
+    "A-funnel": {
+      "prompts": [
+        "marketing-lens/prompts/06-router.md",
+        "marketing-lens/prompts/07-section-analyzer.md",
+        "marketing-lens/prompts/08-funnel-architect.md",
+        "marketing-lens/prompts/08b-copywriter-STUB.md"
+      ],
+      "run_notes": [
+        "**Funnel segment — two charges to flag explicitly.** The ANGLE-VALIDATION-AUDIT.md in your evidence is the architect's OWN input (the per-brand angle/validation 'lost-signal' doc), so the funnel reasoning is accountable to it:",
+        "1. The doc states transparency-as-verbal-hook is unproven by anyone in paid, and that curiosity is the proven winner at scale. If the funnel LED with transparency-as-claim anyway, that is a decision contradicting its own input — charge it (RULE-SOUNDNESS).",
+        "2. The doc's own provenance caveat flags the Flipper run-lengths and the '1M sold' figure as un-re-verified. If the architect rested an angle decision on those figures, that is a DATA-SUFFICIENCY violation — charge it. (The caveat is in your copy on purpose: it is evidence about how solid the input was.)"
+      ],
+      "evidence": [
+        { "logical": "cleaned-funnel-copy", "path": "runs/arduview/funnels-clean/*-clean.json", "role": "input", "required": true },
+        { "logical": "belief-records", "path": "runs/arduview/funnels-analyzer-out/*-beliefs.json", "role": "input", "required": true },
+        { "logical": "funnels-scored", "path": "runs/arduview/funnels-scored/*-scored.json", "role": "input", "required": true },
+        { "logical": "angle-validation-audit", "path": "runs/arduview/ANGLE-VALIDATION-AUDIT.md", "role": "input", "required": true,
+          "note": "The per-brand angle/validation 'lost-signal' recovery doc — run BEFORE the funnel and consumed by the funnel architect (a real pipeline input, alongside the deep-pass store + chosen NTP). A gets it WHOLE — table, verdicts, 'what got lost', provenance caveat. See reviewer-a.md RUN-SPECIFIC FUNNEL CHARGES." },
+        { "logical": "funnel-design", "path": "runs/arduview/FUNNEL-DESIGN.md", "role": "output", "required": true },
+        { "logical": "copy-draft", "path": "runs/arduview/COPY-DRAFT.md", "role": "output", "required": true }
+      ]
+    },
+
+    "B": {
+      "_note": "B gets NO prompts. Four outputs in sequence; space-map is the floor (not strip-audited internally). strip=true items must be routed through the strip-for-b agent BEFORE injection — keep verdicts/scores, drop the because.",
+      "evidence": [
+        { "logical": "space-map", "path": "runs/arduview/space-map.json", "seq": 1, "strip": false, "required": true },
+        { "logical": "market-selection", "path": "runs/arduview/market-selection.md", "seq": 2, "strip": true, "required": true },
+        { "logical": "belief-records", "path": "runs/arduview/funnels-analyzer-out/*-beliefs.json", "seq": 3, "strip": false, "required": true },
+        { "logical": "funnels-scored", "path": "runs/arduview/funnels-scored/*-scored.json", "seq": 3, "strip": true, "required": true },
+        { "logical": "angle-validation-audit", "path": "runs/arduview/ANGLE-VALIDATION-AUDIT.md", "seq": 3, "strip": true, "required": true,
+          "strip_note": "Keep the per-brand angle/volume/validation TABLE + mechanical figures (ad counts, run-lengths, '0 paid ads', backer/funding numbers) — INCLUDING the Flipper run-lengths and '1M sold' figures (B grounds against them). DROP the agent's verdicts, the 'what got lost' HIGH/MEDIUM editorializing, the 'safest bet from this corpus' recommendation, and the provenance-caveat PROSE. Reason: B grounds the funnel against facts, not against another agent's opinion.",
+          "must_not_contain": "safest bet||what got lost" },
+        { "logical": "funnel-design", "path": "runs/arduview/FUNNEL-DESIGN.md", "seq": 4, "strip": true, "required": true },
+        { "logical": "copy-draft", "path": "runs/arduview/COPY-DRAFT.md", "seq": 4, "strip": false, "required": true }
+      ]
+    }
+  }
+}
