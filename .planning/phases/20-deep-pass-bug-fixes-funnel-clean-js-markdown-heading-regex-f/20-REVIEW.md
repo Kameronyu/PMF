@@ -12,8 +12,17 @@ findings:
   warning: 1
   info: 1
   total: 2
-status: issues_found
+  resolved: 1
+  deferred: 1
+status: resolved
 ---
+
+> **Resolution (2026-06-05):** WR-01 fixed in commit `54ea38d` — the markdown ATX pass now
+> runs after the tag-strip, so `##` inside HTML attribute values / removed tags can no longer
+> inject spurious `[SECTION]` markers (verified: markdown marking + HTML no-regression +
+> attribute false-positive all green). IN-01 deferred — `arduview` is the only space today;
+> a `--space` shorthand is future-proofing outside this phase's D-01..D-11 scope (tracked here
+> as a latent footgun for when a second space is added).
 
 # Phase 20: Code Review Report
 
