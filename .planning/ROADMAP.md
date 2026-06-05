@@ -361,12 +361,12 @@ Plans:
 **Goal:** The repo carries only live, non-e-ink artifacts: every e-ink/InkLeaf relic and slop doc is hard-deleted (git history is the archive), the durable VOC/data-model design notes are distilled into a keeper before their source is removed, regenerable scratch is gitignored without dropping the tracked test fixture, the no-overwrite-v1 versioning convention is documented, and `.planning/` passes gsd-health.
 **Requirements**: none (cleanup/health phase — no mapped REQ-IDs; must-haves derive from the phase goal + CONTEXT decisions D-01..D-15)
 **Depends on:** Phase 18
-**Plans:** 2/5 plans executed
+**Plans:** 3/5 plans executed
 
 Plans:
 - [x] 19-01-PLAN.md — Distill map/data_inventory.md + BUILD-STATE.md into keeper map/data-model-notes.md (D-03/04/06; distill-before-delete)
 - [x] 19-02-PLAN.md — Inline the image-classifier-brick.md IMAGES.md cite so launch/ can be deleted (D-13 precondition)
-- [ ] 19-03-PLAN.md — Hard-delete e-ink artifacts: _quarantine/ + launch/ (D-01/02)
+- [x] 19-03-PLAN.md — Hard-delete e-ink artifacts: _quarantine/ + launch/ (D-01/02)
 - [ ] 19-04-PLAN.md — Delete slop docs + junk binaries; remove data_inventory.md/BUILD-STATE.md gated on keeper (D-01/04/06/11/14)
 - [ ] 19-05-PLAN.md — gitignore + fixture negation + junk removal + no-overwrite-v1 rule + gsd-health (D-07..D-15)
 
