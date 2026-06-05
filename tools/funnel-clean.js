@@ -7,6 +7,7 @@
 //   - Reads landing_page_body from funnel_package JSON files
 //   - Strips chrome (script/style/nav/header/footer) via regex
 //   - Inserts structural section markers on heading/block boundaries
+//     (both HTML <h1-h4> tags AND markdown ATX headings like ## Heading)
 //   - Preserves on-page review blocks verbatim, tagged review_language
 //   - Does NOT decide belief boundaries (that is the Section Analyzer's job)
 //   - Does NOT classify, interpret, or rewrite copy
@@ -161,6 +162,16 @@ function stripToText(html) {
   // Also insert a section marker before <section>, <article>, <main>, <aside> elements
   // (common LP structural containers)
   s = s.replace(/<(?:section|article|main|aside)[^>]{0,200}>/gi, SECTION_MARKER + '$&');
+
+  // Insert section markers before markdown ATX headings (D-01).
+  // Markdown ATX headings (## Heading) are plain text — they survive HTML tag-stripping and
+  // are never caught by the HTML heading/block passes above. The clean/home.md fallback path
+  // (run-notes §3 Option B) otherwise produces a flat body with zero [SECTION] markers.
+  // This makes BOTH input paths (raw HTML and clean markdown) emit section markers.
+  // Regex: line-anchored, bounded — /^#{1,6}[ \t]+/gm matches start-of-line ATX headings only.
+  // A mid-line '#' (e.g. "issue #47") does NOT match because '^' requires start-of-line.
+  // ReDoS-safe: no nested/unbounded quantifiers — one linear pass (T-03-07).
+  s = s.replace(/^#{1,6}[ \t]+/gm, SECTION_MARKER + '$&');
 
   // Strip all remaining HTML tags (attributes and all). Bounded tag body (500 chars max).
   s = s.replace(/<[^>]{0,500}>/g, ' ');
