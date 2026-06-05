@@ -169,8 +169,9 @@ BELIEF_KIND_ENUM:       crowdfunding-specific | general-dr
 - `tools/hooks/inject-dr.js` — DR-file BUNDLER (NOT an auto-injection hook — no such mechanism
   exists; the Section Analyzer runs as a subagent where settings hooks don't fire). Run it to
   (re)generate `prompts/_generated/section-analyzer-dr-context.md`, the concatenated six-file
-  bundle with attribution headers. The Section Analyzer MUST `Read` that bundle as its first step
-  (see the analyzer prompt below); the orchestrator must regenerate it if the DR sources changed.
+  bundle with attribution headers. The orchestrator EMBEDS this bundle into the Section Analyzer's
+  spawn prompt — the analyzer never Reads it; the orchestrator regenerates the bundle if the DR
+  sources changed.
 - `tools/hooks/validate-analyzer.js` — PostToolUse reject on every Section Analyzer Write:
   - VERBATIM-SUBSTRING GATE: any `verbatim_refs[].text` not a verbatim substring of the cleaned funnel
     copy → REJECT (kills hallucinated/paraphrased verbatim).
