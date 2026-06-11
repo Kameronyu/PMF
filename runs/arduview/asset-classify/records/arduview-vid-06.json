@@ -1,0 +1,110 @@
+{
+  "id": "arduview-vid-06",
+  "segments": [
+    {
+      "t": "0:00-0:03",
+      "beat": "Two hands hold device face-on toward camera; display lit with game screen visible through transparent pane; green plant background establishes outdoor/lifestyle context"
+    },
+    {
+      "t": "0:03-0:06",
+      "beat": "Hands tilt device slightly; see-through display and PCB internals become more legible; D-pad and A/B buttons clearly visible on clear-shell front"
+    },
+    {
+      "t": "0:06-0:09",
+      "beat": "Device rotated/angled further; transparent shell lets camera see internal board components; pocket-scale proportions confirmed by hand framing"
+    },
+    {
+      "t": "0:09-0:12",
+      "beat": "Hands reposition grip; USB-C port area comes into frame at bottom edge; continued PCB-through-shell visibility; retro control layout prominent"
+    },
+    {
+      "t": "0:12-0:15",
+      "beat": "Device pulled slightly back; full form factor visible in both hands; game content still active on display; collectible object quality read from resin shell catch-light"
+    },
+    {
+      "t": "0:15-0:18",
+      "beat": "Final hold position; device face presented squarely; display on, internals visible, hands frame pocket scale; clip ends on clean product-in-hand hold"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:03-0:12",
+      "strength": "strong",
+      "motion_value": "high — rotation reveals PCB through shell progressively"
+    },
+    {
+      "claim": "see_through_display_on",
+      "at": "0:00-0:18",
+      "strength": "strong",
+      "motion_value": "high — active game pixels visible throughout entire clip"
+    },
+    {
+      "claim": "pocket_scale",
+      "at": "0:00-0:18",
+      "strength": "strong",
+      "motion_value": "medium — two-hand hold continuously communicates device footprint"
+    },
+    {
+      "claim": "retro_gaming",
+      "at": "0:00-0:15",
+      "strength": "partial",
+      "motion_value": "medium — D-pad/A/B layout and active display imply gaming but game content is small"
+    },
+    {
+      "claim": "collectible_object",
+      "at": "0:12-0:18",
+      "strength": "partial",
+      "motion_value": "low — resin catch-light and careful hold suggest premium object but no dedicated showcase moment"
+    },
+    {
+      "claim": "hackable_maker",
+      "at": "0:09-0:12",
+      "strength": "incidental",
+      "motion_value": "low — USB-C port briefly visible at bottom edge"
+    },
+    {
+      "claim": "build_material_quality",
+      "at": "0:06-0:15",
+      "strength": "partial",
+      "motion_value": "medium — clear resin shell gloss and PCB visibility communicate craft quality"
+    }
+  ],
+  "best_use": "hero_loop",
+  "loop_safe": true,
+  "needs_audio": false,
+  "poster_frame": "0:06",
+  "tone": [
+    "lifestyle",
+    "hands-on",
+    "premium",
+    "compact"
+  ],
+  "disqualifiers": [],
+  "selection_note": "Continuous two-hand hold with active display and rotating transparency reveal makes this a strong hero loop; no text overlays or cuts that break loop; USB-C port incidentally appears but is not foregrounded.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 17.44,
+    "fps": 120.17,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 234027485,
+    "oversize": true
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 2,
+    "color_grade": 2,
+    "stability": 2,
+    "overall": 3,
+    "ad_ready": false,
+    "standout": "natural green-leaf backdrop adds organic warmth",
+    "weakness": "handheld shake throughout, device tiny and underexposed against dark frame borders",
+    "note": "close-up handheld demo; device never fills frame cleanly, exposure undercooked, constant motion - hard to cut a usable loop"
+  }
+}

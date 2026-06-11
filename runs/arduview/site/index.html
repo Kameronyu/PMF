@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>arduview, the pocket game console you can see right through</title>
+  <meta name="description" content="A fully see-through handheld game console. Clear shell, clear board, the screen glowing through the front. 400 games inside. Founders ship August 2026." />
+
+  <!-- fonts: Doto (dot-matrix), Space Grotesk (headlines), IBM Plex Mono (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;700;800;900&family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <!-- no buy/sign-up button, email capture is the only conversion (build note) -->
+  <nav class="nav">
+    <a class="wordmark" href="#top">arduview<span class="reg">®</span></a>
+    <span class="nav__meta">founders ship <b>aug 2026</b> · public 2027</span>
+  </nav>
+
+  <!-- ===================== 1. HERO ===================== -->
+  <!-- desktop: headline + CTA left, video right, subhead full-width below. mobile: title -> cta -> video -> subhead -->
+  <header class="hero" id="top">
+    <div class="wrap">
+      <div class="hero__top">
+        <div class="hero__lead-col">
+          <div class="pills">
+            <span class="pill"><span class="dot"></span>earliest access, founders ship aug 2026</span>
+            <span class="pill">coming soon on <img class="ks-logo" src="assets/img/kickstarter.png" alt="Kickstarter" /></span>
+          </div>
+
+          <!-- LOCKED headline: Variant A -->
+          <h1 class="h-hero">The pocket game console you can <span class="hl">see right through</span>.</h1>
+
+          <!-- CTA #1 -> deposit page (demo click-through) -->
+          <div class="cta hero__cta">
+            <form class="cta__form" data-capture="hero" novalidate>
+              <input class="cta__input" type="email" name="email" placeholder="your email" autocomplete="email" />
+              <button class="btn" type="submit">get early access →</button>
+            </form>
+            <p class="cta__fine">Founders get Arduview in August 2026. Everyone else waits until 2027.</p>
+          </div>
+        </div>
+
+        <!-- hero video: finished captioned cut, silent autoplay loop -->
+        <div class="hero__video">
+          <video class="hero__video-el" autoplay muted loop playsinline preload="metadata"
+                 poster="assets/img/hero-poster.jpg">
+            <source src="assets/video/hero.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+      <p class="lead hero__sub">
+        Arduview is a fully see-through handheld console. Clear shell, clear board, the screen glowing through
+        the front. It holds 400 games and fits in any pocket. It rarely stays in one for long, because
+        people keep asking to hold it.
+      </p>
+
+      <div class="chips">
+        <span class="chip"><span class="tick">▣</span> see every part working</span>
+        <span class="chip"><b>400</b> games built in</span>
+        <span class="chip"><b>50g</b>, fits any pocket</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== 2. WHY IT'S CLEAR ===================== -->
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="split reveal">
+        <div class="split__copy">
+          <span class="eyebrow">the clear.</span>
+          <h2 class="h-section">Most gadgets hide the good part. This one shows it off.</h2>
+          <div class="body" style="margin-top:24px">
+            <p class="lead">
+              Every phone, every console, every gadget on your desk is a sealed slab. You never see what's
+              inside. Arduview flips that. The shell is clear. The board is clear. You watch the screen
+              light up <span class="hl">straight through the front</span>. We built it this way because the
+              inside is the best part of it. It's the kind of thing you catch yourself staring at.
+            </p>
+          </div>
+        </div>
+        <div class="split__media">
+          <figure class="frame frame--dark">
+            <img src="assets/img/transparency.jpg" alt="Arduview front-on, clear shell showing the board and orange flex cable, screen running a game" loading="lazy" />
+            <figcaption class="frame__tag">battery and board, straight through the shell</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- secondary guts shot -->
+      <div class="split reveal" style="margin-top:48px">
+        <div class="split__media">
+          <figure class="frame frame--dark">
+            <img src="assets/img/maker.jpg" alt="Macro close-up through the clear shell: PCB, chip, orange flex cable, button domes and USB-C port" loading="lazy" />
+            <figcaption class="frame__tag">copper flex and pcb, side on</figcaption>
+          </figure>
+        </div>
+        <div class="split__copy">
+          <span class="eyebrow">the guts.</span>
+          <h2 class="h-sub">Nothing hidden. Every dome, trace and chip is part of the look.</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 3. WHAT IT IS ===================== -->
+  <section class="section section--light">
+    <div class="wrap">
+      <div class="split split--text-first reveal">
+        <div class="split__copy">
+          <span class="eyebrow" style="color:#0a0a0b">the console.</span>
+          <h2 class="h-section">A real console. Loaded and ready.</h2>
+
+          <div class="features">
+            <div class="feature">
+              <div class="feature__k">Turn it on, play in seconds.</div>
+              <div class="feature__v">400 games come already loaded. Switch it on and you're playing, with no app store or Wi-Fi setup to deal with.</div>
+            </div>
+            <div class="feature">
+              <div class="feature__k">Open to the core.</div>
+              <div class="feature__v">Runs on Arduboy, the open handheld platform. Tinker if you want, just play if you don't.</div>
+            </div>
+            <div class="feature">
+              <div class="feature__k">Charges fast, lives in your pocket.</div>
+              <div class="feature__v">USB-C. 50 grams.</div>
+            </div>
+          </div>
+          <p class="kicker">It does everything a handheld should, and you can watch all of it work.</p>
+        </div>
+
+        <div class="split__media">
+          <figure class="frame frame--light">
+            <img src="assets/img/gameplay.jpg" alt="Arduview screen mid-game, sprite and score lit on the display" loading="lazy" />
+            <figcaption class="frame__tag" style="color:#0a0a0b;background:rgba(255,255,255,0.7)">screen on, mid-game</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 4. WHO IT'S FOR ===================== -->
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="split reveal">
+        <div class="split__copy">
+          <span class="eyebrow">the owner.</span>
+          <h2 class="h-section">For people who carry the good stuff.</h2>
+          <p class="lead" style="margin-top:24px">
+            Retro game fans, gadget collectors, tinkerers, and gift-givers after
+            <span class="hl">something no one else has</span>. The kind of thing people spot on your desk
+            and have to pick up.
+          </p>
+        </div>
+        <div class="split__media">
+          <figure class="frame frame--dark">
+            <img src="assets/img/scale.jpg" alt="Arduview held in one hand, clear shell, pixel-art game on the screen" loading="lazy" />
+            <figcaption class="frame__tag">in the hands, mid-play</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- CTA #2 -->
+      <div class="cta reveal" style="margin-top:56px;max-width:560px">
+        <form class="cta__form" data-capture="mid" novalidate>
+          <input class="cta__input" type="email" name="email" placeholder="your email" autocomplete="email" required />
+          <button class="btn" type="submit">lock in early access →</button>
+          <span class="cta__done">✓ locked in. founders ship aug 2026.</span>
+        </form>
+        <p class="cta__fine">Still scrolling? Founders ship Aug 2026.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 5. FROM THE FOUNDER (bracketed scaffold) ===================== -->
+  <section class="section section--dark section--tight" style="background:#0e0e11">
+    <div class="wrap">
+      <span class="eyebrow">the maker.</span>
+      <div class="founder reveal" style="margin-top:8px">
+        <div class="founder__media">
+          <div class="founder__photo">[ founder photo ]<br />fill from interview</div>
+        </div>
+        <div class="founder__letter">
+          <h2 class="h-sub" style="margin-bottom:22px">
+            Built by <span class="bracket">[ name / a small team ]</span>, and
+            <span class="bracket">[ my / their ]</span> name is on it.
+          </h2>
+          <ul class="letter">
+            <li><span class="bracket">[ who you are, 1-2 sentences, plain ]</span></li>
+            <li><span class="bracket">[ why you built Arduview, the real origin ]</span></li>
+            <li><span class="bracket">[ honest answer to "why trust a brand I've never heard of?" ]</span></li>
+            <li><span class="bracket">[ delay-honesty pledge, "if we hit a delay, you'll hear it from me the day it happens." ]</span></li>
+          </ul>
+          <div class="badges">
+            <span class="badge"><span class="bracket">[ # ]</span> prototypes built</span>
+            <span class="badge"><span class="bracket">[ production stage ]</span></span>
+            <span class="badge"><span class="bracket">[ units shipped / prior product ]</span></span>
+            <span class="badge">launching on <img class="ks-logo" src="assets/img/kickstarter.png" alt="Kickstarter" /></span>
+            <span class="badge">reddit ama, ask me anything</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 6. FAQ ===================== -->
+  <section class="section section--light">
+    <div class="wrap">
+      <span class="eyebrow" style="color:#0a0a0b">the questions.</span>
+      <div class="faq reveal">
+        <div class="faq__item">
+          <div class="faq__q">When does it ship?</div>
+          <div class="faq__a">Founders: August 2026. Public: 2027.</div>
+        </div>
+        <div class="faq__item">
+          <div class="faq__q">Why trust a new brand?</div>
+          <div class="faq__a"><span style="color:#6b6b70">[ founder's one-line answer ]</span>. Plus, your $5 deposit stays fully refundable until your unit ships.</div>
+        </div>
+        <div class="faq__item">
+          <div class="faq__q">What's in the box?</div>
+          <div class="faq__a">Arduview + a USB-C cable. <span style="color:#9a9aa0">[ confirm ]</span></div>
+        </div>
+        <div class="faq__item">
+          <div class="faq__q">Is the $5 deposit refundable?</div>
+          <div class="faq__a">Yes. Any time before it ships, no questions asked.</div>
+        </div>
+        <div class="faq__item">
+          <div class="faq__q">What does signing up get me?</div>
+          <div class="faq__a">Early access, founders reserve first (Aug 2026) and get founder-only pricing, revealed the moment you reserve. The public waits until 2027.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 7. FINAL CTA ===================== -->
+  <section class="section section--dark">
+    <div class="wrap" style="text-align:center">
+      <span class="eyebrow" style="justify-content:center">the list.</span>
+      <h2 class="h-section reveal" style="max-width:18ch;margin-inline:auto">Get on the list.</h2>
+      <p class="lead reveal" style="margin:24px auto 0;text-align:center">
+        Founders get Arduview in August 2026, plus first dibs on founder-only pricing.
+        The public waits until 2027. One email, and we won't spam you.
+      </p>
+      <div class="cta reveal" style="margin:34px auto 0;max-width:520px">
+        <form class="cta__form" data-capture="final" style="margin-inline:auto;justify-content:center" novalidate>
+          <input class="cta__input" type="email" name="email" placeholder="your email" autocomplete="email" required />
+          <button class="btn btn--lg" type="submit">get early access →</button>
+          <span class="cta__done">✓ done. watch your inbox.</span>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="footer__row">
+      <a class="wordmark" href="#top">arduview<span class="reg">®</span></a>
+      <small>see the whole machine. then put it in your pocket. · founders aug 2026 · public 2027</small>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

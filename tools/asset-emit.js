@@ -227,6 +227,23 @@ function buildImagesMd(space, imageRecords, sectionsRanked, gap_list) {
   lines.push('---');
   lines.push('');
 
+  // Asset specs table (dimensions + aspect ratio) — operator wants dims in the report
+  if (imageRecords.length > 0) {
+    lines.push('## Image specs');
+    lines.push('');
+    lines.push('| id | dimensions | aspect | shot_type | min_safe_use |');
+    lines.push('|---|---|---|---|---|');
+    for (const rec of imageRecords) {
+      const t    = rec.technical || {};
+      const dims = (t.w && t.h) ? `${t.w}×${t.h}` : '—';
+      const ar   = t.aspect_ratio || '—';
+      const st   = rec.shot_type || '—';
+      const msu  = t.min_safe_use || '—';
+      lines.push(`| ${rec.id} | ${dims} | ${ar} | ${st} | ${msu} |`);
+    }
+    lines.push('');
+  }
+
   // Build a lookup from record id -> record
   const byId = {};
   for (const rec of imageRecords) {
@@ -358,8 +375,8 @@ function buildVideosMd(space, videoRecords, sectionsRanked, gap_list) {
     lines.push('*(No video records yet — run asset-fetch.js + comprehend-video + asset-map-rank.js first.)*');
     lines.push('');
   } else {
-    lines.push('| file | spec | best_use | CDN URL |');
-    lines.push('|---|---|---|---|');
+    lines.push('| file | spec | best_use | aesthetic | CDN URL |');
+    lines.push('|---|---|---|---|---|');
 
     for (const rec of videoRecords) {
       const filename = (rec.source && rec.source.filename) || rec.id || '—';
@@ -367,11 +384,14 @@ function buildVideosMd(space, videoRecords, sectionsRanked, gap_list) {
       const spec     = [
         probe.duration_s ? `${probe.duration_s}s` : null,
         (probe.w && probe.h) ? `${probe.w}×${probe.h}` : null,
-        probe.has_audio === false ? 'no audio' : probe.has_audio ? 'audio' : null,
+        probe.aspect_ratio || null,
+        probe.has_audio === false ? 'silent' : probe.has_audio ? 'audio' : null,
       ].filter(Boolean).join(' · ') || '—';
       const bestUse  = rec.best_use || '—';
+      const aes      = rec.aesthetics || {};
+      const aesCell  = (aes.overall != null) ? `${aes.overall}/10 ${aes.ad_ready ? '✓ad-ready' : '✗reshoot'}` : '—';
       const cdnUrl   = rec.cdn_url  || '';
-      lines.push(`| ${filename} | ${spec} | ${bestUse} | ${cdnUrl} |`);
+      lines.push(`| ${filename} | ${spec} | ${bestUse} | ${aesCell} | ${cdnUrl} |`);
     }
     lines.push('');
 
@@ -389,10 +409,30 @@ function buildVideosMd(space, videoRecords, sectionsRanked, gap_list) {
       lines.push(`| ${filename} | ${poster} | ${cdnUrl} |`);
     }
     lines.push('');
+
+    // Aesthetic grades (picture-only production-quality grade; silent footage)
+    if (videoRecords.some(r => r.aesthetics)) {
+      lines.push('## Aesthetic grades');
+      lines.push('');
+      lines.push('Production-quality grade (picture only). Subscores 1-5; overall 1-10; ad_ready = runnable as a paid-ad / LP hero WITHOUT a reshoot.');
+      lines.push('');
+      lines.push('| file | overall | ad_ready | light | comp | focus | bg | color | stable | standout / weakness |');
+      lines.push('|---|---|---|---|---|---|---|---|---|---|');
+      for (const rec of videoRecords) {
+        const a = rec.aesthetics;
+        if (!a) continue;
+        lines.push(`| ${rec.id} | ${a.overall}/10 | ${a.ad_ready ? 'yes' : 'NO'} | ${a.lighting} | ${a.composition} | ${a.focus_sharpness} | ${a.background} | ${a.color_grade} | ${a.stability} | ${a.standout || ''} — ${a.weakness || ''} |`);
+      }
+      lines.push('');
+    }
   }
 
-  // Video gaps
-  const videoGaps = gap_list.filter(g => ['hero_loop', 'feature_demo'].includes(g.section));
+  // Video gaps — derive from actual best_use coverage (silent product videos: hero_loop + feature_demo)
+  const VIDEO_SLOTS = ['hero_loop', 'feature_demo'];
+  const slotsCovered = new Set(videoRecords.map(r => r.best_use).filter(Boolean));
+  const videoGaps = VIDEO_SLOTS
+    .filter(s => !slotsCovered.has(s))
+    .map(s => ({ section: s, candidate_count: 0, reason: 'no video classified for this slot' }));
   if (videoGaps.length > 0) {
     lines.push('## Gaps');
     lines.push('');

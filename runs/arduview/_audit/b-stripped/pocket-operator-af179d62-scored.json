@@ -1,0 +1,14 @@
+{
+  "funnel_id": "pocket-operator-af179d62",
+  "competitor": "pocket-operator",
+  "source_type": "DTC",
+  "landing_page_url": "https://teenage.engineering/products/po",
+  "review_blocks": [],
+  "provenance": "<!-- source: runs/arduview/funnels-assembled/pocket-operator-af179d62.json | cleaned: 2026-06-04T04:45:01.795Z -->",
+  "validation_lane": [
+    "unknown"
+  ],
+  "validation_strength": {
+    "unknown": {}
+  }
+}

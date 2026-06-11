@@ -1,0 +1,12 @@
+{
+  "slug": "gameshell-wb2",
+  "url": "https://web.archive.org/web/20180501120000/https://www.kickstarter.com/projects/clockworkpi/gameshell",
+  "fetched": "2026-06-04T04:55:05.318Z",
+  "crowdfunding_stats": {
+    "amount_raised": null,
+    "backer_count": null,
+    "funded_vs_failed": null,
+    "delivered_vs_not": null,
+    "_note": "Currency-B stats parsed from rendered page text. delivered_vs_not is strongest when sourced from creator profile (separate --type fetch); may be null if not surfaced on campaign page."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "arduview-hero-16x9",
+  "target": { "w": 1920, "h": 1080, "fps": 30 },
+  "audio": false,
+  "_note": "16:9 LP/desktop hero. LANDSCAPE-native clips only (no crop loss). HDR clips tone-mapped to SDR by the brick. Silent, no captions. In/out in seconds.",
+  "segments": [
+    { "id": "arduview-vid-13", "in": 12.8, "out": 15.0, "beat": "OPEN — clean desk orbital of the lit device; transparent shell + lit display, calm beauty hook" },
+    { "id": "arduview-vid-17", "in": 1.0,  "out": 3.4,  "beat": "TRANSPARENCY — slow rotation, PCB/gold traces visible through the clear resin, display lit" },
+    { "id": "arduview-vid-03", "in": 6.0,  "out": 8.0,  "beat": "DISPLAY — see-through display lit (checkerboard), transparent top face, board visible behind" },
+    { "id": "arduview-vid-01", "in": 0.0,  "out": 2.0,  "beat": "GAMES + IN HAND — held in one hand, legible arcade game UI (sprite/hearts/coin), pocket scale" },
+    { "id": "arduview-vid-05", "in": 7.0,  "out": 9.0,  "beat": "PLAY — thumbs on D-pad/A-B, active display, gameplay posture (you actually play it)" },
+    { "id": "arduview-vid-18", "in": 3.0,  "out": 5.0,  "beat": "CLOSE — clean wood-bg orbital, PCB through shell, settles it as a collectible object" }
+  ]
+}

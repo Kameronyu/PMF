@@ -1,0 +1,110 @@
+{
+  "id": "arduview-vid-13",
+  "segments": [
+    {
+      "t": "0:00-0:01",
+      "beat": "overhead static shot, device face-up on neutral surface, display off, clear shell and PCB fully visible"
+    },
+    {
+      "t": "0:01-0:03",
+      "beat": "slow orbital pan begins top-down, display activates showing lit game text on transparent pane, clear body and internal board remain visible throughout"
+    },
+    {
+      "t": "0:03-0:06",
+      "beat": "continuous slow rotation around device long axis, display stays lit, shell transparency holds, D-pad and A/B buttons readable"
+    },
+    {
+      "t": "0:06-0:09",
+      "beat": "camera angle shifts to three-quarter rear-high perspective, PCB traces and components visible through shell, display still on"
+    },
+    {
+      "t": "0:09-0:12",
+      "beat": "orbit continues sweeping to side profile, device thickness evident, scale reads as pocket-sized against desk surface"
+    },
+    {
+      "t": "0:12-0:15",
+      "beat": "camera moves to lower angle, display face more prominent, lit pixels on transparent pane clearly isolated against background"
+    },
+    {
+      "t": "0:15-0:17",
+      "beat": "rotation slows, front-face near-level angle, button layout and clear resin shell surface quality most legible"
+    },
+    {
+      "t": "0:17-0:19",
+      "beat": "camera lifts slightly to high three-quarter, full device silhouette, golden PCB traces visible through shell"
+    },
+    {
+      "t": "0:19-0:21",
+      "beat": "final frames, angle holds near end-of-orbit, display remains on, device rests on desk — clip ends"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:00-0:21",
+      "strength": "strong",
+      "motion_value": "high — continuous orbital rotation keeps PCB and component visibility as persistent foreground fact for full clip duration"
+    },
+    {
+      "claim": "see_through_display_on",
+      "at": "0:01-0:21",
+      "strength": "strong",
+      "motion_value": "high — lit game pixels on transparent pane readable through most of orbit, especially 0:12-0:17 face-on window"
+    },
+    {
+      "claim": "pocket_scale",
+      "at": "0:09-0:12",
+      "strength": "partial",
+      "motion_value": "low — scale implied by desk surface context but no hand in frame; size only inferrable"
+    },
+    {
+      "claim": "retro_gaming",
+      "at": "0:01-0:21",
+      "strength": "partial",
+      "motion_value": "low — display shows game text/sprite content but no active gameplay motion visible; static lit screen only"
+    },
+    {
+      "claim": "build_material_quality",
+      "at": "0:15-0:17",
+      "strength": "partial",
+      "motion_value": "low — resin surface catches light at low angle, finish visible, not a dedicated showcase pass"
+    }
+  ],
+  "best_use": "hero_loop",
+  "loop_safe": true,
+  "needs_audio": false,
+  "poster_frame": "0:15.00",
+  "tone": [
+    "premium",
+    "technical",
+    "minimal",
+    "collectible"
+  ],
+  "disqualifiers": [],
+  "selection_note": "Clean unbroken orbital on a lit device — transparency and see-through display both carry strong throughout; no hands or gameplay motion limits retro_gaming and pocket_scale; best pulled as a silent loop hero.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 19.8,
+    "fps": 120.17,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 264332074,
+    "oversize": true
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 3,
+    "color_grade": 2,
+    "stability": 2,
+    "overall": 3,
+    "ad_ready": false,
+    "standout": "clean desk background keeps it minimal",
+    "weakness": "single static overhead angle entire clip - no coverage change, screen not readable",
+    "note": "~20s of one locked-off overhead with slight drift; device never at a flattering angle - reshoot with deliberate angles + light"
+  }
+}

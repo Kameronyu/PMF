@@ -1,0 +1,132 @@
+{
+  "id": "arduview-vid-03",
+  "segments": [
+    {
+      "t": "0:00-0:01",
+      "beat": "Close overhead shot of device held in hand, screen facing up — display shows a checkerboard/pixel pattern, clear shell and PCB visible through enclosure; hand rotates device slightly"
+    },
+    {
+      "t": "0:01-0:02",
+      "beat": "Continued close hold, screen brightly lit with checkerboard pattern, transparent shell clearly shows internal PCB components; device tilted to show side profile"
+    },
+    {
+      "t": "0:02-0:03",
+      "beat": "Camera pulls back slightly, device held in palm showing full form factor — side and rear faces reveal PCB through clear resin; device oriented horizontally showing landscape profile"
+    },
+    {
+      "t": "0:03-0:05",
+      "beat": "Device rotated to show front face head-on with screen displaying vertical bar/column graphic; clear shell and board internals visible; slow lateral rotation continues"
+    },
+    {
+      "t": "0:05-0:06",
+      "beat": "Device held in fingertips, rotated to near-side profile — transparent side walls show PCB traces and components; screen displays narrow column graphic"
+    },
+    {
+      "t": "0:06-0:07",
+      "beat": "Camera angle shifts slightly, device still in hand, screen now showing bright checkerboard again; clearer view of transparent top face"
+    },
+    {
+      "t": "0:07-0:08",
+      "beat": "Device lifted and tilted — bright lit checkerboard display; transparent enclosure walls show PCB clearly from front-angle; hand moves device away from camera"
+    },
+    {
+      "t": "0:08-0:09",
+      "beat": "Background shifts to reveal green plant/foliage backdrop; device held at arms length showing pocket-scale in context of natural environment; checkerboard display lit"
+    },
+    {
+      "t": "0:09-0:10",
+      "beat": "Device brought closer to camera against plant background — screen brightly lit with checkerboard, transparent body shows PCB internals; good scale reference against hand"
+    },
+    {
+      "t": "0:10-0:12",
+      "beat": "Background transitions to neutral/architectural setting; device held in two-hand grip showing full front face — checkerboard display, clear shell and board visible; device tilted and rotated"
+    },
+    {
+      "t": "0:12-0:14",
+      "beat": "Device rotated showing top/back faces — PCB and internal components clearly visible through transparent shell panels; checkerboard display toggling on/off during rotation"
+    },
+    {
+      "t": "0:14-0:16",
+      "beat": "Device tilted showing rear and side faces against light architectural background — internal PCB fully exposed through clear resin walls; display shows bright checkerboard; continued slow rotation"
+    },
+    {
+      "t": "0:16-0:16.60",
+      "beat": "Final frames: device held steady showing front face with lit checkerboard display — bright, clean closing shot against neutral background"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:00-0:16.60",
+      "strength": "strong",
+      "motion_value": "Continuous slow rotation cycles through all four shell faces, showing PCB and board components through each transparent wall in turn — a still captures one angle but motion proves the full-enclosure transparency"
+    },
+    {
+      "claim": "see_through_display_on",
+      "at": "0:00-0:16.60",
+      "strength": "strong",
+      "motion_value": "Display stays lit with bright checkerboard pattern throughout; rotation shifts the viewing angle so the pixel-on-transparent-pane effect is visible from multiple perspectives, confirming it is the display surface and not a reflective artifact"
+    },
+    {
+      "claim": "pocket_scale",
+      "at": "0:00-0:16.60",
+      "strength": "strong",
+      "motion_value": "Device is held in a single hand throughout with fingers wrapping around it — continuous hand presence across all angles gives persistent scale reference that a single still would not sustain"
+    },
+    {
+      "claim": "collectible_object",
+      "at": "0:00-0:16.60",
+      "strength": "partial",
+      "motion_value": "Slow deliberate rotation in hand mimics the way a collectible is turned over for inspection; no shelf/display context but the handling gesture implies object admiration"
+    },
+    {
+      "claim": "build_material_quality",
+      "at": "0:02-0:16.60",
+      "strength": "partial",
+      "motion_value": "Pull-back and lateral rotation reveals clean edges and uniform resin finish across all shell faces; motion shows surface consistency around the full perimeter rather than a single polished angle"
+    },
+    {
+      "claim": "retro_gaming",
+      "at": "0:00-0:16.60",
+      "strength": "incidental",
+      "motion_value": "Display shows a checkerboard pixel pattern which suggests a game or test screen; D-pad/A/B controls are not clearly visible in any frame — claim is inferred from display content only"
+    }
+  ],
+  "best_use": "hero_loop",
+  "loop_safe": true,
+  "needs_audio": false,
+  "poster_frame": "0:07.00",
+  "tone": [
+    "tactile",
+    "premium",
+    "curious",
+    "object-forward"
+  ],
+  "disqualifiers": [],
+  "selection_note": "Sustained 360-style hand-rotation delivers the two load-bearing transparency claims simultaneously across the full clip; no controls or hackable features are shown, so retro_gaming and hackable_maker evidence is weak.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 16.81,
+    "fps": 120.05,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 224539124,
+    "oversize": true
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 2,
+    "color_grade": 2,
+    "stability": 2,
+    "overall": 3,
+    "ad_ready": false,
+    "standout": "display lit and visible at multiple angles",
+    "weakness": "handheld prototype footage - soft focus, cluttered/busy backgrounds (plants, desk debris)",
+    "note": "informal handheld showcase; no shot holds long enough in clean focus to lift a hero frame without a reshoot"
+  }
+}

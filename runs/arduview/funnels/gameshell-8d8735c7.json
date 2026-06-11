@@ -1,0 +1,301 @@
+{
+  "funnel_id": "gameshell-8d8735c7",
+  "competitor": "gameshell",
+  "source_type": "crowdfunding",
+  "transformation": null,
+  "niche": null,
+  "routing_flag": null,
+  "primary_claim": null,
+  "claim_type": null,
+  "awareness_entry": null,
+  "funnel_sequence": null,
+  "offer_mechanic": null,
+  "urgency_construction": null,
+  "validation_lane": [
+    "B"
+  ],
+  "validation_strength": {
+    "B": {
+      "amount_raised": 350000,
+      "backer_count": 2300,
+      "funded_vs_failed": "funded",
+      "delivered_vs_not": "delivered",
+      "_scoring_note": "Committed money, not modeled traffic. delivered_vs_not = strongest durability signal (prior campaign shipped). All fields carried verbatim for birdseye weighting.",
+      "_delivered_signal": "STRONG: prior campaign confirmed shipped — highest durability signal"
+    }
+  },
+  "_provenance": {
+    "source": "funnel-store.js",
+    "space": "arduview",
+    "stored_at": "2026-06-04T04:58:34.458Z"
+  },
+  "belief_records": [
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 1,
+      "belief_id": "trust-the-brand-or-founder",
+      "belief_confidence": "high",
+      "execution_type": "retail-distribution-authority",
+      "execution_detail": "Amazon logo and 'Available at Amazon.com' text appear in the hero section immediately below the product name and avatar targeting line, before any product specs or feature copy. This installs third-party retail distribution as the first trust signal — Amazon presence functions as a shipped-and-deliverable proof point, short-circuiting the crowdfunding hardware skepticism about whether the product will actually arrive.",
+      "proof_tier": "Tier2",
+      "moves": [
+        "Offer"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "Available at Amazon.com",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 2,
+      "belief_id": "it-will-ship",
+      "belief_confidence": "high",
+      "execution_type": "retail-distribution-authority",
+      "execution_detail": "Amazon retail availability is the primary ship-credibility signal on this page. A product listed on Amazon has cleared manufacturing, logistics, and fulfillment — the page leverages this structural fact to install 'it shipped' before any technical claims. This is the single most load-bearing it-will-ship move present; no backer count, no delivery tracking, no testimonials about receiving the product are shown, so Amazon becomes the proxy for delivered-hardware proof.",
+      "proof_tier": "Tier2",
+      "moves": [
+        "Offer"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "Available at Amazon.com",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 3,
+      "belief_id": "trust-the-brand-or-founder",
+      "belief_confidence": "high",
+      "execution_type": "avatar-specificity-trust",
+      "execution_detail": "The hero sub-headline targets three named avatar types: 'Indie Game Developers, Hackers & Retro Games Collectors.' Naming specific audiences functions as an in-group signal — it tells each target that the brand understands who they are, which increases perceived legitimacy before any specs are shown. This is structural: the page sequence places avatar naming before product description, establishing relevance as the first content move after the product name.",
+      "proof_tier": "Tier3",
+      "moves": [
+        "Market"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "Ideal for Indie Game Developers, Hackers & Retro Games Collectors",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 4,
+      "belief_id": "product-delivers-transformation",
+      "belief_confidence": "high",
+      "execution_type": "mechanism-specification",
+      "execution_detail": "The product definition section names the mechanism in a single line: 'An Open Source Portable Game Console.' Open source is the differentiating mechanism claim — it separates GameShell from closed commercial handhelds and positions it as hackable/programmable. The page then immediately descends into component-level specs (CPI mainboard, Quad-core Cortex-A7, Mali GPU, Wi-Fi, Bluetooth, 1GB DDR3, 16GB MicroSD, Micro HDMI, GPIOs) to substantiate the mechanism claim with verifiable hardware.",
+      "proof_tier": "Tier2",
+      "moves": [
+        "UM"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "An Open Source Portable Game Console",
+          "source": "competitor-marketing"
+        },
+        {
+          "text": "Quad-core Cortex-A7 CPU,     Mali GPU,     WI-FI & Bluetooth on-board,  1GB DDR3 Memory, 16GB MicroSD, Micro HDMI output,  GPIOs",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 5,
+      "belief_id": "product-delivers-transformation",
+      "belief_confidence": "high",
+      "execution_type": "specificity-anchoring",
+      "execution_detail": "The mainboard section uses a concrete numerical comparison to anchor perceived capability: 'From 0.043MHz up to 1GHz with Quad-Core, that is 90,000 times faster than the Apollo 11 guidance computer.' This transforms raw MHz specs into a culturally legible achievement reference. The move installs 'serious hardware' as a belief without requiring the reader to evaluate raw specs — the Apollo comparison does the interpretive work.",
+      "proof_tier": "Tier2",
+      "moves": [
+        "UM"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "From 0.043MHz up to 1GHz with Quad-Core, that is 90,000 times faster than the Apollo 11 guidance computer.",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 6,
+      "belief_id": "product-delivers-transformation",
+      "belief_confidence": "medium",
+      "execution_type": "modular-component-sequencing",
+      "execution_detail": "The page structures product education as a sequential module reveal: KEYPAD → SPEAKER → SCREEN → BATTERY → LIGHTKEY, each with a section header and spec line. This is a kit-assembly belief installation — showing that every physical component exists and has specifications installs 'this is a real, complete, shippable product' before any social proof section. The modular structure also communicates hackability: independent modules signal that the buyer can understand, modify, or expand each part.",
+      "proof_tier": "Tier3",
+      "moves": [
+        "UM"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "Programmable Keypad board with full Arduino compatibility.",
+          "source": "competitor-marketing"
+        },
+        {
+          "text": "Two channel stereo speaker",
+          "source": "competitor-marketing"
+        },
+        {
+          "text": "2.7 inch TFT RGB@60fps Screen",
+          "source": "competitor-marketing"
+        },
+        {
+          "text": "3.7V 1200 mAh rechargeable battery",
+          "source": "competitor-marketing"
+        },
+        {
+          "text": "5 independent IO extended keys",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 7,
+      "belief_id": "product-delivers-transformation",
+      "belief_confidence": "high",
+      "execution_type": "platform-compatibility-claim",
+      "execution_detail": "The OS section names specific game engines the device runs: 'You can run PICO 8, LOVE2D, PyGame, Phaser.io, Libretro, and many other game engines smoothly.' Naming recognized engines (PICO-8, Libretro) that the target audience already uses installs 'this works with my existing tools' — reducing the barrier belief for indie developers and hackers. The 'smoothly' qualifier addresses performance anxiety without a benchmark.",
+      "proof_tier": "Tier2",
+      "moves": [
+        "UM"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "You can run PICO 8, LOVE2D, PyGame, Phaser.io, Libretro, and many other game engines smoothly.",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 8,
+      "belief_id": "product-delivers-transformation",
+      "belief_confidence": "medium",
+      "execution_type": "aspiration-framing",
+      "execution_detail": "The gaming section uses 'Unparalleled Gaming Experience' as a section header followed by 'Experience the history of the video games.' This pairs an aspiration claim (unparalleled) with a retro/heritage frame (history of video games), targeting the retro collector desire. The frame is structural — it positions owning the device as accessing gaming history, not just buying a gadget. Color variant imagery in this section visually reinforces the collectible-object angle.",
+      "proof_tier": "Tier3",
+      "moves": [
+        "Angle",
+        "Market"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "Unparalleled Gaming Experience",
+          "source": "competitor-marketing"
+        },
+        {
+          "text": "Experience the history of the video games.",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 9,
+      "belief_id": "trust-the-brand-or-founder",
+      "belief_confidence": "high",
+      "execution_type": "media-authority-stack",
+      "execution_detail": "The social proof section is titled 'See What People Are Saying About GameShell' and contains logos for Nintendo Life, TechRadar, and Kickstarter. This is a media-authority stack — Nintendo Life signals gaming press coverage, TechRadar signals mainstream tech press, and the Kickstarter logo signals crowdfunding provenance (the campaign ran and was covered). No pull quotes are visible in the copy, only the logos, so the trust transfer is brand-by-association rather than specific endorsement.",
+      "proof_tier": "Tier2",
+      "moves": [
+        "Market"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "See What People Are Saying About GameShell",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 10,
+      "belief_id": "it-will-ship",
+      "belief_confidence": "medium",
+      "execution_type": "crowdfunding-provenance-signal",
+      "execution_detail": "The Kickstarter logo appears in the media coverage section alongside gaming/tech press logos. Positioned post-product-description and post-component-reveals, the Kickstarter logo functions as crowdfunding origin validation: the product was publicly funded, covered by press, and now sells on Amazon — that three-step sequence (crowdfunded → press-covered → Amazon-listed) is the implicit it-will-ship story this page tells structurally, even without explicit backer count or delivery data.",
+      "proof_tier": "Tier2",
+      "moves": [
+        "Offer"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "See What People Are Saying About GameShell",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 11,
+      "belief_id": "trust-the-brand-or-founder",
+      "belief_confidence": "medium",
+      "execution_type": "cultural-quotation-identity-signaling",
+      "execution_detail": "Throughout the component sections, the page interspersed cultural/literary quotes as section separators: '\"In my heart, I\\'m a Gamer.\" - 岩田聡' (Satoru Iwata, Nintendo CEO), '\"He is like an Astronomer who, with the help of Code, finds the most wonderful Stars.\" - Chopin', '\"God is always doing Geometry.\" - Plato', '\"May the Force be with You.\" - Obi-Wan Kenobi', '\"Roads? Where we\\'re going, we don\\'t need roads.\" Dr. Emmett Brown'. This is identity-signaling through cultural citation — the brand positions itself as literate, curious, and embedded in hacker/maker/gamer culture, not just a spec sheet. Satoru Iwata specifically is a god-figure in gaming culture; citing him installs maker-identity credibility.",
+      "proof_tier": "Tier3",
+      "moves": [
+        "Angle"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "\"In my heart, I'm a Gamer.\"  - 岩田聡",
+          "source": "competitor-marketing"
+        },
+        {
+          "text": "\"Roads? Where we're going, we don't need roads.\"  Dr. Emmett Brown",
+          "source": "competitor-marketing"
+        },
+        {
+          "text": "\"May the Force be with You.\" -  Obi-Wan Kenobi",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 12,
+      "belief_id": "product-delivers-transformation",
+      "belief_confidence": "medium",
+      "execution_type": "platform-definition-claim",
+      "execution_detail": "The CPI mainboard is introduced with: 'ClockworkPI is a development board with powerful CPU, WI-FI, PMU chip, Multimedia functions , Ultra-small size and running on embedded GNU/Linux.' The phrase 'ClockworkPi is a powerful computing platform that lets you begin creating immediately' anchors the product not as a toy but as a creation platform. 'Begin creating immediately' directly handles the complexity objection — it signals low time-to-first-use for a hardware kit that could otherwise feel intimidating.",
+      "proof_tier": "Tier3",
+      "moves": [
+        "UM"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "ClockworkPi is a powerful computing platform that lets you begin creating immediately.",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-8d8735c7",
+      "position": 13,
+      "belief_id": "product-delivers-transformation",
+      "belief_confidence": "low",
+      "execution_type": "os-proprietary-naming",
+      "execution_detail": "The OS section introduces 'Introducing new Clockwork OS, based on Debian 9 ARMhf and Linux mainline Kernel 4.1x.' Naming the OS 'Clockwork OS' and calling it 'new' is a proprietary-naming move — it signals that the brand has built its own software layer, not just loaded a generic Linux distro. The technical substrate (Debian 9, mainline kernel) is cited to give credibility to technically literate buyers while the branded name signals coherent product investment.",
+      "proof_tier": "Tier3",
+      "moves": [
+        "UM"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "Introducing new Clockwork OS, based on Debian 9 ARMhf and Linux mainline Kernel 4.1x",
+          "source": "competitor-marketing"
+        }
+      ]
+    }
+  ]
+}

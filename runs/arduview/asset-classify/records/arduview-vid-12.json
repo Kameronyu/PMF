@@ -1,0 +1,103 @@
+{
+  "id": "arduview-vid-12",
+  "segments": [
+    {
+      "t": "0:00-0:01",
+      "beat": "hand holds device face-on, small OLED screen lit, transparent shell shows PCB underneath"
+    },
+    {
+      "t": "0:01-0:02",
+      "beat": "device rotated and tilted, clear shell and internal battery/board fully visible from multiple angles"
+    },
+    {
+      "t": "0:02-0:03",
+      "beat": "device set flat on surface, front-facing stable shot showing full PCB layout through shell"
+    },
+    {
+      "t": "0:03-0:04",
+      "beat": "hand picks device back up, angled view continues to expose internals and lit screen"
+    },
+    {
+      "t": "0:04-0:05",
+      "beat": "device tilted toward camera, rear PCB components and wiring clearly visible through resin"
+    },
+    {
+      "t": "0:05-0:06",
+      "beat": "held in palm, final front-facing frame — controls, screen, and internals all visible simultaneously"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:00-0:06",
+      "strength": "strong",
+      "motion_value": "high — continuous rotation reveals all internal layers (PCB, battery, wiring) through clear shell"
+    },
+    {
+      "claim": "see_through_display_on",
+      "at": "0:00-0:01",
+      "strength": "strong",
+      "motion_value": "medium — OLED lit and legible against transparent pane in opening frame"
+    },
+    {
+      "claim": "pocket_scale",
+      "at": "0:00-0:06",
+      "strength": "strong",
+      "motion_value": "medium — hand-held throughout, device clearly palm-sized"
+    },
+    {
+      "claim": "build_material_quality",
+      "at": "0:02-0:05",
+      "strength": "partial",
+      "motion_value": "medium — stable flat lay and close angles show clean resin finish and tidy PCB layout"
+    },
+    {
+      "claim": "collectible_object",
+      "at": "0:02-0:04",
+      "strength": "incidental",
+      "motion_value": "low — flat-lay framing has display-object quality but no deliberate collectible staging"
+    },
+    {
+      "claim": "hackable_maker",
+      "at": "0:04-0:05",
+      "strength": "incidental",
+      "motion_value": "low — rear PCB and wiring visible but not explicitly demonstrated"
+    }
+  ],
+  "best_use": "hero_loop",
+  "loop_safe": true,
+  "needs_audio": false,
+  "poster_frame": "0:00",
+  "tone": [
+    "technical",
+    "product-showcase",
+    "curious"
+  ],
+  "disqualifiers": [],
+  "selection_note": "Continuous rotation over 6s delivers the single strongest proof of the load-bearing transparency claim; OLED-on in opening frame doubles as see_through_display_on; clean loop candidate.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 5.89,
+    "fps": 120.17,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 80069559,
+    "oversize": false
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 3,
+    "color_grade": 2,
+    "stability": 2,
+    "overall": 3,
+    "ad_ready": false,
+    "standout": "transparent enclosure shows internals clearly",
+    "weakness": "handheld prototype feel - exposed wires, battery, PCB hurt consumer credibility",
+    "note": "flat ambient lighting, inconsistent orientation, raw dev-kit aesthetic; needs a lightbox/table shoot"
+  }
+}

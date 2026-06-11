@@ -1,0 +1,76 @@
+{
+  "id": "arduview-0003",
+  "relevance": "product_shot",
+  "shot_type": "detail_macro",
+  "in_frame": "Tight crop of the upper portion of the Arduview console. The transparent clear-resin enclosure fills the frame. The display is active, showing a pixel-art 'Game Over / 13 Score / 13 High' screen in bright cyan-blue on a dark background. Below the display, through the clear shell, the PCB is visible: a large black IC chip, flex ribbon cable labeled UT-0205 / 94V-0, and board traces/components. Controls and lower body are out of frame. Background is a color-blocked flat-lay surface in olive/yellow-green, blue, and purple/lavender quadrants.",
+  "display_state": "on_legible",
+  "demonstrates": [
+    {
+      "claim": "see_through_display_on",
+      "strength": "strong",
+      "evidence": "Display is clearly lit and legible — cyan pixel-art 'Game Over' text and score readout visible on the transparent pane; display module seated inside clear resin shell is fully readable"
+    },
+    {
+      "claim": "transparency_internals_visible",
+      "strength": "strong",
+      "evidence": "Through the clear resin shell below the display, a large black IC, flex ribbon cable, SMD components, and PCB traces are all plainly visible to the naked eye"
+    },
+    {
+      "claim": "retro_gaming",
+      "strength": "partial",
+      "evidence": "Pixel-art bitmap font 'Game Over' screen with score tally visible on display confirms retro game running; no D-pad/buttons in frame"
+    },
+    {
+      "claim": "build_material_quality",
+      "strength": "partial",
+      "evidence": "Clear resin enclosure edges are visible at frame borders; molded corners appear clean and even; detail-macro framing reveals no visible flash or parting-line defects in the resin"
+    },
+    {
+      "claim": "collectible_object",
+      "strength": "incidental",
+      "evidence": "Color-blocked flat-lay background and close macro framing suggest deliberate product-object presentation, implying display/collectible intent, but no explicit display context"
+    },
+    {
+      "claim": "hackable_maker",
+      "strength": "incidental",
+      "evidence": "Flex ribbon cable with manufacturer marking (UT-0205 / 94V-0) and exposed PCB components visible through shell suggest open/hackable construction, but no Arduino or USB-C framing in shot"
+    }
+  ],
+  "composition": {
+    "background": "Flat-lay color-blocked surface: olive/yellow-green top-left, blue top-right, purple/lavender bottom-left, sage/muted green bottom-right",
+    "text_overlay": false,
+    "watermark": false,
+    "orientation": "landscape",
+    "crop": "Tight upper-body crop; lower third of device (controls, bottom edge) cut off; display and PCB internals centered"
+  },
+  "tone": [
+    "technical",
+    "clean",
+    "macro-intimate",
+    "product-forward"
+  ],
+  "disqualifiers": [],
+  "caption_hint": "The screen is on. The board is visible. Nothing is hidden.",
+  "selection_note": "Best single shot to simultaneously prove both load-bearing claims — on_legible display + PCB internals through shell — in one tight frame; use as anchor for transparency+gaming story.",
+  "technical": {
+    "w": 5888,
+    "h": 4416,
+    "aspect": "5888:4416",
+    "format": "jpg",
+    "bytes": 8025076,
+    "phash": "e5ce8e253952988f",
+    "dup_of": null,
+    "min_safe_use": "hero",
+    "aspect_ratio": "4:3"
+  },
+  "eligible_sections": [
+    "hero",
+    "feature_transparency",
+    "specs",
+    "feature_games",
+    "lifestyle",
+    "social_proof",
+    "final_cta",
+    "feature_maker"
+  ]
+}

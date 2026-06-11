@@ -206,3 +206,126 @@ _(pending Kam)_
 ## Verdict
 
 _(clean | gaps-to-fold — pending)_
+
+---
+
+## Run 1 — Classifier Fix Handoff (2026-06-04)
+
+> Self-contained handoff for the next session. Diagnosed in post-run audit against the brand corpus. Do not implement until a plan phase is opened.
+
+### Summary
+
+Run 1 classified three of four columns reliably (Transformation, Sophistication, Niche) and one unreliably (**Bet type** ~6/10). The failures are NOT a model-knowledge gap — Transformation and Sophistication are 10/10 using the same model, which proves the judgment is present when the prompt scaffolds it. Bet type was never scaffolded the way the working columns were. Three structural causes, plus two schema holes.
+
+---
+
+### The three failures (graded against actual corpus copy)
+
+**Failure 1 — Feature-over-bet (Thumby)**
+Thumby was called `novel-hardware-as-lead` citing "Probably the World's Smallest Game Console" as the primary trust signal. Actual page: that line lives in the *footer reviews block*. The headline and three body sections are about programming it yourself (MicroPython / Blockly / Arduino C++). The page competes on open-hackability / learn-to-code. The agent picked the most visually noticeable attribute instead of the one the page *argues for*. Control case: **Playdate** was correctly called `novel-hardware-as-lead` because the crank gets its own headline AND an argued body section — it passes the prominence test Thumby fails.
+
+**Failure 2 — Opposite bets merged (Evercade)**
+Evercade ("pixel-perfect EMULATION, biggest licensed cartridge library") was filed under the same `hardware-authenticity-as-lead` as analogue-pocket ("NO emulation, real FPGA hardware"). These are **opposite bets** — value-breadth vs. authenticity-purism. They were merged because both are "retro handhelds." The agent clustered on shared vocabulary, not on the structural kind of edge each brand is wagering.
+
+**Failure 3 — Angle by vibe, not copy weight (Flipper vs. pwnagotchi)**
+`community-membership-signal` was assigned to Flipper Zero on thin "cyber-dolphin personality" copy. Meanwhile pwnagotchi's page literally says "a cultural touchstone for many Millennial hackers" and "strangely emotionally attached" and did NOT get the angle. Frame was assigned by impression rather than by where it is textually loaded — same root cause as Failure 1.
+
+---
+
+### Root causes
+
+| Failure | Cause |
+|---------|-------|
+| Thumby | Brief's discrimination test ("is the hardware THE pitch or a footnote?") is stranded in context — the bet-type step never tells the agent to apply it. Wiring gap. |
+| Evercade | No principle that same-category brands can make OPPOSITE bets. Knowledge gap (the only one). |
+| Flipper/pwnagotchi | Same as Thumby — no "read by copy weight, not impression" instruction in the angle step. |
+| Both schema holes | Classifier told to do analysis (mechanism/UM leads per brand; shared-vs-unique aggregate) with nowhere to write the result. |
+
+---
+
+### Fixes to apply (next S1 revision)
+
+**Fix 1 (wiring) — Invoke brief's bet test in the bet-type step (step 4b)**
+Add instruction: read the bet off headline + first-screen + argued body sections ONLY — not footers, review/testimonial blocks, or spec tables. When the brief supplies a discrimination test, apply it explicitly. Treat the single most striking physical attribute as a FEATURE by default; it is the lead bet ONLY if it also carries headline prominence AND an argued section.
+
+Wire to the brief *interface*, not run 1's exact wording: the brief supplies (a) a pinned bet definition and (b) a stated discrimination test. The step's job is to always look there and apply whatever the current brief provides. Any future brief works as long as it supplies those two things.
+
+Worked pair to bake in (mirrors FEATURE-vs-CLAIM TRAP already in the claim-typing step):
+- **Thumby** — smallness = footer review + feature mention → NOT the bet; real lead is learn-to-code/open-hackability.
+- **Playdate** — crank = headline + own argued section → IS the bet. PASS.
+
+**Fix 2 (knowledge) — Cluster bets by kind-of-edge, not category (step 4b unification)**
+Add principle: *cluster bets by the STRUCTURE of the differentiation (the kind of edge wagered), not by product category. Two brands in the same category can make OPPOSITE bets.* Before merging two brands into one canonical bet, ask: are they wagering on the same KIND of edge, or just selling the same kind of product?
+
+Worked example to bake in: **analogue-pocket (authenticity-purism: "no emulation") MUST NOT be merged with evercade (value-breadth: "biggest licensed library / best emulation"). Different bets, same product type.**
+
+**Fix 3 (schema) — Add `leads_with` field per brand**
+The brief's report-back item #2 (the mechanism the competitor actually leads with, to expose whether novel-hardware is really the lead) has nowhere to live today — it's only implicit in `bet_type_basis`. Add explicit per-brand field:
+
+```json
+"leads_with": "the mechanism/UM the brand actually leads with — page-quoted"
+```
+
+Distinct from `bet_type` (the named structural bet). Lets the downstream decision skill see "claimed lead vs real lead" — which is the assumption-guard the brief promises and the output currently fails to deliver.
+
+**Fix 4 (schema) — `mechanisms_in_play[]` shape revision**
+BREAK 5 above added `mechanisms_in_play[]` but it was built before this audit. The audit reveals the field needs two additions:
+1. A `kind` discriminator: `"how-it-works"` vs `"why-you-have-the-problem"` — the downstream gates need both but must not fold them together. Problem-UM causal stories live in `problem_um_raw[]` and never become typed claims; inferring from typed `mechanism[]` alone silently drops the "why you have the problem" half.
+2. A `brands[]` list per canonical entry (for per-combo Gate 3.3-S3 checks).
+
+Full target shape:
+```json
+{
+  "canonical": "string",
+  "kind": "how-it-works | why-you-have-the-problem",
+  "brand_count": 3,
+  "brands": ["slug", "..."],
+  "status": "shared | unique-candidate",
+  "raw_variants": ["verbatim ...", "..."]
+}
+```
+
+Hook rule: `status:"shared"` requires `brand_count >= 3`; `status:"unique-candidate"` requires `brand_count == 1`. Fed from BOTH `mechanism[]` and `problem_um_raw[]` — never folded into one cluster.
+
+Note: for this maker/gadget space `problem_um_raw` is sparse (6/36 pitches, by design) — the `kind` discriminator still matters so the field is correct for spaces where pain-causal copy IS present.
+
+**Fix 5 (optional/low-priority) — Niche resolution**
+Niche was directionally correct but coarse — only one niche captured per brand when the page names multiple (e.g. gameshell: "Indie Game Developers, Hackers & Retro Games Collectors"). If cheap: capture primary niche + explicitly-named secondary niches using the same different-human-drivers test already in the prompt. Do only if the S1 revision plan is light.
+
+---
+
+### What NOT to do
+
+- Do NOT add general marketing theory or more claim-type examples. Transformation and Sophistication are 10/10; the knowledge is already present where it's scaffolded.
+- Do NOT touch Transformation, Sophistication, or claim-typing instructions — they work.
+- Do NOT hardcode the prompt to run 1's specific brief wording. Wire to the interface.
+- Do NOT make downstream gates infer mechanisms from typed claims (see Fix 4 rationale above).
+- If tightening `bet_type_basis` hook: the rule is that the basis quote must come from headline / first-screen / argued section — not a footer or reviews block. Position-checkable, not just substring-checkable.
+
+---
+
+### Pre-planning note (2026-06-04)
+
+Three of the decisions (D-05 mechanisms_in_play[] slot, D-09 Trends fetch, D-04 sophistication grain) are thin Phase-1 patches. They're scoped as cross-phase notes, not Phase 2 work — but the mechanisms_in_play[] slot in particular gates whether Gate 2.2/3.3 run on real data vs emit DATA GAP. If you want those S1 patches done first so Phase 2 runs clean end-to-end, say so and I can fold them into a quick Phase 1 revision before planning Phase 2.
+
+---
+
+### BREAK 6 — `mechanisms_in_play[]` schema hole (mechanisms clustered in agent head, never written)
+
+Gates 2.2 and 3.3 need a mechanisms-in-play list: for each causal story or mechanism competitors lead with, is it **shared** (3+ brands → not ownable) or **unique** (1 brand → ownable UM candidate)?
+
+**What was collected:** The Dumper captured it. `dump.json` carries `mechanism[]` and `problem_um_raw[]` per pitch, verbatim. Raw causal stories are present, per brand, for all 20 brands.
+
+**What was instructed:** Classifier step 6 explicitly says: cluster the problem_um_raw stories, count brands per story — "if 3+ brands tell the same causal story → SHARED (not ownable). If exactly 1 brand → candidate Problem-UM." That is exactly the read the gates need.
+
+**What failed:** `space-map.json` has no `mechanisms_in_play[]` array. The Classifier was told to do the analysis but given no field to write the result into. Whether it ran the clustering or not is unverifiable — the output has no record of it either way. Step 6's judgment fell into a schema hole and vanished.
+
+**Why "infer from typed claims" is the wrong workaround:** A claim is only typed `mechanism` when it's an outcome bound to a named how ("no emulation via two FPGAs"). But the gates also need **problem-UM causal stories** — "your phone's apps are engineered to steal your focus" — which live in `problem_um_raw[]` and never become typed claims. A causal story about why the buyer has the problem is not an outcome claim. Inferring from typed claims only captures the "how it works" half and silently drops every "why you have the problem" story. Concretely: pwnagotchi's Tamagotchi-nostalgia framing, pocket-operator's "no outer case so we could spend on sound quality" cost-rationale — these are problem-UM/rationale stories that don't survive a typed-claims-only pass.
+
+**Current state:** mechanisms-in-play / shared-vs-unique is unverifiable in the current output, same as `demand_trend`. Not because the raw material is missing — the dumps have it — but because the Classifier had no field to emit the clustered result. Any downstream gate reading this today reconstructs from partial material (typed claims only) and is missing the problem-UM half.
+
+---
+
+### Brief-generator note (separate task)
+
+The next step after the prompt/schema fixes is to standardize the bet brief so it reliably EMITS what the prompt now CONSUMES: a pinned bet definition + a stated discrimination test + the four report-back items. Run 1's brief is effectively the spec for what the brief must contain. The brief gets standardized TO this interface, not in a vacuum. That is a separate plan — do not fold into the S1 revision.

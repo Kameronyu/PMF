@@ -1,0 +1,114 @@
+{
+  "id": "arduview-vid-11",
+  "segments": [
+    {
+      "t": "0:00-0:05",
+      "beat": "Overhead close-up of clear-shell device flat on surface; hand enters frame, fingers resting on buttons — static product reveal"
+    },
+    {
+      "t": "0:05-0:08",
+      "beat": "Hand lifts device; angled overhead view shows PCB internals through transparent top shell"
+    },
+    {
+      "t": "0:08-0:11",
+      "beat": "Device tilted/rotated in hand; transparent side and bottom shell panels fully visible; PCB traces, chips, and components through resin"
+    },
+    {
+      "t": "0:11-0:14",
+      "beat": "Screen-side face angled toward camera; blue display glow activates on transparent pane — active gaming state"
+    },
+    {
+      "t": "0:14-0:18",
+      "beat": "Fingers pressing D-pad and A/B buttons while display stays lit; hands-on retro gaming interaction"
+    },
+    {
+      "t": "0:18-0:21",
+      "beat": "Device pulled back to show full form factor in palm; pocket-scale size relative to hand evident"
+    },
+    {
+      "t": "0:21-0:25",
+      "beat": "Device laid down or rotated to reveal USB-C port edge and component-side detail; logo/branding text appears on screen"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:05-0:14",
+      "strength": "strong",
+      "motion_value": "high — camera orbit + tilt continuously reveals PCB, chips, and traces through all shell faces"
+    },
+    {
+      "claim": "see_through_display_on",
+      "at": "0:11-0:18",
+      "strength": "strong",
+      "motion_value": "high — blue pixel glow visible through transparent pane while buttons pressed"
+    },
+    {
+      "claim": "pocket_scale",
+      "at": "0:18-0:21",
+      "strength": "strong",
+      "motion_value": "medium — full device held in single palm, size ratio clear"
+    },
+    {
+      "claim": "retro_gaming",
+      "at": "0:14-0:18",
+      "strength": "strong",
+      "motion_value": "medium — active D-pad and button presses with lit display"
+    },
+    {
+      "claim": "build_material_quality",
+      "at": "0:05-0:14",
+      "strength": "partial",
+      "motion_value": "medium — premium resin surface and clean PCB layout visible through shell"
+    },
+    {
+      "claim": "hackable_maker",
+      "at": "0:21-0:25",
+      "strength": "incidental",
+      "motion_value": "low — USB-C port and PCB component detail briefly visible"
+    },
+    {
+      "claim": "collectible_object",
+      "at": "0:08-0:14",
+      "strength": "incidental",
+      "motion_value": "low — overall object aesthetic and clarity suggest premium collectible but no dedicated beauty shot"
+    }
+  ],
+  "best_use": "feature_demo",
+  "loop_safe": true,
+  "needs_audio": false,
+  "poster_frame": "0:12",
+  "tone": [
+    "hands-on",
+    "technical",
+    "intimate",
+    "premium"
+  ],
+  "disqualifiers": [],
+  "selection_note": "Best available transparency + active-display combo in a single continuous clip; strong hero candidate for see-through display claim.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 23.73,
+    "fps": 120.05,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 316779684,
+    "oversize": true
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 2,
+    "color_grade": 2,
+    "stability": 2,
+    "overall": 2,
+    "ad_ready": false,
+    "standout": "display illuminates in later frames",
+    "weakness": "extreme close-up entire clip; framing cuts off product edges, heavy black pillarboxing",
+    "note": "handheld macro of PCB internals; no pull-back, no surface context"
+  }
+}

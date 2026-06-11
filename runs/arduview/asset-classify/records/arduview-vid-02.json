@@ -1,0 +1,112 @@
+{
+  "id": "arduview-vid-02",
+  "segments": [
+    {
+      "t": "0:00-0:02",
+      "beat": "Hand holds device close to camera against window/plant background; transparent shell clearly visible with PCB internals showing through, screen off or dim"
+    },
+    {
+      "t": "0:02-0:04",
+      "beat": "Device rotated slightly, screen lights up with pixel game content on transparent display pane; PCB and components visible through clear enclosure"
+    },
+    {
+      "t": "0:04-0:06",
+      "beat": "Camera pulls back slightly revealing device at natural hand-held scale against indoor window light; full device form factor visible — D-pad and A/B buttons visible on front"
+    },
+    {
+      "t": "0:06-0:08",
+      "beat": "Slow pan/tilt around device while lit; plant and window visible in background establishing casual lifestyle context"
+    },
+    {
+      "t": "0:08-0:10",
+      "beat": "Device held at slight angle emphasizing transparent shell depth; internal board components clearly silhouetted through resin body"
+    },
+    {
+      "t": "0:10-0:12",
+      "beat": "Screen active with white pixel game graphics on transparent pane; hand grip shows pocket-scale size, device face-on to camera"
+    },
+    {
+      "t": "0:12-0:14",
+      "beat": "Close macro-style shot of device face; pixel game content bright on transparent display, PCB internals visible simultaneously through shell — dual transparency payoff"
+    },
+    {
+      "t": "0:14-0:14.20",
+      "beat": "Final hold on device face; clip ends"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:00-0:14",
+      "strength": "strong",
+      "motion_value": "Continuous slow rotation and angle shifts let viewer confirm transparency is a physical property of the shell in 3D, not a lens trick or graphic — a still from any single angle is weaker proof"
+    },
+    {
+      "claim": "see_through_display_on",
+      "at": "0:02-0:14",
+      "strength": "strong",
+      "motion_value": "Screen illuminates while PCB remains simultaneously visible through it; motion allows viewer to track that both layers coexist at multiple orientations, proving the display is genuinely transparent"
+    },
+    {
+      "claim": "pocket_scale",
+      "at": "0:04-0:10",
+      "strength": "strong",
+      "motion_value": "Hand grip throughout video naturalistically shows true size relative to human palm; motion contextualizes it as a held object rather than a staged flat lay"
+    },
+    {
+      "claim": "retro_gaming",
+      "at": "0:02-0:14",
+      "strength": "partial",
+      "motion_value": "Pixel game graphics visible on screen and D-pad/button layout visible on device face; no active button-pressing shown so partial rather than strong"
+    },
+    {
+      "claim": "collectible_object",
+      "at": "0:00-0:14",
+      "strength": "partial",
+      "motion_value": "Slow deliberate rotation and lifestyle window-light staging conveys desirable object framing; no dedicated display/shelf shot so only partial"
+    },
+    {
+      "claim": "build_material_quality",
+      "at": "0:06-0:12",
+      "strength": "partial",
+      "motion_value": "Angled shots in natural window light catch resin surface finish and clean edges; motion highlights depth and build clarity better than a flat still"
+    }
+  ],
+  "best_use": "hero_loop",
+  "loop_safe": true,
+  "needs_audio": false,
+  "poster_frame": "0:12.00",
+  "tone": [
+    "minimal",
+    "premium",
+    "maker-curious",
+    "lifestyle"
+  ],
+  "disqualifiers": [],
+  "selection_note": "14s close-up hand-held loop with continuous transparency payoff — both PCB-through-shell and lit see-through display proven simultaneously across multiple angles; strongest single asset for lead hero use.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 14.33,
+    "fps": 120.05,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 192282062,
+    "oversize": true
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 3,
+    "color_grade": 2,
+    "stability": 2,
+    "overall": 3,
+    "ad_ready": false,
+    "standout": "natural window light gives a livable context",
+    "weakness": "handheld close-up with no lock-off; device fills too little frame, constant micro-drift, screen detail unreadable",
+    "note": "hobbyist demo footage; needs tripod, deliberate framing, and a hero angle that shows the screen legibly"
+  }
+}

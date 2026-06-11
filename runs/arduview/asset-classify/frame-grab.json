@@ -1,0 +1,14 @@
+{
+  "_note": "Funnel-architect's frame picks (supersedes IMAGE-PLAN auto-picks). arduview-0001 is KEPT (J4 primary, not listed here). Timestamps from the contact-sheet review.",
+  "raw_dir": "assets/raw",
+  "out_dir": "runs/arduview/asset-classify/images-from-frames",
+  "max_long_px": 2160,
+  "frames": [
+    { "id": "arduview-vid-13", "t": 15.00, "aspect": "16:9", "out": "arduview-lp-hero-poster",  "slot": "J1 hero poster" },
+    { "id": "arduview-vid-12", "t": 3.00,  "aspect": "4:5",  "out": "arduview-lp-transparency", "slot": "J2 transparency/guts (lead)" },
+    { "id": "arduview-vid-08", "t": 2.00,  "aspect": "4:5",  "out": "arduview-lp-maker",        "slot": "J3 guts alt / maker" },
+    { "id": "arduview-vid-16", "t": 8.20,  "aspect": "4:5",  "out": "arduview-lp-display",      "slot": "J4 display / it-plays (ALT to kept photo)" },
+    { "id": "arduview-vid-08", "t": 1.00,  "aspect": "4:5",  "out": "arduview-lp-scale",        "slot": "J5 in-hand / scale" },
+    { "id": "arduview-vid-18", "t": 5.40,  "aspect": "16:9", "out": "arduview-lp-deposit",      "slot": "J6 deposit beauty" }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "id": "arduview-vid-01",
+  "segments": [
+    {
+      "t": "0:00-0:01",
+      "beat": "Hand holds device face-on toward camera; lit display showing pixel game content visible through transparent pane; clear shell reveals PCB/internals underneath"
+    },
+    {
+      "t": "0:01-0:03",
+      "beat": "Device rotated and tilted; golden PCB board fully visible through clear resin shell from side/rear angle; display still partially lit"
+    },
+    {
+      "t": "0:03-0:05",
+      "beat": "Continued rotation showing underside and rear of device; transparent shell from multiple angles exposes full board layout; D-pad and A/B buttons visible on face"
+    },
+    {
+      "t": "0:05-0:06",
+      "beat": "Camera pulls slightly back; device held in palm showing pocket scale; shell internals and display face both in frame"
+    },
+    {
+      "t": "0:06-0:09",
+      "beat": "Close macro shot of display face; see-through display lit with pixel/icon content (snowflake-style graphics); transparent pane clearly shows game pixels floating on clear background"
+    },
+    {
+      "t": "0:09-0:11",
+      "beat": "Device angled to show profile; golden board and component traces visible through clear shell at oblique angle; display active"
+    },
+    {
+      "t": "0:11-0:13",
+      "beat": "Return to overhead/table angle; device placed in hand against neutral background; full form factor visible, controls and transparent body clear"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:01-0:05",
+      "strength": "strong",
+      "motion_value": "Rotation through multiple angles lets viewer track the golden PCB and component traces through the shell continuously — a still only shows one angle; motion proves the transparency is full 360 not a windowed cutout"
+    },
+    {
+      "claim": "see_through_display_on",
+      "at": "0:06-0:09",
+      "strength": "strong",
+      "motion_value": "Macro approach and slight angle shift reveals pixel content (snowflake/icon graphics) visibly floating on a transparent pane with background visible behind them — motion confirms it is genuinely see-through, not a reflective effect"
+    },
+    {
+      "claim": "retro_gaming",
+      "at": "0:00-0:01",
+      "strength": "partial",
+      "motion_value": "Display shows active pixel game content from the first frame; D-pad and A/B layout glimpsed as hand repositions — motion confirms the controls are physical and the screen is live"
+    },
+    {
+      "claim": "pocket_scale",
+      "at": "0:05-0:06",
+      "strength": "partial",
+      "motion_value": "Brief pull-back shows device sitting in a single palm; scale is established relative to hand size — motion transitions from close to context shot making the size read clearly"
+    },
+    {
+      "claim": "collectible_object",
+      "at": "0:03-0:05",
+      "strength": "partial",
+      "motion_value": "Slow deliberate rotation mimics the way someone turns over an object they find beautiful — the handling gesture itself signals it is an object worth inspecting, not just using"
+    },
+    {
+      "claim": "build_material_quality",
+      "at": "0:01-0:03",
+      "strength": "incidental",
+      "motion_value": "As shell catches light during rotation, resin clarity and edge sharpness are visible; motion catches specular highlights that confirm optical-grade finish"
+    }
+  ],
+  "best_use": "hero_loop",
+  "loop_safe": true,
+  "needs_audio": false,
+  "poster_frame": "0:07",
+  "tone": [
+    "tactile",
+    "technical_curiosity",
+    "premium_minimal"
+  ],
+  "disqualifiers": [],
+  "selection_note": "13s hand-rotation demo nails both load-bearing claims (internals through shell + lit transparent display) in a single continuous motion; trims cleanly to a 6-8s hero loop on the macro display beat.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 13.24,
+    "fps": 120.05,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 177163996,
+    "oversize": true
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 2,
+    "color_grade": 2,
+    "stability": 2,
+    "overall": 3,
+    "ad_ready": false,
+    "standout": "display legible in close-up frames around 0:06-0:08",
+    "weakness": "handheld prototype demo on bare desk - no controlled framing or cinematic intent",
+    "note": "raw maker footage; hand holding device over a wood-grain desk with flat overhead light - needs a clean-surface tripod reshoot with intentional lighting before paid placement"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "id": "arduview-vid-07",
+  "segments": [
+    {
+      "t": "0:00-0:01",
+      "beat": "hands hold device over leafy plant background, front face visible"
+    },
+    {
+      "t": "0:01-0:02",
+      "beat": "device rotated, both hands adjusting grip, shell and PCB area partially visible"
+    },
+    {
+      "t": "0:02-0:03",
+      "beat": "continued rotation and handling, device tilted showing side profile"
+    },
+    {
+      "t": "0:03-0:04",
+      "beat": "hands reposition device closer to camera, screen face toward lens"
+    },
+    {
+      "t": "0:04-0:05",
+      "beat": "device held steady against plant background, full front view"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "pocket_scale",
+      "at": "0:00-0:05",
+      "strength": "strong",
+      "motion_value": "medium"
+    },
+    {
+      "claim": "build_material_quality",
+      "at": "0:00-0:05",
+      "strength": "partial",
+      "motion_value": "low"
+    },
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:01-0:03",
+      "strength": "incidental",
+      "motion_value": "low"
+    }
+  ],
+  "best_use": "feature_demo",
+  "loop_safe": false,
+  "needs_audio": false,
+  "poster_frame": "0:04",
+  "tone": [
+    "lifestyle",
+    "handheld",
+    "casual"
+  ],
+  "disqualifiers": [],
+  "selection_note": "Low-info clip — device handled over a plant background with no active display or clear shell transparency reveal; pocket-scale is readable but no hero claims land with strength.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 4.91,
+    "fps": 60.01,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 55499912,
+    "oversize": false
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 2,
+    "color_grade": 2,
+    "stability": 2,
+    "overall": 2,
+    "ad_ready": false,
+    "standout": "lush green plant fill",
+    "weakness": "handheld drift, device nearly invisible, flat/gray exposure",
+    "note": "camera wanders around a houseplant with minimal device presence; raw b-roll, not a product shot"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "id": "arduview-vid-05",
+  "segments": [
+    {
+      "t": "0:00-0:03",
+      "beat": "hands hold device face-up in natural light, transparent shell clearly visible, PCB readable through resin"
+    },
+    {
+      "t": "0:03-0:07",
+      "beat": "device rotated slowly, showing side profile and button layout; see-through display active with lit pixels"
+    },
+    {
+      "t": "0:07-0:11",
+      "beat": "grip shifts to thumbs-on-controls position, D-pad and A/B buttons engaged, active gameplay posture"
+    },
+    {
+      "t": "0:11-0:15",
+      "beat": "camera pulls slightly wider, device held out palm-up showing full footprint against indoor background"
+    },
+    {
+      "t": "0:15-0:18",
+      "beat": "close low-angle view of device resting on palm, green plant background, display lit, collectible presentation angle"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:00-0:07",
+      "strength": "strong",
+      "motion_value": "high — rotation exposes PCB through shell continuously"
+    },
+    {
+      "claim": "see_through_display_on",
+      "at": "0:03-0:18",
+      "strength": "strong",
+      "motion_value": "high — lit pixels visible throughout rotation and hold sequences"
+    },
+    {
+      "claim": "pocket_scale",
+      "at": "0:07-0:15",
+      "strength": "strong",
+      "motion_value": "medium — two-thumb grip and palm hold confirm sub-palm footprint"
+    },
+    {
+      "claim": "retro_gaming",
+      "at": "0:07-0:11",
+      "strength": "partial",
+      "motion_value": "medium — thumbs-on-controls posture implies gaming but no gameplay footage"
+    },
+    {
+      "claim": "collectible_object",
+      "at": "0:15-0:18",
+      "strength": "partial",
+      "motion_value": "medium — deliberate low-angle presentation with plant backdrop reads as object photography"
+    },
+    {
+      "claim": "build_material_quality",
+      "at": "0:00-0:07",
+      "strength": "partial",
+      "motion_value": "medium — resin clarity and finish visible but no extreme macro"
+    }
+  ],
+  "best_use": "hero_loop",
+  "loop_safe": true,
+  "needs_audio": false,
+  "poster_frame": "0:16",
+  "tone": [
+    "premium",
+    "tactile",
+    "clean",
+    "natural-light"
+  ],
+  "disqualifiers": [],
+  "selection_note": "Continuous rotation + active display through all 17s makes this the strongest transparency+display proof clip in the set; loops cleanly from open hold back to rotation.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 17.45,
+    "fps": 120.17,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 232987034,
+    "oversize": true
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 1,
+    "color_grade": 2,
+    "stability": 2,
+    "overall": 3,
+    "ad_ready": false,
+    "standout": "device handling action visible throughout",
+    "weakness": "cluttered background (chairs, plants, shelving) competes with subject in almost every frame",
+    "note": "handheld POV, flat ambient light, no depth-of-field separation - needs controlled environment"
+  }
+}

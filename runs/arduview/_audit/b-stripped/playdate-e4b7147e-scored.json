@@ -1,0 +1,16 @@
+{
+  "funnel_id": "playdate-e4b7147e",
+  "competitor": "playdate",
+  "source_type": "DTC",
+  "landing_page_url": "https://play.date",
+  "review_blocks": [
+    "\"If we made hardware, and built a tiny little game system that came with lots of surprise games, would that make people happy?\""
+  ],
+  "provenance": "<!-- source: runs/arduview/funnels-assembled/playdate-e4b7147e.json | cleaned: 2026-06-04T04:45:01.785Z -->",
+  "validation_lane": [
+    "unknown"
+  ],
+  "validation_strength": {
+    "unknown": {}
+  }
+}

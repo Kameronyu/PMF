@@ -1,0 +1,126 @@
+{
+  "id": "arduview-vid-16",
+  "segments": [
+    {
+      "t": "0:00-0:02",
+      "beat": "Hand holds device face-on; menu screen visible with cyan text, transparent shell and PCB internals clearly visible"
+    },
+    {
+      "t": "0:02-0:05",
+      "beat": "Slight reposition; display shows menu items, D-pad and see-through body prominent in frame"
+    },
+    {
+      "t": "0:05-0:07",
+      "beat": "Display goes dim/blank transition; transparent shell with orange flex-cable PCB fully exposed"
+    },
+    {
+      "t": "0:07-0:09",
+      "beat": "Game pixels appear — Pong/paddle-style game running on transparent display; retro gameplay active"
+    },
+    {
+      "t": "0:09-0:12",
+      "beat": "Game continues; 'Timer' screen with cyan score/stats text; hand holds device two-handed showing pocket scale"
+    },
+    {
+      "t": "0:12-0:15",
+      "beat": "Device rotated to show rear/side angle; PCB substrate, button hardware, and shell construction visible"
+    },
+    {
+      "t": "0:15-0:18",
+      "beat": "Front-face angle re-established; game running, transparent pane shows lit pixels against see-through body"
+    },
+    {
+      "t": "0:18-0:21",
+      "beat": "Slow pan/tilt; clear resin shell texture and button layout (D-pad + A/B) shown in detail"
+    },
+    {
+      "t": "0:21-0:24",
+      "beat": "Continued gameplay demo; device fills frame, copper flex trace and chip silhouettes visible through shell"
+    },
+    {
+      "t": "0:24-0:27",
+      "beat": "Final frames: menu/score screen returns; device set down or held flat; cyan text on transparent display closes clip"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:00-0:27",
+      "strength": "strong",
+      "motion_value": "high — continuous handling keeps PCB visible through shell across the clip"
+    },
+    {
+      "claim": "see_through_display_on",
+      "at": "0:07-0:12",
+      "strength": "strong",
+      "motion_value": "high — live game pixels lit on the transparent pane"
+    },
+    {
+      "claim": "retro_gaming",
+      "at": "0:07-0:12",
+      "strength": "strong",
+      "motion_value": "medium — Pong/paddle gameplay actively running on screen"
+    },
+    {
+      "claim": "pocket_scale",
+      "at": "0:00-0:05",
+      "strength": "strong",
+      "motion_value": "low — two-hand hold shows footprint"
+    },
+    {
+      "claim": "build_material_quality",
+      "at": "0:12-0:18",
+      "strength": "partial",
+      "motion_value": "medium — resin shell and button hardware visible on rotation"
+    },
+    {
+      "claim": "collectible_object",
+      "at": "0:00-0:05",
+      "strength": "partial",
+      "motion_value": "low"
+    },
+    {
+      "claim": "hackable_maker",
+      "at": "0:12-0:18",
+      "strength": "incidental",
+      "motion_value": "low — flex cable and chip visible through shell"
+    }
+  ],
+  "best_use": "hero_loop",
+  "loop_safe": true,
+  "needs_audio": false,
+  "poster_frame": "0:08",
+  "tone": [
+    "technical",
+    "minimal",
+    "tactile",
+    "maker"
+  ],
+  "disqualifiers": [],
+  "selection_note": "Strong continuous transparency + live gameplay loop in under 30s; PCB internals visible throughout and game pixels on transparent pane land both load-bearing claims simultaneously.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 27.38,
+    "fps": 120.17,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 346370792,
+    "oversize": true
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 3,
+    "color_grade": 2,
+    "stability": 2,
+    "overall": 3,
+    "ad_ready": false,
+    "standout": "cyan display glow pops against neutral grey",
+    "weakness": "prototype PCB guts and handheld wobble dominate every frame",
+    "note": "27s handheld close-up of bare dev board; no styled environment, no tripod, no hero moment"
+  }
+}

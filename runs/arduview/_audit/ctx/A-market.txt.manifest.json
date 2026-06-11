@@ -1,0 +1,101 @@
+{
+  "reviewer": "A-market",
+  "law": [
+    {
+      "file": "definitions.md",
+      "path": "/home/kyu3/PMF/definitions.md",
+      "bytes": 32635
+    },
+    {
+      "file": "differentiator-framework__2_.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/differentiator-framework__2_.md",
+      "bytes": 6154
+    },
+    {
+      "file": "market-evaluation-criteria.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/market-evaluation-criteria.md",
+      "bytes": 2639
+    },
+    {
+      "file": "offer-construction--alex-hormozi.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/offer-construction--alex-hormozi.md",
+      "bytes": 160593
+    },
+    {
+      "file": "offer-construction--carl-weische.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/offer-construction--carl-weische.md",
+      "bytes": 12812
+    },
+    {
+      "file": "offer-construction--mark-builds-brands.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/offer-construction--mark-builds-brands.md",
+      "bytes": 7916
+    },
+    {
+      "file": "consumer-psychology--alex-hormozi.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/consumer-psychology--alex-hormozi.md",
+      "bytes": 86243
+    },
+    {
+      "file": "consumer-psychology--carl-weische.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/consumer-psychology--carl-weische.md",
+      "bytes": 15956
+    },
+    {
+      "file": "brand-building--spencer-origins.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/brand-building--spencer-origins.md",
+      "bytes": 10694
+    },
+    {
+      "file": "pricing--mark-builds-brands.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/pricing--mark-builds-brands.md",
+      "bytes": 3393
+    },
+    {
+      "file": "product-research--spencer-origins.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/product-research--spencer-origins.md",
+      "bytes": 5993
+    },
+    {
+      "file": "advertising--alex-hormozi.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/advertising--alex-hormozi.md",
+      "bytes": 98223
+    },
+    {
+      "file": "funnel-architecture--alex-hormozi.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/funnel-architecture--alex-hormozi.md",
+      "bytes": 110585
+    },
+    {
+      "file": "ecommerce--carl-weische.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/ecommerce--carl-weische.md",
+      "bytes": 20016
+    },
+    {
+      "file": "ecommerce--mark-builds-brands.md",
+      "path": "/home/kyu3/knowledge/dr-marketing/ecommerce--mark-builds-brands.md",
+      "bytes": 18103
+    }
+  ],
+  "evidence": [
+    {
+      "file": "05-market-selection-assessor.md",
+      "path": "/home/kyu3/PMF/marketing-lens/prompts/05-market-selection-assessor.md",
+      "bytes": 18221
+    },
+    {
+      "file": "space-map.json",
+      "path": "/home/kyu3/PMF/runs/arduview/space-map.json",
+      "bytes": 9398
+    },
+    {
+      "file": "market-selection.md",
+      "path": "/home/kyu3/PMF/runs/arduview/market-selection.md",
+      "bytes": 39267
+    }
+  ],
+  "law_count": 15,
+  "evidence_count": 3,
+  "total_bytes": 663588,
+  "denied": []
+}

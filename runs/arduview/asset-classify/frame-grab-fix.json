@@ -1,0 +1,9 @@
+{
+  "_note": "Restore the art-director's maker frame (vid-13@14.40) over the samey vid-08 pick.",
+  "raw_dir": "assets/raw",
+  "out_dir": "runs/arduview/asset-classify/images-from-frames",
+  "max_long_px": 2160,
+  "frames": [
+    { "id": "arduview-vid-13", "t": 14.40, "aspect": "16:9", "out": "arduview-lp-maker", "slot": "J3 maker / branded PCB (art-director pick)" }
+  ]
+}

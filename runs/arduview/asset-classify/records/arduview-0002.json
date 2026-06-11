@@ -1,0 +1,69 @@
+{
+  "id": "arduview-0002",
+  "relevance": "product_shot",
+  "shot_type": "detail_macro",
+  "in_frame": "Extreme close-up of the top portion of the Arduview device, angled slightly overhead. The transparent clear-resin enclosure is visible around the screen bezel. The OLED/LCD display is fully lit showing a pixel-font 'Game Over' screen with '13 Score' and '13 High' text in blue-white on black. A gold/amber flexible ribbon cable (FPC) is visible below the display, connecting into visible PCB components. The bottom edge of the shot reveals PCB traces and components through the clear shell. Background is a fabric or print with strawberry imagery — red fruit and green leaves. No people, no hands. No text overlay from operator; all text is rendered on the device display itself.",
+  "display_state": "on_legible",
+  "demonstrates": [
+    {
+      "claim": "see_through_display_on",
+      "strength": "strong",
+      "evidence": "Display is fully illuminated with legible pixel-font game-over screen; blue-white pixels clearly lit on what reads as a transparent or translucent display pane inside the clear enclosure."
+    },
+    {
+      "claim": "transparency_internals_visible",
+      "strength": "strong",
+      "evidence": "Clear resin shell is visibly transparent at the bezel and lower body; gold FPC ribbon cable and PCB traces/components are directly visible through the enclosure below the display."
+    },
+    {
+      "claim": "retro_gaming",
+      "strength": "partial",
+      "evidence": "Pixel-font 'Game Over / Score / High' screen is classic retro game UI; no D-pad or A/B buttons visible in this crop but the game state strongly implies retro gameplay."
+    },
+    {
+      "claim": "build_material_quality",
+      "strength": "partial",
+      "evidence": "Clear resin enclosure edges are visible around the display; finish looks clean and precise at macro scale, though some manufacturing micro-roughness is visible at the bezel edges."
+    },
+    {
+      "claim": "hackable_maker",
+      "strength": "incidental",
+      "evidence": "Exposed FPC ribbon and visible PCB components through shell imply open/hackable architecture to a technically literate viewer, though no USB-C or explicit open framing is shown."
+    }
+  ],
+  "composition": {
+    "background": "Strawberry-print fabric or decorative surface — red/green organic pattern, informal and uncontrolled",
+    "text_overlay": false,
+    "watermark": false,
+    "orientation": "landscape",
+    "crop": "Tight macro crop on upper device body and display; bottom ~30% of device and all controls cut off; no full-device silhouette"
+  },
+  "tone": [
+    "technical",
+    "intimate",
+    "maker-curious"
+  ],
+  "disqualifiers": [],
+  "caption_hint": "Game over — but you can see exactly what just happened, right through the board.",
+  "selection_note": "Strong evidence for both load-bearing claims (see-through display on-legible + internals visible through shell); crop loses controls and scale context — best used as a detail/supporting shot, not hero.",
+  "technical": {
+    "w": 4096,
+    "h": 3072,
+    "aspect": "4096:3072",
+    "format": "jpg",
+    "bytes": 4826624,
+    "phash": "d5dac3250d66cc9a",
+    "dup_of": null,
+    "min_safe_use": "hero",
+    "aspect_ratio": "4:3"
+  },
+  "eligible_sections": [
+    "hero",
+    "feature_transparency",
+    "specs",
+    "feature_games",
+    "lifestyle",
+    "social_proof",
+    "feature_maker"
+  ]
+}

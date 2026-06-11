@@ -1,0 +1,76 @@
+{
+  "id": "arduview-0004",
+  "relevance": "product_shot",
+  "shot_type": "detail_macro",
+  "in_frame": "Close-cropped top-down view of the Arduview console upper-left quadrant. Left half shows the transparent OLED/display panel glowing cyan-blue with pixel-font text reading 'game over / 13 Score / 13 High' inside a rectangular border. Right half shows the clear resin shell with the PCB fully visible through it: a large black QFP microcontroller, FPC ribbon cable connecting to the display, gold PCB traces, component pads, two dome buttons (top-right), one square tactile button (bottom-right), and silkscreen text 'ArduView' on the board. Colorful pastel striped surface (blue, green, yellow, purple bands) beneath the device. No hand, no cable, no full device outline visible — partial crop of the top edge.",
+  "display_state": "on_legible",
+  "demonstrates": [
+    {
+      "claim": "see_through_display_on",
+      "strength": "strong",
+      "evidence": "Display pane is actively glowing cyan-blue pixel text ('game over', score values) on a transparent substrate; PCB and FPC ribbon are visible through and behind the display panel itself."
+    },
+    {
+      "claim": "transparency_internals_visible",
+      "strength": "strong",
+      "evidence": "Clear resin shell shows full PCB: QFP chip, FPC ribbon, gold traces, solder pads, button domes, and 'ArduView' silkscreen all legible through the enclosure."
+    },
+    {
+      "claim": "retro_gaming",
+      "strength": "partial",
+      "evidence": "Pixel-font 'game over' screen with score readout confirms game software running; no D-pad visible in this crop."
+    },
+    {
+      "claim": "hackable_maker",
+      "strength": "partial",
+      "evidence": "QFP microcontroller, FPC connector, and exposed PCB layout visible through shell reinforce open/hackable hardware framing; no USB-C visible in this crop."
+    },
+    {
+      "claim": "build_material_quality",
+      "strength": "partial",
+      "evidence": "Resin edges and shell corners appear clean and well-molded in the visible crop; macro detail reveals some minor assembly roughness at display bezel edges."
+    },
+    {
+      "claim": "collectible_object",
+      "strength": "incidental",
+      "evidence": "Aesthetic contrast of glowing cyan display against the visible PCB internals and pastel background reads as a designed, display-worthy object."
+    }
+  ],
+  "composition": {
+    "background": "Pastel striped surface — horizontal bands of blue, sage green, yellow-green, and purple",
+    "text_overlay": false,
+    "watermark": false,
+    "orientation": "landscape",
+    "crop": "Tight macro crop of upper-left device quadrant; device edges partially cut off on top and right; no full silhouette"
+  },
+  "tone": [
+    "technical",
+    "editorial",
+    "clean",
+    "cool-toned"
+  ],
+  "disqualifiers": [],
+  "caption_hint": "Game over — and you can see exactly why: every component that drove it, right through the shell.",
+  "selection_note": "Best single frame for dual load-bearing claims: on_legible display state plus full PCB transparency in one tight crop; weak on pocket_scale and retro controls due to partial composition.",
+  "technical": {
+    "w": 5888,
+    "h": 4416,
+    "aspect": "5888:4416",
+    "format": "jpg",
+    "bytes": 8777207,
+    "phash": "b59c8c650a9be2d6",
+    "dup_of": null,
+    "min_safe_use": "hero",
+    "aspect_ratio": "4:3"
+  },
+  "eligible_sections": [
+    "hero",
+    "feature_transparency",
+    "specs",
+    "feature_games",
+    "lifestyle",
+    "social_proof",
+    "feature_maker",
+    "final_cta"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "id": "arduview-0001",
+  "relevance": "product_shot",
+  "shot_type": "in_hand_scale",
+  "in_frame": "Hand holding the Arduview console close to camera, three fingers visible top and thumb below. Device oriented landscape, filling most of the frame. Clear resin shell with PCB and flex-ribbon cable visible through the sides. Display is active showing a retro pixel game: cyan/teal UI elements, heart icons top-right, score bar left, sprite character center-left, 'COIN 10' text rotated on right side. Green blurred foliage background. Board markings '308847 F-H 94V-0' and 'DT-D03...' visible through shell. No text overlay or watermark.",
+  "display_state": "on_legible",
+  "demonstrates": [
+    {
+      "claim": "see_through_display_on",
+      "strength": "strong",
+      "evidence": "Display is fully lit with legible pixel game content — cyan UI bars, heart icons, sprite, 'COIN 10' text all clearly readable through the transparent pane; this is the focal point of the shot"
+    },
+    {
+      "claim": "transparency_internals_visible",
+      "strength": "strong",
+      "evidence": "Clear resin shell transmits view of PCB substrate, flex-ribbon cable, board markings ('94V-0', 'DT-D03...') visible along left and bottom edges of device"
+    },
+    {
+      "claim": "retro_gaming",
+      "strength": "strong",
+      "evidence": "Active game on screen shows pixel-art sprite, score counter, hearts/lives HUD, coin counter — classic arcade game UI conventions fully legible"
+    },
+    {
+      "claim": "pocket_scale",
+      "strength": "strong",
+      "evidence": "Device held in one hand, fitting comfortably between thumb and three fingers, immediately communicating palm/pocket size against human hand reference"
+    },
+    {
+      "claim": "collectible_object",
+      "strength": "partial",
+      "evidence": "Clean transparent enclosure and active glowing display read as a desirable display object, though shot is functional/in-use rather than styled for display"
+    },
+    {
+      "claim": "build_material_quality",
+      "strength": "partial",
+      "evidence": "Resin shell edges visible and appear clean; clear casing shows solid construction; image resolution sufficient to see material clarity but not a dedicated quality detail shot"
+    }
+  ],
+  "composition": {
+    "background": "lifestyle_outdoor_blurred_foliage",
+    "text_overlay": false,
+    "watermark": false,
+    "orientation": "portrait",
+    "crop": "full_device"
+  },
+  "tone": [
+    "techy",
+    "playful",
+    "tactile"
+  ],
+  "disqualifiers": [],
+  "caption_hint": "See every pixel — inside and on-screen.",
+  "selection_note": "Best-in-class frame for the two load-bearing claims simultaneously (internals visible + display on_legible) with human-scale anchor; loses points only for portrait crop that cuts controls out of frame.",
+  "technical": {
+    "w": 3072,
+    "h": 4096,
+    "aspect": "3072:4096",
+    "format": "jpg",
+    "bytes": 4872047,
+    "phash": "d296670e6cc3e0f2",
+    "dup_of": null,
+    "min_safe_use": "hero",
+    "aspect_ratio": "3:4"
+  },
+  "eligible_sections": [
+    "hero",
+    "feature_transparency",
+    "specs",
+    "feature_games",
+    "lifestyle",
+    "social_proof",
+    "feature_scale",
+    "final_cta"
+  ]
+}

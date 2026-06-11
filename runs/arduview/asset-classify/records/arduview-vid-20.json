@@ -1,0 +1,94 @@
+{
+  "id": "arduview-vid-20",
+  "segments": [
+    {
+      "t": "0:00-0:03",
+      "beat": "overhead/near-overhead shot of device flat on colorful geometric surface; clear shell and PCB visible through top face"
+    },
+    {
+      "t": "0:03-0:06",
+      "beat": "camera begins slow orbit/pull-back revealing device at 3/4 angle; see-through display lit cyan with game text prominent"
+    },
+    {
+      "t": "0:06-0:09",
+      "beat": "continued orbit — left side and D-pad come into frame; internals and lit display visible simultaneously"
+    },
+    {
+      "t": "0:09-0:12",
+      "beat": "low-angle push-in from front-right; transparent shell catches light, PCB copper tones visible beneath clear resin"
+    },
+    {
+      "t": "0:12-0:15",
+      "beat": "tight creeping push toward front face; display fill-frame with cyan game text, shell edge and USB-C port briefly visible before cut"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:00-0:14",
+      "strength": "strong",
+      "motion_value": "high — continuous orbit lets light rake across clear shell exposing PCB throughout clip"
+    },
+    {
+      "claim": "see_through_display_on",
+      "at": "0:00-0:14",
+      "strength": "strong",
+      "motion_value": "high — cyan lit display glows against transparent pane in every frame"
+    },
+    {
+      "claim": "retro_gaming",
+      "at": "0:00-0:14",
+      "strength": "partial",
+      "motion_value": "medium — game-style text/logo on display reads as retro gaming context but no active gameplay motion shown"
+    },
+    {
+      "claim": "collectible_object",
+      "at": "0:00-0:14",
+      "strength": "partial",
+      "motion_value": "medium — colorful harlequin surface and polished slow orbit give product a jewel/collectible presentation feel"
+    },
+    {
+      "claim": "pocket_scale",
+      "at": "0:09-0:14",
+      "strength": "incidental",
+      "motion_value": "low — no hand or reference object; scale inferrable only from known dimensions"
+    }
+  ],
+  "best_use": "hero_loop",
+  "loop_safe": true,
+  "needs_audio": false,
+  "poster_frame": "0:09.00",
+  "tone": [
+    "premium",
+    "collectible",
+    "tech-aesthetic",
+    "clean"
+  ],
+  "disqualifiers": [],
+  "selection_note": "Slow cinematic orbit over colorful surface with lit see-through display running end-to-end — strongest single clip for leading with the transparency + display-on hero claim simultaneously.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 14.48,
+    "fps": 120.05,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 183144237,
+    "oversize": true
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 1,
+    "color_grade": 2,
+    "stability": 3,
+    "overall": 3,
+    "ad_ready": false,
+    "standout": "bold cyan UI text pops against neutral device body",
+    "weakness": "loud harlequin-patchwork background dominates and cheapens the device",
+    "note": "continuous slow orbit/zoom on a busy colored-block surface - background + flat lighting kill ad viability"
+  }
+}

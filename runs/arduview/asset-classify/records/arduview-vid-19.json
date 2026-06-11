@@ -1,0 +1,97 @@
+{
+  "id": "arduview-vid-19",
+  "segments": [
+    {
+      "t": "0:00-0:01",
+      "beat": "device intro — clear-shell console enters frame from top, PCB and ribbon cable visible through resin"
+    },
+    {
+      "t": "0:01-0:02",
+      "beat": "display lights up showing 'SPACE BATTLE / TRENCH RUN' title screen, transparent shell framing active pixels"
+    },
+    {
+      "t": "0:02-0:03",
+      "beat": "steady close-up hold — see-through display and internal chip fully readable, colourful background behind device"
+    },
+    {
+      "t": "0:03-0:04",
+      "beat": "camera slowly zooms/pans in, PCB fills more frame, game title screen persists"
+    },
+    {
+      "t": "0:04-0:05",
+      "beat": "device drifts partially out of frame bottom, last glimpse of lit display and clear shell edge"
+    },
+    {
+      "t": "0:05-0:06",
+      "beat": "near-black / off-screen fade-out, clip ends"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:00-0:04",
+      "strength": "strong",
+      "motion_value": "high — chip, ribbon flex, and board traces visible through shell across multiple seconds"
+    },
+    {
+      "claim": "see_through_display_on",
+      "at": "0:01-0:04",
+      "strength": "strong",
+      "motion_value": "high — active pixel game title clearly readable on transparent OLED pane"
+    },
+    {
+      "claim": "retro_gaming",
+      "at": "0:01-0:04",
+      "strength": "strong",
+      "motion_value": "medium — static title screen, no gameplay motion but clear retro pixel font and game name"
+    },
+    {
+      "claim": "pocket_scale",
+      "at": "0:00-0:04",
+      "strength": "partial",
+      "motion_value": "low — device visible but no hand or reference object for direct size comparison"
+    },
+    {
+      "claim": "build_material_quality",
+      "at": "0:00-0:04",
+      "strength": "partial",
+      "motion_value": "medium — resin shell gloss and PCB detail legible at close range"
+    }
+  ],
+  "best_use": "hero_loop",
+  "loop_safe": true,
+  "needs_audio": false,
+  "poster_frame": "0:02",
+  "tone": [
+    "product_showcase",
+    "tech_aesthetic",
+    "retro_gaming"
+  ],
+  "disqualifiers": [],
+  "selection_note": "Clean transparent-shell + lit-display double-proof in one shot; strong hero loop for the two load-bearing claims, cuts well at 0:00–0:04 before device exits frame.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 5.4,
+    "fps": 120.05,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 70210275,
+    "oversize": false
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 1,
+    "color_grade": 2,
+    "stability": 2,
+    "overall": 2,
+    "ad_ready": false,
+    "standout": "active display with readable game UI (SPACE BATTLE title)",
+    "weakness": "busy patchwork background, severe framing drift, heavy crop/roll late",
+    "note": "prototype-on-a-table grab shot; busy background and unstable framing disqualify without reshoot"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "id": "arduview-vid-15",
+  "segments": [
+    {
+      "t": "0:00-0:01",
+      "beat": "OLED display active on bare PCB, cyan game pixels visible, no shell — internals fully exposed"
+    },
+    {
+      "t": "0:01-0:02",
+      "beat": "Same bare-board close-up, display lit, PCB traces and ribbon cable visible"
+    },
+    {
+      "t": "0:02-0:03",
+      "beat": "Pull back slightly, board still unhoused, display running game content"
+    },
+    {
+      "t": "0:03-0:04",
+      "beat": "Hand enters frame holding the bare PCB, demonstrating pocket scale"
+    },
+    {
+      "t": "0:04-0:05",
+      "beat": "Hand holds board closer to camera, display shows game UI text"
+    },
+    {
+      "t": "0:05-0:06",
+      "beat": "Extreme close-up of PCB edge and display ribbon — component-level detail visible"
+    }
+  ],
+  "demonstrates": [
+    {
+      "claim": "see_through_display_on",
+      "at": "0:00-0:05",
+      "strength": "strong",
+      "motion_value": "high"
+    },
+    {
+      "claim": "transparency_internals_visible",
+      "at": "0:00-0:06",
+      "strength": "strong",
+      "motion_value": "high"
+    },
+    {
+      "claim": "hackable_maker",
+      "at": "0:00-0:06",
+      "strength": "partial",
+      "motion_value": "medium"
+    },
+    {
+      "claim": "pocket_scale",
+      "at": "0:03-0:05",
+      "strength": "partial",
+      "motion_value": "low"
+    },
+    {
+      "claim": "retro_gaming",
+      "at": "0:00-0:05",
+      "strength": "incidental",
+      "motion_value": "low"
+    }
+  ],
+  "best_use": "feature_demo",
+  "loop_safe": true,
+  "needs_audio": false,
+  "poster_frame": "0:04",
+  "tone": [
+    "technical",
+    "maker",
+    "raw"
+  ],
+  "disqualifiers": [],
+  "selection_note": "Bare PCB with live display — strong internals/transparency proof but no shell present; best for maker/hackable angle, not collectible or premium positioning.",
+  "probe": {
+    "w": 3840,
+    "h": 2160,
+    "aspect_ratio": "16:9",
+    "duration_s": 6.05,
+    "fps": 120.05,
+    "codec": "hevc",
+    "has_audio": false,
+    "bytes": 77129669,
+    "oversize": false
+  },
+  "eligible_slots": [],
+  "aesthetics": {
+    "lighting": 2,
+    "composition": 2,
+    "focus_sharpness": 2,
+    "background": 2,
+    "color_grade": 2,
+    "stability": 2,
+    "overall": 3,
+    "ad_ready": false,
+    "standout": "functional display shows real UI content",
+    "weakness": "handheld shake, cluttered PCB background, no controlled lighting - pure maker bench footage",
+    "note": "bare PCB on a workbench; no shell, no staging"
+  }
+}

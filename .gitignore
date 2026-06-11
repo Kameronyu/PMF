@@ -19,3 +19,9 @@ _caption_*
 # Preserve tracked test fixtures from the patterns above (D-12)
 !runs/_fixture/
 !runs/_fixture/**
+
+# Shopify Admin API creds (secret)
+runs/arduview/_tooling/.shopify-creds.json
+runs/arduview/_tooling/.klaviyo-creds.json
+runs/arduview/_tooling/.cloudflare-creds.json
+runs/arduview/_tooling/.klaviyo-inkleaf-creds.json

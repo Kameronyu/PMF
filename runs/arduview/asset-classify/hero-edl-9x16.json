@@ -1,0 +1,14 @@
+{
+  "name": "arduview-hero-9x16",
+  "target": { "w": 1080, "h": 1920, "fps": 30 },
+  "audio": false,
+  "_note": "9:16 vertical hero for paid social (TikTok/Reels/Stories). PORTRAIT-native clips only. This is where the real gameplay footage lives (Pong, SPACE BATTLE). HDR clips tone-mapped to SDR. Silent, no captions.",
+  "segments": [
+    { "id": "arduview-vid-12", "in": 1.0,  "out": 3.0,  "beat": "OPEN — transparency: rotation showing PCB/battery through the clear shell" },
+    { "id": "arduview-vid-10", "in": 2.3,  "out": 4.0,  "beat": "DISPLAY — see-through display lit with blue pixel content, board visible behind the pane" },
+    { "id": "arduview-vid-16", "in": 6.8,  "out": 9.3,  "beat": "GAMES — live Pong/paddle gameplay running on the transparent display (the payoff)" },
+    { "id": "arduview-vid-19", "in": 1.2,  "out": 3.7,  "beat": "GAME TITLE — 'SPACE BATTLE / TRENCH RUN' title screen, readable retro game UI through the glass" },
+    { "id": "arduview-vid-11", "in": 11.0, "out": 14.0, "beat": "PLAY — fingers on D-pad/A-B with lit display, hands-on gaming + pocket scale" },
+    { "id": "arduview-vid-08", "in": 2.0,  "out": 4.0,  "beat": "CLOSE — rotation transparency reveal, PCB through shell" }
+  ]
+}
