@@ -1,301 +1,290 @@
 # Codebase Structure
 
-**Analysis Date:** 2026-06-01
+**Analysis Date:** 2026-06-24
 
 ## Directory Layout
 
 ```
 PMF/
-├── README.md                      # Entry point — reads "start with handoff.md"
-├── definitions.md                 # Locked vocabulary / source-of-truth glossary
-├── workflow.md                    # Stages 0–8 spec with per-step research questions + gate formulas
-├── capability_inventory.md        # ~20 atomic capabilities + locked design decisions
-├── flow.md                        # Thin skeleton of the pipeline (layer 1 overview)
-├── handoff.md                     # Session entry point: current state, locked/open, kickoff prompts
-├── handoff-granular-analysis.md   # Handoff for granular persuasion analysis run
-├── handoff-crowdfunding-teardown.md  # Handoff for crowdfunding teardown run
-├── run-retrospective.md           # Post-run analysis: what manual runs taught, net-new patterns
-├── capability_inventory.md        # ~20 atomic capabilities + locked design decisions
+├── .claude/
+│   ├── skills/                  # Claude skill orchestrators (deployed agent prompts)
+│   │   ├── asset-classify/      # Asset classification pipeline orchestrator
+│   │   ├── copywriter/          # DR copywriter agent
+│   │   ├── funnel-architect/    # Funnel design agent
+│   │   ├── funnel-deep-pass/    # Funnel collection orchestrator
+│   │   ├── market-selection/    # NTP gate 1 + ranking agent
+│   │   ├── pipeline-audit/      # Adversarial soundness audit orchestrator
+│   │   └── reddit-extract/      # Headless Reddit thread extractor
+│   └── worktrees/               # Git worktree support
+├── .planning/
+│   ├── audit/                   # Retro audit documents (run chronology, spec drift, etc.)
+│   ├── codebase/                # Codebase maps (this file)
+│   ├── intel/                   # Strategic intel documents
+│   ├── phases/                  # Per-phase GSD plans and summaries
+│   │   └── <NN>-<stage-slug>/   # e.g. 01-stage-m1-s1-light-pass/
+│   │       ├── <NN>-NN-PLAN.md
+│   │       ├── <NN>-NN-SUMMARY.md
+│   │       └── <NN>-CONTEXT.md
+│   └── quick/
+│       └── <date-id>/           # Quick-plan sessions (PLAN.md + SUMMARY.md)
+├── .venv/                       # Python virtualenv (gitignored)
+├── _quarantine/                 # Deprecated/quarantined agent prompts (01-finder.md … 11-comprehend-video.md + media files)
+├── ads/                         # Meta ad library raw dumps per brand
+│   └── <slug>.json              # Ads JSON; <slug>_adv.txt also present
+├── agents/                      # Implementation notes + run logs (not specs)
+│   ├── funnel-deep-pass-run-notes.md
+│   └── implementation-notes.md  # Working notes on per-brand extractor + aggregator design
+├── assets/                      # Asset classifier runtime media (gitignored)
+│   ├── raw/                     # Raw media copies
+│   ├── work/                    # Downscaled work copies
+│   └── raw-manifest.json        # Asset manifest (gitignored)
+├── corpus/                      # Per-brand fetched + cleaned research data
+│   └── <brand-slug>/
+│       ├── raw/                 # Raw HTML (gitignored — reproducible via fetch.js)
+│       ├── clean/               # Normalized text
+│       └── dump.json            # Brand record (output of Dumper agent)
 ├── map/
-│   └── data_inventory.md          # What each capability produces/consumes; joins; open schema questions
+│   └── data-model-notes.md      # IO schemas, implicit entities, architectural constraints
+├── marketing-lens/
+│   ├── MAP.md                   # Pipeline map: step-by-step agent/script orientation
+│   └── prompts/                 # Per-agent prompt files (01-finder.md … 11-comprehend-video.md)
 ├── prompts/
-│   └── step1-light-pass.md       # Draft agent + schema spec for Step 1 light pass (3-stage pipeline)
-├── agents/
-│   └── implementation-notes.md    # Parked notes for future agent specs (not specs themselves)
-└── runs/
-    └── eink-tablets/              # Worked example run (Pipeline B: product fixed, solving for niche)
+│   ├── _generated/              # Auto-generated DR context injections
+│   ├── _specs/                  # Spec documents for built + specced-but-unbuilt bricks
+│   ├── _templates/              # Prompt templates (pre-research-plan.template.md)
+│   ├── funnel-deep-pass.md      # Section Analyzer schema + per-section prompts
+│   └── step1-light-pass.md      # Finder + Roster Verifier + Dumper + Space Classifier chain
+├── runs/
+│   ├── _fixture/                # Test fixtures (committed; whitelisted in .gitignore)
+│   │   └── funnels/             # Fixture funnel packages for testing
+│   ├── arduview/                # Arduview product run space
+│   │   ├── _audit/              # Pipeline audit reports (A and B reviewers)
+│   │   ├── _marketing-decisions/ # Locked marketing decisions (markdown)
+│   │   ├── _tooling/            # Run-specific CDP/deploy tooling scripts
+│   │   ├── asset-classify/      # Asset classification outputs (records/, ranked.json, etc.)
+│   │   ├── crowdfunding/        # Crowdfunding LP packages
+│   │   ├── funnels/             # Assembled funnel packages + _index.json + _tally.json
+│   │   ├── funnels-analyzer-out/ # Section Analyzer raw outputs
+│   │   ├── funnels-assembled/   # Intermediate assembled funnels
+│   │   ├── funnels-clean/       # Cleaned funnel text
+│   │   ├── funnels-scored/      # Scored funnels
+│   │   ├── site/                # Built landing page (index.html, deposit.html, styles.css, script.js)
+│   │   ├── arduview-pre-research-plan.md
+│   │   ├── market-selection.md
+│   │   ├── space-map.json
+│   │   ├── FUNNEL-DESIGN.md
+│   │   ├── COPY-DRAFT.md
+│   │   ├── BUILD-FEEDBACK.md
+│   │   └── ANGLE-VALIDATION-AUDIT.md
+│   └── eink-tablets/            # InkLeaf / eink-tablets product run space
+│       └── inkleaf-deep-pass/   # Deep-pass funnel analysis outputs
+│           ├── fetch/
+│           ├── funnel/
+│           ├── funnel-clean/
+│           ├── BELIEFS.md
+│           ├── CLEANED-COPY.md
+│           ├── VISUAL.md
+│           └── analyzer-context.md
+├── tools/
+│   ├── asset/                   # Python asset probe scripts
+│   │   ├── probe.py             # Image metadata extractor
+│   │   ├── probe_video.py       # Video metadata extractor
+│   │   ├── sample_montage.py    # Contact sheet generator
+│   │   ├── frame-grab.py        # Frame extraction
+│   │   └── section-table.json   # Section table for asset routing
+│   ├── hooks/                   # PostToolUse validators + DR injectors
+│   │   ├── route.js             # Hook dispatcher (routes by filename)
+│   │   ├── validate-finder.js
+│   │   ├── validate-dumper.js
+│   │   ├── validate-classifier.js
+│   │   ├── validate-analyzer.js
+│   │   ├── validate-asset-record.js
+│   │   ├── validate-revenue.js
+│   │   ├── inject-dr.js
+│   │   ├── inject-funnel-architect-dr.js
+│   │   ├── inject-market-selection-dr.js
+│   │   └── inject-copywriter-dr.js
+│   └── lib/
+│       └── embed.js             # Embedding swap-point (Voyage REST or local stub)
+├── brands.json                  # Brand roster with metadata + demand_trend (root-level)
+├── capability_inventory.md      # Brick taxonomy, executor routing rules, locked decisions
+├── CLAUDE.md                    # Project-level Claude instructions + naming rules
+├── definitions.md               # Locked vocabulary (transformation, niche, UM, PMBD, etc.)
+├── handoff-m1-build.md          # M1 build handoff document
+├── handoff-step3-voc-build.md   # Step 3 VOC build handoff
+├── README.md                    # System overview + step-by-step agent links
+├── run-retrospective.md         # Run learnings not yet folded into bricks/specs
+├── space-map.json               # Global space aggregate (root-level, from light pass)
+└── workflow.md                  # Step 0–8 spec + research questions per step
 ```
 
----
+## Directory Purposes
 
-## Top-Level Spec Files
+**`.claude/skills/`:**
+- Purpose: Claude skill orchestrators — each skill is one pipeline segment with a judgment agent
+- Contains: `SKILL*.md` files (orchestration + agent prompts), generated DR context files (`_dr-context.generated-*.md`)
+- Key files: See architecture SKILL files per skill subdirectory
+- Pattern: Skill file = orchestration only; schema lives elsewhere (prompts/_specs + hooks); never duplicate schema into skills
 
-**`README.md`**
-- One paragraph overview + directory layout
-- Sole purpose: orient a new session; points to `handoff.md` as the real entry point
+**`tools/`:**
+- Purpose: All deterministic scripts (S-bricks) and hook validators (H-bricks)
+- Contains: Node.js `.js` scripts for fetch/clean/score/store/assemble/validate, Python `.py` scripts for asset probing
+- Pattern: Every script must be deterministic — no judgment logic. One job per file.
 
-**`definitions.md`**
-- Locked vocabulary for the entire system (niche, transformation, market, PMBD, UM, angle, claim, feature, etc.)
-- Never modified without explicit unlock; shared by all agents, analysts, and docs
-- Format: clustered glossary — each term has a one-line definition, a test, 1–3 examples, and confusion notes
+**`tools/hooks/`:**
+- Purpose: PostToolUse gate validators + DR knowledge injectors
+- Contains: `route.js` dispatcher + per-agent validators + per-skill DR injectors
+- Pattern: Validators exit 0 (pass) or exit 2 + stderr (reject). `route.js` dispatches by filename pattern.
 
-**`workflow.md`**
-- Stages 0–8 full spec: research questions, gate formulas, pipeline variants (A/B/C/D), PMBD question battery
-- The run spine; step structure is locked; research question depth follows original planning doc
-- Cross-cutting sections at the bottom: execution principles, system constraints, reconciliation note
+**`tools/lib/`:**
+- Purpose: Shared library utilities used by multiple scripts
+- Contains: `embed.js` (single embedding swap-point)
 
-**`capability_inventory.md`**
-- ~20 atomic capabilities tagged Op / Orch / Human / Under
-- Contains the locked design decisions list (workflow ≠ agents; one universal classifier; VOC chain is 7 ops; etc.)
-- Foundational Unders section: map/persistence layer (deprioritized as of 2026-05-21), authorship pass-through
+**`tools/asset/`:**
+- Purpose: Python media processing chain (probe, sample, frame-grab)
+- Contains: Python scripts + `section-table.json` (asset routing config) + `section-list.default.json`
 
-**`flow.md`**
-- Three-layer framing: flow (this doc) / agent prompts (layer 2) / technical implementation (layer 3)
-- Thin skeleton of the pipeline — steps, order, purpose; no depth
-- Useful for quick orientation; `workflow.md` has the substance
+**`prompts/`:**
+- Purpose: Standalone agent prompts and spec documents not yet promoted to skills
+- Contains: Built prompts (`step1-light-pass.md`, `funnel-deep-pass.md`), specs (`_specs/`), templates (`_templates/`), generated context (`_generated/`)
+- Key: `prompts/_specs/` + `tools/hooks/validate-*.js` co-own schemas — hook is ground truth
 
-**`handoff.md`**
-- Session entry point for Claude Code
-- Sections: current state + what completed / 3-agent pattern locked / what to read in order / what's locked / what's open / what comes next / what NOT to do / session scope discipline / kickoff prompts (bottom)
-- Kickoff prompts at the bottom are ready-to-paste into a fresh session to launch a market scan
+**`corpus/`:**
+- Purpose: Per-brand research data (fetched + cleaned)
+- Contains: `raw/` (gitignored HTML), `clean/` (normalized text), `dump.json` (brand record)
+- Pattern: One subdirectory per brand slug (e.g., `corpus/flipper-zero/`, `corpus/playdate/`)
 
-**`handoff-granular-analysis.md`**
-- Handoff for the per-brand granular persuasion analysis + per-market sales-message playbook run
-- References tooling already on disk under `runs/eink-tablets/scripts/`
+**`runs/<space>/`:**
+- Purpose: All output artifacts for one product research run — immutable once committed
+- Contains: Funnel packages, analysis outputs, site builds, audit reports, market selection outputs
+- Convention (no-overwrite-v1): Re-runs write `v2/` subdir or `-v2` suffix; v1 never mutated
 
-**`handoff-crowdfunding-teardown.md`**
-- Handoff for the crowdfunding teardown run
-- References `crowdfund-fetch.js` and the 3-brief pipeline (finder → dumper → teardown synth)
+**`ads/`:**
+- Purpose: Raw Meta ad library dumps per competitor brand
+- Contains: `<slug>.json` (structured ad data), `<slug>_adv.txt` (raw ad text)
 
-**`run-retrospective.md`**
-- Mined from 14 session transcripts; surfaces what manual runs taught that is NOT yet in `workflow.md`
-- Sections: orchestration layer / durable tooling built / deliverable templates / net-new methodology / strategy findings / Kam's data preferences / process learnings / fold-where recommendations
+**`marketing-lens/`:**
+- Purpose: Orientation layer for the full pipeline — canonical prompt files + MAP.md index
+- Contains: `MAP.md` (pipeline flow diagram, step-by-step agent/input/output), `prompts/` (01 through 11 agent files)
 
----
+**`_quarantine/`:**
+- Purpose: Deprecated prompt files removed from active use but kept for reference
+- Contains: Old agent prompts (01-finder.md through 11-comprehend-video.md) + media assets
+- Do not use as active prompts — use `.claude/skills/` and `prompts/` instead
 
-## `map/` Directory
-
-**Purpose:** Persistence layer design artifacts (foundational Under — not yet built)
-
-- `map/data_inventory.md` — what every capability produces and consumes; implicit entities (brand_id, market_id, voc_record_id, etc.); open questions for persistence model design
-
----
-
-## `prompts/` Directory
-
-**Purpose:** Emerging agent prompt specs; one file currently
-
-- `prompts/step1-light-pass.md` — draft 3-stage pipeline spec (Finder → Roster Verifier → Dumper → Space Classifier) with schema contract and determinism principle
-
----
-
-## `agents/` Directory
-
-**Purpose:** Parked implementation notes for eventual agent specs; not specs themselves
-
-- `agents/implementation-notes.md` — per-brand extractor corrections from the eink-tablets run (layer-conflation examples, claims-vs-features split, problem-mechanism vs Problem-UM, sub-niche capture, competitive-set scoping); market aggregator corrections (output per market cell, saturation is per-market only)
-
----
-
-## `runs/` Directory
-
-**Purpose:** Manual research run artifacts — the de-facto persistence layer
-
-Each run is `runs/<space>/`. The only worked example is `runs/eink-tablets/`.
-
----
-
-## `runs/eink-tablets/` — Worked Example Structure
-
-```
-runs/eink-tablets/
-├── brands.md                      # Initial brand roster (Step 0 sweep)
-├── brands/                        # Per-brand shallow records (Step 0 extraction)
-│   ├── Boox.md
-│   ├── Daylight.md
-│   ├── KindleScribe.md
-│   └── ... (31 brands total, CamelCase filenames)
-├── adlibrary/                     # Raw Meta Ad Library data per brand
-│   ├── <Brand>.png                # Screenshot of ad library page
-│   ├── <Brand>.txt                # Extracted text
-│   ├── <Brand>_adv.png            # Advanced/detail view screenshot
-│   └── <Brand>_adv.txt            # Advanced/detail view text
-├── crowdfunding-scan.md           # 16-row seed list of crowdfunded campaigns
-├── market-map.md                  # Cross-brand transformation/niche map
-├── market-opportunity.md          # Cross-market Gate-1 comparison; bet-selection artifact
-├── markets/                       # Per-market scan outputs (Stage 2 pattern)
-│   ├── faith/
-│   │   ├── finder-brief.md        # Beta prompt for Finder agent
-│   │   ├── analyzer-brief.md      # Beta prompt for Analyzer agents
-│   │   ├── aggregator-brief.md    # Beta prompt for Aggregator agent
-│   │   ├── competitive-set.md     # Approved competitor roster
-│   │   ├── faith-market-profile.md  # Final deliverable (cells, saturation, whitespace, Gate-1 dossier)
-│   │   └── brands/                # Per-brand analysis records for this market
-│   │       ├── remarkable.md
-│   │       ├── daylight.md
-│   │       └── ... (market-specific delta records for incumbents, full records for new brands)
-│   ├── students/                  # Same structure as faith/
-│   └── dumb-device/               # Same structure as faith/
-├── marketing-corpus/              # Deep Step 2 marketing study per brand
-│   ├── <brand>/
-│   │   ├── landing-pages.md       # Source file — LP copy, structure, sections verbatim
-│   │   ├── meta-ads.md            # Source file — ad copy, days_running, transformation, angle, awareness
-│   │   ├── funnel-mechanics.md    # Source file — offer/bundle structure, checkout, guarantees
-│   │   ├── partnerships.md        # Source file — press, celebrity, co-dev relationships
-│   │   ├── notes.md               # Source file — researcher observations
-│   │   ├── granular-analysis.md   # Generated output — 13-section persuasion analysis
-│   │   ├── winning-message-analysis.md  # Generated output — 7-section portability-oriented extraction
-│   │   ├── raw/                   # Timestamped raw fetches (.html, .txt, .err.txt)
-│   │   └── screenshots/           # Timestamped screenshot captures (.html, .png, .txt)
-│   ├── markets/                   # Per-market playbook outputs (cross-brand synthesis)
-│   │   ├── M1-paper-replacement/
-│   │   ├── M2-calm/
-│   │   ├── M3-student-notetaking/
-│   │   └── M4-general-purpose-tablet/
-│   └── birdseye-map.md            # Cross-brand transformation cells map (16 cells × 10 brands)
-├── crowdfunding-corpus/           # Crowdfunding campaign teardown data
-│   ├── <slug>/
-│   │   ├── campaign-body.md       # Hero copy, description, reward structure verbatim
-│   │   ├── tiers.md               # Reward tiers, prices, limits
-│   │   ├── chronology.md          # Raise progression over time
-│   │   ├── comments.md            # Backer comments, objections
-│   │   ├── pre-launch.md          # Pre-launch email list evidence
-│   │   ├── press.md               # Press coverage captured
-│   │   ├── outcome.md             # Final raise, backer count, verdict
-│   │   ├── updates.md             # Campaign updates
-│   │   ├── notes.md               # Researcher notes
-│   │   └── raw/                   # Raw fetched files (timestamped .html, .txt, .png)
-│   └── ... (12 campaigns: bigme-galy, dasung-not-ereader-7, diptyx, eewrite-epad,
-│           freewrite-smart, freewrite-traveler, iflytek-ainote2, modos-paper,
-│           reinkstone-r1, viwoods-aipaper, zerowriter-fold, zerowriter-ink)
-├── eink-category-evolution/       # Category-evolution / wedge analysis (distinct from cross-sectional scan)
-│   ├── evolution-profile.md       # Cross-brand chronological synthesis: claim lifecycle, wedge timing
-│   ├── transformations-flat-map.md  # Foldable × transformation whitespace cross-tab
-│   └── brands/                    # Per-brand evolution records (9 brands with wedge/UM/raise data)
-│       ├── viwoods-aipaper.md
-│       ├── diptyx.md
-│       └── ...
-└── scripts/                       # Briefs (beta agent prompts) + fetch scripts for this run
-    ├── analyzer-framework.md      # Shared vocabulary spine read by every analyzer agent
-    ├── analyzer-brief.md          # Generic analyzer brief template
-    ├── aggregator-brief.md        # Aggregator brief (replaced by per-market versions)
-    ├── birdseye-synthesizer-brief.md  # Brief for cross-brand birdseye synthesis
-    ├── corpus-dumper-brief.md     # Brief for marketing corpus dump pass
-    ├── pass0-fetch-brief.md       # Brief for supplementary fetch pass (screenshots + ad start-dates)
-    ├── granular-analyzer-brief.md # Brief for 13-section per-brand granular analysis
-    ├── market-playbook-brief.md   # Brief for per-market sales-message playbook synthesis
-    ├── crowdfund-finder-brief.md  # Brief for crowdfunding campaign roster
-    ├── crowdfund-dumper-brief.md  # Brief for per-campaign verbatim dump
-    ├── crowdfund-teardown-brief.md  # Brief for crowdfunding teardown synthesis
-    ├── adlib-one.js               # Meta Ad Library fetcher (enriches days_running / start-date)
-    ├── adlib-sweep.js             # Meta Ad Library batch sweep
-    ├── crowdfund-fetch.js         # Playwright fetcher — bypasses Cloudflare/SPA blocks
-    ├── sw-login.js                # SimilarWeb login script
-    ├── sw-sweep.js                # SimilarWeb sweep script
-    └── explore-typeahead.js       # Typeahead exploration script
-```
-
----
-
-## Naming Conventions
-
-**Run directories:**
-- Lowercase, hyphenated: `runs/eink-tablets/`, `runs/<space>/`
-- Space name should be the product category or hypothesis space
-
-**Brand records (shallow Step 0):**
-- CamelCase at the top level: `brands/Boox.md`, `brands/KindleScribe.md`
-- Lowercase-hyphenated within market subdirectories: `markets/faith/brands/kindle-scribe.md`
-
-**Market directories:**
-- Lowercase-hyphenated slug: `markets/faith/`, `markets/dumb-device/`
-
-**Market profile deliverable:**
-- `<slug>-market-profile.md` inside the market directory: `markets/faith/faith-market-profile.md`
-
-**Ad library files:**
-- `<Brand>.png` / `<Brand>.txt` — base view
-- `<Brand>_adv.png` / `<Brand>_adv.txt` — advanced/enriched view
-- Lowercase-hyphenated for keyword-searched variants: `boox-kw_adv.png`
-
-**Crowdfunding campaign directories:**
-- Lowercase-hyphenated slug matching campaign name: `crowdfunding-corpus/viwoods-aipaper/`
-
-**Marketing corpus directories:**
-- Lowercase-hyphenated brand + variant: `marketing-corpus/daylight-dc1/`, `marketing-corpus/remarkable-wayback/`
-
-**Raw fetch files:**
-- Timestamped ISO format: `lp-2026-05-24T21-56-38.html`, `campaign-2026-05-24T19-38-51.txt`
-
-**Scripts (briefs):**
-- Lowercase-hyphenated + `-brief.md`: `granular-analyzer-brief.md`, `crowdfund-finder-brief.md`
-
-**Source vs generated output distinction:**
-- Source files (5 per brand): `landing-pages.md`, `meta-ads.md`, `funnel-mechanics.md`, `partnerships.md`, `notes.md`
-- Generated outputs (in same dir): `granular-analysis.md`, `winning-message-analysis.md`
-- This distinction is load-bearing — never mix source and generated content
-
----
-
-## Where to Add New Code / Artifacts
-
-**New research run:**
-- Create `runs/<space>/` directory
-- Start with `runs/<space>/brands/` for Step 0 shallow records
-- Add `runs/<space>/scripts/analyzer-framework.md` as the shared spine before running any analyzer
-- Kickoff prompt pattern: paste from bottom of `handoff.md`
-
-**New market scan (Stage 2) within an existing run:**
-- Create `runs/<space>/markets/<slug>/`
-- Create `finder-brief.md`, `analyzer-brief.md`, `aggregator-brief.md` briefs
-- Create `brands/` subdir for per-brand records
-- Output goes to `<slug>-market-profile.md`
-
-**New deep marketing study (Step 2 depth):**
-- Create `runs/<space>/marketing-corpus/<brand>/`
-- Populate the 5 source files first, then generate outputs
-- Raw fetches go in `raw/`, screenshots in `screenshots/`
-
-**New crowdfunding teardown:**
-- Create `runs/<space>/crowdfunding-corpus/<slug>/`
-- Follow the 9-file schema: `campaign-body`, `tiers`, `chronology`, `comments`, `pre-launch`, `press`, `outcome`, `updates`, `notes` + `raw/`
-
-**New agent brief:**
-- Goes in `runs/<space>/scripts/<purpose>-brief.md`
-- Every brief = role + inputs (which files to read) + hard rules + output schema + self-audit checklist + exact output path
-
-**New framework spec (capability or workflow update):**
-- Capabilities go in `capability_inventory.md`
-- Workflow step changes go in `workflow.md` (structure locked; additions only)
-- Never add new vocabulary — use `definitions.md` terms or explicitly unlock and add there
-
-**Handoff for a new session:**
-- Update `handoff.md` current state section
-- Add/update kickoff prompts at the bottom
-- If a distinct analysis type, create `handoff-<analysis-type>.md`
-
----
+**`.planning/`:**
+- Purpose: GSD planning artifacts — phase plans, summaries, audit documents, codebase maps
+- Contains: Subdirs per concern (phases, audit, intel, quick, codebase)
+- Pattern: Phase plans in `.planning/phases/<NN>-<stage-slug>/`; quick plans in `.planning/quick/<date-id>/`
 
 ## Key File Locations
 
-**Entry points (always read first):**
-- `handoff.md` — current state + kickoff prompts
-- `definitions.md` — locked vocabulary
-- `workflow.md` — stage definitions and research questions
+**Theory / Vocabulary (read before writing any agent or script):**
+- `definitions.md` — locked vocabulary; every label an agent assigns must trace here
+- `workflow.md` — Steps 0–8 spec, research questions, pipeline A/B/C/D
+- `capability_inventory.md` — brick taxonomy, executor routing, locked decisions
+- `map/data-model-notes.md` — IO schemas, implicit entity IDs, source-metadata constraint
 
-**Worked examples:**
-- `runs/eink-tablets/markets/faith/faith-market-profile.md` — canonical market-scan deliverable
-- `runs/eink-tablets/scripts/analyzer-framework.md` — canonical shared analyzer spine
-- `runs/eink-tablets/marketing-corpus/daylight-dc1/` — canonical deep marketing corpus structure
+**Active Agent Prompts:**
+- `prompts/step1-light-pass.md` — Finder + Dumper + Space Classifier chain (Steps 0–1)
+- `prompts/funnel-deep-pass.md` — Section Analyzer schema + section prompts
+- `.claude/skills/market-selection/SKILL market selection.md` — NTP gate + ranking
+- `.claude/skills/funnel-deep-pass/SKILL-funnel-deep-pass.md` — funnel collection orchestrator
+- `.claude/skills/asset-classify/SKILL-asset-classify.md` — asset classification orchestrator
+- `.claude/skills/pipeline-audit/SKILL.md` — audit orchestrator
 
-**Decision artifacts:**
-- `runs/eink-tablets/market-opportunity.md` — cross-market Gate-1 comparison; the bet-selection artifact
-- `runs/eink-tablets/eink-category-evolution/evolution-profile.md` — category-evolution / wedge analysis
+**Hook Routing:**
+- `tools/hooks/route.js` — entry point for all PostToolUse write validation
 
-**Durable tooling:**
-- `runs/eink-tablets/scripts/crowdfund-fetch.js` — reusable Playwright fetcher (bypasses Cloudflare/SPA)
-- `runs/eink-tablets/scripts/adlib-one.js` — Meta Ad Library fetcher with `days_running` enrichment
+**Embedding / RAG:**
+- `tools/lib/embed.js` — single swap-point; set `VOYAGE_API_KEY` for real embeddings
+
+**Run Outputs (current active runs):**
+- `runs/arduview/` — Arduview product (complete run through site build + audit)
+- `runs/eink-tablets/inkleaf-deep-pass/` — InkLeaf eink-tablets deep-pass outputs
+
+**Build Reference:**
+- `runs/arduview/site/` — built landing page (index.html, deposit.html, styles.css, script.js, favicon.svg)
+- `runs/arduview/_marketing-decisions/` — locked marketing decisions for Arduview
+
+## Naming Conventions
+
+**Files:**
+- Scripts: `<job>-<verb>.js` (e.g., `funnel-assemble.js`, `asset-emit.js`, `validate-analyzer.js`)
+- Skill files: `SKILL-<name>.md` or `SKILL.md` (one per skill directory)
+- Prompt files: `<NN>-<agent-name>.md` (two-digit prefix for ordering, e.g., `07-section-analyzer.md`)
+- Run artifacts: `UPPERCASE.md` for major deliverables (`FUNNEL-DESIGN.md`, `COPY-DRAFT.md`, `BELIEFS.md`)
+- Per-funnel packages: `<brand-slug>-<hash>.json` (e.g., `divoom-79bf5e01.json`)
+
+**Directories:**
+- Brand slugs: lowercase-hyphenated (e.g., `flipper-zero`, `analogue-pocket`)
+- Run spaces: lowercase-hyphenated product name (e.g., `arduview`, `eink-tablets`)
+- Phase plan dirs: `<NN>-<stage-slug>` (e.g., `01-stage-m1-s1-light-pass`)
+- Sub-pipeline output dirs within a run: lowercase-hyphenated descriptive name (e.g., `funnels-clean`, `asset-classify`)
+
+**Vocabulary (enforced — see CLAUDE.md):**
+- "Step" = PMF research step 0–8 (workflow.md)
+- "Stage" = GSD build unit (M1-SN)
+- "Phase" = GSD roadmap index only (Phase N = Stage M1-SN in ROADMAP.md)
+- Never call a research step a Phase
+
+## Where to Add New Code
+
+**New S-brick (deterministic script):**
+- Implementation: `tools/<job>-<verb>.js` (Node.js) or `tools/asset/<script>.py` (Python for media)
+- Pattern: One job per file; no judgment logic; deterministic and resumable; sidecar `_*-log.txt` for errors
+
+**New H-brick (hook validator):**
+- Implementation: `tools/hooks/validate-<agent>.js`
+- Register in: `tools/hooks/route.js` routing table (by output filename pattern)
+- Pattern: Exit 0 = pass; exit 2 + stderr = reject
+
+**New A-brick (agent skill):**
+- Implementation: `.claude/skills/<skill-name>/SKILL-<name>.md`
+- Schema: Define in `prompts/_specs/<spec-name>.md`; schema ground truth lives in the matching validator
+- DR injection: add `tools/hooks/inject-<skill-name>-dr.js` if DR knowledge injection is needed
+
+**New agent prompt (not yet a skill):**
+- Implementation: `prompts/<NN>-<name>.md`
+- Also add to: `marketing-lens/prompts/<NN>-<name>.md` + update `marketing-lens/MAP.md`
+
+**New run space:**
+- Create: `runs/<space>/pre-research-plan.md` (operator bet brief — first artifact)
+- Follow: no-overwrite-v1 for all committed outputs under that space
+
+**New phase plan:**
+- Create: `.planning/phases/<NN>-<stage-slug>/`
+- Files: `<NN>-01-PLAN.md`, `<NN>-CONTEXT.md` (at minimum)
+
+## Special Directories
+
+**`corpus/*/raw/`:**
+- Purpose: Raw HTML fetched by `tools/fetch.js` per brand
+- Generated: Yes (via `tools/fetch.js`)
+- Committed: No (gitignored — reproducible)
+
+**`assets/`:**
+- Purpose: Asset classifier media runtime (raw copies + downscaled work copies)
+- Generated: Yes (via `tools/asset-fetch.js` + `tools/asset/*.py`)
+- Committed: No (gitignored)
+
+**`runs/_fixture/`:**
+- Purpose: Test fixture funnels for script and hook testing
+- Generated: No — hand-curated
+- Committed: Yes (explicitly whitelisted in `.gitignore` with `!runs/_fixture/**`)
+
+**`_quarantine/`:**
+- Purpose: Deprecated prompt files kept for provenance
+- Generated: No
+- Committed: Yes
+- Note: Do not import from here — active prompts are in `.claude/skills/` and `prompts/`
+
+**`.venv/`:**
+- Purpose: Python 3.12 virtual environment for asset probe scripts
+- Generated: Yes
+- Committed: No (gitignored)
+- Usage: `PEP 668` — invoke as `.venv/bin/python` explicitly
 
 ---
 
-*Structure analysis: 2026-06-01*
+*Structure analysis: 2026-06-24*

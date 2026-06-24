@@ -1,259 +1,224 @@
-# Research Quality and Verification Practices
+# Testing Patterns
 
-**Analysis Date:** 2026-06-01
+**Analysis Date:** 2026-06-24
+
+## Test Framework
+
+**Runner:** None. No test framework is installed or configured.
+
+- No `package.json` at project root
+- No `jest.config.*`, `vitest.config.*`, `mocha.*`, or any test runner config file
+- No `*.test.*` or `*.spec.*` files anywhere in the codebase
+- `nyquist_validation: false` in `.planning/config.json`
+- `.planning/STATE.md` explicitly states: "Verification is UAT, not unit tests."
+
+The project deliberately uses **operator UAT over automated test suites**.
+
+## Validation Strategy
+
+Testing is handled by a two-tier system of **deterministic validator scripts** + **human UAT**, not a test runner.
 
 ---
 
-## Overview
+## Tier 1: Deterministic Validator Scripts (PostToolUse hooks + orchestrator-run)
 
-This is not a software codebase. There is no test suite, linter, or CI pipeline.
-Quality is enforced through: (1) hard rules baked into agent briefs, (2) self-audit
-checklists agents run before returning, (3) human checkpoints at stage boundaries,
-(4) locked vocabulary enforced by shared framework files, and (5) retrospectives that
-fold run failures back into durable corrections.
+These are the closest thing to tests in the codebase. They are standalone Node scripts that accept a file path, check it against a schema or constraint set, and exit 0 (pass, silent) or exit 2 (reject, stderr) or exit 1 (missing required file).
 
----
+### Hook Dispatch
 
-## The De Facto QA Loop
+`tools/hooks/route.js` — PostToolUse dispatcher. Routes Write events to per-agent validators based on filename:
+- `brands.json` → `validate-finder.js` + `validate-revenue.js`
+- `dump.json` → `validate-dumper.js`
+- `space-map.json` → `validate-classifier.js`
+- Anything else → pass silently
 
-Every research run follows this loop:
-
+```bash
+node tools/hooks/route.js <written-file-path>
+# Exit 0 = pass. Exit 2 + stderr = reject.
 ```
-1. Handoff doc defines scope, locked decisions, and "what NOT to do"
-2. Agent brief carries hard rules + self-audit checklist
-3. Human checkpoint at key decision points (roster, profile)
-4. Human reviews deliverable against worked example
-5. Errors → corrections → pushed to shared analyzer-framework.md (propagates to all future runs)
-6. Post-milestone retrospective mines session transcripts for what broke
+
+### Per-Agent Validators
+
+Each validator is a structural twin of the others — same idiom, different rules:
+
+**`tools/hooks/validate-finder.js`** — Finder agent's `brands.json` output
+- Rejects off-enum `channel` / `lane` values
+- Rejects brand rows missing `url` or `sells_observed`
+
+**`tools/hooks/validate-revenue.js`** — Revenue script's `brands.json` Write
+- Rejects any `value_usd_monthly` with no `method` or `confidence`
+- Rejects `method:"traffic_formula"` when `monthly_visits` is null
+- Rejects `value_usd_monthly === "PENDING"` (D-10 never-fabricate)
+
+**`tools/hooks/validate-dumper.js`** — Dumper agent's `dump.json`
+- Rejects creatives with `canonical_niche != null` or `canonical_angle != null` (dumper must not classify)
+- Rejects pitches with `transformation != null`
+- Verbatim-substring gate: `claims[]` strings must be verbatim substrings of the brand's clean corpus
+
+**`tools/hooks/validate-classifier.js`** — Space Classifier's `space-map.json`
+- Rejects canonical labels with no `raw_variants` tracing to real dumps
+- Rejects saturation not keyed per combo cell (`transformation × niche`)
+- Rejects `claim_type` off `CLAIM_TYPE_ENUM`
+- Rejects combos missing `claim_count` or `enhanced_claim_count`
+- Rejects `enhanced_claim_count > claim_count`
+- Rejects null/empty `bet_type` or missing `bet_type_basis`
+- Rejects missing `demand_trend` or `demand_trend.shape` off `DEMAND_TREND_SHAPE_ENUM`
+
+**`tools/hooks/validate-analyzer.js`** — Section Analyzer's belief record output
+- Rule 1: VERBATIM-SUBSTRING GATE — `verbatim_refs[].text` must be exact substring of cleaned funnel body
+- Rule 2: OVERFLOW-BELIEF — `belief_id` outside 9-anchor set must have `belief_confidence='low'`
+- Rule 3: CLOSED-VOCAB — `execution_type` / `proof_tier` / `claim_type` / `move` on-enum
+- Rule 4: POSITION — unique funnel-level ordinals, no duplicates
+- Rule 5: SINGLE-FUNNEL DISCIPLINE — no birdseye-only fields (`consensus`, `divergence`, `unusual`, `pool`) on belief records
+- If cleaned funnel body not found: CONFIG-ERROR exit 2 (distinct from content hallucination)
+
+**`tools/hooks/validate-asset-record.js`** — Asset classification record (orchestrator-run, not PostToolUse)
+- CLOSED-VOCAB CLAIM: `demonstrates[].claim` must be in run's `CLAIM-LIST.json`
+- CLOSED-VOCAB SHOT_TYPE: `shot_type` on `SHOT_TYPE_ENUM` (images only)
+- CLOSED-VOCAB DISQUALIFIERS: all `disqualifiers[]` values on-enum
+- CLOSED-VOCAB STRENGTH: `demonstrates[].strength` on-enum
+- GROUNDING GATE: each `demonstrates[]` entry must have `evidence` (image) or `motion_value` (video) + `strength`
+- DISPLAY_STATE: if present, on-enum
+- VIDEO CHECKS: `at` timestamp per `demonstrates[]`, `best_use` on-enum, `loop_safe` + `needs_audio` are booleans
+
+### Receipt Check
+
+**`tools/validate-receipt.js`** — Used in `pipeline-audit` after each reviewer returns:
+- Compares reviewer's `CONTEXT RECEIPT` line to the inject manifest
+- Checks file counts and basename sets match
+- Exit 1 (mismatch) → orchestrator re-spawns reviewer; exit 2 (no receipt) → same
+
+```bash
+node tools/validate-receipt.js \
+  --manifest=runs/<space>/_audit/ctx/<reviewer>.txt.manifest.json \
+  --output=runs/<space>/_audit/<reviewer>.md
+# Exit 0 = receipt matches. Exit 1 = mismatch → re-spawn. Exit 2 = no receipt.
 ```
 
-Each stage is described below.
+### Strip Check
+
+**`tools/validate-strip.js`** — Used in `pipeline-audit` to gate stripped copies before injection into Reviewer B:
+- Strip file exists and is non-empty
+- Strictly smaller than original (catches verbatim no-op)
+- `--must-contain` tokens present
+- `--must-not-contain` tokens absent
+
+```bash
+node tools/validate-strip.js \
+  --original=<path> --stripped=<path> \
+  [--must-contain="t1||t2"] [--must-not-contain="x1||x2"] [--min-shrink=0.0]
+# Exit 0 = acceptable. Exit 1 = REJECTED → re-spawn strip agent. Exit 2 = bad usage.
+```
 
 ---
 
-## Verification Layer 1 — Hard Rules in Agent Briefs
+## Tier 2: Human UAT Gates
 
-Every brief in `runs/eink-tablets/scripts/` begins with a numbered list of hard rules
-derived from prior-run failures. These are non-negotiable enforcement rules, not guidelines.
+Defined in planning RESEARCH docs per phase. The canonical statement:
 
-Example from `runs/eink-tablets/scripts/granular-analyzer-brief.md`:
+> Per `.planning/config.json` `nyquist_validation: false` and STATE.md "Verification is UAT, not unit tests."
 
-1. **Verbatim-only** — every claim, headline, hook, angle must be a direct quote with a `source_artifact` reference (file path + line range, or URL). No paraphrasing.
-2. **Classify-with-evidence** — every layer classification must cite the verbatim copy it was read from. Ambiguous → mark `unclear / no evidence`.
-3. **Anti-bucket** — two different verbatim quotes = two rows, not one. Synthesis groups; the agent catalogs.
-4. **No cross-brand comparison** — per-brand agents are forbidden from reading sibling brand files. "Unlike reMarkable..." in output = automatic rewrite.
-5. **No saturation calls** — per-brand agents never call anything saturated; that is the cross-brand classifier's job.
-6. **Feature ≠ claim ≠ transformation** — with worked examples (see `CONVENTIONS.md`).
-7. **UM honesty** — most brands have NO unique mechanism; `none` is the correct answer.
-8. **Self-audit checklist** — must run before returning.
+**Phase 16 UAT pattern** (from `.planning/phases/16-asset-classifier-image-and-video-bricks/16-RESEARCH.md`):
 
-Source: `runs/eink-tablets/scripts/granular-analyzer-brief.md` (Hard rules section).
+| Criterion | UAT check | Automatable pre-check |
+|-----------|-----------|----------------------|
+| SC1 — correct brick type | each brick is script/agent/human per brick model | grep for "agent that cleans" |
+| SC2 — claim-tagged grounded record | run brick 4 on 5 local JPGs; records carry claim+strength+evidence | `validate-asset-record.js` passes |
+| SC3 — manifest operator can query | images.json/videos.json queryable by claim+strong+clean | replay proof: known expected output |
+| SC4 — video pipeline | run on 3 Arduview MP4s; sheets+segments+motion_value+best_use | sheets exist, cell timestamps correct |
+| SC5 — human pick gate | operator reads manifest, makes picks | manifest is human-readable |
 
----
-
-## Verification Layer 2 — Self-Audit Checklists
-
-Every agent brief includes a `- [ ]` checklist the agent must tick before returning.
-The checklist catches the specific failure modes identified in prior runs.
-
-**Granular analyzer checklist** (from `runs/eink-tablets/scripts/granular-analyzer-brief.md`):
-- [ ] Every claim in §5 has a source_artifact reference
-- [ ] Every angle in §8 has driver + pole + transformation reference
-- [ ] No feature appears in the claims table
-- [ ] No transformation is presented as a feature
-- [ ] Every "longest-running hook" entry in §10 has a start_date OR §10 states "no ad-longevity data available"
-- [ ] No comparisons to other brands anywhere in the output
-- [ ] No "saturated" calls anywhere in the output
-- [ ] All 13 sections present (even if a section says "N/A" or "none found")
-
-**Crowdfunding teardown checklist** (from `runs/eink-tablets/scripts/crowdfund-teardown-brief.md`):
-- [ ] No em dashes, no jargon in output
-- [ ] Exact figures or "not found" — no estimated raise/backer numbers
-- [ ] At least 2 underperforming/failed campaigns included, or explicit note
-- [ ] "Led with" classified for every campaign
-- [ ] Tier structure and day-one spike captured where visible
-- [ ] Objection list is real comment themes traced to verbatim quotes, not invented
-
-**Methodology corrections baked into `analyzer-framework.md`** (from `handoff.md` — locked):
-- Niche is READ from competitor copy, never assumed
-- Transformation ≠ feature ≠ mechanism (with worked examples)
-- Claims split from features — outcome-promises only in claims table
-- Problem-mechanism (shared causal story) recorded separately from UM
-- Buyer characterization field on every record — primary buyer + verbatim evidence
-- Ad Library Page-ID sanity check REQUIRED; absence of ads is data
-- Saturation counts ONLY within a market cell (niche × transformation), never pooled across cells
+**UAT dataset for image string:** local JPGs with known-good expected output (recorded in planning); replay constitutes the acceptance test.
 
 ---
 
-## Verification Layer 3 — Human Checkpoints
+## Validator Idioms (for adding new validators)
 
-Handoff docs define explicit human checkpoints at stage boundaries. These are not
-optional — they are structural decision points where the human reviews agent output
-before the next agent fan-out begins.
+All validators follow the same structure:
 
-**Checkpoints in `handoff-crowdfunding-teardown.md`:**
-1. After Pass 1 (Finder): confirm roster scope, underperformer hunt results, whether to expand or trim before fan-out
-2. After Pass 3 (Teardown synthesizer): final deliverable review
+```js
+#!/usr/bin/env node
+// validate-<agent>.js — PostToolUse hook for <AGENT> agent's <output>.json Write.
+// Reject rules:
+//   1. <Rule description>
+//   2. <Rule description>
+// Usage: node tools/hooks/validate-<agent>.js <path-to-output.json>
+// Exit 0 = pass (silent). Exit 2 + stderr = reject.
+'use strict';
 
-**Checkpoints in `handoff-granular-analysis.md`:**
-1. After Pass 0 (supplementary fetch): confirm screenshots captured, deposit funnels found, gaps blocking Pass 1
-2. After Pass 2 (per-market playbooks): review all 4 playbooks, especially M4 (Kam's actual funnel)
+const fs   = require('fs');
+const path = require('path');
 
-**Checkpoints in `handoff.md` (market scan pattern):**
-- Roster checkpoint after finder, before parallel analyzers fire
-- Profile checkpoint after aggregator, before Gate 1 comparison
+if (process.argv.includes('--help')) {
+  console.log('Usage: ...');
+  process.exit(0);
+}
 
-**Format:** checkpoints use `AskUserQuestion` to present the artifact and confirm before proceeding. This prevents expensive downstream work on a bad foundation.
+const filePath = process.argv[2];
+if (!filePath) {
+  console.error('REJECT: missing argument — provide path to <output>.json');
+  process.exit(2);
+}
 
----
+// Read + parse
+let raw;
+try { raw = fs.readFileSync(filePath, 'utf8'); }
+catch (err) { console.error(`REJECT: cannot read file "${filePath}" — ${err.message}`); process.exit(2); }
 
-## Verification Layer 4 — Worked Example Anchoring
+let data;
+try { data = JSON.parse(raw); }
+catch (err) { console.error(`REJECT: invalid JSON in "${filePath}" — ${err.message}`); process.exit(2); }
 
-Each run names a "worked example" — a completed deliverable that future work must match in
-density and structure. New agents are told to read it before producing their own output.
+// --- Closed enum definitions ---
+const SOME_ENUM = new Set(['value-a', 'value-b']);
 
-From `handoff.md`:
-> "Match the Faith profile's density and structure as the worked example."
-> "Read `runs/eink-tablets/markets/faith/faith-market-profile.md` before running yours."
+// --- Accumulate violations ---
+const violations = [];
 
-This is the primary quality standard for market profiles: match the existing high-quality
-output, not an abstract spec.
+for (const record of data.records) {
+  if (!SOME_ENUM.has(record.field)) {
+    violations.push(`REJECT: record missing or off-enum "field": "${record.field}"`);
+  }
+}
 
----
+// --- Emit result ---
+if (violations.length > 0) {
+  for (const v of violations) { console.error(v); }
+  process.exit(2);
+}
+process.exit(0);
+```
 
-## Verification Layer 5 — Shared Framework Propagation
-
-All methodology corrections flow to one file, not per-market duplicates:
-
-`runs/eink-tablets/scripts/analyzer-framework.md` — the shared analyzer spine.
-
-Every analyzer agent reads this file. A correction to the classification rules or procedure
-is made once here and propagates automatically to all future market scans. This prevents
-corrections from being local to one run.
-
-From `handoff.md`:
-> "Do not redesign the briefs from scratch — adapt the templates. Fixes go in the shared
-> analyzer framework, not per market."
-
----
-
-## Verification Layer 6 — SYNTHESIS Block Rule
-
-Any AI-invented message, synthesis, or recommendation must be fenced and labeled with
-a `SYNTHESIS` block, kept separate from verbatim competitor copy.
-
-This is a data-integrity rule applied to every deliverable that contains recommendations
-or synthesized patterns alongside direct quotes. It prevents editorializing from
-contaminating the verbatim copy bank, which is the primary input to ad creation.
-
-From `run-retrospective.md`:
-> "Any AI-invented message is fenced and labeled, kept separate from verbatim competitor
-> copy. Data-integrity rule for every deliverable."
-
-The market playbook brief enforces this on the "Recommended Messages" section:
-> "The Recommended Messages section MUST be flagged with the SYNTHESIS block per the brief."
+Key idiom: **accumulate all violations, emit all, then exit once.** Never fail-fast mid-loop — the full violation list is more useful than the first one.
 
 ---
 
-## Verification Layer 7 — Gate System (Research Quality Gates)
+## Test Coverage Gaps
 
-Two formal gates exist in the workflow. Both are Human judgment calls, not automated scores.
+**No automated test coverage for:**
 
-**Gate 1 (Step 0) — Is the space worth pursuing?**
+- `tools/fetch.js` — `classifyTrendShape()` is a pure function with documented thresholds; not unit-tested
+- `tools/funnel-score.js` — pure arithmetic; not unit-tested
+- `tools/clean.js` / `tools/funnel-clean.js` — regex pipelines; no snapshot tests
+- `tools/dedupe.js` — idempotence is documented but not asserted by a test
+- `tools/lib/embed.js` — stub backend has a `backendName()` / `isStub()` introspection API but no tests
+- `tools/revenue-est.js` — has a worked-example sanity comment in the `--help` output but no assertion
+- Python bricks (`tools/asset/*.py`) — no pytest; validated only by non-zero exit behavior
 
-Formula: `Gap Score = [(Desire to Solve × D2C Feasibility) − Market Sophistication] × Market Growth`
+**Verbatim-substring gate coverage:** `validate-analyzer.js` tests this at runtime (on real analyzer output), not ahead of time. If the cleaned corpus is not wired, it exits with CONFIG-ERROR rather than silently passing.
 
-Evidence required per axis (not a bare score):
-- Desire to Solve: proven spend, core driver proximity, severity, frequency
-- D2C Feasibility: mechanism efficacy, believability (UM + authority proof + social proof), economics
-- Market Sophistication: claim count, enhanced claim count, competitor sophistication, UM availability
-- Market Growth: trend velocity, adjacent trend signals
-
-Quality check: the Gate-1 evidence dossier must be per-axis evidence, not a bare score.
-Price-band reality vs $900 is mandatory in every profile.
-
-**Gate 2 (Step 2) — Do you want to commit to running ads for this market?**
-
-Post-deep-research judgment: "Proven spend but easy competition" is the ideal. Strong UM +
-easy competition are the biggest difference-makers. Framework structure locked; threshold
-methodology is a downstream Under — calibrate after 2–3 runs.
+**Hook wiring:** `tools/hooks/route.js` routes only three filenames. Any new agent output type not listed passes silently through `route.js` without validation — adding a new agent requires adding a corresponding validator and updating `route.js`.
 
 ---
 
-## Retrospective Practice
+## Priority for Adding Tests
 
-After completing a milestone, Kam mines session transcripts for failures and new methodology
-that was discovered but never folded back into the docs.
-
-`run-retrospective.md` is the output of this practice for the e-ink arc (14 session
-transcripts + 6 run-output clusters, covering April-May 2026). It is tagged by where each
-finding should land:
-- `[NEW]` — surfaced in sessions, nowhere in the docs
-- `[HANDOFF-ONLY]` — captured in a handoff but missing from `workflow.md`
-- `[STRATEGY]` — substantive product finding
-
-**What a retrospective produces:**
-- Corrections to methodology (e.g., the Ad Library Page-ID sanity check, saturation-per-cell rule)
-- Durable tooling descriptions (e.g., `crowdfund-fetch.js`, `adlib-one.js`)
-- Deliverable template formalizations
-- Open gaps carried forward (e.g., VOC not run in Step 0, authority-proof scanner missing)
-- Architecture decisions (e.g., the 3-agent pattern, crash discipline at 60-65 tool uses)
+1. **High — `classifyTrendShape` in `tools/fetch.js`**: pure function, documented thresholds, easy to snapshot. A wrong threshold silently mislabels trend shape for all brands.
+2. **High — `sanitizePathSegment` in `tools/funnel-store.js` and siblings**: security-critical; path traversal prevention should have unit tests.
+3. **Medium — `parsePipelineInputs` in `tools/fetch.js`**: tolerant parser with multiple fallback branches; edge cases not exercised.
+4. **Medium — `tools/dedupe.js` idempotence**: documented as idempotent; easy to assert.
+5. **Low — Python bricks**: covered implicitly by UAT dataset replays.
 
 ---
 
-## What a Handoff Validates
-
-A `handoff.md` / `handoff-<topic>.md` is not just a status doc — it is the quality gate
-and session-entry-point for the next Claude Code session. It must contain:
-
-1. **Current state** — what was completed, method check results, output locations
-2. **Read order** — the exact ordered list of files to read before doing anything
-3. **What's locked** — vocabulary, step structure, methodology corrections already in the framework
-4. **What's open** — Foundational Unders, Downstream Unders, calibration items
-5. **What comes next** — specific tasks with explicit scope limits
-6. **What NOT to do** — explicit prohibitions based on prior failure modes
-7. **Session scope discipline** — one deliverable per session; end when deliverable is written
-8. **Kickoff prompts** — verbatim copy-paste prompts for launching each parallel session
-
-**Quality signal in a handoff:** the "What NOT to do" section length. More prohibitions = more
-prior failures surfaced and encoded. A thin "What NOT to do" section signals the handoff is
-underspecified.
-
-From `handoff.md`:
-> "Don't conflate transformation / feature / mechanism."
-> "Don't skip the Ad Library step. Even for free apps / non-DR brands."
-> "Don't assume a niche before reading copy."
-> "Don't bleed scope between the two parallel sessions."
-> "Don't deep-dive Step 2 in these scans. Selection only."
-
----
-
-## Open Quality Gaps (from `run-retrospective.md` and `map/data_inventory.md`)
-
-These are known holes in the current QA system, carried forward for resolution:
-
-1. **VOC not run in Step 0** — Gate-1 Desire to Solve (driver proximity, severity, frequency) requires VOC that Step 0 doesn't produce. Decision pending: lightweight P0 VOC, proxy signals only, or rough Gate-1 recalibrated at Step 3d.
-2. **Authority-proof scanner absent** — Gate-1 D2C Feasibility "believability" axis has no capability mapped for authority proof assessment.
-3. **Awareness-level inference** — Step 4 awareness targeting has no dedicated synthesis step; classifier emits proxies but nothing aggregates them.
-4. **Hypothesis-selection record schema missing** — hypothesis selection is an explicit Human step but has no documented record format.
-5. **Actor/source tags on research questions** dropped inconsistently from `workflow.md` — need to specify which steps are Human vs AI vs VOC vs trends-tool.
-6. **`workflow.md:344` contradiction** — still says the map/persistence layer "has to be designed before capability specs," which contradicts the 05-21 course correction; needs softening.
-
----
-
-## Formatting / Style Rules That Enforce Quality
-
-These are quality-enforcement rules, not stylistic preferences:
-
-- **"Exact figures or 'not found'"** — never hand-wave numbers; if the corpus doesn't have it, say "not found"
-- **Verbatim + source artifact** — every quoted element must carry a file path or URL; no floating quotes
-- **N/A is valid for every field** — no force-fitting; absent data is marked N/A, not omitted
-- **Distinguish synthesis from direct quotation** — plain text for analyst writing; quotes for verbatim
-- **No em dashes** in deliverables (per teardown brief)
-- **Dense over verbose** — framework-mapped responses; no filler
-- **"Acknowledge what's locked vs open before reasoning"** (from `handoff.md` working notes)
-- **"I'm not sure" beats confident bluffing** (from `handoff.md` working notes)
-
----
-
-*Testing/verification analysis: 2026-06-01*
+*Testing analysis: 2026-06-24*
