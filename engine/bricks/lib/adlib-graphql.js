@@ -84,10 +84,18 @@ function mapAdsFromGraphql(bodies) {
       for (const ad of nodes) {
         const rec = mapOne(ad);
         const prev = byId.get(rec.library_id);
-        // Prefer a record that carries a destination_url, then one that carries an end_date.
-        if (!prev || (!prev.destination_url && rec.destination_url) || (!prev.end_date && rec.end_date)) {
-          byId.set(rec.library_id, { ...(prev || {}), ...rec });
+        if (!prev) { byId.set(rec.library_id, rec); continue; }
+        // Coalesce across bodies for the SAME ad: keep every field prev already resolved and
+        // only fill its nulls from rec. A blanket { ...prev, ...rec } spread regressed an
+        // already-resolved destination_url (the clusterAdsByUrl key) back to null when a later
+        // body for the same library_id carried only an end_date — silently re-introducing the
+        // #adlib-selectors collapse this module exists to fix (WR-01). Coalesce is symmetric:
+        // it preserves the body carrying a destination_url AND the body carrying an end_date.
+        const merged = { ...prev };
+        for (const k of Object.keys(rec)) {
+          if (merged[k] === null || merged[k] === undefined) merged[k] = rec[k];
         }
+        byId.set(rec.library_id, merged);
       }
     }
   }
