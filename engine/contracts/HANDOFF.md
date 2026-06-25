@@ -24,4 +24,33 @@
 - Validators still carry inline enums (that's H0).
 
 ## After hardening
-Engine green → operator brings marketing docs → see `engine/contracts/REBUILD-ROADMAP.md`.
+Engine green → operator brings marketing docs → reconcile PROVISIONAL labels → **R3 quarantine (below)** → `/gsd-new-project`. Full sequence in `engine/contracts/REBUILD-ROADMAP.md`.
+
+### §R3 — Quarantine command (run ONLY after Phase 21 is done)
+Tucks the old marketing/run/planning surface into a gitignored `_legacy/` — preserved on disk + git history + tag `m1-arduview-retro`, but invisible to git/tooling/GSD. **Not** a delete. Do NOT run before hardening (it needs `runs/arduview/`, `runs/_fixture/`, `.planning/phases/21/`).
+
+```bash
+cd /home/kyu3/PMF
+mkdir -p _legacy/runs _legacy/.claude/skills
+
+# root marketing / cruft / planning  (keep: engine/, capability_inventory.md, CLAUDE.md, .gitignore, .venv)
+for p in prompts marketing-lens definitions.md workflow.md map _quarantine \
+         ads corpus assets README.md run-retrospective.md \
+         handoff-m1-build.md handoff-step3-voc-build.md agents \
+         brands.json space-map.json .planning tasks; do
+  [ -e "$p" ] && mv "$p" _legacy/
+done
+
+# old runs  (keep runs/_fixture live — engine smoke fixtures)
+for r in arduview eink-tablets; do [ -e "runs/$r" ] && mv "runs/$r" _legacy/runs/; done
+
+# marketing skills  (keep .claude/skills/reddit-extract live)
+for s in market-selection funnel-architect funnel-deep-pass copywriter asset-classify pipeline-audit; do
+  [ -e ".claude/skills/$s" ] && mv ".claude/skills/$s" _legacy/.claude/skills/; done
+
+# ignore + untrack — files stay on disk in _legacy/, recoverable from history + m1-arduview-retro
+grep -qxF '_legacy/' .gitignore || printf '\n_legacy/\n' >> .gitignore
+git add -A
+git commit -m "chore: quarantine legacy marketing/run/planning to _legacy/ (gitignored)"
+```
+> Note: `handoff-step3-voc-build.md` goes to `_legacy/` too — **pull it back out at R6** (it's the VOC build spec). After this, `CLAUDE.md`'s refs to `workflow.md`/`definitions.md` dangle — refresh at R4 (`/gsd-new-project`).
