@@ -15,7 +15,9 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const CRED = JSON.parse(fs.readFileSync(path.join(__dirname, '.shopify-creds.json'), 'utf8'));
+const { loadCreds, positionals } = require('../lib-creds');
+// #cred-seam: --creds=<path> → env SHOPIFY_CREDS → __dirname default.
+const CRED = loadCreds(__dirname, '.shopify-creds.json', 'SHOPIFY_CREDS');
 const GQL = `https://${CRED.store}/admin/api/${CRED.api_version}/graphql.json`;
 
 function gql(query, variables) {
@@ -37,9 +39,10 @@ function mime(f) {
 const isVideo = f => /^(video\/)/.test(mime(f));
 
 (async () => {
-  const dir = process.argv[2];
-  const outPath = process.argv[3] || path.join(dir, 'url-map.json');
-  if (!dir) { console.error('usage: shopify-upload-assets.js <dir> [out.json]'); process.exit(1); }
+  const pos = positionals();
+  const dir = pos[0];
+  const outPath = pos[1] || (dir ? path.join(dir, 'url-map.json') : null);
+  if (!dir) { console.error('usage: shopify-upload-assets.js <dir> [out.json] [--creds=<path>]'); process.exit(1); }
 
   // collect files (top dir + img/ + video/ subdirs)
   const files = [];

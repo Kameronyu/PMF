@@ -9,12 +9,15 @@
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
-const KEY = JSON.parse(fs.readFileSync(path.join(__dirname, '.klaviyo-inkleaf-creds.json'), 'utf8')).private_key;
+const { loadCreds, positionals } = require('../lib-creds');
+// #cred-seam: --creds=<path> → env KLAVIYO_CREDS → __dirname default.
+const KEY = loadCreds(__dirname, '.klaviyo-inkleaf-creds.json', 'KLAVIYO_CREDS').private_key;
 const REV = process.env.KL_REV || '2024-10-15';
 
-const method = process.argv[2] || 'GET';
-const p = process.argv[3];
-let body = process.argv[4];
+const pos = positionals();
+const method = pos[0] || 'GET';
+const p = pos[1];
+let body = pos[2];
 if (body && body.startsWith('@')) body = fs.readFileSync(body.slice(1), 'utf8');
 
 const opts = {

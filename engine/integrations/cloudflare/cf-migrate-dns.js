@@ -6,7 +6,9 @@
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
-const TOKEN = JSON.parse(fs.readFileSync(path.join(__dirname, '.cloudflare-creds.json'), 'utf8')).api_token;
+const { loadCreds } = require('../lib-creds');
+// #cred-seam: --creds=<path> → env CF_CREDS → __dirname default.
+const TOKEN = loadCreds(__dirname, '.cloudflare-creds.json', 'CF_CREDS').api_token;
 const ZONE = 'ca2dc248af59ce0741ec842c09f1c85b';
 
 function api(method, p, body) {

@@ -9,11 +9,14 @@
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
-const TOKEN = process.env.CF_TOKEN || JSON.parse(fs.readFileSync(path.join(__dirname, '.cloudflare-creds.json'), 'utf8')).api_token;
+const { loadCreds, positionals } = require('../lib-creds');
+// #cred-seam: --creds=<path> → env CF_CREDS → __dirname default. CF_TOKEN still overrides.
+const TOKEN = process.env.CF_TOKEN || loadCreds(__dirname, '.cloudflare-creds.json', 'CF_CREDS').api_token;
 
-const method = process.argv[2] || 'GET';
-const p = process.argv[3];
-const body = process.argv[4];
+const pos = positionals();
+const method = pos[0] || 'GET';
+const p = pos[1];
+const body = pos[2];
 
 const opts = {
   method,

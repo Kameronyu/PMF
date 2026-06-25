@@ -22,7 +22,9 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const CRED = JSON.parse(fs.readFileSync(path.join(__dirname, '.shopify-creds.json'), 'utf8'));
+const { loadCreds, positionals } = require('../lib-creds');
+// #cred-seam: --creds=<path> → env SHOPIFY_CREDS → __dirname default.
+const CRED = loadCreds(__dirname, '.shopify-creds.json', 'SHOPIFY_CREDS');
 const API = `https://${CRED.store}/admin/api/${CRED.api_version}`;
 
 // ---- default config (Arduview) ----
@@ -50,7 +52,8 @@ function rest(method, p, body) {
 }
 
 (async () => {
-  const cfg = process.argv[2] ? { ...DEFAULT, ...JSON.parse(fs.readFileSync(process.argv[2], 'utf8')) } : DEFAULT;
+  const cfgArg = positionals()[0];
+  const cfg = cfgArg ? { ...DEFAULT, ...JSON.parse(fs.readFileSync(cfgArg, 'utf8')) } : DEFAULT;
   const themeId = cfg.themeId || rest('GET', `/themes.json`).themes.find(t => t.role === 'main').id;
   console.log('theme:', themeId, '| ns:', cfg.ns);
 
