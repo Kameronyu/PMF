@@ -343,7 +343,13 @@ function checkScoreableInput(pkg) {
 const results = [];
 let funnelFiles = [];
 
-const stat = fs.statSync(inputPath);
+let stat;
+try {
+  stat = fs.statSync(inputPath);
+} catch (e) {
+  console.error(`[funnel-score] ERROR: cannot stat input "${inputPath}" — ${e.code || e.message}`);
+  process.exit(1);
+}
 
 if (stat.isDirectory()) {
   const outDir = opts.out || path.join(inputPath, '..', 'funnels-scored');
