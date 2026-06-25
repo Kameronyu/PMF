@@ -32,8 +32,11 @@ function loadPlaywright() {
 }
 
 // --- args ---
-const rawUrl = process.argv[2];
-const outDir = process.argv[3] || process.cwd();
+const ARGV  = process.argv.slice(2);
+const FLAGS = ARGV.filter(a => a.startsWith('--'));
+const POS   = ARGV.filter(a => !a.startsWith('--'));
+const rawUrl = POS[0];
+const outDir = POS[1] || process.cwd();
 // Accept any reddit link form that points at a SPECIFIC post — a thread permalink, a redd.it short
 // link, or a /s/ share link. Reject subreddit/user/search/home pages up front so we never silently
 // grab a feed's top post. Host/query variants (old./m./np., ?utm_) are fine; the browser resolves them.
@@ -50,7 +53,26 @@ if (!rawUrl || !isReddit || !(isThread || isShare || isShort)) {
 }
 
 const { chromium } = loadPlaywright();
-const browser = await chromium.launch({ headless: true });
+// Reddit's edge WAF blocks the HEADLESS Chromium fingerprint from some IPs (notably datacenter/
+// cloud egress, e.g. AWS) with a "blocked by network security" page — but a HEADED real-browser
+// session from the SAME IP passes (verified 2026-06-25). Default to headed when a display is
+// available; override via --headless / --headed / REDDIT_EXTRACT_HEADLESS=1; auto-fall-back to
+// headless if a headed browser can't launch (no display / missing libs on a server).
+const hasDisplay = !!(process.env.DISPLAY || process.env.WAYLAND_DISPLAY);
+let headless = (FLAGS.includes('--headless') || process.env.REDDIT_EXTRACT_HEADLESS === '1')
+  ? true
+  : FLAGS.includes('--headed') ? false : !hasDisplay;
+let browser;
+try {
+  browser = await chromium.launch({ headless, args: ['--no-sandbox'] });
+} catch (e) {
+  if (!headless) {
+    console.error(`[dump] headed launch failed (${e.message}); falling back to headless`);
+    browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
+    headless = true;
+  } else throw e;
+}
+console.error(`[dump] browser: headless=${headless}${hasDisplay ? '' : ' (no display detected)'}`);
 const ctx = await browser.newContext({
   userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
 });
@@ -93,19 +115,32 @@ const fileBase = `r-${subMatch ? subMatch[1] : 'x'}-${postId}-${slugMatch ? slug
 
 // same-origin JSON GET from inside the real browser page. Paths are relative, so they resolve
 // against whatever host we landed on (www/old/m all serve .json) — no re-navigation needed.
-// Retries once on a transient "Failed to fetch" (hydration can abort an in-flight request).
+// Retries on a transient "Failed to fetch" (hydration aborts an in-flight request) AND on a
+// 403/429/5xx STATUS — reddit's edge WAF serves a 403 challenge that clears after a moment, and
+// throttles under load; backing off and retrying from the same warmed page lets it pass. (A 403
+// that never clears across all attempts ⇒ the IP itself is hard-blocked — use a residential IP /
+// the official OAuth API.)
 async function jget(path) {
-  for (let attempt = 0; attempt < 3; attempt++) {
+  let last = { status: 0, text: '' };
+  for (let attempt = 0; attempt < 4; attempt++) {
     try {
-      return await page.evaluate(async (p) => {
-        const r = await fetch(p, { headers: { Accept: 'application/json' } });
+      const res = await page.evaluate(async (p) => {
+        const r = await fetch(p, { headers: { Accept: 'application/json' }, credentials: 'include' });
         return { status: r.status, text: await r.text() };
       }, path);
+      last = res;
+      if (res.status === 200) return res;
+      if (res.status === 403 || res.status === 429 || res.status >= 500) {
+        await page.waitForTimeout(2000 * (attempt + 1)); // 2s,4s,6s — let the WAF challenge clear
+        continue;
+      }
+      return res; // other statuses: surface as-is
     } catch (e) {
-      if (attempt === 2) throw e;
-      await page.waitForTimeout(1000);
+      if (attempt === 3) throw e;
+      await page.waitForTimeout(1500);
     }
   }
+  return last;
 }
 
 // 1. main listing
