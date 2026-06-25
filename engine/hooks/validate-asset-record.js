@@ -50,16 +50,15 @@ if (process.argv.includes('--help')) {
 }
 
 // --- Closed enum definitions (verbatim from spec prompts/_specs/image-classifier-brick.md) ---
-const SHOT_TYPE_ENUM = new Set([
-  'hero', 'detail_macro', 'in_hand_scale', 'lifestyle_context',
-  'screen_on_ui', 'turntable_frame', 'packaging_unboxing', 'group_collection', 'diagram_annotated',
-]);
-const DISQUALIFIER_ENUM = new Set([
-  'text_overlay', 'watermark', 'low_res', 'wrong_product', 'competitor_ad', 'sensitive',
-]);
-const STRENGTH_ENUM     = new Set(['strong', 'partial', 'incidental']);
-const BEST_USE_ENUM     = new Set(['hero_loop', 'feature_demo', 'full_explainer']);
-const DISPLAY_STATE_ENUM = new Set(['off', 'on_glow', 'on_legible']);
+// Closed enums imported from the single source of truth (H0 contract extraction).
+// require() resolves relative to this module (cwd-independent). STRENGTH_ENUM is
+// namespaced ASSET_STRENGTH in enums.json to avoid a cross-contract collision.
+const ENUMS = require('../contracts/enums.json').enums;
+const SHOT_TYPE_ENUM = new Set(ENUMS.SHOT_TYPE.values);
+const DISQUALIFIER_ENUM = new Set(ENUMS.DISQUALIFIER.values);
+const STRENGTH_ENUM     = new Set(ENUMS.ASSET_STRENGTH.values);
+const BEST_USE_ENUM     = new Set(ENUMS.BEST_USE.values);
+const DISPLAY_STATE_ENUM = new Set(ENUMS.DISPLAY_STATE.values);
 
 // --- Parse args ---
 const args = process.argv.slice(2);

@@ -20,8 +20,11 @@ if (!filePath) {
   process.exit(2);
 }
 
-const CHANNEL_ENUM = new Set(['dtc', 'marketplace', 'crowdfunding']);
-const LANE_ENUM = new Set(['major', 'crowdfunding', 'marketplace']);
+// Closed enums imported from the single source of truth (H0 contract extraction).
+// require() resolves relative to this module, so cwd does not matter.
+const ENUMS = require('../contracts/enums.json').enums;
+const CHANNEL_ENUM = new Set(ENUMS.CHANNEL.values);
+const LANE_ENUM = new Set(ENUMS.LANE.values);
 
 let raw;
 try {

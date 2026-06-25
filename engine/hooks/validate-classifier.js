@@ -29,8 +29,10 @@ if (!filePath) {
   process.exit(2);
 }
 
-const CLAIM_TYPE_ENUM = new Set(['direct', 'enlarged', 'mechanism', 'enhanced']);
-const DEMAND_TREND_SHAPE_ENUM = new Set(['steady', 'rising', 'parabolic-spike', 'declining', 'unknown']);
+// Closed enums imported from the single source of truth (H0 contract extraction).
+const ENUMS = require('../contracts/enums.json').enums;
+const CLAIM_TYPE_ENUM = new Set(ENUMS.CLAIM_TYPE.values);
+const DEMAND_TREND_SHAPE_ENUM = new Set(ENUMS.DEMAND_TREND_SHAPE.values);
 
 let raw;
 try {

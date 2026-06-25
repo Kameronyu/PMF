@@ -1,16 +1,57 @@
 {
-  "_record": "runs/<space>/asset-classify/records/<asset_id>.json — asset classification record",
+  "_record": "runs/<space>/asset-classify/records/<asset_id>.json — asset classification record (image OR video)",
   "_produced_by": "asset relevance-bucket + role-classify + comprehend-video agents (PROVISIONAL)",
   "_enforced_by": ["validate-asset-record.js"],
   "_enum_refs": ["SHOT_TYPE", "DISQUALIFIER", "ASSET_STRENGTH", "BEST_USE", "DISPLAY_STATE"],
-  "_status": "PARTIAL — enum refs extracted from validate-asset-record.js; full field shape NOT yet extracted this pass.",
-  "_extract_in_h0": "Read tools/hooks/validate-asset-record.js + prompts/_specs/image-classifier-brick.md to complete the field shape (demonstrates[], evidence, motion_value, technical fields). Asset record validator also enforces: demonstrates[] claims must be in the run's CLAIM-LIST.json; no floating claims.",
-  "shape": {
-    "_TODO": "complete in H0",
-    "shot_type": "enum:SHOT_TYPE",
+  "_status": "COMPLETE — field shape extracted from validate-asset-record.js + live records (H0, 2026-06-25).",
+  "_discriminator": "A record is a VIDEO record iff it carries segments OR best_use OR eligible_slots; otherwise it is an IMAGE record. The two variants enforce different grounding rules (see _semantic_rules).",
+  "_semantic_rules_validator_enforced": [
+    "demonstrates[].claim MUST be an id present in the run's CLAIM-LIST.json (no floating/off-vocab claims).",
+    "Grounding gate — IMAGE: every demonstrates[] entry must carry non-empty 'evidence' (cited pixel evidence). VIDEO: every entry must carry non-empty 'motion_value' OR 'evidence', AND an 'at' timestamp.",
+    "A classified record (has shot_type or best_use) MUST carry a demonstrates[] array; relevance-bucket records need not.",
+    "VIDEO records MUST carry best_use (enum), loop_safe (boolean), needs_audio (boolean)."
+  ],
+  "image_record_shape": {
+    "id": "string — asset id (e.g. arduview-0001)",
+    "relevance": "string — relevance-bucket verdict (e.g. relevant | maybe | reject)",
+    "shot_type": "enum:SHOT_TYPE — images only; videos have no shot_type",
+    "in_frame": "string — what is physically in the frame",
+    "display_state": "enum:DISPLAY_STATE (optional — off | on_glow | on_legible)",
+    "demonstrates": [
+      {
+        "claim": "string — MUST be an id in CLAIM-LIST.json",
+        "strength": "enum:ASSET_STRENGTH",
+        "evidence": "string — REQUIRED non-empty; cited pixel evidence grounding the claim"
+      }
+    ],
+    "composition": "string — framing/composition note",
+    "tone": "string — visual tone",
     "disqualifiers": ["enum:DISQUALIFIER"],
-    "strength": "enum:ASSET_STRENGTH",
-    "best_use": "enum:BEST_USE",
-    "display_state": "enum:DISPLAY_STATE"
+    "caption_hint": "string — suggested caption",
+    "selection_note": "string — why this asset was kept/cut",
+    "technical": "object — probe-derived technical metadata (EXIF/phash/resolution)",
+    "eligible_sections": ["string — LP sections this image can slot into"]
+  },
+  "video_record_shape": {
+    "id": "string — asset id (e.g. arduview-vid-01)",
+    "segments": "array — EDL-style segment list (presence marks this a video record)",
+    "demonstrates": [
+      {
+        "claim": "string — MUST be an id in CLAIM-LIST.json",
+        "at": "string — REQUIRED timestamp/range where the claim is proven (e.g. '0:01-0:05')",
+        "strength": "enum:ASSET_STRENGTH",
+        "motion_value": "string — REQUIRED (or evidence); what the MOTION proves that a still cannot"
+      }
+    ],
+    "best_use": "enum:BEST_USE — REQUIRED for video records",
+    "loop_safe": "boolean — REQUIRED",
+    "needs_audio": "boolean — REQUIRED",
+    "poster_frame": "string — poster/hero frame reference",
+    "tone": "string — visual tone",
+    "disqualifiers": ["enum:DISQUALIFIER"],
+    "selection_note": "string — why this asset was kept/cut",
+    "probe": "object — probe_video.py metadata (duration/res/fps/codec/audio)",
+    "eligible_slots": ["string — LP slots this video can fill"],
+    "aesthetics": "object — aesthetic scoring/notes"
   }
 }

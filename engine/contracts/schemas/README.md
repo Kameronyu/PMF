@@ -15,6 +15,6 @@ named validator, not expressible in the shape.
 | asset-classify record | `asset-record.schema.json` | asset agents | validate-asset-record.js | SHOT_TYPE, DISQUALIFIER, ASSET_STRENGTH, BEST_USE, DISPLAY_STATE |
 
 **Status notes:**
-- `asset-record.schema.json` is PARTIAL (enum refs only) — full shape extraction deferred to H0.
+- `asset-record.schema.json` is COMPLETE (H0, 2026-06-25) — image + video field shapes extracted from `validate-asset-record.js` + live records.
 - All `s1-*/s2-*` agent labels are PROVISIONAL — reconciled against the operator's rebuilt I/O contracts.
 - `validate-dumper.js`/`validate-classifier.js` semantic rules (verbatim, traceability, per-cell saturation) are in the validator source, intentionally not duplicated here.

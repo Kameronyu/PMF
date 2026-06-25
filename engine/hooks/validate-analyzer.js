@@ -66,60 +66,20 @@ try {
   process.exit(2);
 }
 
-// --- Closed enum definitions (from funnel-deep-pass.md) ---
-const CLAIM_TYPE_ENUM = new Set(['direct', 'enlarged', 'mechanism', 'enhanced']);
-
-const EXECUTION_TYPE_ENUM = new Set([
-  'mechanism-explanation',
-  'feature-as-evidence',
-  'demo',
-  'authority',
-  'social-proof',
-  'founder-credibility',
-  'risk-reversal',
-  'scarcity',
-  'urgency',
-  'exclusivity',
-  'story-epiphany',
-  'comparison',
-  'consequence-of-inaction',
-]);
-
-const PROOF_TIER_ENUM = new Set(['Tier1', 'Tier2', 'Tier3']);
-
-const MOVE_ENUM = new Set([
-  'market-avatar-flip',
-  'market-transformation-change',
-  'um-mechanism-reveal',
-  'um-problem-framing',
-  'um-proprietary-naming',
-  'angle-desire',
-  'angle-pain',
-  'angle-external-blame',
-  'angle-care-signaling',
-  'angle-identity-belonging',
-  'angle-curiosity-secret',
-  'offer-bundle',
-  'offer-guarantee',
-  'offer-urgency-scarcity',
-  'offer-price-anchor',
-]);
-
+// --- Closed enum definitions — imported from the single source of truth ---
+// H0 contract extraction: value sets live in engine/contracts/enums.json; this file
+// only consumes them. require() resolves relative to this module (cwd-independent).
+// Value MEANINGS stay in the marketing prompts (funnel-deep-pass.md); only the
+// VALUE SETS are frozen here.
+const ENUMS = require('../contracts/enums.json').enums;
+const CLAIM_TYPE_ENUM = new Set(ENUMS.CLAIM_TYPE.values);
+const EXECUTION_TYPE_ENUM = new Set(ENUMS.EXECUTION_TYPE.values);
+const PROOF_TIER_ENUM = new Set(ENUMS.PROOF_TIER.values);
+const MOVE_ENUM = new Set(ENUMS.MOVE.values);
 // 9-anchor belief_id set (open-with-anchors — overflow allowed but must have belief_confidence=low)
-const BELIEF_ANCHOR_SET = new Set([
-  'problem-exists',
-  'problem-matters',
-  'past-solutions-failed',
-  'mechanism-is-the-reason',
-  'product-delivers-transformation',
-  'trust-the-brand-or-founder',
-  'it-will-ship',
-  'its-worth-the-price',
-  'act-now',
-]);
-
+const BELIEF_ANCHOR_SET = new Set(ENUMS.BELIEF_ID_ANCHORS.values);
 // belief_kind closed vocab (D1 per Phase 15) — crowdfunding-specific vs general-DR
-const BELIEF_KIND_ENUM = new Set(['crowdfunding-specific', 'general-dr']);
+const BELIEF_KIND_ENUM = new Set(ENUMS.BELIEF_KIND.values);
 
 // Birdseye-only fields that must NOT appear on belief records (§8 single-funnel discipline)
 const BIRDSEYE_ONLY_FIELDS = ['consensus', 'divergence', 'unusual', 'pool', 'pool_reasoning', 'pool-reasoning'];
@@ -401,7 +361,7 @@ if (data.funnel_fields) {
   }
 
   // awareness_entry must be a known awareness-ladder value if set
-  const AWARENESS_ENUM = new Set(['unaware', 'problem-aware', 'solution-aware', 'product-aware', 'offer-aware']);
+  const AWARENESS_ENUM = new Set(ENUMS.AWARENESS_ENTRY.values);
   if (ff.awareness_entry !== undefined && ff.awareness_entry !== null) {
     if (!AWARENESS_ENUM.has(ff.awareness_entry)) {
       violations.push(
