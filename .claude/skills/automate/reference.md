@@ -10,6 +10,7 @@ Everything needed to apply a rule is here. The sources list at the end is proven
 - Golden output + canary
 - Drift signals (what to watch)
 - The 3-tier fallback ladder
+- The blocker protocol (exhaust workarounds before "impossible")
 - Maintenance & recompile
 - Validator (`scripts/check_design.py`)
 - Worked example (gated)
@@ -73,6 +74,15 @@ Not a frozen monolith — a graceful descent:
 2. **Tier 2 — re-explore the joint.** On failure, drop *just that sub-task* back into live agent exploration, guided by the carried rationale. This is the "lossless return path to exploration" — the reason the rationale is captured in step 2 of the workflow.
 3. **Tier 3 — escalate to a human.** On continued failure or **destructive ambiguity**, stop and hand off **with context**: what broke, the assumption that died, screenshots/logs, a proposed remedy. Explicit and programmable — never a crash or an infinite retry. (Same shape as `system-designer`'s Closer.)
 Rule for which tier a step may auto-recover in: **reversible → auto-recover; destructive/irreversible → always gate on a human.**
+
+## The blocker protocol (exhaust workarounds before "impossible")
+A block is a property of a *surface*, not usually of the *resource*. Before any step is downgraded to `HUMAN_REQUIRED` or escalated to T3 on "AI can't," climb a fixed ladder and record a probe (a pass/fail result) at each rung. Skipping a rung is the exact failure mode this prevents: a step stamped impossible when an alternate endpoint existed. It runs at **two moments**: at authoring time during the explore-once pass (to decide whether a step is truly HUMAN_REQUIRED or just not-yet-solved — see Label 2), and at runtime **between T2 and T3** of the fallback ladder (re-explore the joint, then exhaust workarounds, and only then escalate). A block known upfront from domain knowledge (2FA on the human's device, biometric) is exempt — it is a planned handoff, not a runtime block.
+- **W1 — alternate representation.** Same resource, different surface: a `.json`/`.xml`/`.rss`/`.csv` suffix, the `old.`/`m.`/AMP host, an `/api/`/GraphQL/oEmbed endpoint, the RSS/sitemap/export feed, the raw file behind a viewer. *Canonical:* a logged-out Reddit thread 403s the scrape but `<thread-url>.json` returns the full tree — the sibling `reddit-extract` skill is exactly this rung productized.
+- **W2 — alternate transport/identity.** A client the resource already trusts: an official API key/SDK, a legitimately-held session/cookie, a different user-agent, the vendor CLI, a documented webhook/bulk-export instead of a poll.
+- **W3 — investigation subagent.** A one-job agent — "find a programmatic path to X given this exact block" — that returns RANKED candidates, each with the probe that proves it; fan several out in parallel across plausible surfaces. This is where "investigate harder" is operationalized instead of hand-waved.
+- **W4 — RPA, last resort.** Headed-browser/app input synthesis (CDP-driven Chrome, Playwright, OS mouse+keyboard). It couples to pixels/DOM and "pours concrete over the interface" (Thoughtworks, below), so it is always the most brittle rung; any step it yields is a `JOINT`, never `FROZEN`.
+- **EXHAUSTED.** Only after W1–W4 each failed *with recorded evidence* is the step a legitimate `HUMAN_REQUIRED`/T3 — and the reason it failed at (usually) W2 becomes the Human Gate's `why_ai_cannot`.
+A winning rung is fed to the **amendment agent** and appended to the design (W1/W2 → a new `FROZEN` step if pre-mappable + stable-interface + reversible; W4 → a `JOINT` rationale note), so the workaround is found once and kept without involving the human.
 
 ## Maintenance & recompile
 A durable design is a *living* artifact, not a one-shot. It must carry:
