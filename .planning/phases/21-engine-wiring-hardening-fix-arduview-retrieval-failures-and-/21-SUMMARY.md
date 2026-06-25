@@ -19,20 +19,33 @@ firing-mechanics wiring only). Recovery tag: `m1-arduview-retro`.
 | **H4** | `cloudflare-dns`, `klaviyo`, `shopify-deploy` | `#cred-seam` fixed (`lib-creds.js`: `--creds` → env → `__dirname`); resolution unit-tested; all 5 integrations fail clearly on missing creds | `5facb30` |
 | **H5** | E2E spine | `engine/contracts/h5-e2e.sh`: clean→score→store→vectorize→rag-query + analyzer gate, **ALL HOPS COHERENT** on `runs/_fixture/` | `cc73b76` |
 
-REGISTRY health flipped **untested→working** for: `funnel-store`, `embeddings`, `embeddings-rag`,
-`funnel-score`, `funnel-clean`, `firing-hooks`, `meta-ad-fetch`, `shopify-deploy`, `cloudflare-dns`,
-`klaviyo` (10). Authoritative per-capability health + `p21` notes live in `REGISTRY.json`.
+| **H3-Trends** | `web-site-fetch` | `#trends-0pct-fill` FIXED — consent-warm + `/widgetdata/multiline` XHR intercept (`lib/trends-parse.js`); offline fixture 262 pts, fill-rate>0; live-captured from this AWS IP | `f2c6555` |
+| follow-up | `reddit-extract` | hardened to headed-default + retry-on-403 (`6dc6a30`); headless fingerprint was the block (headed got 200) — clean dump pending residential IP / OAuth | `6dc6a30` |
+
+REGISTRY health flipped **untested→working** for **11** capabilities: `funnel-store`, `embeddings`,
+`embeddings-rag`, `funnel-score`, `funnel-clean`, `firing-hooks`, `meta-ad-fetch`, `web-site-fetch`
+(Trends), `shopify-deploy`, `cloudflare-dns`, `klaviyo`. Authoritative per-capability health + `p21`
+notes live in `REGISTRY.json`.
+
+**Late finding (operator pushed to exhaust workarounds — it paid off):** the live-DOM items were NOT
+hard IP-blocked. **Meta** works headless (just needed scroll→graphql). **Trends** works from this AWS
+datacenter IP once you **warm a google.com consent session** (the 429 was the cold-consent gate, not
+the IP) — so it's fully fixed, not operator-gated. **Reddit** is blocked on the **headless fingerprint**
+(headed returns 200), now hardened to headed; a clean end-to-end dump just needs a residential IP
+(this sandbox's AWS IP rate-limits reddit under repeated load) or the official OAuth API.
 
 ## What's DEFERRED / GATED (with rationale)
 
-- **Trends fix (`#trends-0pct-fill`) — OPERATOR-GATED, code unimplemented.** Fix approach fully specified
-  (intercept `/trends/api/widgetdata/multiline`, strip XSSI, parse `timelineData`). Empirically blocked:
-  this WSL egress IP gets **HTTP 429** from Google on BOTH the explore page and the direct API. The
-  calibration fixture must be captured via the operator's real Chrome (CDP bridge) or a non-flagged IP.
-  Runbook: `H3-LIVE-DOM-RUNBOOK.md §H3a`. `web-site-fetch` stays untested.
-- **reddit-extract smoke — IP-GATED.** reddit WAF returns "blocked by network security" to the
-  browser-loaded `.json` from this IP (same class as Trends). Not a code defect — the retriever is the
-  committed, previously-smoke-tested tool. Verify from a non-flagged IP / CDP real-Chrome.
+- **Trends fix (`#trends-0pct-fill`) — FIXED `f2c6555` (NOT gated after all).** Initial read (IP-429
+  block) was wrong: the 429 came from a COLD/no-consent session. Warming a google.com consent session
+  first → Trends serves the `/widgetdata/multiline` XHR from this AWS IP. Implemented (consent-warm +
+  intercept + `lib/trends-parse.js`), verified offline (262 pts, fill-rate>0) + live. `web-site-fetch`
+  flipped working.
+- **reddit-extract — hardened, clean dump pending residential IP.** The block was the HEADLESS
+  fingerprint (headed returned 200 from the same IP), now headed-by-default + retry-on-403 (`6dc6a30`).
+  A clean end-to-end dump didn't complete this session because repeated testing rate-limited this AWS
+  datacenter IP. Runs from a residential IP; production VOC should use reddit's official OAuth API
+  (STATE.md M1-S6). Stays untested (no clean live dump captured).
 - **belief_kind arduview backfill — DEFERRED.** `belief_kind` is a judgment field (only the Section
   Analyzer agent can produce it); re-running it is a marketing-content-producing LLM job. The capability
   it would prove (validator fires + enum enforcement) is already proven by the H1 fixture smoke, and the

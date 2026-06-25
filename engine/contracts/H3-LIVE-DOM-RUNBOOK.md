@@ -11,11 +11,12 @@
   typeahead advertiser-resolution (`pickAdvertiser` via `li[role=option]`) returns no candidates
   headless → a full run resolves NONE. Use a `forcedPageId`, the keyword-search URL, or the
   CDP real-Chrome path for end-to-end live runs.
-- **H3a Google Trends — OPERATOR-GATED (CDP real-Chrome).** Both the explore page AND the direct
-  `/trends/api/explore` JSON endpoint return **HTTP 429** immediately from WSL headless + curl — an
-  IP-level block on the egress range, not a consent/format issue (cookies/headers don't clear it).
-  The genuine path is the operator's established real Chrome via the CDP bridge (the RPA last
-  resort), or a cooldown+retry from a non-flagged IP. Capture runbook below.
+- **H3a Google Trends — SOLVED HEADLESS via consent-warm (FIXED `f2c6555`).** Earlier dead-end was
+  WRONG: a COLD/no-consent session gets HTTP 429 (which looked like an IP block), but warming a
+  google.com consent session first (click **Accept all** → NID/SOCS cookies) makes Trends serve the
+  deferred `/trends/api/widgetdata/multiline` XHR normally — **even from this AWS datacenter IP**
+  (verified: cold→429, warmed→200 + 262-point series). `fetch.js` now warms-then-intercepts (parser
+  in `lib/trends-parse.js`). The capture steps below remain as the manual/fallback reference.
 
 **Why a gate at all (Trends):** WSL-headless is IP-429-blocked; the CDP-bridge-to-real-Chrome tooling
 exists for exactly this (`engine/integrations/cdp/`, recipe `runs/arduview/_tooling/README-ops.md §A`).
