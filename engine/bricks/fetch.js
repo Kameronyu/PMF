@@ -158,13 +158,51 @@ function parsePipelineInputs(briefFilePath) {
 // T-01-13: treated as DATA only — JSON.parse / string ops, never eval/Function/exec.
 // T-01-04: inherits the existing crowdfund-fetch.js posture (sandboxed headless Chromium).
 // ---------------------------------------------------------------------------
+// #trends-0pct-fill fix: the interest-over-time series arrives via the deferred
+// `/trends/api/widgetdata/multiline` XHR, never in the initial HTML. We (1) warm a google.com
+// consent session so Trends serves the XHR instead of a 429 (a cold/no-consent session is gated —
+// verified P21: cold→429, consent-warmed→200 + series, even from a datacenter IP), (2) intercept
+// the multiline response, parse it via lib/trends-parse.js. The legacy HTML regex stays as fallback.
+const { parseTrendSeriesFromXhr } = require('./lib/trends-parse');
+let _trendsConsentWarmed = false;
+
+async function warmTrendsConsent(context) {
+  if (_trendsConsentWarmed) return;
+  let page;
+  try {
+    page = await context.newPage();
+    await page.goto('https://www.google.com/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    for (const lab of ['Accept all', 'I agree', 'Alle akzeptieren', 'Tout accepter', 'Accept the use of cookies']) {
+      const btn = page.locator(`button:has-text("${lab}"), [role="button"]:has-text("${lab}")`).first();
+      if (await btn.count().catch(() => 0)) { await btn.click({ timeout: 3000 }).catch(() => {}); break; }
+    }
+    await page.waitForTimeout(2000);
+    _trendsConsentWarmed = true; // cookies are context-scoped — warm once per run
+  } catch (_) {
+    /* non-fatal — fetchTrend still attempts; HTML fallback covers a cold session */
+  } finally {
+    if (page) await page.close().catch(() => {});
+  }
+}
+
 async function fetchTrend(context, term, windowSpec) {
   const encodedTerm = encodeURIComponent(term);
   const trendsUrl = `https://trends.google.com/trends/explore?date=today%205-y&q=${encodedTerm}&hl=en`;
 
+  await warmTrendsConsent(context);
+
   let page;
   try {
     page = await context.newPage();
+
+    // Capture the deferred multiline XHR (the series) as it streams in.
+    let xhrBody = null;
+    page.on('response', async (r) => {
+      if (xhrBody) return;
+      if (r.url().includes('/api/widgetdata/multiline')) {
+        try { xhrBody = await r.text(); } catch (_) {}
+      }
+    });
 
     // Navigate with CF-clear loop (same pattern as fetchPage)
     await page.goto(trendsUrl, { waitUntil: 'domcontentloaded', timeout: 60000 });
@@ -174,13 +212,16 @@ async function fetchTrend(context, term, windowSpec) {
       await page.waitForTimeout(1000);
     }
 
-    // Wait for the interest-over-time widget to render (uses a deferred XHR)
-    await page.waitForTimeout(3000);
-    await page.waitForLoadState('networkidle', { timeout: 20000 }).catch(() => {});
-    await page.waitForTimeout(1000);
+    // Wait (bounded) for the deferred multiline XHR to arrive, then parse it.
+    for (let i = 0; i < 20 && !xhrBody; i++) await page.waitForTimeout(1000);
+    if (xhrBody) {
+      const series = parseTrendSeriesFromXhr(xhrBody);
+      if (series) return series;
+    }
 
-    const html = await page.content();
-    return extractTrendSeries(html, term);
+    // Fallback: legacy HTML-regex parse (kept for resilience if the XHR isn't captured).
+    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
+    return extractTrendSeries(await page.content(), term);
 
   } catch (err) {
     console.warn(`[fetch] WARN: trend fetch failed for "${term}": ${err.message.slice(0, 120)}`);
