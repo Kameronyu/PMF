@@ -1,13 +1,26 @@
-# H3 — Live-DOM capture runbook (HUMAN-GATED)
+# H3 — Live-DOM capture runbook
 
-**Status:** PREP COMPLETE · awaiting operator live capture. **Created:** 2026-06-25 (Phase 21).
+**Created:** 2026-06-25 (Phase 21). **Updated:** 2026-06-25 with empirical live-attempt results.
 
-**Why human-gated:** both fixes target sites with heavy bot-detection (Google Trends, Meta Ad
-Library). WSL-headless Playwright is blocked, which is the whole reason the CDP-bridge-to-real-Chrome
-tooling exists (`engine/integrations/cdp/`, recipe in `runs/arduview/_tooling/README-ops.md §A`). The
-parser fixes can only be calibrated against a real captured response — so the operator runs the
-capture once (their authenticated/real Chrome), commits the fixture, then a follow-up session
-calibrates the parsers OFFLINE against that fixture and flips REGISTRY health green.
+## EMPIRICAL OUTCOME (attempted headless before defaulting to a human gate)
+- **H3b Meta Ad Library — SOLVED HEADLESS, no gate.** Reachable from WSL headless. Captured a real
+  `/api/graphql/` response (9 ad-bearing bodies, `ad_archive_id`+`snapshot.link_url`); committed
+  `runs/_fixture/adlib/flipper-zero-xhr.json`; implemented + verified the fix (`lib/adlib-graphql.js`
+  + `adlib-one.js`, commit `f44fe39`). The runbook's manual-capture steps below are the FALLBACK if
+  the headless capture ever regresses. **Remaining Meta gap (separate from #adlib-selectors):** the
+  typeahead advertiser-resolution (`pickAdvertiser` via `li[role=option]`) returns no candidates
+  headless → a full run resolves NONE. Use a `forcedPageId`, the keyword-search URL, or the
+  CDP real-Chrome path for end-to-end live runs.
+- **H3a Google Trends — OPERATOR-GATED (CDP real-Chrome).** Both the explore page AND the direct
+  `/trends/api/explore` JSON endpoint return **HTTP 429** immediately from WSL headless + curl — an
+  IP-level block on the egress range, not a consent/format issue (cookies/headers don't clear it).
+  The genuine path is the operator's established real Chrome via the CDP bridge (the RPA last
+  resort), or a cooldown+retry from a non-flagged IP. Capture runbook below.
+
+**Why a gate at all (Trends):** WSL-headless is IP-429-blocked; the CDP-bridge-to-real-Chrome tooling
+exists for exactly this (`engine/integrations/cdp/`, recipe `runs/arduview/_tooling/README-ops.md §A`).
+The operator runs the capture once, commits the fixture, then a follow-up calibrates the parser
+OFFLINE and flips `web-site-fetch` (Trends) health green.
 
 Both fixes are the **same shape**: stop regexing the rendered HTML; intercept the deferred
 XHR/GraphQL response that actually carries the data. (Same fix class as the original `#trends-0pct-fill`
