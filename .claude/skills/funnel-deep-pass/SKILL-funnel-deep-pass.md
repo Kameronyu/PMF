@@ -5,7 +5,7 @@ description: >-
   (a) routes scope via the Router agent (cheap model — one classification judgment),
   (b) deterministically assembles [DR bundle + cleaned funnel body] via
   funnel-analyzer-context.js and EMBEDS those bytes in the Section Analyzer's spawn prompt,
-  (c) lets validate-analyzer.js (PostToolUse) reject off-contract output,
+  (c) runs validate-analyzer.js as an explicit orchestrator step (hooks don't fire in subagents) to reject off-contract output,
   (d) persists belief records via funnel-store.js; once all funnels are done, it
   vectorizes the store via funnel-vectorize.js for /copywrite. Runs AFTER /market-selection
   has picked an NTP cell from the space-map.json AND the funnel packages have been assembled
@@ -57,7 +57,7 @@ Two judgment agents only. Everything else is a deterministic script or hook.
 | funnel-analyzer-context.js (assembly) | DETERMINISTIC | script | assembles [DR bundle]+[funnel body] block; exits 1 on empty/bad input; orchestrator embeds its output |
 | **Router** | **JUDGMENT** | **agent (cheap model)** | one classification call; output validated by orchestrator (routing_flag must be one of 3 enum values) |
 | **Section Analyzer** | **JUDGMENT** | **agent (quality model)** | emits belief records; output gated by validate-analyzer.js |
-| validate-analyzer.js | DETERMINISTIC | PostToolUse hook | verbatim-substring gate + overflow-belief rule + closed-vocab reject + position rule + single-funnel discipline; REJECTS off-contract Write |
+| validate-analyzer.js | DETERMINISTIC | orchestrator-run (+ PostToolUse route as defense-in-depth) | verbatim-substring gate + overflow-belief rule + closed-vocab reject + position rule + single-funnel discipline; REJECTS off-contract output. Hooks don't fire in subagents — orchestrator runs it as a step (step c) |
 | funnel-store.js | DETERMINISTIC | script | writes JSON to runs/<space>/funnels/; exits non-zero on bad schema |
 | funnel-vectorize.js | DETERMINISTIC | script | builds RAG index _index.json; once per run after all funnels |
 
@@ -68,10 +68,11 @@ Two judgment agents only. Everything else is a deterministic script or hook.
    orchestrator EMBEDS those bytes into the Section Analyzer's spawn prompt. This is exactly what
    quick task 260603-wfz built — the analyzer receives the bytes; no trust is required.
 
-2. **`validate-analyzer.js` (PostToolUse) REJECTS analyzer output whose `verbatim_refs[].text`
-   aren't literal substrings of the funnel copy.** An analyzer that ignored the body CANNOT
-   produce valid verbatim_refs — the gate kills it without relying on the prompt or model behavior.
-   Deterministic rejection, not honor system.
+2. **`validate-analyzer.js` (orchestrator-run, step c) REJECTS analyzer output whose
+   `verbatim_refs[].text` aren't literal substrings of the funnel copy.** An analyzer that ignored
+   the body CANNOT produce valid verbatim_refs — the gate kills it without relying on the prompt or
+   model behavior. Deterministic rejection, not honor system. (It is NOT a passive PostToolUse hook:
+   the analyzer is a subagent and hooks don't fire there, so the orchestrator must run it explicitly.)
 
 3. **Only Router + Section Analyzer are judgment agents.** funnel-assemble / funnel-clean /
    funnel-score / funnel-store / funnel-vectorize + both hooks (inject-dr.js, validate-analyzer.js)
@@ -189,8 +190,17 @@ For **each** funnel in the scored set:
 **c. Spawn the Section Analyzer** with the assembled block embedded (spawn template in § AGENT
    PROMPTS below).
    - Use a quality model. The analyzer receives the bytes — it does NOT Read anything.
-   - `validate-analyzer.js` (PostToolUse) gates its Write automatically. If it fires a rejection,
-     re-spawn with a clarifying note (do not disable the hook).
+   - **GATE — run validate-analyzer.js as an explicit orchestrator step (NOT a hook).** Hooks do
+     NOT fire inside subagents, so the PostToolUse route is defense-in-depth only; the real gate is
+     YOUR step here (mirrors validate-asset-record.js in asset-classify). After the analyzer returns
+     its belief records, write them to disk and run:
+     ```bash
+     # exit 0 = pass; exit 2 + stderr = REJECT. Requires the cleaned funnel body on disk
+     # (funnels-clean/<funnel_id>-clean.json) so the verbatim-substring gate can run.
+     node engine/hooks/validate-analyzer.js <funnel_id>-beliefs.json
+     ```
+     On exit 2, re-spawn the analyzer with a clarifying note quoting the REJECT line (do not disable
+     the gate, do not hand-edit the records to pass).
 
 **d. Persist the belief records.**
    ```bash

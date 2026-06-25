@@ -4,10 +4,17 @@
 // Called by the hooks.PostToolUse command; receives the file path as $1 (process.argv[2]).
 //
 // Routing rules:
-//   <path>/brands.json    → validate-finder.js + validate-revenue.js
-//   <path>/dump.json      → validate-dumper.js
-//   <path>/space-map.json → validate-classifier.js
-//   anything else         → pass (exit 0)
+//   <path>/brands.json       → validate-finder.js + validate-revenue.js
+//   <path>/dump.json         → validate-dumper.js
+//   <path>/space-map.json    → validate-classifier.js
+//   <path>/*-beliefs.json    → validate-analyzer.js   (Section Analyzer output)
+//   anything else            → pass (exit 0)
+//
+// NOTE (#analyzer-unwired): this PostToolUse routing is DEFENSE-IN-DEPTH only — it
+// fires on a main-loop Write. The Section Analyzer runs as a SUBAGENT, and hooks do
+// NOT fire in subagents, so the funnel-deep-pass orchestrator must ALSO run
+// validate-analyzer.js as an explicit step (mirrors validate-asset-record.js in
+// asset-classify). The route here catches any analyzer output written from the main loop.
 //
 // Usage: node tools/hooks/route.js <written-file-path>
 // Exit 0 = pass. Exit 2 + stderr = reject (propagated from the called validator).
@@ -49,6 +56,8 @@ if (base === 'brands.json') {
   runValidator('validate-dumper.js', filePath);
 } else if (base === 'space-map.json') {
   runValidator('validate-classifier.js', filePath);
+} else if (base.endsWith('-beliefs.json')) {
+  runValidator('validate-analyzer.js', filePath);
 }
 // Any other file path: pass silently
 process.exit(0);
