@@ -1,8 +1,14 @@
 # Engine Capability Registry — points to everything the wiring does
 
-**Generated:** 2026-06-24 (hand-built this pass; regenerable via the `engine-map` skill).
-**Paths:** shown at their **post-reorg** `engine/` locations. Agent/step labels are **PROVISIONAL** — reconciled against the operator's rebuilt I/O contracts. Health is **untested** this pass (flipped to `working`/`broken` only by the HARDENING milestone).
+**Generated:** 2026-06-24 (hand-built; regenerable via the `engine-map` skill). **Health flipped:** Phase 21 hardening, 2026-06-25.
+**Paths:** shown at their **post-reorg** `engine/` locations. Agent/step labels are **PROVISIONAL** — reconciled against the operator's rebuilt I/O contracts.
 **How to read:** grouped by named capability. Each entry: files · what it does · I/O · run · deps/creds · step (PROVISIONAL) · health · error-notes.
+**Authoritative per-capability health lives in `REGISTRY.json`** (with `p21` notes); the inline `health:` markers below are the pre-Phase-21 snapshot — consult the JSON + the summary block here for current state.
+
+## Phase 21 hardening — health flips (2026-06-25)
+- **working (10):** `funnel-store` (24/24 6a recovered + H5) · `embeddings-rag` + `embeddings` (index rebuilt + H5, Voyage live) · `funnel-score` (#funnel-score-input + H5) · `funnel-clean` (#funnel-clean-md-headings + H5) · `firing-hooks` (H0 validators→enums.json 8/8 + H1 #analyzer-unwired fires) · `meta-ad-fetch` (#adlib-selectors graphql extraction, verified vs real fixture) · `shopify-deploy` · `cloudflare-dns` · `klaviyo` (all three: #cred-seam fixed + dry-run verified; live API needs run creds).
+- **gated / still untested:** `web-site-fetch` (Trends fix OPERATOR-GATED — IP-429) · `reddit-extract` (smoke IP-gated by reddit WAF) · `meta-ad-fetch` carries a SEPARATE open gap (#adlib-typeahead-resolve, headless advertiser-pick). The rest (`crowdfund-fetch`, `funnel-assemble`, asset chain, `chrome-cdp`, `surge-deploy`, etc.) were not exercised this pass.
+- **E2E:** the deterministic spine (clean→score→store→vectorize→rag-query + analyzer gate) passes `engine/contracts/h5-e2e.sh` end-to-end on `runs/_fixture/`.
 
 > The reorg preserves internal structure: `tools/*.js` → `engine/bricks/*.js`, `tools/asset/` → `engine/bricks/asset/`, `tools/lib/` → `engine/bricks/lib/`, `tools/hooks/` → `engine/hooks/`. Generic integrations promoted from `runs/arduview/_tooling/` → `engine/integrations/<service>/`. `reddit-extract` stays in its skill dir (indexed in place).
 

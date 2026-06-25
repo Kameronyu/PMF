@@ -8,47 +8,31 @@ milestone. **Engineering only** — marketing/process retrospectives are pointer
 
 ---
 
-## OPEN (still broken — feeds HARDENING)
+## OPEN (still broken / gated)
 
-### #trends-0pct-fill · Google Trends 0% fill-rate
-`fetch.js` `extractTrendSeries()` uses regex against initial HTML, but Trends loads the series via a
-deferred XHR — never captured. `demand_trend` null for every brand; the anti-fad/parabolic-spike
-durability signal (Phase-2 Gate-1 kill) is dark. **Fix:** intercept the XHR via `page.route()` /
-`page.on('response')`, or hit the Trends API. *(src: audit/03-retro-triage §A1; 01-DEBUG-RUN-NOTES.)*
+### #trends-0pct-fill · Google Trends 0% fill-rate — OPERATOR-GATED (code unimplemented)
+`fetch.js` `extractTrendSeries()` regexes the initial HTML, but Trends loads the series via a deferred
+XHR. Fix approach specified — intercept `/trends/api/widgetdata/multiline` via `page.on('response')`,
+strip the `)]}',` XSSI guard, parse `default.timelineData` (see `H3-LIVE-DOM-RUNBOOK.md §H3a`). NOT
+implemented: P21 confirmed this WSL egress IP is **HTTP 429**-blocked by Google on BOTH the explore
+page AND the direct `/trends/api/explore` endpoint, so the calibration fixture can only be captured via
+the operator's real Chrome (CDP bridge) or a non-flagged IP. Code lands once the fixture exists.
 
-### #adlib-selectors · Meta Ad Library DOM selectors uncalibrated
-`adlib-one.js` `extractAdCards()` uses heuristic selectors (anchor walk, heading scrape) marked
-`TODO(D-17)`, never validated against the live React DOM. `destination_url` may be broadly null →
-collapses the whole funnel-assemble path. **Fix:** live-DOM calibration run, dump DOM, replace with
-verified attribute selectors. *(src: audit/08 §Bug 4.)*
-
-### #analyzer-unwired · validate-analyzer.js never fires
-Built + enum-complete (incl. BELIEF_KIND), but absent from `route.js` and not an explicit orchestrator
-step in the funnel-deep-pass SKILL (hooks don't fire in subagents — the SKILL's PostToolUse claim is
-false). Every belief record is unvalidated; hallucinated `verbatim_refs`, off-enum values pass through.
-**Fix:** wire as an explicit orchestrator step (mirror `validate-asset-record.js` in asset-classify) +
-add to `route.js` for defense-in-depth. *(src: CONCERNS.md; audit/11 §ANTI-PATTERN B.)*
-
-### #funnel-score-input · wrong-input + field-name silent nulls
-`funnel-score.js` accepts any JSON without a required-field check: passing a `funnels-clean/` file (no
-ads/stats) yields null `validation_strength`; `amount_raised_usd` vs `amount_raised` key mismatch →
-silent null. **Fix:** required-field check at the CLI boundary. *(src: agents/funnel-deep-pass-run-notes §4-5.)*
-
-### #index-stale · _index.json predates source_type/routing_flag
-`runs/arduview/funnels/_index.json` was built before `funnel-vectorize.js` added `source_type`/
-`routing_flag`; every record has null → RAG prefilters inoperative. **Fix (no code):**
-`node engine/bricks/funnel-vectorize.js --space=arduview`. *(src: audit/08 §Bug 6.)*
+### #adlib-typeahead-resolve · Meta advertiser typeahead returns no candidates headless
+Separate from the (now-fixed) #adlib-selectors extraction bug: `adlib-one.js` `pickAdvertiser` reads
+`li[role=option]` from the typeahead, which comes back empty in WSL headless, so a full run resolves
+NONE before reaching the ad pass. **Workaround:** pass a `forcedPageId`, use the keyword-search URL, or
+the CDP real-Chrome path. (Discovered P21 during the live adlib confirmation.)
 
 ### #source-routing-ghost · documented, never emitted
 `funnel-architect` SKILL consumes `source_routing` but the Section Analyzer never emits it (only its
 sibling `belief_kind` got resolved in `35581d4`). **Contract-gated:** operator must define the category
 vocab (see `enums.json` → `contract_gated`). Short-term SAFE-NOW: remove the ghost references.
 
-### #cred-seam · integration creds via __dirname
-Promoted `engine/integrations/*` scripts resolve creds by `path.join(__dirname, '.x-creds.json')`; after
-promotion the creds live at `runs/arduview/_tooling/`, so the `__dirname` lookup misses. **Fix (H4):**
-parameterize to `--creds=<path>` (default env), pass the arduview path explicitly. Generic code,
-run-supplied secret.
+### #reddit-extract-ip-gated · VOC retriever smoke blocked from this IP (not a code defect)
+P21 H4 attempted to smoke `dump.mjs`; reddit WAF returns "blocked by network security" to the
+browser-loaded `.json` from this WSL egress IP (same IP-block class as Trends). The retriever is the
+committed, previously-smoke-tested tool — verify from a non-flagged IP / the CDP real-Chrome path.
 
 ---
 
@@ -59,6 +43,11 @@ run-supplied secret.
 - **belief_kind ghost field** → FIXED `35581d4`. `BELIEF_KIND_ENUM` + hard reject in `validate-analyzer.js`.
 - **funnel-clean `.md` headings dropped** → FIXED `3d70cb4` (Phase 20-01). Line-anchored ATX regex `/^#{1,6}[ \t]+/gm` runs after the HTML tag-strip and marks markdown headings; both input paths now emit `[SECTION]`. Verified P21 smoke: md body (2×`##` + 1×`###`) → 3 `[SECTION]`; html body (`<h2>`+`<h3>`) → 2 `[SECTION]`. (ERROR-NOTES had this stale-OPEN; corrected P21.)
 - **funnel-score wrong-input / silent-null** → FIXED `30415ef` (Phase 21 H2a). `checkScoreableInput()` at the CLI boundary requires `funnel_id`, recovers the `amount_raised_usd` alias with a warn, and rejects an all-null `crowdfunding_stats` — no more silent-null scored output.
+- **validate-analyzer never fired (#analyzer-unwired)** → FIXED `91acec7` (P21 H1). `route.js` routes `*-beliefs.json` → `validate-analyzer.js` (defense-in-depth); the funnel-deep-pass SKILL is corrected to run it as an explicit orchestrator step (hooks don't fire in subagents). Fixture smoke: good→exit 0, bad (off-enum belief_kind)→exit 2.
+- **_index.json stale (#index-stale)** → FIXED (P21 free re-run). `funnel-vectorize` rebuild over the recovered funnels; recovered 6a fields propagate (43/43). `routing_flag` stays null pending failure #5 plumbing — not an index bug.
+- **adlib destination_url null from DOM scrape (#adlib-selectors)** → FIXED `f44fe39` (P21 H3-Meta). `lib/adlib-graphql.js` extracts `ad_archive_id`/`snapshot.link_url`/dates from the `/api/graphql/` response, overlaid onto the card maps (preferred over the obfuscated DOM). Verified offline against a real captured fixture (`runs/_fixture/adlib/flipper-zero-xhr.json`, 8/10 destination_url non-null). Separate typeahead gap → #adlib-typeahead-resolve (OPEN).
+- **integration creds via __dirname (#cred-seam)** → FIXED `5facb30` (P21 H4). `engine/integrations/lib-creds.js` resolves `--creds=<path>` → env → `__dirname` default; all 5 cred-reading integrations wired; resolution unit-tested + clear-error dry-run verified.
+- **H0 contract extraction** → DONE `1cee7b2` (P21). 4 validators import `enums.json` (8/8 behavior-preserving), `asset-record.schema.json` completed, `prompts/_generated/enums.md` generator added.
 
 ---
 
