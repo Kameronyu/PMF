@@ -382,6 +382,16 @@ Plans:
 - [x] 20-02-PLAN.md — SKILL/doc consistency: corpus-absent + no-ads-DTC exclude guard (D-04/D-05/D-06), space-map.json path unification (D-07), stale Read-line scrub (D-09), architect ghost-field removal (D-10)
 - [x] 20-03-PLAN.md — rebuild the arduview RAG index so source_type/routing_flag prefilters become operative (D-11)
 
+### Phase 21: Engine wiring hardening: fix Arduview retrieval failures and smoke-test each engine capability green (source engine/contracts/HARDENING.md)
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 20
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 21 to break down)
+
 ---
 
 *Rewritten 2026-06-03: two-track research engine, build-state-aware, InkLeaf retired — kept in GSD
