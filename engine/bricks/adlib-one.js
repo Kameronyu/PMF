@@ -9,6 +9,9 @@
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
+// #adlib-selectors (D-17): extract binding-spine fields from the /api/graphql/ response
+// (destination_url etc.) instead of the obfuscated DOM. See lib/adlib-graphql.js.
+const { mapAdsFromGraphql } = require('./lib/adlib-graphql');
 
 const rawArgs = process.argv.slice(2);
 const flagArgs = rawArgs.filter(a => a.startsWith('--'));
@@ -290,6 +293,18 @@ function mergeAds(a, b) {
   const browser = await chromium.launch({ headless: true });
   const ctx = await browser.newContext({ viewport: { width: 1400, height: 1700 } });
   const page = await ctx.newPage();
+
+  // #adlib-selectors (D-17): collect the Ad Library GraphQL response bodies as they stream in.
+  // These carry destination_url / delivery dates / platforms that the rendered DOM hides. Bodies
+  // are mapped (lib/adlib-graphql.js) and overlaid onto the per-card maps below, preferred over
+  // the (obfuscation-fragile) DOM scrape.
+  const gqlBodies = [];
+  page.on('response', async (resp) => {
+    const u = resp.url();
+    if (u.includes('/api/graphql/') || u.includes('search_ads')) {
+      try { const t = await resp.text(); if (t.includes('ad_archive_id')) gqlBodies.push(t); } catch (_) {}
+    }
+  });
   let status = 'ok';
   let resolved = null;
   let candidates = [];
@@ -392,6 +407,16 @@ function mergeAds(a, b) {
       // Build card data maps (library_id -> card) for both passes.
       cardMapActive = new Map(activeCardData.map(c => [c.library_id, c]));
       cardMapAll = new Map(allCardData.map(c => [c.library_id, c]));
+
+      // #adlib-selectors (D-17): overlay the GraphQL-derived binding-spine fields onto BOTH card
+      // maps, PREFERRED over the DOM scrape. destination_url comes from snapshot.link_url here —
+      // this is what un-collapses funnel-assemble.js:clusterAdsByUrl (null destination → bound_ads:[]).
+      const gqlMap = mapAdsFromGraphql(gqlBodies);
+      for (const [id, gc] of gqlMap) {
+        cardMapActive.set(id, { ...(cardMapActive.get(id) || {}), ...gc });
+        cardMapAll.set(id, { ...(cardMapAll.get(id) || {}), ...gc });
+      }
+      status += ` | graphql_ads=${gqlMap.size}`;
     }
   } catch (e) {
     status = 'error: ' + e.message;
