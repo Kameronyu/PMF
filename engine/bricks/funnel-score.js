@@ -299,6 +299,45 @@ function hasValidationCurrency(pkg) {
 }
 
 // ---------------------------------------------------------------------------
+// checkScoreableInput(pkg) — #funnel-score-input required-field check (CLI boundary)
+//
+// funnel-score previously accepted ANY JSON: a wrong input file (e.g. a
+// funnels-clean/ file) or a mis-keyed crowdfunding_stats would score to silent
+// nulls. This guard makes those LOUD:
+//   - the input must be a funnel_package object carrying a non-empty funnel_id
+//   - a known Currency-B key alias (amount_raised_usd) is RECOVERED to amount_raised
+//     (with a warning) rather than silent-nulled
+//   - a crowdfunding_stats present but all-core-fields-null is rejected (the silent
+//     Currency-B null class) instead of stamping a null-filled B lane
+//
+// Mutates pkg.crowdfunding_stats for the alias recovery only. Returns {ok, reason}.
+// Behavior-preserving for well-formed funnel_packages (they pass unchanged).
+// ---------------------------------------------------------------------------
+function checkScoreableInput(pkg) {
+  if (!pkg || typeof pkg !== 'object' || Array.isArray(pkg)) {
+    return { ok: false, reason: `input is not a funnel_package object (got ${Array.isArray(pkg) ? 'array' : typeof pkg})` };
+  }
+  if (typeof pkg.funnel_id !== 'string' || pkg.funnel_id.trim() === '') {
+    return { ok: false, reason: 'missing required field "funnel_id" — is this a funnel_package? (wrong-input guard, e.g. a funnels-clean/ file)' };
+  }
+  const cs = pkg.crowdfunding_stats;
+  if (cs && typeof cs === 'object' && !Array.isArray(cs)) {
+    // Recover a known key alias instead of silent-nulling it
+    if ((cs.amount_raised === undefined || cs.amount_raised === null) &&
+        (cs.amount_raised_usd !== undefined && cs.amount_raised_usd !== null)) {
+      cs.amount_raised = cs.amount_raised_usd;
+      console.error(`[funnel-score] WARN: ${pkg.funnel_id} crowdfunding_stats used alias key "amount_raised_usd" — normalized to "amount_raised" (producer should emit amount_raised).`);
+    }
+    const coreB = ['amount_raised', 'backer_count', 'funded_vs_failed', 'delivered_vs_not'];
+    const anyB = coreB.some(k => cs[k] !== undefined && cs[k] !== null);
+    if (!anyB) {
+      return { ok: false, reason: 'crowdfunding_stats present but all core fields (amount_raised/backer_count/funded_vs_failed/delivered_vs_not) are null — likely a key mismatch; refusing to emit a silent-null Currency B' };
+    }
+  }
+  return { ok: true };
+}
+
+// ---------------------------------------------------------------------------
 // Discover input funnel packages (single file or directory)
 // ---------------------------------------------------------------------------
 const results = [];
@@ -323,12 +362,24 @@ if (stat.isDirectory()) {
   // Batch stays resilient (one bad funnel never aborts), but exits non-zero at the end
   // so the run cannot silently pass with unscoreable packages.
   let hadNoCurrency = false;
+  let hadBadInput = false;
 
   // Resilient batch — one bad funnel never aborts (fetch.js pattern)
   for (const funnelFile of funnelFiles) {
     try {
       const raw = fs.readFileSync(funnelFile, 'utf8');
       const pkg = JSON.parse(raw);
+
+      // #funnel-score-input: required-field / wrong-input guard at the CLI boundary
+      const shape = checkScoreableInput(pkg);
+      if (!shape.ok) {
+        const funnel_id = (pkg && pkg.funnel_id) || path.basename(funnelFile, '.json');
+        const line = `[BAD-INPUT] ${path.basename(funnelFile)}: ${funnel_id} — ${shape.reason}. Not scored.`;
+        results.push(line);
+        console.error(line);
+        hadBadInput = true;
+        continue;
+      }
 
       // D-02: no-currency guard — do NOT write a scored file for packages with no currency.
       if (!hasValidationCurrency(pkg)) {
@@ -372,9 +423,10 @@ if (stat.isDirectory()) {
 
   console.log(`[funnel-score] done — ${funnelFiles.length} funnel(s) scored`);
 
-  // D-02: fail loud if any package lacked currency — run cannot pass silently
-  if (hadNoCurrency) {
-    console.error('[funnel-score] FAIL: one or more packages had no validation currency — see _funnel-score-log.txt');
+  // D-02 + #funnel-score-input: fail loud if any package lacked currency or was a
+  // bad/wrong input — run cannot pass silently
+  if (hadNoCurrency || hadBadInput) {
+    console.error('[funnel-score] FAIL: one or more packages had no validation currency or were bad input — see _funnel-score-log.txt');
     process.exit(1);
   }
 
@@ -385,6 +437,14 @@ if (stat.isDirectory()) {
   try {
     const raw = fs.readFileSync(inputPath, 'utf8');
     const pkg = JSON.parse(raw);
+
+    // #funnel-score-input: required-field / wrong-input guard at the CLI boundary
+    const shape = checkScoreableInput(pkg);
+    if (!shape.ok) {
+      const funnel_id = (pkg && pkg.funnel_id) || path.basename(inputPath, '.json');
+      console.error(`[funnel-score] FAIL: ${funnel_id} — ${shape.reason}.`);
+      process.exit(1);
+    }
 
     // D-02: no-currency guard — fail loud before scoring or writing any output
     if (!hasValidationCurrency(pkg)) {
