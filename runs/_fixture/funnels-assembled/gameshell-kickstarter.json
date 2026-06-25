@@ -1,0 +1,13 @@
+{
+  "funnel_id": "gameshell-kickstarter",
+  "competitor": "ClockworkPi",
+  "source_type": "crowdfunding",
+  "landing_page_url": "https://www.kickstarter.com/projects/clockworkpi/gameshell",
+  "landing_page_body": "<h2>An Open Source Portable Game Console</h2><p>Every part is a module. Swap it, upgrade it, or print your own.</p><h3>Founder update</h3><p>I've already wired the full MOQ payment to our factory in Shenzhen. The units are being built right now.</p>",
+  "crowdfunding_stats": {
+    "amount_raised": 350000,
+    "backer_count": 2300,
+    "funded_vs_failed": "funded",
+    "delivered_vs_not": "delivered"
+  }
+}
