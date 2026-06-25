@@ -12,8 +12,12 @@ const fs = require('fs');
 const path = require('path');
 
 function credsPath(callerDir, defaultName, envVar) {
-  const flag = process.argv.find(a => a.startsWith('--creds='));
-  if (flag) return flag.slice('--creds='.length);
+  const argv = process.argv;
+  // Accept both --creds=<path> and the space-separated --creds <path> (common CLI muscle memory).
+  const eq = argv.find(a => a.startsWith('--creds='));
+  if (eq) return eq.slice('--creds='.length);
+  const i = argv.indexOf('--creds');
+  if (i !== -1 && argv[i + 1] && !argv[i + 1].startsWith('--')) return argv[i + 1];
   if (envVar && process.env[envVar]) return process.env[envVar];
   return path.join(callerDir, defaultName);
 }
@@ -32,8 +36,18 @@ function loadCreds(callerDir, defaultName, envVar) {
 }
 
 // Strip CLI flags (--x / --x=y) so positional argv reads are unaffected by --creds etc.
+// The space-separated `--creds <path>` form consumes the FOLLOWING token too — drop it so the
+// creds path never leaks in as a positional (e.g. cf.js's body / shopify's config path).
 function positionals() {
-  return process.argv.slice(2).filter(a => !a.startsWith('--'));
+  const args = process.argv.slice(2);
+  const out = [];
+  for (let i = 0; i < args.length; i++) {
+    const a = args[i];
+    if (a === '--creds') { i++; continue; } // skip the consumed space-separated value
+    if (a.startsWith('--')) continue;
+    out.push(a);
+  }
+  return out;
 }
 
 module.exports = { credsPath, loadCreds, positionals };
