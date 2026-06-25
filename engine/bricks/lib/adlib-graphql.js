@@ -61,7 +61,7 @@ function mapOne(ad) {
     library_id: String(ad.ad_archive_id),
     destination_url,
     cta_text: snap.cta_text || null,
-    headline: snap.title || (bodyText ? bodyText.slice(0, 120) : null) || null,
+    headline: snap.title || (bodyText ? bodyText.slice(0, 120) : null),
     impression_bucket,
     platforms: Array.isArray(platformsArr) ? platformsArr.join(', ') : (platformsArr || null),
     start_date: isoFromEpoch(startEpoch),

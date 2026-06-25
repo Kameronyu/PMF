@@ -17,10 +17,12 @@ function parseTrendSeriesFromXhr(bodyOrObj) {
       ? obj.default.timelineData
       : null;
     if (!td || td.length === 0) return null;
+    // value is always coerced to a number above (0 on missing/unparseable), so no post-filter
+    // is needed; an all-zero series is handled downstream by classifyTrendShape's windowMax===0 guard.
     const series = td.map(pt => ({
       date: pt.formattedTime || pt.formattedAxisTime || pt.time || '',
       value: Array.isArray(pt.value) ? (pt.value[0] ?? 0) : (Number(pt.value) || 0),
-    })).filter(pt => typeof pt.value === 'number');
+    }));
     return series.length > 0 ? series : null;
   } catch (_) {
     return null;
