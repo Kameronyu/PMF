@@ -42,7 +42,8 @@ for p in prompts marketing-lens definitions.md workflow.md map _quarantine \
 done
 
 # old runs  (keep runs/_fixture live — engine smoke fixtures)
-for r in arduview eink-tablets; do [ -e "runs/$r" ] && mv "runs/$r" _legacy/runs/; done
+# arduview-v2 = Phase-21 hardening re-run outputs (no-overwrite-v1; v1 arduview byte-intact). Quarantined alongside.
+for r in arduview arduview-v2 eink-tablets; do [ -e "runs/$r" ] && mv "runs/$r" _legacy/runs/; done
 
 # marketing skills  (keep .claude/skills/reddit-extract live)
 for s in market-selection funnel-architect funnel-deep-pass copywriter asset-classify pipeline-audit; do
