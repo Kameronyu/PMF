@@ -19,12 +19,14 @@ rebuild has produced the new I/O contracts (so PROVISIONAL labels reconcile firs
 | **H1** | firing | wire `validate-analyzer.js` into the funnel-deep-pass orchestrator + `route.js` (`#analyzer-unwired`) | bad belief record → exit 2; good → exit 0 (`runs/_fixture/`) |
 | **H2** | funnel | `funnel-score` required-field check (`#funnel-score-input`); `funnel-clean` markdown headings (`#funnel-clean-md-headings`); rebuild `_index.json` (`#index-stale`) | round-trip: scored package in → non-null validation_strength out; `.md` funnel keeps `[SECTION]` markers |
 | **H3** | fetch (live-DOM, riskiest, last) | Trends deferred-XHR (`#trends-0pct-fill`); adlib selector calibration (`#adlib-selectors`) | Trends fill-rate > 0 on a real run; adlib `destination_url` non-null; **capture raw DOM as a committed fixture** |
-| **H4** | integrations | parameterize creds to `--creds=<path>` (`#cred-seam`) | `--help`/dry-run each `engine/integrations/*` against a throwaway target; confirm arduview invocation still works |
+| **H4** | integrations + retrievers | parameterize creds to `--creds=<path>` (`#cred-seam`) | `--help`/dry-run each `engine/integrations/*`; **smoke `.claude/skills/reddit-extract/dump.mjs` (the VOC retriever) on a live thread** so it's verified-ready when Step 3 is built; confirm arduview invocation still works |
 | **H5** | E2E coherence | none (verification) | run the deterministic chain on `runs/_fixture/` with golden-fixture agent outputs (no marketing agent in loop): `fetch→clean→dedupe→funnel-assemble→clean→score→store→vectorize→rag-query`, assert each output's required fields non-null. `gsd-integration-checker` formalizes seam-by-seam. |
 
 **Contract-gated (NOT in H-pass until operator acts):** `source_routing` vocab (`#source-routing-ghost`) — define the category set, then add to `enums.json`; until then only the SAFE-NOW ghost-reference removal.
 
 **Already FIXED (do not re-do):** `funnel_fields` (`bbff2ff`), `normalizeUrl` A/B (`bbff2ff`), `belief_kind` (`35581d4`).
+
+**Reddit/VOC scope note:** H4 smoke-tests the `reddit-extract` RETRIEVER only (verify it dumps a live thread). The full **Step 3 VOC STAGE** (Bucketer→Ladderer→Language pipeline, spec in `handoff-step3-voc-build.md`) is a BUILD, not hardening — it happens during the rebuild. Goal: when the marketing rebuild needs VOC, the retriever is already green.
 
 ---
 
