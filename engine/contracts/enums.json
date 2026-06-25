@@ -1,0 +1,142 @@
+{
+  "_meta": {
+    "schema_version": 1,
+    "purpose": "Single source of truth for every closed enum the engine enforces. Validators import this file; agent prompts read a generated copy (prompts/_generated/enums.md). The engine owns the canonical value set.",
+    "rule": "A value off-list is a HARD REJECT at the enforcing hook. The operator may propose new values; the engine freezes the canonical set so a prompt rewrite cannot silently drift a contract.",
+    "boundary": "VALUE SETS are wiring (frozen here). VALUE MEANINGS are marketing (live in the operator's prompts/definitions). This file holds only the value sets.",
+    "generated_from": "tools/hooks/validate-{finder,analyzer,classifier,asset-record}.js + prompts/{step1-light-pass,funnel-deep-pass}.md, reconciled 2026-06-24 (belief_kind landed in commit 35581d4).",
+    "consumed_after_reorg_by": "engine/hooks/validators/validate-*.js (import replaces inline `new Set([...])`)"
+  },
+
+  "enums": {
+    "CHANNEL": {
+      "values": ["dtc", "marketplace", "crowdfunding"],
+      "enforced_by": ["validate-finder.js"],
+      "consumed_by": ["brands.json (per-brand channel)"],
+      "kind": "closed"
+    },
+    "LANE": {
+      "values": ["major", "crowdfunding", "marketplace"],
+      "enforced_by": ["validate-finder.js"],
+      "consumed_by": ["brands.json (per-brand lane)"],
+      "kind": "closed"
+    },
+    "CLAIM_TYPE": {
+      "values": ["direct", "enlarged", "mechanism", "enhanced"],
+      "enforced_by": ["validate-classifier.js", "validate-analyzer.js"],
+      "consumed_by": ["space-map.json (combos[].claims[].type)", "funnel-fields (claim_type)"],
+      "kind": "closed",
+      "note": "REUSED across light-pass and deep-pass — do NOT coin a parallel vocab."
+    },
+    "DEMAND_TREND_SHAPE": {
+      "values": ["steady", "rising", "parabolic-spike", "declining", "unknown"],
+      "enforced_by": ["validate-classifier.js"],
+      "consumed_by": ["brands.json (demand_trend.shape)", "space-map.json (per_brand.demand_trend.shape)"],
+      "kind": "closed",
+      "note": "'unknown' is the escape valve when no trend source resolves."
+    },
+    "EXECUTION_TYPE": {
+      "values": [
+        "mechanism-explanation", "feature-as-evidence", "demo", "authority",
+        "social-proof", "founder-credibility", "risk-reversal", "scarcity",
+        "urgency", "exclusivity", "story-epiphany", "comparison",
+        "consequence-of-inaction"
+      ],
+      "enforced_by": ["validate-analyzer.js"],
+      "consumed_by": ["belief-record (execution_type)"],
+      "kind": "closed"
+    },
+    "PROOF_TIER": {
+      "values": ["Tier1", "Tier2", "Tier3"],
+      "enforced_by": ["validate-analyzer.js"],
+      "consumed_by": ["belief-record (proof_tier)"],
+      "kind": "closed"
+    },
+    "MOVE": {
+      "values": [
+        "market-avatar-flip", "market-transformation-change",
+        "um-mechanism-reveal", "um-problem-framing", "um-proprietary-naming",
+        "angle-desire", "angle-pain", "angle-external-blame", "angle-care-signaling",
+        "angle-identity-belonging", "angle-curiosity-secret",
+        "offer-bundle", "offer-guarantee", "offer-urgency-scarcity", "offer-price-anchor"
+      ],
+      "enforced_by": ["validate-analyzer.js"],
+      "consumed_by": ["belief-record (moves[])"],
+      "kind": "closed"
+    },
+    "BELIEF_ID_ANCHORS": {
+      "values": [
+        "problem-exists", "problem-matters", "past-solutions-failed",
+        "mechanism-is-the-reason", "product-delivers-transformation",
+        "trust-the-brand-or-founder", "it-will-ship", "its-worth-the-price", "act-now"
+      ],
+      "enforced_by": ["validate-analyzer.js"],
+      "consumed_by": ["belief-record (belief_id)"],
+      "kind": "open-with-anchors",
+      "note": "Prefer an anchor. If none fits, a new belief_id is allowed BUT belief_confidence MUST be 'low' (overflow flagged for review)."
+    },
+    "BELIEF_KIND": {
+      "values": ["crowdfunding-specific", "general-dr"],
+      "enforced_by": ["validate-analyzer.js"],
+      "consumed_by": ["belief-record (belief_kind)"],
+      "kind": "closed",
+      "note": "Added commit 35581d4 (Phase 15 D1). Was a ghost field; now enforced."
+    },
+    "AWARENESS_ENTRY": {
+      "values": ["unaware", "problem-aware", "solution-aware", "product-aware", "offer-aware"],
+      "enforced_by": ["validate-analyzer.js"],
+      "consumed_by": ["funnel-fields (awareness_entry)"],
+      "kind": "closed"
+    },
+    "ROUTING_FLAG": {
+      "values": ["structure_only", "messaging_full", "both"],
+      "enforced_by": ["funnel-deep-pass schema (Router-set at plan time)"],
+      "consumed_by": ["funnel-fields (routing_flag)", "funnel-rag-query.js (routing prefilter)"],
+      "kind": "closed",
+      "_verify_in_h0": "Confirm a validator Set actually enforces this on write (no ROUTING_FLAG_ENUM Set found in validate-analyzer.js grep)."
+    },
+    "SHOT_TYPE": {
+      "values": [
+        "hero", "detail_macro", "in_hand_scale", "lifestyle_context",
+        "screen_on_ui", "turntable_frame", "packaging_unboxing", "group_collection", "diagram_annotated"
+      ],
+      "enforced_by": ["validate-asset-record.js"],
+      "consumed_by": ["asset-record (shot_type)"],
+      "kind": "closed"
+    },
+    "DISQUALIFIER": {
+      "values": ["text_overlay", "watermark", "low_res", "wrong_product", "competitor_ad", "sensitive"],
+      "enforced_by": ["validate-asset-record.js"],
+      "consumed_by": ["asset-record (disqualifiers[])"],
+      "kind": "closed"
+    },
+    "ASSET_STRENGTH": {
+      "values": ["strong", "partial", "incidental"],
+      "enforced_by": ["validate-asset-record.js"],
+      "consumed_by": ["asset-record (strength)"],
+      "kind": "closed",
+      "note": "Declared as STRENGTH_ENUM in validate-asset-record.js; namespaced ASSET_STRENGTH here to avoid collision."
+    },
+    "BEST_USE": {
+      "values": ["hero_loop", "feature_demo", "full_explainer"],
+      "enforced_by": ["validate-asset-record.js"],
+      "consumed_by": ["asset-record (best_use)"],
+      "kind": "closed"
+    },
+    "DISPLAY_STATE": {
+      "values": ["off", "on_glow", "on_legible"],
+      "enforced_by": ["validate-asset-record.js"],
+      "consumed_by": ["asset-record (display_state)"],
+      "kind": "closed"
+    }
+  },
+
+  "contract_gated": {
+    "_note": "Fields documented but NOT yet a frozen enum. The engine will not invent values; the operator must define the value set, then it moves into `enums` above.",
+    "source_routing": {
+      "status": "pending-operator-vocab",
+      "referenced_by": ["funnel-architect SKILL (consumes)", "funnel-rag-query.js (routing_flag prefilter)"],
+      "note": "Ghost field — referenced downstream but never emitted. belief_kind was its sibling and got resolved (35581d4); source_routing still needs the operator to define categories. Until then: a SAFE-NOW fix removes the ghost references."
+    }
+  }
+}

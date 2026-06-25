@@ -1,0 +1,22 @@
+{
+  "_record": "runs/<space>/funnels/<funnel_id>.json — belief-instance record (6b, N per funnel)",
+  "_produced_by": "s2-section-analyzer (agent, PROVISIONAL — one record per belief installed/reinforced)",
+  "_enforced_by": ["validate-analyzer.js"],
+  "_enum_refs": ["BELIEF_ID_ANCHORS", "BELIEF_KIND", "EXECUTION_TYPE", "PROOF_TIER", "MOVE"],
+  "_source": "extracted verbatim from prompts/funnel-deep-pass.md §6b (2026-06-24)",
+  "_note": "position is funnel-level ordinal, NOT page-local (D-12). verbatim_refs[].text must be a verbatim substring of the cleaned funnel copy (validator-enforced — kills hallucinated quotes). source_routing is a contract-gated ghost field (see enums.json) — not yet emitted.",
+  "shape": {
+    "funnel_id": "string — links to parent funnel",
+    "position": "int — funnel-level ordinal across the whole funnel; NOT page-local",
+    "belief_id": "enum:BELIEF_ID_ANCHORS (open-with-anchors — a new id allowed but then belief_confidence MUST be 'low')",
+    "belief_confidence": "high | low",
+    "belief_kind": "enum:BELIEF_KIND",
+    "execution_type": "enum:EXECUTION_TYPE — HOW the belief is installed",
+    "execution_detail": "string — GRANULAR free text; the sub-claim must be recoverable",
+    "proof_tier": "enum:PROOF_TIER",
+    "moves": ["enum:MOVE — discrete persuasive moves in this section"],
+    "verbatim_refs": [
+      { "text": "string — exact verbatim substring from cleaned funnel copy", "source": "competitor-marketing | review_language" }
+    ]
+  }
+}

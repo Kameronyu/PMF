@@ -50,3 +50,6 @@ Redeploy hits the same URL. Downscale photos to ~1600px/q82 first to keep upload
 ## C. Share a static folder WITHOUT a host
 Opening `index.html` from *inside* a zip strips CSS/images (siblings not extracted).
 Either host it (B) or tell recipients: **Extract All, then open index.html.** Never in-zip double-click.
+
+---
+**MOVED 2026-06-24:** generic integration scripts promoted to `engine/integrations/`. This dir keeps ONLY run-specific creds (`.shopify-creds.json`, `.klaviyo-*.json`, `.cloudflare-creds.json` — gitignored) + this runbook. The promoted scripts read creds via `__dirname` today — pass `--creds=runs/arduview/_tooling/.shopify-creds.json` after the H4 parameterization. See `engine/contracts/REGISTRY.md`.

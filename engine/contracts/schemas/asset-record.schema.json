@@ -1,0 +1,16 @@
+{
+  "_record": "runs/<space>/asset-classify/records/<asset_id>.json — asset classification record",
+  "_produced_by": "asset relevance-bucket + role-classify + comprehend-video agents (PROVISIONAL)",
+  "_enforced_by": ["validate-asset-record.js"],
+  "_enum_refs": ["SHOT_TYPE", "DISQUALIFIER", "ASSET_STRENGTH", "BEST_USE", "DISPLAY_STATE"],
+  "_status": "PARTIAL — enum refs extracted from validate-asset-record.js; full field shape NOT yet extracted this pass.",
+  "_extract_in_h0": "Read tools/hooks/validate-asset-record.js + prompts/_specs/image-classifier-brick.md to complete the field shape (demonstrates[], evidence, motion_value, technical fields). Asset record validator also enforces: demonstrates[] claims must be in the run's CLAIM-LIST.json; no floating claims.",
+  "shape": {
+    "_TODO": "complete in H0",
+    "shot_type": "enum:SHOT_TYPE",
+    "disqualifiers": ["enum:DISQUALIFIER"],
+    "strength": "enum:ASSET_STRENGTH",
+    "best_use": "enum:BEST_USE",
+    "display_state": "enum:DISPLAY_STATE"
+  }
+}

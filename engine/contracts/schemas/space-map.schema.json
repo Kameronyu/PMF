@@ -1,0 +1,38 @@
+{
+  "_record": "runs/<space>/space-map.json",
+  "_produced_by": "s1-space-classifier (agent, PROVISIONAL — reads ALL dumps; the only judgment stage)",
+  "_enforced_by": ["validate-classifier.js"],
+  "_enum_refs": ["CLAIM_TYPE", "DEMAND_TREND_SHAPE"],
+  "_source": "extracted verbatim from prompts/step1-light-pass.md §SCHEMA (2026-06-24)",
+  "_note": "Saturation = brand_count within a combo cell (transformation × niche), NEVER pooled across cells. Every canonical label must trace to raw variants present in the dumps (validator-enforced). anti_fluke is surfaced, not enforced (D-09).",
+  "shape": {
+    "_provenance": "Canonical transformations are claim-categories competitors ASSERT, not validated customer transformations.",
+    "transformations": [ { "canonical": "string", "raw_claim_variants": ["string"], "brand_count": "int", "creative_count": "int" } ],
+    "niches": [ { "canonical": "string", "raw_variants": ["string"], "brand_count": "int" } ],
+    "angles": [ { "canonical": "string", "raw_variants": ["string"], "creative_count": "int" } ],
+    "bet_types": [ { "canonical": "string", "raw_variants": ["string"], "brand_count": "int" } ],
+    "mechanisms_in_play": [ { "canonical": "string", "raw_variants": ["string"], "brand_count": "int", "ownability": "unique | shared" } ],
+    "combos": [
+      {
+        "transformation": "string", "niche": "string",
+        "brand_count": "int", "creative_count": "int", "brands": ["slug"],
+        "claim_count": "int", "enhanced_claim_count": "int",
+        "claims": [ { "text": "string", "type": "enum:CLAIM_TYPE" } ],
+        "mechanisms_in_play": [ { "canonical": "string", "brand_count": "int", "ownability": "unique | shared", "brands": ["slug"] } ],
+        "anti_fluke": { "brands_at_scale": "int (floor 2+)", "qualifying_creatives": "int (floor 7+ days)" }
+      }
+    ],
+    "per_brand": [
+      {
+        "slug": "string",
+        "transformations": [ { "canonical": "string", "creative_count": "int" } ],
+        "niches": ["canonical"],
+        "bet_type": "structural bet named in the space's own terms — OPEN, not an enum",
+        "bet_type_basis": "page-quoted signal",
+        "demand_trend": { "shape": "enum:DEMAND_TREND_SHAPE", "window": "string|null", "source": "google-trends|null", "basis": "string|null" },
+        "sophistication": "stage 1-5 + one-line evidence"
+      }
+    ],
+    "saturation": [ { "transformation": "string", "niche": "string", "brand_count": "int", "saturated": "boolean" } ]
+  }
+}

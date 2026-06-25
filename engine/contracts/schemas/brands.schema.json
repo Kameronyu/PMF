@@ -1,0 +1,43 @@
+{
+  "_record": "brands.json",
+  "_produced_by": "s1-finder (agent, PROVISIONAL); revenue_est by revenue-estimate.js; demand_trend by site-fetch.js",
+  "_enforced_by": ["validate-finder.js", "validate-revenue.js"],
+  "_enum_refs": ["CHANNEL", "LANE", "DEMAND_TREND_SHAPE"],
+  "_source": "extracted verbatim from prompts/step1-light-pass.md §SCHEMA (2026-06-24)",
+  "_note": "Field-shape contract only. Value MEANINGS live in the marketing prompt. Semantic rules (verbatim, no-classify) are enforced by the validator.",
+  "shape": {
+    "starting_point": { "product": "string", "transformation": null, "niche": null },
+    "brands": [
+      {
+        "brand": "string",
+        "slug": "lowercase-hyphenated",
+        "url": "string (real DTC/product page, not a review article)",
+        "product_observed": "one line, what it physically is — verbatim",
+        "sells_observed": "one line, what they say it does — their words, RAW",
+        "channel": "enum:CHANNEL",
+        "lane": "enum:LANE",
+        "ads_flag": "yes | no | unsure",
+        "crowdfunding": "null | { platform, launch_date, goal, raised, pct_funded, status }",
+        "found_by": ["query string(s) that surfaced this brand"],
+        "relevance": "one line — why this brand belongs in the roster",
+        "price_points": ["observed price string(s), verbatim; [] if none"],
+        "revenue_est": {
+          "_owner": "revenue-estimate.js (agents never compute revenue)",
+          "value_usd_monthly": "number | null",
+          "method": "traffic_formula | review_proxy | disclosed | null",
+          "confidence": "high | medium | low",
+          "inputs": { "monthly_visits": "number|null", "visits_source": "similarweb-manual | semrush-api | proxy | review-proxy | null", "cvr_assumption": 0.02, "aov_usd": "number|null", "aov_source": "observed-price | estimate | null" },
+          "notes": "string"
+        },
+        "demand_trend": {
+          "_owner": "site-fetch.js (Google Trends ~5yr)",
+          "shape": "enum:DEMAND_TREND_SHAPE",
+          "window": "string | null",
+          "source": "google-trends | null",
+          "basis": "one-line read of the curve | null"
+        }
+      }
+    ],
+    "dropped": [ { "brand": "string", "url": "string|null", "reason": "one line" } ]
+  }
+}
