@@ -29,11 +29,6 @@ false). Every belief record is unvalidated; hallucinated `verbatim_refs`, off-en
 **Fix:** wire as an explicit orchestrator step (mirror `validate-asset-record.js` in asset-classify) +
 add to `route.js` for defense-in-depth. *(src: CONCERNS.md; audit/11 §ANTI-PATTERN B.)*
 
-### #funnel-clean-md-headings · `.md` section markers dropped
-`funnel-clean.js` only processes HTML `<h1-h4>`; a `.md` fallback with `##` headings silently drops all
-`[SECTION]` markers → analyzer sees an unmarked flat body. **Fix:** also parse markdown headings.
-*(src: agents/funnel-deep-pass-run-notes §3.)*
-
 ### #funnel-score-input · wrong-input + field-name silent nulls
 `funnel-score.js` accepts any JSON without a required-field check: passing a `funnels-clean/` file (no
 ads/stats) yields null `validation_strength`; `amount_raised_usd` vs `amount_raised` key mismatch →
@@ -62,6 +57,8 @@ run-supplied secret.
 - **funnel_fields discard** → FIXED `bbff2ff`. `buildStoredRecord(funnelPkg, beliefRecords, funnelFields={})` prefers the wrapper for the 6 funnel-level fields.
 - **normalizeUrl A/B phantom funnels** → FIXED `bbff2ff`. Strip list now includes `variant/test/lp/ver/_pos/_sid/_ss/_psq`.
 - **belief_kind ghost field** → FIXED `35581d4`. `BELIEF_KIND_ENUM` + hard reject in `validate-analyzer.js`.
+- **funnel-clean `.md` headings dropped** → FIXED `3d70cb4` (Phase 20-01). Line-anchored ATX regex `/^#{1,6}[ \t]+/gm` runs after the HTML tag-strip and marks markdown headings; both input paths now emit `[SECTION]`. Verified P21 smoke: md body (2×`##` + 1×`###`) → 3 `[SECTION]`; html body (`<h2>`+`<h3>`) → 2 `[SECTION]`. (ERROR-NOTES had this stale-OPEN; corrected P21.)
+- **funnel-score wrong-input / silent-null** → FIXED `30415ef` (Phase 21 H2a). `checkScoreableInput()` at the CLI boundary requires `funnel_id`, recovers the `amount_raised_usd` alias with a warn, and rejects an all-null `crowdfunding_stats` — no more silent-null scored output.
 
 ---
 
