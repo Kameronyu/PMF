@@ -36,7 +36,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 Plans:
 - [x] 01-01-PLAN.md — fan-out helper (STORE-04) + slot-tree scaffold (STORE-01) + smoke space (STORE-05) + full store-smoke.sh harness
-- [ ] 01-02-PLAN.md — whole-space version resolver (STORE-02) + _receipts/ ledger writer with sha256 inputs_hash (STORE-03)
+- [x] 01-02-PLAN.md — whole-space version resolver (STORE-02) + _receipts/ ledger writer with sha256 inputs_hash (STORE-03)
 **UI hint**: no
 
 ### Phase 2: Run-Controller & Pipeline Spine

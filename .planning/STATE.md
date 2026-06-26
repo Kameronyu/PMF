@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-06-26T14:34:22.838Z"
+status: verifying
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-06-26T14:39:45.876Z"
 last_activity: 2026-06-26
 progress:
   total_phases: 6
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
-  percent: 50
+  completed_plans: 2
+  percent: 100
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 
 Phase: 01 (artifact-store-scaffold) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-06-26
 
 Progress: [░░░░░░░░░░] 0%
@@ -53,6 +53,7 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 | Phase 01 P01 | 4 | 3 tasks | 20 files |
+| Phase 01 P02 | 3 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,8 @@ Recent decisions affecting current work:
 - [Phase 01]: D-Q3: follow §6 lowercase slot names verbatim; NAMING.md §5 UPPERCASE governs engine deliverables not pipeline slots
 - [Phase 01]: D-version-grain: whole-SPACE versioning <base>-vN, not per-artifact v2/ (resolver lands Plan 02)
 - [Phase 01]: STORE-02/03 smoke asserts authored RED ahead of Plan 02 bricks (Nyquist Wave-0); harness is complete
+- [Phase 01]: D-resolver-read-only: space-version.js is pure-stdout, names next free <base>-vN, mutates nothing under runs/ (byte-intact invariant)
+- [Phase 01]: D-receipt-shape: receipt-write ships shape+writer+sha256 helper; validator_verdicts[]+gate are Phase-5 slots (STORE-03 green)
 
 ### Pending Todos
 
@@ -92,6 +95,6 @@ Items acknowledged and carried forward (v2 — out of this milestone):
 
 ## Session Continuity
 
-Last session: 2026-06-26T14:34:13.230Z
-Stopped at: Completed 01-01-PLAN.md
+Last session: 2026-06-26T14:39:37.071Z
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None
