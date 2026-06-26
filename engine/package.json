@@ -1,0 +1,11 @@
+{
+  "name": "pmf-engine-wiring",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PMF engine wiring bundle — deterministic fetch/clean/funnel/asset bricks + firing hooks + deploy integrations (non-marketing). Builder entry doc: WIRING-BUNDLE.md.",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "playwright": "1.59.1"
+  },
+  "comment": "Proven against Node 20.20.0 / Playwright 1.59.1 (P21-H6, 2026-06-26). After install, run `npx playwright install chromium` for the live-DOM fetch/funnel-assemble bricks. Verify the bundle with: bash engine/contracts/h6-all.sh"
+}
