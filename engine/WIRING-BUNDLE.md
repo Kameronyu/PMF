@@ -15,9 +15,15 @@ engine/
   hooks/          firing layer: guard-marketing, route, validate-*, inject-*-dr
   integrations/   surge / shopify / cloudflare / klaviyo / cdp + lib-creds
   contracts/      the INDEX + proof (see below) + enums.json + schemas/
+  skills/         engineering skills folded in (reddit-extract VOC retriever)
   _fixture/       smoke inputs (committed) incl. dr-knowledge/ stubs
   package.json · requirements.txt · DEPENDENCIES.md · FIRING-MANIFEST.md · WIRING-BUNDLE.md
 ```
+**Companions that live OUTSIDE engine/ (firewall-blocked from folding in — see Consolidation status):**
+the engineering prompts `prompts/_specs/{image-classifier-brick,funnel-analysis-collection-spec}.md`,
+`prompts/_generated/{enums,section-analyzer-dr-context}.md`, `prompts/_templates/pre-research-plan.template.md`
+(REUSE-INDEX §2). They're part of the bundle conceptually but stay put until R5 because off-limits
+marketing prompts reference them.
 
 ## The index — where to look
 | you want… | read |
@@ -55,9 +61,9 @@ These turn the bundle's prep/deploy rails into a shipped funnel. They are real S
 **Both of these MUST be taken through the `automate` skill** before they're trusted as repeatable pipeline steps — turn each from a one-off agent/runbook into a hardened *durable design* (harden_verdict + per-step FROZEN/JOINT/HUMAN_REQUIRED labels + preflight + golden output + blocker protocol + fallback ladder). The LP Builder especially is low-fidelity today, so it gets the most from that pass. That is how each becomes a reusable step the engine can fire, not a manual one-off.
 
 ## Consolidation status (honest)
-The code, index, firing proof, and portability fixes are done and committed. The committed test
-fixtures still live partly at repo-root `runs/_fixture/` (not yet under `engine/_fixture/`): a clean
-physical fold-in needs a few bricks de-coupled from the hardcoded `runs/<space>/…` convention
-(e.g. `funnel-claim-tally` resolves its store as `runs/<space>/funnels`), so it is a small
-brick-interface change, not a pure `git mv`. Tracked in `contracts/WIRING-BUNDLE-HANDOFF.md`.
-Until then, the bundle = `engine/` + the `runs/_fixture/` test inputs; both are needed to run `h6-all.sh`.
+Code, index, firing proof, and portability fixes are done and committed. Physical fold-in:
+- ✅ **Test fixtures** → `engine/_fixture/` (required de-coupling `funnel-claim-tally` from `runs/<space>/funnels` via `--store-dir`). `h6-all.sh` 14/14 green from in-bundle fixtures.
+- ✅ **reddit-extract skill** → `engine/skills/reddit-extract/` (the live `/reddit-extract` slash-command is retired here; re-register `SKILL.md` in the target harness).
+- ⛔ **Engineering prompts** (`prompts/_specs/{image-classifier-brick,funnel-analysis-collection-spec}.md`, `prompts/_generated/*`, `prompts/_templates/pre-research-plan.template.md`) — **FIREWALL-BLOCKED**, not moved. Each is referenced by off-limits marketing files (`marketing-lens/prompts/01,04,07`, `prompts/step1-light-pass.md`, `prompts/funnel-deep-pass.md`, `runs/*/_marketing-decisions/`) that the engine may not edit to repoint. Folding them in **requires the R5 marketing re-author** (which will point the rebuilt prompts at `engine/prompts/`). Until then they remain in-place companions (listed above).
+
+So today the bundle = `engine/` (self-contained for code + fixtures + firing + reddit skill; verify with `engine/contracts/h6-all.sh`) **+ the 5 engineering-prompt companions under `prompts/`** that fold in at R5. Tracked in `contracts/WIRING-BUNDLE-HANDOFF.md`.
