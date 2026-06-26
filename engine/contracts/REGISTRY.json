@@ -1,10 +1,10 @@
 {
   "_meta": {
     "schema_version": 1,
-    "generated_by": "hand-built 2026-06-24 (regenerable via .claude/skills/engine-map); health hand-flipped by Phase 21 hardening 2026-06-25",
+    "generated_by": "hand-built 2026-06-24 (regenerable via .claude/skills/engine-map); health hand-flipped by Phase 21 hardening 2026-06-25; closed by P21 H6 deterministic-gap closeout 2026-06-26",
     "paths": "post-reorg engine/ locations",
     "labels": "agent/step labels are PROVISIONAL — reconcile against operator's rebuilt I/O contracts",
-    "health": "Phase 21 flipped verified capabilities to 'working'. Remaining 'untested' = either not exercised this pass, or gated (Trends/reddit IP-blocked from this env). See per-capability health + the 21-SUMMARY."
+    "health": "P21 H6 closeout (2026-06-26): 26 capabilities = 22 working · 1 dry-run-verified (surge-deploy) · 1 partial (chrome-cdp, env-dependent) · 2 untested-but-DEFERRED (reddit-extract R6, crowdfund-fetch R7). ZERO unexplained-untested — every brick is proven (fixture smoke, see engine/contracts/h6-*.sh, run all via h6-all.sh) or carries a `deferred` R6/R7 reason. Also working but with a partial caveat: funnel-assemble (deterministic spine proven; live LP render → R7), asset-fetch (local proven; remote → R7), meta-ad-fetch (extraction proven; typeahead → R7), asset-classify-build (map-rank→emit→validate proven; video-frame py helpers live-only). Two post-reorg path bugs FIXED this pass (funnel-analyzer-context, asset-map-rank — see ERROR-NOTES). See 21-CLOSEOUT-SUMMARY.md."
   },
   "capabilities": [
     { "id": "web-site-fetch", "named_capability": "LP/site + Google Trends fetch", "files": ["engine/bricks/fetch.js"], "step_served": "S1 light-pass (PROVISIONAL)", "io": "brands.json → corpus/<slug>/raw/*.html + brands.json:demand_trend", "run": "node engine/bricks/fetch.js --space=<space>", "deps": {"node": ["playwright"], "creds": []}, "health": "working", "p21": "#trends-0pct-fill FIXED f2c6555: consent-warm (google.com Accept → NID/SOCS cookies) + intercept the /api/widgetdata/multiline XHR + parse via lib/trends-parse.js. Verified offline vs fixture (262 pts, all non-zero, fill-rate>0) AND live-captured from this AWS datacenter IP. The 429 was the COLD-consent gate, not the datacenter IP. LP/site fetch (same brick) not separately exercised.", "error_notes": [] },
