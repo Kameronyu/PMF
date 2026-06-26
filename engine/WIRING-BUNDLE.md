@@ -43,8 +43,14 @@ Every capability is a CLI you call directly — `REGISTRY.json` gives the exact 
 
 ## NOT in the bundle (by design)
 - **The marketing layer** — Finder / Roster / Dumper / Space-Classifier / Market-Selection / Router / Section-Analyzer / Funnel-Architect / Copywriter prompts, `definitions.md`, `workflow.md`, `marketing-lens/*` (REUSE-INDEX §5). These are re-authored and plugged in on top.
-- **The LP Builder** (copy → HTML) — an agent (judgment), not a brick; its decisions live under `runs/*/_marketing-decisions/`. The bundle provides the prep (`asset-classify-build`) + deploy (`surge`/`shopify`) rails it plugs into.
 - **The stale DR knowledge CONTENT** — external input (above); only stub fixtures ship here.
+
+(The LP Builder copy→HTML step is NOT excluded-and-forgotten — it's a real pipeline step tracked under "Downstream implementer steps" below.)
+
+## Downstream implementer steps to fold in (low-fidelity today — DO NOT LOSE)
+These turn the bundle's prep/deploy rails into a shipped funnel. They are real STEPS in the pipeline even though they aren't hardened engineering bricks yet — keep them on the roadmap:
+- **LP Builder (copy → HTML)** — takes the Copywriter's copy + the asset spec (`asset-classify-build` → `images.json`/`videos.json`/`IMAGES.md`) and implements the landing-page HTML. Today it is a **marketing-decision agent and LOW-FIDELITY**; it's a judgment step (layout/design) so it currently lives in the marketing/agent layer. It MUST be wired in as a pipeline step (and hardened into reusable scaffolding) for an end-to-end build. Decision record + worked example: `runs/arduview/_marketing-decisions/lp-builder.md`; output `runs/arduview/site/` (locked style: `runs/arduview/site/STYLE-LOCK.md`).
+- **Shopify implementer** — the CODE is in the bundle (`integrations/shopify/shopify-deploy-funnel.js` + `shopify-upload-assets.js`, REGISTRY `shopify-deploy`), but the operational implementer runbook lives outside it: **`runs/arduview/_tooling/SHOPIFY-KLAVIYO-DEPLOY.md`** — fold it in (or link it) so the deploy step is reproducible. SECURITY: a committed creds file sits beside it (`runs/arduview/_tooling/.shopify-creds.json`) — move to env/`--creds` (same seam as surge) before any reuse.
 
 ## Consolidation status (honest)
 The code, index, firing proof, and portability fixes are done and committed. The committed test
