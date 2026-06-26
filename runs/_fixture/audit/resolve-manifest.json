@@ -1,0 +1,11 @@
+{
+  "space": "_fixture",
+  "a_law_always_include": [],
+  "b_law_denylist": [],
+  "segments": {
+    "A-collection": {
+      "prompts": ["runs/_fixture/audit/law/law1.md"],
+      "evidence": [{ "logical": "run-output", "path": "runs/_fixture/audit/evidence/*.json", "required": true, "role": "input", "seq": 1 }]
+    }
+  }
+}

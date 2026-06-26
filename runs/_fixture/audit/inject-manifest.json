@@ -1,0 +1,6 @@
+{
+  "space": "_fixture",
+  "b_law_denylist": [],
+  "a_run_notes": ["A-global prosecution note (fixture)"],
+  "segments": { "A-collection": { "run_notes": ["A-collection segment note (fixture)"] }, "B": { "evidence": [] } }
+}
