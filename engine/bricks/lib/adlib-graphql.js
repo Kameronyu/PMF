@@ -9,7 +9,7 @@
 //
 // This module is the calibrated replacement source. Pure: takes an array of response-body strings,
 // returns a Map(library_id -> card record). No I/O, no deps. Calibrated against the real captured
-// fixture runs/_fixture/adlib/flipper-zero-xhr.json (Phase 21 H3).
+// fixture engine/_fixture/adlib/flipper-zero-xhr.json (Phase 21 H3).
 
 function daysBetween(aEpochSec, bEpochSec) {
   if (!aEpochSec) return null;

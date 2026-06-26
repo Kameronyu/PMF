@@ -6,7 +6,7 @@
 // Every /trends/api/* body is prefixed with the XSSI guard `)]}',\n` which must be stripped before
 // JSON.parse. The series lives at obj.default.timelineData[], each point { formattedTime, value:[n] }.
 // Pure: takes the raw body string (or an already-parsed object), returns [{date, value}] or null.
-// Calibrated against runs/_fixture/trends/focus-timer-xhr.json (Phase 21).
+// Calibrated against engine/_fixture/trends/focus-timer-xhr.json (Phase 21).
 
 function parseTrendSeriesFromXhr(bodyOrObj) {
   try {
