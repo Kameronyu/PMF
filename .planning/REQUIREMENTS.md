@@ -101,17 +101,57 @@ Explicitly excluded for this milestone.
 
 ## Traceability
 
-Populated during roadmap creation. Each v1 requirement maps to exactly one phase.
+Each v1 requirement maps to exactly one phase. Phase structure derived from the `SHELL-BUILD-SPEC.md §9` build sequence.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (pending roadmap) | — | Pending |
+| STORE-01 | Phase 1 — Artifact Store | Pending |
+| STORE-02 | Phase 1 — Artifact Store | Pending |
+| STORE-03 | Phase 1 — Artifact Store | Pending |
+| STORE-04 | Phase 1 — Artifact Store | Pending |
+| STORE-05 | Phase 1 — Artifact Store | Pending |
+| CTRL-01 | Phase 2 — Run-Controller | Pending |
+| CTRL-02 | Phase 2 — Run-Controller | Pending |
+| CTRL-03 | Phase 2 — Run-Controller | Pending |
+| CTRL-04 | Phase 2 — Run-Controller | Pending |
+| CTRL-05 | Phase 2 — Run-Controller | Pending |
+| CTRL-06 | Phase 2 — Run-Controller | Pending |
+| CTRL-07 | Phase 2 — Run-Controller | Pending |
+| CTRL-08 | Phase 2 — Run-Controller | Pending |
+| CTRL-09 | Phase 2 — Run-Controller | Pending |
+| CTRL-10 | Phase 2 — Run-Controller | Pending |
+| MANI-01 | Phase 3 — Step Manifests & Locked Wiring | Pending |
+| MANI-02 | Phase 3 — Step Manifests & Locked Wiring | Pending |
+| MANI-03 | Phase 3 — Step Manifests & Locked Wiring | Pending |
+| MANI-04 | Phase 3 — Step Manifests & Locked Wiring | Pending |
+| MANI-05 | Phase 3 — Step Manifests & Locked Wiring | Pending |
+| WIRE-01 | Phase 3 — Step Manifests & Locked Wiring | Pending |
+| WIRE-02 | Phase 3 — Step Manifests & Locked Wiring | Pending |
+| WIRE-03 | Phase 3 — Step Manifests & Locked Wiring | Pending |
+| STUB-01 | Phase 4 — Prompt Stubs | Pending |
+| STUB-02 | Phase 4 — Prompt Stubs | Pending |
+| STUB-03 | Phase 4 — Prompt Stubs | Pending |
+| VAL-01 | Phase 5 — Validators & Operator Gates | Pending |
+| VAL-02 | Phase 5 — Validators & Operator Gates | Pending |
+| VAL-03 | Phase 5 — Validators & Operator Gates | Pending |
+| VAL-04 | Phase 5 — Validators & Operator Gates | Pending |
+| GATE-01 | Phase 5 — Validators & Operator Gates | Pending |
+| GATE-02 | Phase 5 — Validators & Operator Gates | Pending |
+| GATE-03 | Phase 5 — Validators & Operator Gates | Pending |
+| SMOKE-01 | Phase 6 — Smoke Acceptance | Pending |
+| SMOKE-02 | Phase 6 — Smoke Acceptance | Pending |
+| SMOKE-03 | Phase 6 — Smoke Acceptance | Pending |
+| SMOKE-04 | Phase 6 — Smoke Acceptance | Pending |
+| SMOKE-05 | Phase 6 — Smoke Acceptance | Pending |
+| SMOKE-06 | Phase 6 — Smoke Acceptance | Pending |
 
 **Coverage:**
-- v1 requirements: 36 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 36 ⚠️
+- v1 requirements: 39 total (STORE 5 + CTRL 10 + MANI 5 + STUB 3 + VAL 4 + GATE 3 + WIRE 3 + SMOKE 6)
+- Mapped to phases: 39 ✓
+- Unmapped: 0 ✓
+
+> Note: the prior header stated "36 total." The enumerated REQ-IDs in this document sum to 39; all 39 are mapped. Count corrected to 39.
 
 ---
 *Requirements defined: 2026-06-26*
-*Last updated: 2026-06-26 after initial definition*
+*Last updated: 2026-06-26 after roadmap creation (traceability populated, 39/39 mapped)*
