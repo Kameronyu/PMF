@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 # h6-claim-tally.sh — HARDENING H6: smoke funnel-claim-tally (engine/bricks/funnel-claim-tally.js).
 # GOLDEN COMPARE: re-run the tally over the committed fixture funnel store
-# (runs/_fixture/funnels/, which holds sample.json) and assert the output equals the
-# committed golden runs/_fixture/funnels/_tally.json EXACTLY, modulo _meta.generated_at
+# (engine/_fixture/funnels/, which holds sample.json) and assert the output equals the
+# committed golden engine/_fixture/funnels/_tally.json EXACTLY, modulo _meta.generated_at
 # (the only volatile field — a timestamp). Output goes to a transient dir; the golden is
 # never overwritten (no-overwrite-v1). Exit 0 = byte-match; non-zero = the diff is shown.
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 
-GOLDEN="runs/_fixture/funnels/_tally.json"
-OUT="runs/_fixture-tally"
+GOLDEN="engine/_fixture/funnels/_tally.json"
+OUT="engine/_fixture-tally"
 FRESH="${OUT}/_tally.json"
 FAIL=0
 
 rm -rf "$OUT"; mkdir -p "$OUT"
 
-echo "── H6.claim-tally: node funnel-claim-tally.js --space=_fixture --out=${FRESH} ──"
-node engine/bricks/funnel-claim-tally.js --space=_fixture --out="$FRESH" >/dev/null 2>&1
+echo "── H6.claim-tally: node funnel-claim-tally.js --space=_fixture --store-dir=engine/_fixture/funnels --out=${FRESH} ──"
+node engine/bricks/funnel-claim-tally.js --space=_fixture --store-dir=engine/_fixture/funnels --out="$FRESH" >/dev/null 2>&1
 
 if [ ! -s "$FRESH" ]; then echo "   FAIL: no/empty tally output"; echo "H6 claim-tally: FAILED"; rm -rf "$OUT"; exit 1; fi
 

@@ -10,8 +10,8 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 
-FXDIR="runs/_fixture/mechanisms"
-OUT="runs/_fixture-mech"
+FXDIR="engine/_fixture/mechanisms"
+OUT="engine/_fixture-mech"
 SM="${OUT}/space-map.json"
 FAIL=0
 

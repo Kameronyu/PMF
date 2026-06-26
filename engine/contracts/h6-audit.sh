@@ -5,12 +5,12 @@
 #   audit-resolve.js  — resolves evidence globs; exit 0 all-present, exit 1 required-missing
 #   validate-receipt.js — exit 0 when a CONTEXT RECEIPT matches the inject manifest, exit 1 on mismatch
 #   validate-strip.js — exit 0 when justification is stripped (smaller + must/must-not), exit 1 on no-op
-# Fixtures under runs/_fixture/audit/; transient outputs under runs/_fixture-audit/ (removed at end).
+# Fixtures under engine/_fixture/audit/; transient outputs under engine/_fixture-audit/ (removed at end).
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 
-FXA="runs/_fixture/audit"
-OUT="runs/_fixture-audit"
+FXA="engine/_fixture/audit"
+OUT="engine/_fixture-audit"
 FAIL=0
 ok()  { echo "   PASS: $1"; }
 bad() { echo "   FAIL: $1"; FAIL=1; }

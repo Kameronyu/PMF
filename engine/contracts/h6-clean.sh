@@ -4,13 +4,13 @@
 # HTML tags stripped, <script>/<style>/<nav>/<header>/<footer> blocks removed, entities
 # decoded, and visible body text preserved. (NOTE: clean.js does NOT mark [SECTION] —
 # that is funnel-clean.js's job, already green via H5. The closeout row conflated them.)
-# Output is written to a transient runs/_fixture-clean/ that is removed at the end.
+# Output is written to a transient engine/_fixture-clean/ that is removed at the end.
 # Exit 0 = all asserts pass; non-zero = the failing assert is named.
 set -u
 cd "$(dirname "$0")/../.." || exit 1   # repo root (engine/contracts/ -> repo)
 
-FX="runs/_fixture/corpus"
-OUT="runs/_fixture-clean"
+FX="engine/_fixture/corpus"
+OUT="engine/_fixture-clean"
 MD="${OUT}/sample-brand/clean/landing.md"
 FAIL=0
 ok()  { echo "   PASS: $1"; }

@@ -9,8 +9,8 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 
-FX="runs/_fixture/ads/sample-ads.json"
-OUT="runs/_fixture-assemble"
+FX="engine/_fixture/ads/sample-ads.json"
+OUT="engine/_fixture-assemble"
 FAIL=0
 
 rm -rf "$OUT"; mkdir -p "$OUT"

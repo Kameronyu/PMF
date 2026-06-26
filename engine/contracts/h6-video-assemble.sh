@@ -7,7 +7,7 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 
-T="runs/_fixture-video"
+T="engine/_fixture-video"
 RAW="${T}/raw"
 OUTMP4="${T}/cuts/hero.mp4"
 EDL="${T}/hero-edl.json"

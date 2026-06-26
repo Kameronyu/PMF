@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # h6-revenue.sh — HARDENING H6: smoke revenue-estimate (engine/bricks/revenue-est.js).
-# Reuses runs/_fixture/brands.json. Asserts the deterministic arithmetic + the D-10
+# Reuses engine/_fixture/brands.json. Asserts the deterministic arithmetic + the D-10
 # never-fabricate rule:
 #   - alpha: 300000 visits x 0.02 CVR x $60 AOV = 360000 (traffic_formula) — the code's worked example
 #   - gamma: 1200 reviews x 10 x $40 = 480000 (review_proxy)
@@ -10,8 +10,8 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 
-FX="runs/_fixture/brands.json"
-OUT="runs/_fixture-revenue"
+FX="engine/_fixture/brands.json"
+OUT="engine/_fixture-revenue"
 OUTFILE="${OUT}/brands.json"
 FAIL=0
 

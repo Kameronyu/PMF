@@ -8,9 +8,9 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 
-FXDIR="runs/_fixture/asset-classify"
+FXDIR="engine/_fixture/asset-classify"
 CLAIMS="${FXDIR}/CLAIM-LIST.json"
-T="runs/_fixture-assetcls"
+T="engine/_fixture-assetcls"
 FAIL=0
 ok()  { echo "   PASS: $1"; }
 bad() { echo "   FAIL: $1"; FAIL=1; }

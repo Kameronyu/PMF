@@ -64,7 +64,9 @@ function sanitizePathSegment(s) {
 const space = sanitizePathSegment(opts.space);
 if (!space) fail('--space is empty after sanitization');
 
-const storeDir = path.join('runs', space, 'funnels');
+// --store-dir overrides the funnel-store location (default runs/<space>/funnels) so the store can
+// live anywhere (e.g. an engine-local fixture) without being bound to the runs/<space> convention.
+const storeDir = opts['store-dir'] ? String(opts['store-dir']) : path.join('runs', space, 'funnels');
 const outPath  = opts.out ? String(opts.out) : path.join(storeDir, '_tally.json');
 
 // validate threshold

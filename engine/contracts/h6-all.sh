@@ -2,7 +2,7 @@
 # h6-all.sh — HARDENING H6 re-verify runner. Runs the deterministic E2E (h5-e2e.sh) plus every
 # H6 brick smoke + the Bucket-B dry-run, and reports a pass/fail summary. This is the one command
 # the closeout RESOLVE step (and any future regression check) runs to confirm the engine is still
-# green. Each child smoke writes only to transient runs/_fixture-*/ dirs it cleans up itself.
+# green. Each child smoke writes only to transient engine/_fixture-*/ dirs it cleans up itself.
 # Exit 0 = all green; non-zero = the failing smoke(s) are named.
 set -u
 cd "$(dirname "$0")" || exit 1   # engine/contracts/

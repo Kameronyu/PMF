@@ -6,7 +6,7 @@
     "dim": 1024,
     "funnel_count": 1,
     "record_count": 4,
-    "built_from": "runs/_fixture/funnels",
+    "built_from": "engine/_fixture/funnels",
     "_note": "Voyage semantic embeddings."
   },
   "records": [

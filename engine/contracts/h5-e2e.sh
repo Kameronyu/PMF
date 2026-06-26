@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
-# h5-e2e.sh — HARDENING H5: deterministic E2E coherence proof on runs/_fixture/.
+# h5-e2e.sh — HARDENING H5: deterministic E2E coherence proof on engine/_fixture/.
 # Runs the no-agent deterministic spine and asserts each output's required fields are non-null:
 #   validate-analyzer (gate) → funnel-clean → funnel-score → funnel-store → funnel-vectorize → funnel-rag-query
 # The agent step (Section Analyzer) is replaced by the committed golden fixture
-# runs/_fixture/analyzer/gameshell-kickstarter-beliefs.json. fetch/funnel-assemble are
+# engine/_fixture/analyzer/gameshell-kickstarter-beliefs.json. fetch/funnel-assemble are
 # live-DOM (covered by H3), so the chain starts from the committed funnel_package fixture.
-# Products are written to a transient space runs/_fixture-e2e/ which is removed at the end.
+# Products are written to a transient space engine/_fixture-e2e/ which is removed at the end.
 # Exit 0 = all hops coherent; non-zero = the failing hop is named.
 set -u
 cd "$(dirname "$0")/../.." || exit 1   # repo root (engine/contracts/ -> repo)
 
 SPACE="_fixture-e2e"
-FX="runs/_fixture"
+FX="engine/_fixture"
 SCRATCH="runs/${SPACE}"
 PKG="${FX}/funnels-assembled/gameshell-kickstarter.json"
 BELIEFS="${FX}/analyzer/gameshell-kickstarter-beliefs.json"

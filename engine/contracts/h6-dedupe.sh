@@ -4,13 +4,13 @@
 # resolve to host "examplecom"), output brand count < input count, NO duplicate
 # normalized domains remain, top-level shape (starting_point/brands/dropped) preserved,
 # and the merged row keeps the richest channel (crowdfunding > dtc) + unions found_by.
-# Reads the committed fixture runs/_fixture/brands.json; writes to a transient dir removed at end.
+# Reads the committed fixture engine/_fixture/brands.json; writes to a transient dir removed at end.
 # Exit 0 = all asserts pass; non-zero names the failing assert.
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 
-FX="runs/_fixture/brands.json"
-OUT="runs/_fixture-dedupe"
+FX="engine/_fixture/brands.json"
+OUT="engine/_fixture-dedupe"
 OUTFILE="${OUT}/brands.json"
 FAIL=0
 ok()  { echo "   PASS: $1"; }

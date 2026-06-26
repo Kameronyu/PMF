@@ -8,8 +8,8 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 
-CLEAN="runs/_fixture/funnels-clean/gameshell-kickstarter-clean.json"
-OUT="runs/_fixture-anactx"
+CLEAN="engine/_fixture/funnels-clean/gameshell-kickstarter-clean.json"
+OUT="engine/_fixture-anactx"
 BLOCK="${OUT}/ctx.txt"
 FAIL=0
 

@@ -3,14 +3,14 @@
 # Closes the coverage gap the H6 brick pass left: the 4 per-agent validators (good->0 / bad->2),
 # route.js (basename dispatch + exit-code propagation), and the 4 DR-context injectors (bundle from
 # a --dr-dir fixture). validate-analyzer + validate-asset-record are already covered by
-# h5-e2e / h6-asset-classify; this proves the rest. Fully offline. Fixtures under runs/_fixture/firing/
+# h5-e2e / h6-asset-classify; this proves the rest. Fully offline. Fixtures under engine/_fixture/firing/
 # + the DR stubs under engine/_fixture/dr-knowledge/. Exit 0 = firing layer coherent.
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 
-F="runs/_fixture/firing"
+F="engine/_fixture/firing"
 DRFX="engine/_fixture/dr-knowledge"
-T="runs/_fixture-firing"
+T="engine/_fixture-firing"
 FAIL=0
 ok()  { echo "   PASS: $1"; }
 bad() { echo "   FAIL: $1"; FAIL=1; }

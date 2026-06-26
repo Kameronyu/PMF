@@ -9,7 +9,7 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 
-T="runs/_fixture-assetfetch"
+T="engine/_fixture-assetfetch"
 SRC="${T}/src"
 OUT="${T}/out"
 FAIL=0
