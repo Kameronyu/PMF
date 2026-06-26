@@ -164,7 +164,8 @@ const landingPageUrl = cleaned.landing_page_url ?? null;
 // ---------------------------------------------------------------------------
 // Step 2 — obtain the DR bundle by SPAWNING inject-dr.js (reuse, never reimplement)
 // ---------------------------------------------------------------------------
-const injectDrPath = path.resolve(__dirname, 'hooks', 'inject-dr.js');
+// Post-reorg path: bricks live in engine/bricks/, hooks in engine/hooks/ — climb one level.
+const injectDrPath = path.resolve(__dirname, '..', 'hooks', 'inject-dr.js');
 const drRun = spawnSync(
   process.execPath,
   [injectDrPath, '--stdout', `--max-chars=${maxChars}`],
