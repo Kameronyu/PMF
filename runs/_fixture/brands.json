@@ -1,0 +1,42 @@
+{
+  "starting_point": "fixture-seed",
+  "brands": [
+    {
+      "slug": "alpha",
+      "url": "https://www.example.com/",
+      "channel": "dtc",
+      "found_by": ["finder-a"],
+      "price_points": ["$60"],
+      "relevance": "high",
+      "product_observed": "alpha widget",
+      "revenue_est": { "inputs": { "monthly_visits": 300000, "visits_source": "similarweb-manual" } }
+    },
+    {
+      "slug": "alpha-dup",
+      "url": "http://example.com/products/alpha",
+      "channel": "crowdfunding",
+      "found_by": ["finder-b"],
+      "price_points": ["$59"],
+      "relevance": "high",
+      "crowdfunding": { "amount_raised": 100000, "backer_count": 800 }
+    },
+    {
+      "slug": "beta",
+      "url": "https://getbeta.io",
+      "channel": "marketplace",
+      "found_by": ["finder-a"],
+      "price_points": ["$25"],
+      "product_observed": "beta gadget"
+    },
+    {
+      "slug": "gamma",
+      "url": "https://gamma.shop",
+      "channel": "dtc",
+      "found_by": ["finder-c"],
+      "reviews_count": 1200,
+      "price_points": ["$40"],
+      "product_observed": "gamma device"
+    }
+  ],
+  "dropped": []
+}
