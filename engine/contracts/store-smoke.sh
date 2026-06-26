@@ -79,24 +79,72 @@ AFTER=$(find "runs/${SPACE}" -type f -not -name '_*-log.txt' -exec sha256sum {} 
 
 # ==========================================================================
 # STORE-03 — receipt ledger (GREEN now)
-# Write a sample receipt, then validate the required keys + that inputs_hash is a sha256.
+# Write a sample receipt, then validate the required keys + BIND inputs_hash to its inputs.
+# The hash must demonstrably depend on the declared input BYTES — not be a hardcoded
+# constant, path-only, or unsorted. We do three binding checks (within the ok/bad idiom):
+#   (1) inputs_hash equals a reference sha256 we recompute the SAME way the brick does —
+#       sorted input paths, each as path + NUL + file-bytes (matching hashInputs()).
+#   (2) content-sensitivity: changing an input file's bytes changes inputs_hash.
+#   (3) order-independence: --inputs=a,b yields the same hash as --inputs=b,a.
+# Together these prove the hash is bound to input bytes, not merely sha256-shaped.
 # ==========================================================================
 echo "── STORE-03: receipt ledger ──"
+# Fixed known input set (two files with known bytes) under the space.
+R3DIR="runs/${SPACE}/_smoke-store03"
+rm -rf "$R3DIR"; mkdir -p "$R3DIR"
+A="${R3DIR}/a.json"; B="${R3DIR}/b.json"
+printf '%s' '{"a":1}'  > "$A"
+printf '%s' '{"b":2}'  > "$B"
+
 node engine/bricks/receipt-write.js --space="${SPACE}" --spawn-id=test-001 \
-  --inputs='runs/'"${SPACE}"'/space-map.json' --outputs='runs/'"${SPACE}"'/market-selection.json' --step=05-test >/dev/null 2>&1 \
+  --inputs="${A},${B}" --outputs='runs/'"${SPACE}"'/market-selection.json' --step=05-test >/dev/null 2>&1 \
   || bad "receipt-write crashed (space=${SPACE})"
+
+# (1) Reference hash, computed inline the SAME way hashInputs() does:
+#     for each path in SORTED order: emit path, a NUL byte, then the file's bytes; sha256 the stream.
+#     Sorted order of "$A" then "$B": a.json < b.json, so A then B.
+REF=$( { printf '%s' "$A"; printf '\0'; cat "$A"; printf '%s' "$B"; printf '\0'; cat "$B"; } | sha256sum | awk '{print $1}' )
+
+# Checks (1) binding, (2) content-sensitivity (mutate input bytes), (3) order-independence
+# are all performed inside the node block below (it re-runs the brick to read back hashes).
 node -e '
-const fs=require("fs");
+const fs=require("fs"), cp=require("child_process");
 let fail=0; const ok=m=>console.log("   PASS: "+m); const bad=m=>{console.log("   FAIL: "+m);fail=1;};
-const p="runs/'"${SPACE}"'/_receipts/test-001.json";
+const SPACE="'"${SPACE}"'";
+const p="runs/"+SPACE+"/_receipts/test-001.json";
+const REF="'"${REF}"'";
+const A="'"${A}"'", B="'"${B}"'";
 fs.existsSync(p)?ok("receipt file exists"):bad("receipt file missing");
-if(fs.existsSync(p)){const r=JSON.parse(fs.readFileSync(p,"utf8"));
+if(fs.existsSync(p)){
+  const r=JSON.parse(fs.readFileSync(p,"utf8"));
   (r.spawn_id && r.inputs_hash && r.validator_verdicts!==undefined && r.outputs && r.ts)?ok("receipt keys present"):bad("missing receipt key: "+JSON.stringify(Object.keys(r)));
   (/^[0-9a-f]{64}$/.test(r.inputs_hash))?ok("inputs_hash is sha256"):bad("inputs_hash not sha256: "+r.inputs_hash);
+  // (1) BIND: receipt hash equals the independently-recomputed reference over input bytes.
+  (r.inputs_hash===REF)?ok("inputs_hash binds to declared input bytes (== reference sha256)"):bad("inputs_hash != reference: got "+r.inputs_hash+" want "+REF);
 }
+// helper: run the brick and read back the inputs_hash for a given spawn-id + inputs csv.
+function hashFor(id, inputsCsv){
+  cp.execFileSync("node",["engine/bricks/receipt-write.js","--space="+SPACE,"--spawn-id="+id,"--inputs="+inputsCsv],{stdio:"ignore"});
+  const rp="runs/"+SPACE+"/_receipts/"+id+".json";
+  return JSON.parse(fs.readFileSync(rp,"utf8")).inputs_hash;
+}
+// (2) content-sensitivity: mutate B bytes, hash must change.
+const hOrig=hashFor("s03-c1", A+","+B);
+fs.writeFileSync(B, "{\"b\":999}");
+const hMut=hashFor("s03-c2", A+","+B);
+(hOrig!==hMut)?ok("content-sensitivity: changing an input byte changes inputs_hash"):bad("hash unchanged after input mutation (path-only/constant hash?)");
+// restore B for (3)
+fs.writeFileSync(B, "{\"b\":2}");
+// (3) order-independence: a,b == b,a (brick sorts before hashing).
+const hAB=hashFor("s03-o1", A+","+B);
+const hBA=hashFor("s03-o2", B+","+A);
+(hAB===hBA)?ok("order-independence: --inputs=a,b == b,a"):bad("hash depends on input order (a,b != b,a)");
 process.exit(fail);
 ' || FAIL=1
-rm -f "runs/${SPACE}/_receipts/test-001.json"
+rm -f "runs/${SPACE}/_receipts/test-001.json" \
+      "runs/${SPACE}/_receipts/s03-c1.json" "runs/${SPACE}/_receipts/s03-c2.json" \
+      "runs/${SPACE}/_receipts/s03-o1.json" "runs/${SPACE}/_receipts/s03-o2.json"
+rm -rf "$R3DIR"
 
 # ==========================================================================
 echo ""
