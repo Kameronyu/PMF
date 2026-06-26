@@ -68,7 +68,12 @@ if (opts.help) {
 }
 
 // --- Constants ---
-const DR_DIR = path.join(os.homedir(), 'knowledge', 'dr-marketing');
+// DR knowledge dir is an EXTERNAL, wire-time input (content is operator-owned + may be stale).
+// Resolve: --dr-dir=<path> → $DR_DIR env → homedir default (back-compat). The path-traversal
+// guard below still pins every file under whatever DR_DIR resolves to.
+const DR_DIR = opts['dr-dir'] ? path.resolve(opts['dr-dir'])
+  : process.env.DR_DIR ? path.resolve(process.env.DR_DIR)
+  : path.join(os.homedir(), 'knowledge', 'dr-marketing');
 // Default output: a stable generated bundle the Section Analyzer prompt Reads as a
 // mandatory step. There is NO harness auto-injection (the analyzer runs as a subagent
 // where settings hooks don't fire), so the reliable path is: generate this file, then

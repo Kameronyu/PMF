@@ -57,7 +57,11 @@ const opts = Object.fromEntries(
       .map(a => { const [k, v] = a.replace(/^--/, '').split('='); return [k, v ?? true]; })
 );
 
-const DR_DIR = path.join(os.homedir(), 'knowledge', 'dr-marketing');
+// DR knowledge dir is an EXTERNAL, wire-time input: --dr-dir=<path> → $DR_DIR env → homedir
+// default (back-compat). The path-traversal guard still pins every file under DR_DIR.
+const DR_DIR = opts['dr-dir'] ? path.resolve(opts['dr-dir'])
+  : process.env.DR_DIR ? path.resolve(process.env.DR_DIR)
+  : path.join(os.homedir(), 'knowledge', 'dr-marketing');
 // Default output: the generated bundle next to the skill that consumes it.
 const DEFAULT_OUT = path.resolve(__dirname, '..', '..',
   '.claude', 'skills', 'funnel-architect', '_dr-context.generated.md');
