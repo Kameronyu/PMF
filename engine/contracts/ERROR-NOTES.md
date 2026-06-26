@@ -34,6 +34,7 @@ reliably from a residential IP. Production VOC ingestion should use reddit's **o
 
 ## FIXED (verified in git — do NOT re-add to punch-list)
 
+- **asset-map-rank section-table/section-list path break (#asset-map-rank-section-path)** → FIXED P21-H6 `0ad0fe6` (this run). `asset-map-rank.js` resolved `SECTION_TABLE_PATH` and the default `SECTION_LIST_PATH` via `path.join(CWD, 'tools', 'asset', …)` — the pre-reorg location; `tools/asset/` no longer exists, so the brick died with "failed to load section-table.json" → exit 1 on every run. Corrected to `path.resolve(__dirname, 'asset', …)` (the config ships alongside the brick at `engine/bricks/asset/`). Same post-reorg class as the inject-dr break. Surfaced by the new H6 smoke (`engine/contracts/h6-asset-classify.sh`).
 - **funnel-analyzer-context inject-dr path break (#funnel-analyzer-context-injectdr-path)** → FIXED P21-H6 `a57d30e` (this run). `funnel-analyzer-context.js` spawned `path.resolve(__dirname, 'hooks', 'inject-dr.js')` = `engine/bricks/hooks/inject-dr.js`, which does not exist after the bricks/hooks reorg → `MODULE_NOT_FOUND` → brick exit 2 ("DR bundle unavailable, refusing to fabricate"). Corrected to `../hooks/inject-dr.js`. Surfaced by the new H6 smoke (`engine/contracts/h6-analyzer-context.sh`); this was a silent break — nothing exercised the analyzer-context spawn before P21.
 
 - **funnel_fields discard** → FIXED `bbff2ff`. `buildStoredRecord(funnelPkg, beliefRecords, funnelFields={})` prefers the wrapper for the 6 funnel-level fields.
