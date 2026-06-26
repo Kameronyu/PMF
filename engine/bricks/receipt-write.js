@@ -120,12 +120,18 @@ const outputs = parseCsv(opts.outputs);
 // Gate: default { step_gated:false, decision:null }; Phase 5 populates real decisions.
 let gateObj = { step_gated: false, decision: null };
 if (typeof opts.gate === 'string') {
+  let parsed;
   try {
-    gateObj = JSON.parse(opts.gate);
+    parsed = JSON.parse(opts.gate);
   } catch (e) {
     console.error(`ERROR: --gate is not valid JSON: ${e.message}`);
     process.exit(1);
   }
+  if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    console.error('ERROR: --gate must be a JSON object, e.g. {"step_gated":false,"decision":null}');
+    process.exit(1);
+  }
+  gateObj = parsed;
 }
 
 const receipt = {
