@@ -1,0 +1,539 @@
+{
+  "ad-creative": {
+    "files": [
+      "ad-creative--carl-weische.md",
+      "ad-creative--mark-builds-brands.md",
+      "ad-creative--spencer-origins.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Belief (B)",
+      "Desire (D)",
+      "Hook",
+      "Market",
+      "Pain (P)",
+      "Transformation",
+      "Trust signals",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 9
+  },
+  "ads": {
+    "files": [
+      "ads--carl-weische.md",
+      "ads--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Awareness level",
+      "Belief (B)",
+      "Desire (D)",
+      "Differentiator",
+      "Hook",
+      "Market",
+      "Niche",
+      "Pain (P)",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 10
+  },
+  "advertising": {
+    "files": [
+      "advertising--alex-hormozi.md"
+    ],
+    "terms_used": [
+      "Awareness level",
+      "Claim",
+      "Desire (D)",
+      "Differentiator",
+      "Hook",
+      "Market",
+      "Niche",
+      "Pain (P)",
+      "Transformation",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 10
+  },
+  "advertorial": {
+    "files": [
+      "advertorial--carl-weische.md",
+      "advertorial--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Belief (B)",
+      "Claim",
+      "Desire (D)",
+      "Hook",
+      "Market",
+      "Pain (P)",
+      "Product category",
+      "Transformation",
+      "Trust signals",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 11
+  },
+  "aov-optimization": {
+    "files": [
+      "aov-optimization--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 1
+  },
+  "brand-building": {
+    "files": [
+      "brand-building--alex-hormozi.md",
+      "brand-building--spencer-origins.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Awareness level",
+      "Claim",
+      "Desire (D)",
+      "Differentiator",
+      "Hook",
+      "Market",
+      "Market sophistication",
+      "Product category",
+      "Transformation",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 11
+  },
+  "case-studies": {
+    "files": [
+      "case-studies--spencer-origins.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Claim",
+      "Desire (D)",
+      "Differentiator",
+      "Hook",
+      "Market",
+      "Market sophistication",
+      "Pain (P)",
+      "Product category",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 10
+  },
+  "consumer-psychology": {
+    "files": [
+      "consumer-psychology--alex-hormozi.md",
+      "consumer-psychology--carl-weische.md",
+      "consumer-psychology--mark-builds-brands.md",
+      "consumer-psychology--spencer-origins.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Awareness level",
+      "Belief (B)",
+      "Claim",
+      "Desire (D)",
+      "Hook",
+      "Market",
+      "Market sophistication",
+      "Niche",
+      "Pain (P)",
+      "Product category",
+      "Transformation",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 13
+  },
+  "consumer-psychology-persuasion-buyer-behavior": {
+    "files": [
+      "consumer-psychology-persuasion-buyer-behavior--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Claim",
+      "Desire (D)",
+      "Market",
+      "Pain (P)",
+      "Transformation",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 6
+  },
+  "conversion-optimization": {
+    "files": [
+      "conversion-optimization--alex-hormozi.md"
+    ],
+    "terms_used": [
+      "Claim",
+      "Desire (D)",
+      "Market",
+      "Niche",
+      "Pain (P)",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 6
+  },
+  "copywriting": {
+    "files": [
+      "copywriting--alex-hormozi.md",
+      "copywriting--carl-weische.md",
+      "copywriting--mark-builds-brands.md",
+      "copywriting--spencer-origins.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Awareness level",
+      "Belief (B)",
+      "Claim",
+      "Desire (D)",
+      "Differentiator",
+      "Hook",
+      "Market",
+      "Market sophistication",
+      "Niche",
+      "PMBD",
+      "Pain (P)",
+      "Transformation",
+      "Trust signals",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 15
+  },
+  "cro": {
+    "files": [
+      "cro--carl-weische.md",
+      "cro--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Awareness level",
+      "Belief (B)",
+      "Claim",
+      "Desire (D)",
+      "Hook",
+      "Market",
+      "Motif (M)",
+      "Niche",
+      "Pain (P)",
+      "Product category",
+      "Transformation",
+      "Trust signals",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 14
+  },
+  "cro-conversion-optimization-split-testing": {
+    "files": [
+      "cro-conversion-optimization-split-testing--carl-weische.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Desire (D)",
+      "Market",
+      "Pain (P)",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 5
+  },
+  "customer-data": {
+    "files": [
+      "customer-data--carl-weische.md"
+    ],
+    "terms_used": [
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 1
+  },
+  "ecommerce": {
+    "files": [
+      "ecommerce--carl-weische.md",
+      "ecommerce--mark-builds-brands.md",
+      "ecommerce--spencer-origins.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Belief (B)",
+      "Claim",
+      "Desire (D)",
+      "Hook",
+      "Market",
+      "Niche",
+      "Pain (P)",
+      "Transformation",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 10
+  },
+  "email-and-retention": {
+    "files": [
+      "email-and-retention--alex-hormozi.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Belief (B)",
+      "Claim",
+      "Desire (D)",
+      "Differentiator",
+      "Market",
+      "Niche",
+      "Pain (P)",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 9
+  },
+  "email-marketing": {
+    "files": [
+      "email-marketing--carl-weische.md",
+      "email-marketing--mark-builds-brands.md",
+      "email-marketing--spencer-origins.md"
+    ],
+    "terms_used": [
+      "Differentiator",
+      "Market",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 3
+  },
+  "funnel-architecture": {
+    "files": [
+      "funnel-architecture--alex-hormozi.md",
+      "funnel-architecture--carl-weische.md",
+      "funnel-architecture--mark-builds-brands.md",
+      "funnel-architecture--spencer-origins.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Awareness level",
+      "Belief (B)",
+      "Claim",
+      "Desire (D)",
+      "Differentiator",
+      "Hook",
+      "Market",
+      "Niche",
+      "Pain (P)",
+      "Transformation",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 12
+  },
+  "funnel-architecture-quiz-funnel-landing-pages-advertorial": {
+    "files": [
+      "funnel-architecture-quiz-funnel-landing-pages-advertorial--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Awareness level",
+      "Desire (D)",
+      "Hook",
+      "Pain (P)",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 5
+  },
+  "hooks": {
+    "files": [
+      "hooks--mark-builds-brands.md",
+      "hooks--spencer-origins.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Awareness level",
+      "Belief (B)",
+      "Claim",
+      "Desire (D)",
+      "Hook",
+      "Niche",
+      "Pain (P)",
+      "Product category",
+      "Sub-niche (also called PMBD cluster)",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 11
+  },
+  "landing-pages": {
+    "files": [
+      "landing-pages--carl-weische.md",
+      "landing-pages--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Desire (D)",
+      "Differentiator",
+      "Hook",
+      "Pain (P)",
+      "Transformation",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 6
+  },
+  "offer-construction": {
+    "files": [
+      "offer-construction--alex-hormozi.md",
+      "offer-construction--carl-weische.md",
+      "offer-construction--mark-builds-brands.md",
+      "offer-construction--spencer-origins.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Awareness level",
+      "Claim",
+      "Desire (D)",
+      "Differentiator",
+      "Market",
+      "Niche",
+      "Pain (P)",
+      "Product category",
+      "Transformation",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 11
+  },
+  "offer-construction-pricing-bonuses-value-equation": {
+    "files": [
+      "offer-construction-pricing-bonuses-value-equation--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Market",
+      "Niche",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 3
+  },
+  "persuasion": {
+    "files": [
+      "persuasion--carl-weische.md",
+      "persuasion--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Claim",
+      "Market",
+      "Trust signals",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 5
+  },
+  "persuasion-and-sales": {
+    "files": [
+      "persuasion-and-sales--alex-hormozi.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Belief (B)",
+      "Claim",
+      "Desire (D)",
+      "Hook",
+      "Market",
+      "Pain (P)",
+      "Transformation",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 9
+  },
+  "pricing": {
+    "files": [
+      "pricing--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Market",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 2
+  },
+  "product-research": {
+    "files": [
+      "product-research--spencer-origins.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Belief (B)",
+      "Desire (D)",
+      "Market",
+      "Market sophistication",
+      "Pain (P)",
+      "Product category",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 8
+  },
+  "quiz-funnel": {
+    "files": [
+      "quiz-funnel--carl-weische.md",
+      "quiz-funnel--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Belief (B)",
+      "Desire (D)",
+      "Market",
+      "Pain (P)",
+      "Transformation",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 6
+  },
+  "social-proof": {
+    "files": [
+      "social-proof--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Belief (B)",
+      "Market",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 3
+  },
+  "upsells": {
+    "files": [
+      "upsells--carl-weische.md",
+      "upsells--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Desire (D)",
+      "Market",
+      "Pain (P)",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 4
+  },
+  "upsells-and-monetization": {
+    "files": [
+      "upsells-and-monetization--alex-hormozi.md"
+    ],
+    "terms_used": [
+      "Claim",
+      "Differentiator",
+      "Market",
+      "Niche",
+      "Transformation",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 6
+  },
+  "upsells-aov-optimization": {
+    "files": [
+      "upsells-aov-optimization--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 1
+  },
+  "vssl": {
+    "files": [
+      "vssl--carl-weische.md",
+      "vssl--mark-builds-brands.md"
+    ],
+    "terms_used": [
+      "Angle",
+      "Awareness level",
+      "Belief (B)",
+      "Desire (D)",
+      "Hook",
+      "Market",
+      "Pain (P)",
+      "Product category",
+      "UM (Unique Mechanism)"
+    ],
+    "term_count": 9
+  }
+}

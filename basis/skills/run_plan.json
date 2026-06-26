@@ -1,0 +1,185 @@
+{
+  "execution_mode": "max-fidelity, phased; one sonnet topic-orchestrator per topic, nested per-block sub-agents (instruction-mechanizer/skill-builder/4-worker-3b/adversarial-reviewer)",
+  "worker_model": "sonnet",
+  "topics": [
+    "ad-creative",
+    "ads",
+    "advertising",
+    "advertorial",
+    "aov-optimization",
+    "brand-building",
+    "case-studies",
+    "consumer-psychology",
+    "consumer-psychology-persuasion-buyer-behavior",
+    "conversion-optimization",
+    "copywriting",
+    "cro",
+    "cro-conversion-optimization-split-testing",
+    "customer-data",
+    "ecommerce",
+    "email-and-retention",
+    "email-marketing",
+    "funnel-architecture",
+    "funnel-architecture-quiz-funnel-landing-pages-advertorial",
+    "hooks",
+    "landing-pages",
+    "offer-construction",
+    "offer-construction-pricing-bonuses-value-equation",
+    "persuasion",
+    "persuasion-and-sales",
+    "pricing",
+    "product-research",
+    "quiz-funnel",
+    "social-proof",
+    "upsells",
+    "upsells-and-monetization",
+    "upsells-aov-optimization",
+    "vssl"
+  ],
+  "files_per_topic": {
+    "ad-creative": [
+      "ad-creative--carl-weische.md",
+      "ad-creative--mark-builds-brands.md",
+      "ad-creative--spencer-origins.md"
+    ],
+    "ads": [
+      "ads--carl-weische.md",
+      "ads--mark-builds-brands.md"
+    ],
+    "advertising": [
+      "advertising--alex-hormozi.md"
+    ],
+    "advertorial": [
+      "advertorial--carl-weische.md",
+      "advertorial--mark-builds-brands.md"
+    ],
+    "aov-optimization": [
+      "aov-optimization--mark-builds-brands.md"
+    ],
+    "brand-building": [
+      "brand-building--alex-hormozi.md",
+      "brand-building--spencer-origins.md"
+    ],
+    "case-studies": [
+      "case-studies--spencer-origins.md"
+    ],
+    "consumer-psychology": [
+      "consumer-psychology--alex-hormozi.md",
+      "consumer-psychology--carl-weische.md",
+      "consumer-psychology--mark-builds-brands.md",
+      "consumer-psychology--spencer-origins.md"
+    ],
+    "consumer-psychology-persuasion-buyer-behavior": [
+      "consumer-psychology-persuasion-buyer-behavior--mark-builds-brands.md"
+    ],
+    "conversion-optimization": [
+      "conversion-optimization--alex-hormozi.md"
+    ],
+    "copywriting": [
+      "copywriting--alex-hormozi.md",
+      "copywriting--carl-weische.md",
+      "copywriting--mark-builds-brands.md",
+      "copywriting--spencer-origins.md"
+    ],
+    "cro": [
+      "cro--carl-weische.md",
+      "cro--mark-builds-brands.md"
+    ],
+    "cro-conversion-optimization-split-testing": [
+      "cro-conversion-optimization-split-testing--carl-weische.md"
+    ],
+    "customer-data": [
+      "customer-data--carl-weische.md"
+    ],
+    "ecommerce": [
+      "ecommerce--carl-weische.md",
+      "ecommerce--mark-builds-brands.md",
+      "ecommerce--spencer-origins.md"
+    ],
+    "email-and-retention": [
+      "email-and-retention--alex-hormozi.md"
+    ],
+    "email-marketing": [
+      "email-marketing--carl-weische.md",
+      "email-marketing--mark-builds-brands.md",
+      "email-marketing--spencer-origins.md"
+    ],
+    "funnel-architecture": [
+      "funnel-architecture--alex-hormozi.md",
+      "funnel-architecture--carl-weische.md",
+      "funnel-architecture--mark-builds-brands.md",
+      "funnel-architecture--spencer-origins.md"
+    ],
+    "funnel-architecture-quiz-funnel-landing-pages-advertorial": [
+      "funnel-architecture-quiz-funnel-landing-pages-advertorial--mark-builds-brands.md"
+    ],
+    "hooks": [
+      "hooks--mark-builds-brands.md",
+      "hooks--spencer-origins.md"
+    ],
+    "landing-pages": [
+      "landing-pages--carl-weische.md",
+      "landing-pages--mark-builds-brands.md"
+    ],
+    "offer-construction": [
+      "offer-construction--alex-hormozi.md",
+      "offer-construction--carl-weische.md",
+      "offer-construction--mark-builds-brands.md",
+      "offer-construction--spencer-origins.md"
+    ],
+    "offer-construction-pricing-bonuses-value-equation": [
+      "offer-construction-pricing-bonuses-value-equation--mark-builds-brands.md"
+    ],
+    "persuasion": [
+      "persuasion--carl-weische.md",
+      "persuasion--mark-builds-brands.md"
+    ],
+    "persuasion-and-sales": [
+      "persuasion-and-sales--alex-hormozi.md"
+    ],
+    "pricing": [
+      "pricing--mark-builds-brands.md"
+    ],
+    "product-research": [
+      "product-research--spencer-origins.md"
+    ],
+    "quiz-funnel": [
+      "quiz-funnel--carl-weische.md",
+      "quiz-funnel--mark-builds-brands.md"
+    ],
+    "social-proof": [
+      "social-proof--mark-builds-brands.md"
+    ],
+    "upsells": [
+      "upsells--carl-weische.md",
+      "upsells--mark-builds-brands.md"
+    ],
+    "upsells-and-monetization": [
+      "upsells-and-monetization--alex-hormozi.md"
+    ],
+    "upsells-aov-optimization": [
+      "upsells-aov-optimization--mark-builds-brands.md"
+    ],
+    "vssl": [
+      "vssl--carl-weische.md",
+      "vssl--mark-builds-brands.md"
+    ]
+  },
+  "estimated_term_count": 44,
+  "steps_to_parallelize": [
+    "3b (4 workers/term)",
+    "5 (mechanizer/RULE)",
+    "6 (skill-builder/DEF)",
+    "8a (3 reviewers)"
+  ],
+  "parallel_worker_budget_per_term": 4,
+  "io_contracts": {
+    "3->3a": "{file}_manifest.json: blocks[{id,type,term_defined?,domain_terms_used,illustrates_term?,embedded_def?}]",
+    "3a->3b": "ambiguity_report_{topic}.json: [{term,trigger,ambiguous_usages,conflict_type,escalate_immediately:false}]",
+    "3b->4": "ambiguity_resolutions_{topic}.json: [{term,context_note,proposed_addition,evidence}]",
+    "5->8": "mechanized RULE blocks + change_report + flagged_irreducibles",
+    "6->7": "hardened DEF blocks (4 sub-sections)",
+    "7->8": "assembled kb-{topic}/SKILL.md",
+    "8->9": "{findings[],verdict}"
+  }
+}

@@ -1,0 +1,23 @@
+[
+  {"query": "i finally got claude to figure out my whole month-end close in quickbooks — exporting the reports, reconciling, emailing the summary. it works now. can you write it up so next month a fresh session just runs it without poking around again?", "should_trigger": true},
+  {"query": "every monday i have claude pull our stripe payouts and drop them in a sheet, but it re-figures-out the same thing every single week. how do i make it just replay the exact steps instead?", "should_trigger": true},
+  {"query": "my automated invoice script worked for 3 months then broke when the vendor portal changed their button layout. how should i have built it so it doesn't shatter every time their UI moves?", "should_trigger": true},
+  {"query": "should i even bother turning this into a permanent automation? i only need to scrape this competitor's pricing maybe once a quarter and their site changes a lot", "should_trigger": true},
+  {"query": "i have a runbook doc a fresh claude session is supposed to execute end to end. today it ran but quietly produced an empty file and nobody noticed until a client complained. how do i make the design catch that and run safely?", "should_trigger": true},
+  {"query": "which parts of this data-pipeline task should i hardcode into a script vs leave the agent to figure out at runtime? some steps are stable and some depend on the input", "should_trigger": true},
+  {"query": "turn this exploration into a durable design — pre-write all the code and the workflow so there's zero ambiguity when a clean session executes it later", "should_trigger": true},
+  {"query": "i want my deploy checklist to be replayable by an agent with preconditions and a rollback if a step fails, and it should bail out if the environment isn't what it expects", "should_trigger": true},
+  {"query": "claude keeps re-discovering the same API quirks on every run. i want to capture the working approach once so it stops re-exploring and just executes", "should_trigger": true},
+  {"query": "how do i make an agent automation that fails loud instead of silently when the thing it depends on drifts out from under it?", "should_trigger": true},
+
+  {"query": "i have 5 pipeline stages handing data to each other and i need to define the typed contract between each stage and decide which agent owns which decision", "should_trigger": false},
+  {"query": "harden this one classification prompt's output — the label field keeps coming back plausible but wrong, i need a membership test on it", "should_trigger": false},
+  {"query": "this prompt is full of vague words like 'summarize nicely' and 'handle appropriately' — make the instructions mechanical and checkable", "should_trigger": false},
+  {"query": "review my skill against the captured standard and log defects with severities, but don't fix anything", "should_trigger": false},
+  {"query": "write me a python script that moves files from my Downloads folder into subfolders by file extension", "should_trigger": false},
+  {"query": "how do i set up a cron job to run my database backup at 2am every night?", "should_trigger": false},
+  {"query": "design the DAG for my multi-agent research system — how many subagents should the orchestrator spawn for a comparison task?", "should_trigger": false},
+  {"query": "my terraform keeps showing configuration drift in the console, how do i reconcile it back to the IaC state?", "should_trigger": false},
+  {"query": "what's the actual difference between a workflow and an agent in anthropic's framing?", "should_trigger": false},
+  {"query": "make this onboarding SOP document less ambiguous so my human team follows it the same way every time", "should_trigger": false}
+]
