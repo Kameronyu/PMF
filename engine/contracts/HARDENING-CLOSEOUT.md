@@ -71,7 +71,7 @@ Pure-deterministic, no external effect, fixture-smokeable. Build the fixture if 
 1. **REGISTRY:** every Bucket-A capability that smoked → `health: working`. Bucket-B → `dry-run-verified`/`partial`. Bucket-C → keep + `deferred: R6/R7` + reason.
 2. **ERROR-NOTES.md:** move newly-closed items OPEN→FIXED with commit hashes. Keep `#adlib-typeahead-resolve` and `#reddit-extract-fingerprint` OPEN (deferred).
 3. **REUSE-INDEX.md — resolve the two gray-lines:**
-   - **#1 asset-classification → ENGINEERING (operator-confirmed).** Its deterministic bricks are hardened in this run; its perceptual classifier *logic* is reused via `prompts/_specs/image-classifier-brick.md` (§2). Any marketing-flavored copy in the `09/10/11` instances is re-authored at R5 — do not carry the instances across the firewall.
+   - **#1 asset-classification → ENGINEERING (operator-confirmed).** Its deterministic bricks are hardened in this run; its perceptual classifier *logic* is reused via `engine/prompts/_specs/image-classifier-brick.md` (§2). Any marketing-flavored copy in the `09/10/11` instances is re-authored at R5 — do not carry the instances across the firewall.
    - **#2 section-analyzer/funnel straddle → already resolved:** firing/contract wiring reusable (§1–2); marketing rubric re-authored (§5). Just confirm the wording.
 4. **Re-verify:** `bash engine/contracts/h5-e2e.sh` green + every new smoke green.
 5. **Stamp status:** write a short `21-CLOSEOUT-SUMMARY.md` (or append to INDEXING-HANDOFF) — health is now `N working / M deferred(R6/R7) / 0 unexplained-untested`.

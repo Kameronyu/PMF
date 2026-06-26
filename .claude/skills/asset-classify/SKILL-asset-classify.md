@@ -19,7 +19,7 @@ description: >-
 > SCHEMA NOT DUPLICATED HERE. The brick-4 record schema (demonstrates[], disqualifiers[], shot_type,
 > display_state, in_frame, composition, tone, caption_hint, selection_note + technical{} + eligible_sections)
 > and all closed enums (SHOT_TYPE_ENUM, DISQUALIFIER_ENUM, STRENGTH_ENUM, BEST_USE_ENUM, DISPLAY_STATE_ENUM,
-> claim list) are co-owned by `prompts/_specs/image-classifier-brick.md §Classification record` +
+> claim list) are co-owned by `engine/prompts/_specs/image-classifier-brick.md §Classification record` +
 > `tools/hooks/validate-asset-record.js` (the hook is the ground truth for closed vocab). Agent-filled
 > vs script-filled field ownership in the spec §Field ownership block.
 
@@ -537,7 +537,7 @@ After picks are confirmed: `asset-upload.js` + the Phase 15 builder (`/copywrite
 
 ## SCHEMA + CONTROLLED VOCAB (pointer — not duplicated here)
 
-Brick-4 record schema and controlled vocab live in `prompts/_specs/image-classifier-brick.md`:
+Brick-4 record schema and controlled vocab live in `engine/prompts/_specs/image-classifier-brick.md`:
 - **Image record**: id, relevance, shot_type, in_frame, display_state, demonstrates[], composition, tone,
   disqualifiers, caption_hint, selection_note + technical{} (script-filled) + eligible_sections (script-filled)
 - **Video record**: id, segments[], demonstrates[] (with at + motion_value), best_use, loop_safe, needs_audio,

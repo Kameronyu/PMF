@@ -49,7 +49,7 @@ if (process.argv.includes('--help')) {
   process.exit(0);
 }
 
-// --- Closed enum definitions (verbatim from spec prompts/_specs/image-classifier-brick.md) ---
+// --- Closed enum definitions (verbatim from spec engine/prompts/_specs/image-classifier-brick.md) ---
 // Closed enums imported from the single source of truth (H0 contract extraction).
 // require() resolves relative to this module (cwd-independent). STRENGTH_ENUM is
 // namespaced ASSET_STRENGTH in enums.json to avoid a cross-contract collision.
