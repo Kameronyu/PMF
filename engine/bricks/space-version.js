@@ -75,8 +75,8 @@ Behavior:
   process.exit(0);
 }
 
-if (!opts.space) {
-  console.error('ERROR: --space=<market-space> is required');
+if (typeof opts.space !== 'string' || opts.space === '') {
+  console.error('ERROR: --space=<market-space> is required (did you forget the =value?)');
   process.exit(1);
 }
 

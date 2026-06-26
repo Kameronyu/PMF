@@ -68,12 +68,12 @@ Behavior:
   process.exit(0);
 }
 
-if (!opts.space) {
-  console.error('ERROR: --space=<market-space> is required');
+if (typeof opts.space !== 'string' || opts.space === '') {
+  console.error('ERROR: --space=<market-space> is required (did you forget the =value?)');
   process.exit(1);
 }
-if (!opts['spawn-id']) {
-  console.error('ERROR: --spawn-id=<id> is required');
+if (typeof opts['spawn-id'] !== 'string' || opts['spawn-id'] === '') {
+  console.error('ERROR: --spawn-id=<id> is required (did you forget the =value?)');
   process.exit(1);
 }
 
