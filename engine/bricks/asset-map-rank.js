@@ -79,10 +79,13 @@ const OUT_DIR     = opts.out
 const RECORDS_DIR = opts['records-dir']
   ? path.resolve(opts['records-dir'])
   : path.join(OUT_DIR, 'records');
+// Post-reorg: the section config ships alongside the brick at engine/bricks/asset/,
+// not the pre-reorg CWD-relative tools/asset/. Resolve relative to __dirname so it works
+// regardless of the process CWD. (--section-list still overrides.)
 const SECTION_LIST_PATH = opts['section-list']
   ? path.resolve(opts['section-list'])
-  : path.join(CWD, 'tools', 'asset', 'section-list.default.json');
-const SECTION_TABLE_PATH = path.join(CWD, 'tools', 'asset', 'section-table.json');
+  : path.resolve(__dirname, 'asset', 'section-list.default.json');
+const SECTION_TABLE_PATH = path.resolve(__dirname, 'asset', 'section-table.json');
 const RANKED_OUT = path.join(OUT_DIR, 'ranked.json');
 
 // ---------------------------------------------------------------------------

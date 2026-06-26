@@ -1,0 +1,9 @@
+{
+  "id": "img-001",
+  "shot_type": "hero",
+  "demonstrates": [
+    { "claim": "transparency_internals_visible", "strength": "strong", "evidence": "Clear shell shows the PCB and modules through the housing." }
+  ],
+  "disqualifiers": [],
+  "technical": { "w": 3000, "h": 2000, "min_safe_use": "hero" }
+}

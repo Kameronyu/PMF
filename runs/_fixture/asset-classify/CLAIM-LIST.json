@@ -1,0 +1,8 @@
+{
+  "product": "_fixture",
+  "claims": [
+    { "id": "transparency_internals_visible", "gloss": "internals visible through shell", "load_bearing": true },
+    { "id": "pocket_scale", "gloss": "fits in hand / pocket", "load_bearing": true },
+    { "id": "hackable_maker", "gloss": "open / USB / hackable", "load_bearing": false }
+  ]
+}
