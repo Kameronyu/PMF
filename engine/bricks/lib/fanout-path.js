@@ -17,7 +17,10 @@ function sanitizePathSegment(raw) {
   return String(raw)
     .toLowerCase()
     .replace(/[^a-z0-9._-]/g, '')
-    .replace(/\.\.+/g, '');   // collapse residual dots — block traversal
+    .replace(/\.\.+/g, '');   // strip residual dot-runs (traversal-safe): a run of 2+ dots
+                              // is removed entirely, so ".." -> "" and "a..b" -> "ab".
+                              // This guarantees no surviving ".." segment can rejoin into a
+                              // parent-dir traversal. (Single dots are kept: "a.b" -> "a.b".)
 }
 
 function buildFanoutName(...keys) {
