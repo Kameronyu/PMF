@@ -74,7 +74,7 @@ engine/
 | **Skill (wiring orchestrator)** | `.claude/skills/<name>/SKILL.md` | (orchestration only after the A3 split) |
 | **Agent prompt (marketing)** | `.claude/skills/<name>/AGENT-<name>.md` | operator-owned; out of scope here |
 
-**Approved verb set** (deterministic jobs): `fetch · clean · dedupe · normalize · assemble · score · store · vectorize · query · tally · emit · rank · upload · estimate · probe · grab · deploy · drive · route · validate · inject · resolve`. A new brick uses one of these or adds to the list in a PR — never invents a synonym (no `get`/`pull`/`build` where `fetch`/`assemble` already mean it).
+**Approved verb set** (deterministic jobs): `fetch · clean · dedupe · normalize · assemble · score · store · vectorize · query · tally · emit · rank · upload · estimate · probe · grab · deploy · drive · route · validate · inject · resolve · scaffold · version · receipt · fanout` (last four: Phase 1 store bricks). A new brick uses one of these or adds to the list in a PR — never invents a synonym (no `get`/`pull`/`build` where `fetch`/`assemble` already mean it).
 
 **This pass = relocation only (stems unchanged).** `tools/X.js` → `engine/bricks/X.js`,
 `tools/hooks/*` → `engine/hooks/*`, `tools/asset/*` → `engine/bricks/asset/*`, `tools/lib/*` →
