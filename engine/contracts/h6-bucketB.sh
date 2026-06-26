@@ -15,7 +15,7 @@ ok()  { echo "   PASS: $1"; }
 bad() { echo "   FAIL: $1"; FAIL=1; }
 
 echo "── H6.Bucket B: surge-deploy (dry-run) ──"
-.venv/bin/python -m py_compile engine/integrations/surge/surge_drive.py 2>/dev/null \
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile engine/integrations/surge/surge_drive.py 2>/dev/null \
   && ok "surge_drive.py compiles (syntax/import valid)" || bad "surge_drive.py does not compile"
 [ -d runs/arduview/site ] && ok "deploy source dir runs/arduview/site exists" || bad "SITE dir missing"
 command -v npx >/dev/null 2>&1 && ok "npx present ($(npx --version 2>/dev/null)) — surge CLI launcher available" || bad "npx missing"
