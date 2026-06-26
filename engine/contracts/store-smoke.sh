@@ -4,10 +4,9 @@
 # proven h6-*.sh smoke idiom (set -u, cd-to-repo-root, ok/bad helpers, inline `node -e`
 # JSON asserts, named-exit). No test framework — bash smoke is the project's idiom.
 #
-# RED-by-design: STORE-02 + STORE-03 invoke engine/bricks/space-version.js and
-# receipt-write.js, which land in Plan 02. Those asserts FAIL RED until then — that is the
-# correct, expected Wave-0 state. STORE-01/04/05 are GREEN after Plan 01. Do NOT weaken the
-# STORE-02/03 asserts to make the harness pass; the file is complete now, Plan 02 turns it green.
+# State: STORE-01/02/03/04/05 are all GREEN as of Plan 02 (space-version.js and
+# receipt-write.js now exist). The full harness passes; every assert below is expected
+# to be GREEN. Do NOT weaken any assert — if one goes RED it is a real regression.
 #
 # Run:
 #   bash engine/contracts/store-smoke.sh --space=smoke
@@ -32,7 +31,8 @@ bad() { echo "   FAIL: $1"; FAIL=1; }
 # ==========================================================================
 echo "── STORE-01: scaffold runs/${SPACE}/ slot tree ──"
 rm -rf "runs/${SPACE}"
-node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1 \
+  || bad "store-scaffold crashed (space=${SPACE})"
 
 for d in _receipts voc/market-signal funnels copy review asset-classify voc-bank corpus dumps ads; do
   test -d "runs/${SPACE}/$d" && ok "dir $d" || bad "dir $d missing"
@@ -65,12 +65,12 @@ echo '{"probe":true}' > "runs/${SPACE}/voc/market-signal/probe__probe.json" && o
 rm -f "runs/${SPACE}/voc/market-signal/probe__probe.json"
 
 # ==========================================================================
-# STORE-02 — no-overwrite versioning (RED until Plan 02 lands space-version.js)
+# STORE-02 — no-overwrite versioning (GREEN now)
 # Resolver is READ-ONLY: it only NAMES the next free space, writes nothing. So on a
 # freshly-scaffolded runs/<space> (no runs/<space>-v2) it returns "<space>-v2" and
 # leaves runs/<space> byte-intact. Exclude _*-log.txt (volatile, gitignored scratch).
 # ==========================================================================
-echo "── STORE-02: no-overwrite versioning (RED until Plan 02) ──"
+echo "── STORE-02: no-overwrite versioning ──"
 BEFORE=$(find "runs/${SPACE}" -type f -not -name '_*-log.txt' -exec sha256sum {} \; | sort)
 NEXT=$(node engine/bricks/space-version.js --space="${SPACE}" 2>/dev/null)
 AFTER=$(find "runs/${SPACE}" -type f -not -name '_*-log.txt' -exec sha256sum {} \; | sort)
@@ -78,12 +78,13 @@ AFTER=$(find "runs/${SPACE}" -type f -not -name '_*-log.txt' -exec sha256sum {} 
 [ "$NEXT" = "${SPACE}-v2" ] && ok "version resolver returns ${SPACE}-v2" || bad "resolver returned: '$NEXT' (expected ${SPACE}-v2)"
 
 # ==========================================================================
-# STORE-03 — receipt ledger (RED until Plan 02 lands receipt-write.js)
+# STORE-03 — receipt ledger (GREEN now)
 # Write a sample receipt, then validate the required keys + that inputs_hash is a sha256.
 # ==========================================================================
-echo "── STORE-03: receipt ledger (RED until Plan 02) ──"
+echo "── STORE-03: receipt ledger ──"
 node engine/bricks/receipt-write.js --space="${SPACE}" --spawn-id=test-001 \
-  --inputs='runs/'"${SPACE}"'/space-map.json' --outputs='runs/'"${SPACE}"'/market-selection.json' --step=05-test >/dev/null 2>&1
+  --inputs='runs/'"${SPACE}"'/space-map.json' --outputs='runs/'"${SPACE}"'/market-selection.json' --step=05-test >/dev/null 2>&1 \
+  || bad "receipt-write crashed (space=${SPACE})"
 node -e '
 const fs=require("fs");
 let fail=0; const ok=m=>console.log("   PASS: "+m); const bad=m=>{console.log("   FAIL: "+m);fail=1;};
