@@ -1,21 +1,42 @@
 #!/usr/bin/env node
-// guard-marketing.js — PreToolUse marketing firewall (STAGED, NOT WIRED).
+// guard-marketing.js — PreToolUse marketing firewall (WIRED 2026-06-26, Phase-21 closeout).
 //
-// Blocks Write/Edit to operator-owned marketing paths so a hardening pass cannot touch strategy.
-// Reads the deny-list from engine/contracts/off-limits.json. Exit 0 = allow, exit 2 = block.
+// Blocks Write/Edit/MultiEdit to operator-owned marketing paths so a hardening pass cannot
+// touch strategy. Reads the deny-list from engine/contracts/off-limits.json.
+// Exit 0 = allow, exit 2 = block (PreToolUse: exit 2 cancels the tool call, stderr → agent).
 //
-// TO ENFORCE: add to .claude/settings.json:
+// WIRED in .claude/settings.json as:
 //   "PreToolUse": [{ "matcher": "Write|Edit|MultiEdit",
-//     "hooks": [{ "type": "command",
-//       "command": "node engine/hooks/guard-marketing.js \"$CLAUDE_TOOL_INPUT_PATH\"" }] }]
-// then flip off-limits.json _meta.enforcement to WIRED.
+//     "hooks": [{ "type": "command", "command": "node engine/hooks/guard-marketing.js" }] }]
+// and off-limits.json _meta.enforcement flipped to WIRED.
 //
-// Until wired this script is inert (never invoked) — the deny-list is documentation.
+// Target-path resolution (robust across hook-contract versions):
+//   1. argv[2]                         — CLI test mode: `node guard-marketing.js <path>`
+//   2. $CLAUDE_TOOL_INPUT_PATH         — legacy env-var convention (route.js uses this)
+//   3. stdin JSON tool_input.file_path — current Claude Code hook contract (PreToolUse payload)
+// FAIL-OPEN everywhere a path can't be determined or the deny-list can't be read — a hardening
+// pass must never be bricked by the guard; the guard only ever BLOCKS on a definite match.
 
 const fs = require('fs');
 const path = require('path');
 
-const target = process.argv[2] || process.env.CLAUDE_TOOL_INPUT_PATH || '';
+// 1/2: explicit arg or legacy env var. (`""` from an empty `$VAR` expansion is falsy → fall through.)
+let target = process.argv[2] || process.env.CLAUDE_TOOL_INPUT_PATH || '';
+
+// 3: current hook contract — JSON on stdin: { tool_name, tool_input: { file_path, ... } }.
+if (!target) {
+  try {
+    const raw = fs.readFileSync(0, 'utf8');           // fd 0; in a hook this is a piped payload
+    if (raw && raw.trim()) {
+      const payload = JSON.parse(raw);
+      const ti = payload.tool_input || payload.toolInput || {};
+      target = ti.file_path || ti.path || ti.filePath || '';
+    }
+  } catch (_) {
+    // No stdin / not JSON / read error → fail-open (do not block).
+  }
+}
+
 if (!target) process.exit(0);
 
 const offLimitsPath = path.resolve(__dirname, '..', 'contracts', 'off-limits.json');

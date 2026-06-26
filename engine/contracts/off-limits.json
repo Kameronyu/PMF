@@ -2,8 +2,8 @@
   "_meta": {
     "schema_version": 1,
     "purpose": "Marketing firewall deny-list. The path prefixes the OPERATOR owns and rewrites. The engine never edits these.",
-    "enforcement": "STAGED, NOT WIRED. engine/hooks/guard-marketing.js reads this file and would block a Write/Edit to any match — but it is intentionally NOT registered in .claude/settings.json this pass (operator's 'let holes show on first run' mode). Until wired, this list is documentation the executing agent honors.",
-    "to_enforce": "Add a PreToolUse Write|Edit|MultiEdit hook to .claude/settings.json calling guard-marketing.js, then flip _meta.enforcement to WIRED."
+    "enforcement": "WIRED 2026-06-26 (Phase-21 closeout). engine/hooks/guard-marketing.js is registered as a PreToolUse Write|Edit|MultiEdit hook in .claude/settings.json and reads this file to block any Write/Edit/MultiEdit whose target matches off_limits[]. The guard resolves the target path from argv → $CLAUDE_TOOL_INPUT_PATH → stdin tool_input.file_path, and fails OPEN if no path or deny-list is readable (engine work is never bricked). Note: a Claude Code session loads hook config at startup, so the physical block takes effect on the next session reload; the executing agent honors the deny-list directly in the meantime.",
+    "to_unwire": "Remove the PreToolUse guard-marketing.js entry from .claude/settings.json hooks and flip _meta.enforcement back to STAGED (operator's 'let holes show on first run' mode)."
   },
 
   "off_limits": [
