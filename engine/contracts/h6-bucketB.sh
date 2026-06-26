@@ -18,10 +18,14 @@ echo "── H6.Bucket B: surge-deploy (dry-run) ──"
 # In-memory compile (NOT py_compile, which would write a .pyc into __pycache__) — leaves the tree clean.
 .venv/bin/python -c "import sys; p='engine/integrations/surge/surge_drive.py'; compile(open(p).read(), p, 'exec')" 2>/dev/null \
   && ok "surge_drive.py compiles (syntax/import valid)" || bad "surge_drive.py does not compile"
-[ -d runs/arduview/site ] && ok "deploy source dir runs/arduview/site exists" || bad "SITE dir missing"
 command -v npx >/dev/null 2>&1 && ok "npx present ($(npx --version 2>/dev/null)) — surge CLI launcher available" || bad "npx missing"
-echo "   NOTE: LIVE surge.sh deploy NOT exercised (external effect). Also: surge_drive.py carries a"
-echo "         committed throwaway password (line 11) — recommend moving to --creds/env at R7."
+# Security regression guard: no hardcoded creds; refuses cleanly when SITE/DOMAIN/creds are unset.
+grep -qE "Arduview2026demo|kameronyu0612@gmail.com" engine/integrations/surge/surge_drive.py \
+  && bad "hardcoded creds present in surge_drive.py" || ok "no hardcoded creds in surge_drive.py"
+( unset SURGE_EMAIL SURGE_PW SURGE_SITE SURGE_DOMAIN; .venv/bin/python engine/integrations/surge/surge_drive.py >/dev/null 2>&1; [ $? -eq 2 ] ) \
+  && ok "refuses cleanly (exit 2) when SITE/DOMAIN/creds unset" || bad "did not refuse on missing env"
+echo "   NOTE: creds now via \$SURGE_EMAIL/\$SURGE_PW + SITE/DOMAIN args (no committed secrets)."
+echo "         LIVE surge.sh deploy still NOT exercised (external effect) -> R7."
 
 echo ""
 echo "── H6.Bucket B: chrome-cdp (partial / env-dependent) ──"

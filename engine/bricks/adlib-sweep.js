@@ -4,8 +4,12 @@ const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
 
-const OUT = '/home/kyu3/PMF/runs/eink-tablets/adlibrary';
+// OUT is configurable: --out=<dir> arg -> $ADLIB_OUT env -> relative default (no absolute paths).
+const _outArg = process.argv.slice(2).find(a => a.startsWith('--out='));
+const OUT = _outArg ? _outArg.slice(6) : (process.env.ADLIB_OUT || 'runs/adlibrary');
 
+// NOTE: BRANDS below is a hardcoded research seed (eink-tablets run). Parameterize per run
+// (--brands-file) when this sweep is reused beyond that bet.
 const BRANDS = [
   'reMarkable', 'Boox', 'Kindle Scribe', 'Kobo eReader', 'Supernote', 'Bigme',
   'Viwoods', 'iFLYTEK AINOTE', 'Reinkstone', 'Dasung', 'MobiScribe',
