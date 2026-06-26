@@ -19,11 +19,7 @@ engine/
   _fixture/       smoke inputs (committed) incl. dr-knowledge/ stubs
   package.json · requirements.txt · DEPENDENCIES.md · FIRING-MANIFEST.md · WIRING-BUNDLE.md
 ```
-**Companions that live OUTSIDE engine/ (firewall-blocked from folding in — see Consolidation status):**
-the engineering prompts `prompts/_specs/{image-classifier-brick,funnel-analysis-collection-spec}.md`,
-`prompts/_generated/{enums,section-analyzer-dr-context}.md`, `prompts/_templates/pre-research-plan.template.md`
-(REUSE-INDEX §2). They're part of the bundle conceptually but stay put until R5 because off-limits
-marketing prompts reference them.
+**`engine/prompts/_specs/image-classifier-brick.md` is folded IN** (all its references were editable — no off-limits dependency). The other engineering prompts stay OUTSIDE engine/ for now — **firewall-blocked**, each referenced by off-limits marketing files: `prompts/_specs/funnel-analysis-collection-spec.md`, `prompts/_generated/{enums,section-analyzer-dr-context}.md`, `prompts/_templates/pre-research-plan.template.md` (REUSE-INDEX §2). They fold in at R5.
 
 ## The index — where to look
 | you want… | read |
@@ -61,10 +57,10 @@ These turn the bundle's prep/deploy rails into a shipped funnel. They are real S
 **Both of these MUST be taken through the `automate` skill** before they're trusted as repeatable pipeline steps — turn each from a one-off agent/runbook into a hardened *durable design* (harden_verdict + per-step FROZEN/JOINT/HUMAN_REQUIRED labels + preflight + golden output + blocker protocol + fallback ladder). The LP Builder especially is low-fidelity today, so it gets the most from that pass. That is how each becomes a reusable step the engine can fire, not a manual one-off.
 
 ## `automate` hardening status (triage the rest later)
-**Proven wiring — do NOT need an automate pass** (deterministic, fixture-smoked in `h6-all.sh`, effectively frozen): all bricks (fetch / clean / dedupe / revenue / funnel-* / aggregate / audit-*), the full firing layer, the deploy-integration code, AND the **image/video classifier WIRING** — `asset/probe.py` (dims/phash), `asset-map-rank` (claims→sections), `asset-emit`, `validate-asset-record` + the asset-record schema, and the build spec `prompts/_specs/image-classifier-brick.md` (§2 engineering). The image classifier is in the bundle.
+**Proven wiring — do NOT need an automate pass** (deterministic, fixture-smoked in `h6-all.sh`, effectively frozen): all bricks (fetch / clean / dedupe / revenue / funnel-* / aggregate / audit-*), the full firing layer, the deploy-integration code, AND the **image/video classifier WIRING** — `asset/probe.py` (dims/phash), `asset-map-rank` (claims→sections), `asset-emit`, `validate-asset-record` + the asset-record schema, and the build spec `engine/prompts/_specs/image-classifier-brick.md` (§2 engineering). The image classifier is in the bundle.
 
 **NOT yet run through `automate`** (judgment steps that still need a durable-design pass — figure out later):
-- [ ] **Perceptual image/video classify** — the read that turns a raw asset into an asset record (`demonstrates[].claim` / `strength` / `shot_type`). The plumbing around it is proven wiring (above); only the pixel-read itself is judgment. Spec: `image-classifier-brick.md`. (Open question for later: does this need its own automate pass, or is it covered by spec + bricks?)
+- [ ] **Perceptual image/video classify, incl. the COMPREHEND-VIDEO pipeline** — the read that turns a raw asset into an asset record (image: `demonstrates[].claim`/`strength`/`shot_type`; video: `motion_value`/`segments`/`best_use`). Pipeline: `probe_video.py` → `frame-grab.py` / `sample_montage.py` (frame prep — in the bundle at `engine/bricks/asset/`, deterministic; **referenced as raw material, NOT smoked, per operator**) → the comprehend agent reads the contact sheets → video records → `asset-map-rank`/`asset-emit` → `video-assemble.py`. **Raw material (the judgment prompts):** `marketing-lens/prompts/{09-relevance-bucket,10-role-classify,11-comprehend-video}.md` (off-limits → re-author R5) + worked example `runs/arduview/asset-classify/VIDEO-ANALYSIS.md` + helper README `engine/bricks/asset/README.md`. The perceptual read is the automate-pending judgment step; the image spec is `engine/prompts/_specs/image-classifier-brick.md`.
 - [ ] **LP Builder** (copy → HTML) — low-fidelity marketing agent (see above).
 - [ ] **Shopify implementer** runbook (`SHOPIFY-KLAVIYO-DEPLOY.md`) — code is proven; the operational runbook isn't a durable design yet.
 - [ ] **R5 marketing agents** (Finder / Dumper / Space-Classifier / Market-Selection / Router / Section-Analyzer / Funnel-Architect / Copywriter) — re-authored at R5; harden each via automate as it's built.
