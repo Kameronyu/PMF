@@ -101,13 +101,52 @@ Which phases cover which requirements. Populated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| _(populated by roadmapper)_ | — | Pending |
+| STORE-01 | Phase 1 | Pending |
+| STORE-02 | Phase 1 | Pending |
+| STORE-03 | Phase 1 | Pending |
+| STORE-04 | Phase 1 | Pending |
+| STORE-05 | Phase 1 | Pending |
+| CTRL-01 | Phase 2 | Pending |
+| CTRL-02 | Phase 2 | Pending |
+| CTRL-03 | Phase 2 | Pending |
+| CTRL-04 | Phase 2 | Pending |
+| CTRL-05 | Phase 2 | Pending |
+| CTRL-06 | Phase 2 | Pending |
+| CTRL-07 | Phase 2 | Pending |
+| CTRL-08 | Phase 2 | Pending |
+| CTRL-09 | Phase 2 | Pending |
+| CTRL-10 | Phase 2 | Pending |
+| CTRL-11 | Phase 2 | Pending |
+| CTRL-12 | Phase 2 | Pending |
+| MANIFEST-01 | Phase 3 | Pending |
+| MANIFEST-02 | Phase 3 | Pending |
+| MANIFEST-03 | Phase 3 | Pending |
+| MANIFEST-04 | Phase 3 | Pending |
+| WIRE-01 | Phase 3 | Pending |
+| WIRE-02 | Phase 3 | Pending |
+| STUB-01 | Phase 4 | Pending |
+| STUB-02 | Phase 4 | Pending |
+| STUB-03 | Phase 4 | Pending |
+| STUB-04 | Phase 4 | Pending |
+| WIRE-03 | Phase 4 | Pending |
+| VALID-01 | Phase 5 | Pending |
+| VALID-02 | Phase 5 | Pending |
+| VALID-03 | Phase 5 | Pending |
+| VALID-04 | Phase 5 | Pending |
+| VALID-05 | Phase 5 | Pending |
+| SMOKE-01 | Phase 6 | Pending |
+| SMOKE-02 | Phase 6 | Pending |
+| SMOKE-03 | Phase 6 | Pending |
+| SMOKE-04 | Phase 6 | Pending |
+| SMOKE-05 | Phase 6 | Pending |
 
 **Coverage:**
-- v1 requirements: 33 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 33 ⚠️
+- v1 requirements: 38 total *(the original header said 33; the enumerated list actually contains 38 distinct REQ-IDs — STORE 5 + CTRL 12 + MANIFEST 4 + STUB 4 + VALID 5 + SMOKE 5 + WIRE 3. Corrected during roadmap creation.)*
+- Mapped to phases: 38 ✓
+- Unmapped: 0 ✓
+
+**Per-phase totals:** Phase 1 = 5 · Phase 2 = 12 · Phase 3 = 6 · Phase 4 = 5 · Phase 5 = 5 · Phase 6 = 5
 
 ---
 *Requirements defined: 2026-06-26*
-*Last updated: 2026-06-26 after initial definition*
+*Last updated: 2026-06-26 after roadmap traceability mapping*
