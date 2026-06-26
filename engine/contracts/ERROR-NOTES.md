@@ -34,6 +34,8 @@ reliably from a residential IP. Production VOC ingestion should use reddit's **o
 
 ## FIXED (verified in git — do NOT re-add to punch-list)
 
+- **funnel-analyzer-context inject-dr path break (#funnel-analyzer-context-injectdr-path)** → FIXED P21-H6 `a57d30e` (this run). `funnel-analyzer-context.js` spawned `path.resolve(__dirname, 'hooks', 'inject-dr.js')` = `engine/bricks/hooks/inject-dr.js`, which does not exist after the bricks/hooks reorg → `MODULE_NOT_FOUND` → brick exit 2 ("DR bundle unavailable, refusing to fabricate"). Corrected to `../hooks/inject-dr.js`. Surfaced by the new H6 smoke (`engine/contracts/h6-analyzer-context.sh`); this was a silent break — nothing exercised the analyzer-context spawn before P21.
+
 - **funnel_fields discard** → FIXED `bbff2ff`. `buildStoredRecord(funnelPkg, beliefRecords, funnelFields={})` prefers the wrapper for the 6 funnel-level fields.
 - **normalizeUrl A/B phantom funnels** → FIXED `bbff2ff`. Strip list now includes `variant/test/lp/ver/_pos/_sid/_ss/_psq`.
 - **belief_kind ghost field** → FIXED `35581d4`. `BELIEF_KIND_ENUM` + hard reject in `validate-analyzer.js`.
