@@ -33,7 +33,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. `runs/<space>/_receipts/` exists as a run ledger ready to record every spawn (inputs hash + validator verdicts).
   4. Per-cell fan-out outputs resolve to disambiguated filenames via a documented rule (e.g. `voc/market-signal/<niche>__<transformation>.json`).
   5. A `runs/smoke/` space exists and is usable as the target for acceptance runs.
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 01-01-PLAN.md — fan-out helper (STORE-04) + slot-tree scaffold (STORE-01) + smoke space (STORE-05) + full store-smoke.sh harness
+- [ ] 01-02-PLAN.md — whole-space version resolver (STORE-02) + _receipts/ ledger writer with sha256 inputs_hash (STORE-03)
 **UI hint**: no
 
 ### Phase 2: Run-Controller & Pipeline Spine
@@ -101,7 +104,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Artifact Store Scaffold | 0/TBD | Not started | - |
+| 1. Artifact Store Scaffold | 0/2 | Not started | - |
 | 2. Run-Controller & Pipeline Spine | 0/TBD | Not started | - |
 | 3. Step Manifests | 0/TBD | Not started | - |
 | 4. Prompt Stubs & Mock Emits | 0/TBD | Not started | - |
