@@ -11,11 +11,11 @@ Requirements for the runnable shell. Each maps to exactly one roadmap phase.
 
 ### Artifact Store (STORE)
 
-- [ ] **STORE-01**: `runs/<space>/` tree is scaffolded with one declared file/folder per inter-step artifact (the §4 slot list), convention copied from the as-ran `runs/<space>/` layout
+- [x] **STORE-01**: `runs/<space>/` tree is scaffolded with one declared file/folder per inter-step artifact (the §4 slot list), convention copied from the as-ran `runs/<space>/` layout
 - [ ] **STORE-02**: No-overwrite versioning — a re-run writes a NEW versioned location; v1 output stays intact (project `no-overwrite-v1` convention)
 - [ ] **STORE-03**: Run ledger at `runs/<space>/_receipts/` exists and records every spawn (inputs hash, validator verdicts)
-- [ ] **STORE-04**: Per-cell fan-out outputs use a disambiguating filename rule (e.g. `voc/market-signal/<niche>__<transformation>.json`)
-- [ ] **STORE-05**: A `smoke` space exists and is usable for acceptance runs
+- [x] **STORE-04**: Per-cell fan-out outputs use a disambiguating filename rule (e.g. `voc/market-signal/<niche>__<transformation>.json`)
+- [x] **STORE-05**: A `smoke` space exists and is usable for acceptance runs
 
 ### Run-Controller (CTRL)
 
@@ -101,11 +101,11 @@ Which phases cover which requirements. Populated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| STORE-01 | Phase 1 | Pending |
+| STORE-01 | Phase 1 | Complete |
 | STORE-02 | Phase 1 | Pending |
 | STORE-03 | Phase 1 | Pending |
-| STORE-04 | Phase 1 | Pending |
-| STORE-05 | Phase 1 | Pending |
+| STORE-04 | Phase 1 | Complete |
+| STORE-05 | Phase 1 | Complete |
 | CTRL-01 | Phase 2 | Pending |
 | CTRL-02 | Phase 2 | Pending |
 | CTRL-03 | Phase 2 | Pending |

@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+stopped_at: Completed 01-01-PLAN.md
+last_updated: "2026-06-26T14:34:22.838Z"
+last_activity: 2026-06-26
+progress:
+  total_phases: 6
+  completed_phases: 0
+  total_plans: 2
+  completed_plans: 1
+  percent: 50
+---
+
 # Project State
 
 ## Project Reference
@@ -5,20 +21,21 @@
 See: .planning/PROJECT.md (updated 2026-06-26)
 
 **Core value:** A runnable shell of Steps 0–10 that completes end-to-end on stub prompts — every declared artifact produced and consumed, deterministic routing, gates logged, unbroken receipts, zero orphan outputs / dangling inputs.
-**Current focus:** Phase 1 — Artifact Store Scaffold
+**Current focus:** Phase 01 — artifact-store-scaffold
 
 ## Current Position
 
-Phase: 1 of 6 (Artifact Store Scaffold)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-06-26 — Roadmap created (6 phases, 38 v1 requirements mapped)
+Phase: 01 (artifact-store-scaffold) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-06-26
 
 Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 0
 - Average duration: — min
 - Total execution time: 0.0 hours
@@ -30,10 +47,12 @@ Progress: [░░░░░░░░░░] 0%
 | - | - | - | - |
 
 **Recent Trend:**
+
 - Last 5 plans: —
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 01 P01 | 4 | 3 tasks | 20 files |
 
 ## Accumulated Context
 
@@ -46,6 +65,10 @@ Recent decisions affecting current work:
 - [Roadmap]: WIRE-01/02 land in Phase 3 (manifest reads/writes); WIRE-03 lands in Phase 4 (stub-emit behavior).
 - [Roadmap]: Reuse root `/engine` bricks — assemble + order per PART3 §8, never rewrite the fetch/glue.
 - [Roadmap]: Final phase DoD = ONE-SHOT §7 / SHELL-BUILD-SPEC §11 (smoke green, zero orphans/dangling, unbroken receipts).
+- [Phase 01]: D-Q1: scaffold both corpus/ and flat dumps/ parents; Phase 3 manifests lock final dump path
+- [Phase 01]: D-Q3: follow §6 lowercase slot names verbatim; NAMING.md §5 UPPERCASE governs engine deliverables not pipeline slots
+- [Phase 01]: D-version-grain: whole-SPACE versioning <base>-vN, not per-artifact v2/ (resolver lands Plan 02)
+- [Phase 01]: STORE-02/03 smoke asserts authored RED ahead of Plan 02 bricks (Nyquist Wave-0); harness is complete
 
 ### Pending Todos
 
@@ -69,6 +92,6 @@ Items acknowledged and carried forward (v2 — out of this milestone):
 
 ## Session Continuity
 
-Last session: 2026-06-26
-Stopped at: Roadmap + STATE created; REQUIREMENTS traceability populated
+Last session: 2026-06-26T14:34:13.230Z
+Stopped at: Completed 01-01-PLAN.md
 Resume file: None

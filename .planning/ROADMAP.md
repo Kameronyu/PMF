@@ -35,7 +35,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. A `runs/smoke/` space exists and is usable as the target for acceptance runs.
 **Plans**: 2 plans
 Plans:
-- [ ] 01-01-PLAN.md — fan-out helper (STORE-04) + slot-tree scaffold (STORE-01) + smoke space (STORE-05) + full store-smoke.sh harness
+- [x] 01-01-PLAN.md — fan-out helper (STORE-04) + slot-tree scaffold (STORE-01) + smoke space (STORE-05) + full store-smoke.sh harness
 - [ ] 01-02-PLAN.md — whole-space version resolver (STORE-02) + _receipts/ ledger writer with sha256 inputs_hash (STORE-03)
 **UI hint**: no
 
