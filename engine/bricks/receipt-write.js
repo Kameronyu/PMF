@@ -39,7 +39,11 @@ const { sanitizePathSegment } = require('./lib/fanout-path');
 const args = process.argv.slice(2);
 const opts = Object.fromEntries(
   args.filter(a => a.startsWith('--'))
-    .map(a => { const [k, v] = a.replace(/^--/, '').split('='); return [k, v ?? true]; })
+    .map(a => {
+      const body = a.replace(/^--/, '');
+      const i = body.indexOf('=');
+      return i === -1 ? [body, true] : [body.slice(0, i), body.slice(i + 1)];
+    })
 );
 
 if (opts.help) {
