@@ -25,3 +25,5 @@ runs/arduview/_tooling/.shopify-creds.json
 runs/arduview/_tooling/.klaviyo-creds.json
 runs/arduview/_tooling/.cloudflare-creds.json
 runs/arduview/_tooling/.klaviyo-inkleaf-creds.json
+
+_legacy/
