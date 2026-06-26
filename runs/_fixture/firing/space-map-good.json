@@ -1,0 +1,5 @@
+{ "transformations": [ { "canonical": "t1", "raw_variants": ["x"] } ],
+  "niches": [ { "canonical": "n1", "raw_variants": ["x"] } ],
+  "angles": [ { "canonical": "a1", "raw_variants": ["x"] } ],
+  "combos": [],
+  "per_brand": [ { "slug": "b1", "bet_type": "novelty-object", "bet_type_basis": "page quotes 'build it yourself'", "demand_trend": { "shape": "steady" } } ] }

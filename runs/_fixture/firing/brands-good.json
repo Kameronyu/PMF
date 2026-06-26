@@ -1,0 +1,6 @@
+{ "brands": [
+  { "slug": "alpha", "url": "https://alpha.com", "sells_observed": "alpha widget", "channel": "dtc",
+    "revenue_est": { "value_usd_monthly": 360000, "method": "traffic_formula", "confidence": "medium", "inputs": { "monthly_visits": 300000 } } },
+  { "slug": "beta", "url": "https://beta.io", "sells_observed": "beta gadget", "channel": "crowdfunding",
+    "revenue_est": { "value_usd_monthly": null, "method": null, "confidence": null, "inputs": { "monthly_visits": null } } }
+] }

@@ -12,6 +12,7 @@ SMOKES=(
   h6-clean h6-dedupe h6-revenue h6-claim-tally h6-analyzer-context
   h6-mechanisms h6-funnel-assemble h6-audit h6-asset-classify
   h6-asset-fetch h6-video-assemble
+  h6-firing         # firing layer: validators good/bad + route + DR injectors
   h6-bucketB        # surge dry-run-verified + cdp partial (best-effort)
 )
 
