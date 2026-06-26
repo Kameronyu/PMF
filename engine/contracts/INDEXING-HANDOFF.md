@@ -5,7 +5,17 @@
 
 ---
 
-## Settle this FIRST (hard blocker for Deliverable 1)
+## ✅ RESOLVED — 2026-06-26 (read this before acting)
+
+Operator chose **(B): `marketing-lens/` is scratch** (R4/R5 re-author). Consequences, now in force:
+- **Shipped:** `engine/contracts/MATERIALS.md` (Deliverable 2) — verified against disk, with four handoff-table corrections (see its Gotchas).
+- **Deferred to R5:** Deliverable 1 `PROMPT-WIRING.md` — there is no stable agent topology to name the wiring against until R5 authors the real prompts. **Do NOT start it.**
+- **Deferred to R5:** the `REGISTRY.json` `(PROVISIONAL)` `step_served` reconcile — same reason. The "zero PROVISIONAL" exit criterion below is an **(A)-only** goal and does not apply.
+- The A/B section and Deliverable 1 below are retained as historical context, not open work.
+
+---
+
+## Settle this FIRST (hard blocker for Deliverable 1) — ✅ ANSWERED: (B), see above
 
 **The marketing-lens contradiction.** `REBUILD-ROADMAP.md` R3 lists `marketing-lens/` among the dirs to quarantine into `_legacy/`. But `marketing-lens/MAP.md` + `marketing-lens/prompts/01-11` ARE the named topology this session wires the engine against, and the thing R5 builds on. You cannot both quarantine it and name the wiring map against it. The operator must pick:
 
