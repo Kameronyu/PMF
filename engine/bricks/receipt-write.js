@@ -25,7 +25,8 @@
 //     [--step=<s>] [--inputs=<csv>] [--outputs=<csv>] [--gate=<json>]
 //   node engine/bricks/receipt-write.js --help
 //
-// Output: runs/<space>/_receipts/<spawn_id>.json. Exit 0 ok / 1 on missing --space|--spawn-id.
+// Output: runs/<space>/_receipts/<spawn_id>.json. Exit 0 ok / 1 on missing --space|--spawn-id
+// or on a colliding spawn-id (receipts are WRITE-ONCE — see no-overwrite-v1 guard below).
 
 const fs     = require('fs');
 const path   = require('path');
@@ -154,6 +155,14 @@ const receipt = {
     const OUT_DIR = path.join(process.cwd(), 'runs', SPACE, '_receipts');
     fs.mkdirSync(OUT_DIR, { recursive: true });
     const outPath = path.join(OUT_DIR, `${SPAWN_ID}.json`);
+    // no-overwrite-v1: receipts are WRITE-ONCE committed provenance. A colliding spawn-id
+    // is an orchestrator bug to surface — never silently overwrite, never version-bump.
+    // (CLAUDE.md Versioning; CTRL-08; PART3 §8; SHELL-BUILD-SPEC §4. Mirrors store-scaffold.js'
+    // `if (!fs.existsSync(p))` write-only-if-absent intent, but REFUSES instead of skipping.)
+    if (fs.existsSync(outPath)) {
+      console.error(`ERROR: receipt ${SPAWN_ID} already exists at ${outPath} — refusing to overwrite committed provenance (no-overwrite-v1)`);
+      process.exit(1);
+    }
     fs.writeFileSync(outPath, JSON.stringify(receipt, null, 2) + '\n');
 
     console.log(`receipt-write: wrote _receipts/${SPAWN_ID}.json (space=${SPACE})`);
