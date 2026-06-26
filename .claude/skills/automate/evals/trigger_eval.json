@@ -9,6 +9,8 @@
   {"query": "i want my deploy checklist to be replayable by an agent with preconditions and a rollback if a step fails, and it should bail out if the environment isn't what it expects", "should_trigger": true},
   {"query": "claude keeps re-discovering the same API quirks on every run. i want to capture the working approach once so it stops re-exploring and just executes", "should_trigger": true},
   {"query": "how do i make an agent automation that fails loud instead of silently when the thing it depends on drifts out from under it?", "should_trigger": true},
+  {"query": "my agent automation hits a captcha on the vendor portal and just declares the task impossible — i want the durable design to exhaust alternate routes and fallbacks before it ever gives up", "should_trigger": true},
+  {"query": "one step in my replayable runbook gets a 'not supported' back from the API and the whole run bails; how do i build it so it tries alternate endpoints and an RPA fallback before it calls the step blocked?", "should_trigger": true},
 
   {"query": "i have 5 pipeline stages handing data to each other and i need to define the typed contract between each stage and decide which agent owns which decision", "should_trigger": false},
   {"query": "harden this one classification prompt's output — the label field keeps coming back plausible but wrong, i need a membership test on it", "should_trigger": false},
@@ -19,5 +21,7 @@
   {"query": "design the DAG for my multi-agent research system — how many subagents should the orchestrator spawn for a comparison task?", "should_trigger": false},
   {"query": "my terraform keeps showing configuration drift in the console, how do i reconcile it back to the IaC state?", "should_trigger": false},
   {"query": "what's the actual difference between a workflow and an agent in anthropic's framing?", "should_trigger": false},
-  {"query": "make this onboarding SOP document less ambiguous so my human team follows it the same way every time", "should_trigger": false}
+  {"query": "make this onboarding SOP document less ambiguous so my human team follows it the same way every time", "should_trigger": false},
+  {"query": "reddit is 403ing my one-off scrape right now and i just need today's data — what proxy or header trick gets me through this afternoon?", "should_trigger": false},
+  {"query": "my CI job keeps failing on a flaky network call — should i just wrap it in a retry-with-backoff in the code?", "should_trigger": false}
 ]
