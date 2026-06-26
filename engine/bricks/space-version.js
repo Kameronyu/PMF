@@ -16,8 +16,9 @@
 //                                                                      matches as-ran runs/arduview/ = v1)
 //   - runs/<base> exists, no runs/<base>-v*     → print "<base>-v2"
 //   - runs/<base> + runs/<base>-v2 exist        → print "<base>-v3"
-//   - the regex ^<base>-v(\d+)$ matches ONLY the exact -vN suffix, so runs/<base>-backup is
-//     NOT counted as a version.
+//   - the regex ^<base>-v(\d+)$ (with <base> regex-escaped first, since sanitize permits
+//     "." — a regex wildcard) matches ONLY the exact -vN suffix, so runs/<base>-backup is
+//     NOT counted as a version, and a dotted base like foo.bar never matches fooXbar-v2.
 //
 // `<base>-vN` survives sanitizePathSegment unchanged ([a-z0-9._-]), so the printed name
 // composes directly with every brick's --space flag with zero brick changes.
@@ -91,7 +92,10 @@ if (!base) {
 // ---------------------------------------------------------------------------
 const runsDir  = path.join(process.cwd(), 'runs');
 const existing = fs.existsSync(runsDir) ? fs.readdirSync(runsDir) : [];
-const re = new RegExp(`^${base}-v(\\d+)$`);
+// Escape regex metachars in the base (sanitize permits ".", a wildcard) so a dotted
+// base like foo.bar matches ONLY foo.bar-vN, never a sibling like fooXbar-v2.
+const esc = base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const re  = new RegExp(`^${esc}-v(\\d+)$`);
 
 // maxV: 0 = no <base> dir at all (next = base, the un-suffixed first run);
 //       1 = <base> exists but no -vN yet (next = <base>-v2);
