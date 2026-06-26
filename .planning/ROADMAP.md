@@ -14,7 +14,7 @@ Derived strictly from `basis/build-base/SHELL-BUILD-SPEC.md` §3 (six components
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Artifact Store Scaffold** - Build the `runs/<space>/` tree, the §4 slot list, no-overwrite versioning, the `_receipts/` ledger, and a usable `smoke` space.
+- [x] **Phase 1: Artifact Store Scaffold** - Build the `runs/<space>/` tree, the §4 slot list, no-overwrite versioning, the `_receipts/` ledger, and a usable `smoke` space. (2026-06-26)
 - [ ] **Phase 2: Run-Controller & Pipeline Spine** - Assemble the PART3 §8 7-phase loop, `pipeline.yaml` (R1 order), and the manifest loader from existing engine bricks.
 - [ ] **Phase 3: Step Manifests (the wiring)** - Author 11 declarative manifests whose reads/writes close the producer→consumer graph (incl. WIRE-01 CLAIM-LIST link, WIRE-02 architect dual-input).
 - [ ] **Phase 4: Prompt Stubs & Mock Emits** - Drop 11 bet-compiler-envelope stubs that emit minimal contract-shaped artifacts (incl. WIRE-03 two-tier classification).
@@ -104,7 +104,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Artifact Store Scaffold | 0/2 | Not started | - |
+| 1. Artifact Store Scaffold | 2/2 | Complete | 2026-06-26 |
 | 2. Run-Controller & Pipeline Spine | 0/TBD | Not started | - |
 | 3. Step Manifests | 0/TBD | Not started | - |
 | 4. Prompt Stubs & Mock Emits | 0/TBD | Not started | - |

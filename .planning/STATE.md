@@ -4,7 +4,7 @@ milestone: v1.0
 milestone_name: milestone
 status: verifying
 stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-06-26T14:39:45.876Z"
+last_updated: "2026-06-26T14:49:17.969Z"
 last_activity: 2026-06-26
 progress:
   total_phases: 6
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-26)
 
 **Core value:** A runnable shell of Steps 0–10 that completes end-to-end on stub prompts — every declared artifact produced and consumed, deterministic routing, gates logged, unbroken receipts, zero orphan outputs / dangling inputs.
-**Current focus:** Phase 01 — artifact-store-scaffold
+**Current focus:** Phase 2 — run-controller-&-pipeline-spine (Phase 1 complete)
 
 ## Current Position
 
-Phase: 01 (artifact-store-scaffold) — EXECUTING
-Plan: 2 of 2
-Status: Phase complete — ready for verification
-Last activity: 2026-06-26
+Phase: 2 of 6 (Run-Controller & Pipeline Spine)
+Plan: Not started
+Status: Phase 1 complete and verified (passed, 10/10 must-haves) — ready to plan Phase 2
+Last activity: 2026-06-26 — Phase 1 (Artifact Store Scaffold) executed and verified: store-smoke.sh green (STORE-01..05), h6-all 14/14
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -36,7 +36,7 @@ Progress: [░░░░░░░░░░] 0%
 
 **Velocity:**
 
-- Total plans completed: 0
+- Total plans completed: 2
 - Average duration: — min
 - Total execution time: 0.0 hours
 
@@ -44,7 +44,7 @@ Progress: [░░░░░░░░░░] 0%
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 01 | 2 | - | - |
 
 **Recent Trend:**
 
