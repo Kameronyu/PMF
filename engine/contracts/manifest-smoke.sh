@@ -167,66 +167,153 @@ node -e '
 ' || FAIL=1
 
 # ==========================================================================
-# MANIFEST-02 — GRAPH INTEGRITY: zero orphan writes, zero dangling reads across
-#               the 11 manifests. Load all manifests, build the produced-set (union
-#               of writes) and consumed-set (union of reads); diff against two small,
-#               justified allowlists:
-#   PIPELINE-ENTRY (a read with no upstream producer — documented entry input)
-#   TERMINAL       (a write consumed by nobody — a terminal/operator-facing deliverable)
-# A directory write (path ends with "/") is satisfied if any read OR write references a
-# path UNDER it (the file-grained representative of a fan-out dir).
+# MANIFEST-02 — GRAPH INTEGRITY (ORDERED, PRODUCER-ID-BOUND). The earlier version of
+# this check was producer-BLIND: it unioned all writes into one flat Set and all reads
+# into another, then diffed the two sets. That carried a confirmed false_green_risk —
+# three classes of real defect passed GREEN:
+#   (1) a WRONG step emitting a path that string-matches a terminal slot was excused
+#       (terminals were matched by path, not bound to the one step allowed to emit them);
+#   (2) WRITE-WRITE duplication (two steps writing the same path) dedup'd invisibly in
+#       the flat Set — a no-overwrite-v1 clobber hazard;
+#   (3) the dangling check was ORDER-BLIND — a read satisfied only by a LATER step's
+#       write, or a step reading its own output (self-loop), passed.
+# This rewrite builds an ORDERED, per-step, producer-id-bound graph instead:
+#   producedBy[path] = [stepId,...]  (in pipeline order via numeric id prefix)
+#   - DANGLING: every read must have a STRICTLY-EARLIER producer (reject self + backward).
+#   - WRITE-WRITE: no path may be written by >1 step.
+#   - ORPHAN: every write must be consumed by a STRICTLY-LATER step OR be an allowlisted
+#     TERMINAL bound to THE EXACT step that owns it (wrong-producer terminal => FAIL).
+#   - PIPELINE-ENTRY reads (no upstream producer) handled by an explicit, bound allowlist.
+# A directory write (ends "/") is consumed if a STRICTLY-LATER step reads a path under it.
 # ==========================================================================
-echo "── MANIFEST-02: graph integrity (orphans=0, dangling=0) ──"
+echo "── MANIFEST-02: ordered producer-bound graph (orphans=0, dangling=0, no write-write, no back/self edges) ──"
 node -e '
   const fs=require("fs"),path=require("path");
   const dir="engine/manifests";
+  // pipeline order = numeric id prefix order (matches pipeline.yaml / R1 walk).
   const ids=["00-bet-compiler","01-collect","02-funnel-analysis","03-space-map","04-voc-market-pass","05-market-selection","06-voc-deep-pass","07-funnel-architect","08-copywriter","09-asset-classify","10-adversarial-re-review"];
+  const pos=Object.fromEntries(ids.map((id,i)=>[id,i]));
   let fail=0; const ok=m=>console.log("   PASS: "+m); const bad=m=>{console.log("   FAIL: "+m);fail=1;};
   const norm=p=>p.replace("{space}","SPACE");
-  const reads=new Set(), writes=new Set();
+
+  // Per-step reads/writes (ordered), and producedBy[path] = [stepId,...].
+  const readsBy={}, writesBy={}, producedBy={};
   for(const id of ids){
     const f=path.join(dir,id+".json");
     if(!fs.existsSync(f)){ bad("MANIFEST-02: "+id+" missing — cannot compute graph"); process.exit(1); }
     const m=JSON.parse(fs.readFileSync(f,"utf8"));
-    (m.reads||[]).forEach(r=>reads.add(norm(r)));
-    (m.writes||[]).forEach(w=>writes.add(norm(w)));
+    readsBy[id]=(m.reads||[]).map(norm);
+    writesBy[id]=(m.writes||[]).map(norm);
+    for(const w of writesBy[id]){ (producedBy[w]=producedBy[w]||[]).push(id); }
   }
-  // No upstream producer is needed for these documented pipeline-entry inputs.
-  // (Step 0 has empty reads; operator-asset bytes are NOT a declared slot — script-assembled.)
-  const PIPELINE_ENTRY=new Set([]);
-  // Consumed by nobody, but a legitimate terminal / operator-facing deliverable.
-  const TERMINAL=new Set([
-    "runs/SPACE/queries_run.json",      // Step 1 auditable query trail (operator-facing)
-    "runs/SPACE/dumps/",                // Step 1 verbatim custody store (terminal corpus)
-    "runs/SPACE/audit-verdicts.json",   // Step 7 auditor verdicts surfaced at the ★ review gate
-    "runs/SPACE/review/_review.json",   // Step 10 = final pipeline deliverable
-    "runs/SPACE/review/"                // Step 10 deliverable dir (terminal by definition)
-  ]);
-  // helper: is a directory-slot (ends "/") satisfied by a file under it?
-  const coveredByChild=(d,set)=>[...set].some(p=>p!==d && p.startsWith(d));
 
-  // DANGLING READS — a read with no producer (and not a pipeline-entry input).
+  // PIPELINE-ENTRY: a read with NO upstream producer — documented entry input, bound to
+  // the EXACT step allowed to read it raw. (Step 0 has empty reads; operator-asset bytes
+  // are NOT a declared slot — script-assembled. So the entry allowlist is currently empty.)
+  const PIPELINE_ENTRY={};  // path -> Set(stepId) allowed to read it with no producer
+  // TERMINAL: a write consumed by nobody — bound to the ONE step allowed to emit it.
+  // A terminal emitted by the WRONG step must FAIL (closes hole #1).
+  const TERMINAL={
+    "runs/SPACE/queries_run.json":    "01-collect",              // Step 1 auditable query trail
+    "runs/SPACE/dumps/":              "01-collect",              // Step 1 verbatim custody store
+    "runs/SPACE/audit-verdicts.json": "07-funnel-architect",    // Step 7 auditor verdicts (★ review gate)
+    "runs/SPACE/review/_review.json": "10-adversarial-re-review", // Step 10 final deliverable
+    "runs/SPACE/review/":             "10-adversarial-re-review"  // Step 10 deliverable dir
+  };
+
+  // ---- (2) WRITE-WRITE DUPLICATION: no path written by >1 step ----------------------
+  let dup=0;
+  for(const p of Object.keys(producedBy)){
+    if(producedBy[p].length>1){ bad("MANIFEST-02 WRITE-WRITE (path written by multiple steps): "+p+" <- ["+producedBy[p].join(",")+"]"); dup++; }
+  }
+  dup===0?ok("MANIFEST-02: no write-write duplication"):bad("MANIFEST-02: "+dup+" duplicated write path(s)");
+
+  // helper: earliest producer of a path that is a directory child READ.
+  // For a read R, return the set of step positions that produce R, or produce a dir D
+  // (ends "/") with R under D. We want a STRICTLY-EARLIER producer.
+  const earlierProducerExists=(reader,p)=>{
+    const rp=pos[reader];
+    // direct file producer
+    const direct=(producedBy[p]||[]).map(id=>pos[id]).filter(q=>q<rp);
+    if(direct.length) return true;
+    // producer of a parent directory slot that this read sits under
+    for(const w of Object.keys(producedBy)){
+      if(w.endsWith("/") && p!==w && p.startsWith(w)){
+        if((producedBy[w]||[]).some(id=>pos[id]<rp)) return true;
+      }
+    }
+    return false;
+  };
+
+  // ---- (3) DANGLING / BACK-EDGE / SELF-LOOP READS -----------------------------------
+  // Every read must have a STRICTLY-EARLIER producer. A read produced only by the same
+  // step (self-loop) or only by a later step (back-edge) is a FAIL.
   let dangling=0;
-  for(const r of reads){
-    if(writes.has(r)) continue;
-    if(PIPELINE_ENTRY.has(r)) continue;
-    bad("MANIFEST-02 DANGLING read (no producer): "+r); dangling++;
+  for(const id of ids){
+    for(const r of readsBy[id]){
+      // pipeline-entry: read with no producer at all, bound to this exact step.
+      const noProducer=!(r in producedBy) && !Object.keys(producedBy).some(w=>w.endsWith("/")&&r.startsWith(w));
+      if(noProducer){
+        if(PIPELINE_ENTRY[r] && PIPELINE_ENTRY[r]===id) continue;
+        bad("MANIFEST-02 DANGLING read (no producer / not a bound pipeline-entry): "+id+" reads "+r); dangling++; continue;
+      }
+      if(earlierProducerExists(id,r)) continue;
+      // a producer exists but none strictly-earlier => self-loop or back-edge.
+      const producers=(producedBy[r]||[]).join(",")||"(dir-parent)";
+      bad("MANIFEST-02 BACK/SELF-EDGE read (no strictly-earlier producer): "+id+" reads "+r+" produced-by ["+producers+"]"); dangling++;
+    }
   }
-  dangling===0?ok("MANIFEST-02: zero dangling reads"):bad("MANIFEST-02: "+dangling+" dangling read(s)");
+  dangling===0?ok("MANIFEST-02: every read has a strictly-earlier producer (no dangling/back/self)"):bad("MANIFEST-02: "+dangling+" bad read edge(s)");
 
-  // ORPHAN WRITES — a write consumed by nobody (and not terminal, and not a dir whose
-  // file-grained child is actually READ downstream). NB: a dir is satisfied ONLY by a
-  // child in the READS set (real consumption) — NOT by a child that is merely another
-  // write (that would excuse a dir nothing ever reads). A dir-write whose rep file is
-  // itself unread must be listed in TERMINAL to pass.
+  // helper: is a write consumed by a STRICTLY-LATER step?
+  const laterConsumerExists=(writer,w)=>{
+    const wp=pos[writer];
+    for(const id of ids){
+      if(pos[id]<=wp) continue;
+      for(const r of readsBy[id]){
+        if(r===w) return true;                              // direct file read later
+        if(w.endsWith("/") && r!==w && r.startsWith(w)) return true; // child of dir read later
+      }
+    }
+    return false;
+  };
+
+  // ---- (1) ORPHAN WRITES (producer-id-bound terminals) ------------------------------
+  // A write must be consumed by a strictly-later step, OR be a TERMINAL bound to THIS
+  // exact emitting step. A terminal-matching path emitted by the WRONG step => FAIL.
   let orphan=0;
-  for(const w of writes){
-    if(reads.has(w)) continue;                                // consumed directly
-    if(TERMINAL.has(w)) continue;                             // declared terminal deliverable
-    if(w.endsWith("/") && coveredByChild(w,reads)) continue;  // dir consumed via a file under it that is READ
-    bad("MANIFEST-02 ORPHAN write (no consumer): "+w); orphan++;
+  for(const id of ids){
+    for(const w of writesBy[id]){
+      if(laterConsumerExists(id,w)) continue;                 // consumed downstream
+      if(w in TERMINAL){
+        if(TERMINAL[w]===id) continue;                        // correct owner of the terminal
+        bad("MANIFEST-02 WRONG-PRODUCER terminal (slot owned by "+TERMINAL[w]+"): "+id+" emits "+w); orphan++; continue;
+      }
+      bad("MANIFEST-02 ORPHAN write (no later consumer, not a bound terminal): "+id+" writes "+w); orphan++;
+    }
   }
-  orphan===0?ok("MANIFEST-02: zero orphan writes"):bad("MANIFEST-02: "+orphan+" orphan write(s)");
+  orphan===0?ok("MANIFEST-02: every write consumed downstream or a bound terminal"):bad("MANIFEST-02: "+orphan+" orphan/wrong-producer write(s)");
+  process.exit(fail);
+' || FAIL=1
+
+# ==========================================================================
+# MANIFEST-02b — DIRECTORY-SCAN exactly-11 (F4). MANIFEST-01 iterates the hardcoded IDS
+# list, so a rogue/duplicate engine/manifests/99-rogue.json on disk would pass GREEN.
+# Scan the directory itself and assert the *.json set == the canonical 11 ids (no more,
+# no fewer, no rogues). A rogue or duplicate file must FAIL.
+# ==========================================================================
+echo "── MANIFEST-02b: directory-scan == exactly the canonical 11 ids ──"
+node -e '
+  const fs=require("fs");
+  const dir="engine/manifests";
+  const want=["00-bet-compiler","01-collect","02-funnel-analysis","03-space-map","04-voc-market-pass","05-market-selection","06-voc-deep-pass","07-funnel-architect","08-copywriter","09-asset-classify","10-adversarial-re-review"].sort();
+  let fail=0; const ok=m=>console.log("   PASS: "+m); const bad=m=>{console.log("   FAIL: "+m);fail=1;};
+  const onDisk=fs.readdirSync(dir).filter(f=>f.endsWith(".json")).map(f=>f.replace(/\.json$/,"")).sort();
+  const extra=onDisk.filter(x=>!want.includes(x));
+  const missing=want.filter(x=>!onDisk.includes(x));
+  (extra.length===0 && missing.length===0 && onDisk.length===want.length)
+    ? ok("MANIFEST-02b: on-disk *.json set == canonical 11")
+    : bad("MANIFEST-02b: on-disk set != canonical 11 (extra=["+extra.join(",")+"] missing=["+missing.join(",")+"])");
   process.exit(fail);
 ' || FAIL=1
 
