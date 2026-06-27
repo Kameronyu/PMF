@@ -140,7 +140,7 @@ function planPrint(m) {
   const validator = m.validator ? m.validator : 'route.js dispatch (by basename)';
   console.log(`=== PLAN [${m.id}] ===`);
   console.log(`  pre-scripts : ${pre}`);
-  console.log(`  spawn       : ${m.agents || 1} agent(s) (waves of <=${WAVE_CAP})`);
+  console.log(`  spawn       : ${agentCount(m)} agent(s) (waves of <=${WAVE_CAP})`);
   console.log(`  post-scripts: ${post}`);
   console.log(`  validator   : ${validator}`);
   console.log(`  gate        : ${m.gate ? 'operator sign-off required' : 'none'}`);
@@ -185,8 +185,22 @@ function mockEmit(m, space) {
   return out;
 }
 
+// agentCount(m): coerce + validate manifest.agents to a positive integer wave count (WR-04).
+// `agents` is a required §5 key (loadManifest enforces presence), but its VALUE is taken
+// verbatim from JSON — a string ("6"), 0, a negative, or a float would mis-size the waves
+// (NaN/string coercion in Math.min, zero/negative emit no waves → a vacuous validate([]) pass,
+// a float emits a fractional final wave). Refuse a malformed value with the same named-refusal
+// idiom as the other shape errors instead of silently producing a false "success".
+function agentCount(m) {
+  if (!Number.isInteger(m.agents) || m.agents < 1) {
+    console.error(`REFUSE [${m.id}] manifest key agents must be a positive integer (got ${JSON.stringify(m.agents)})`);
+    process.exit(1);
+  }
+  return m.agents;
+}
+
 function spawnWaves(m, ctx, space) {
-  const n = m.agents || 1;
+  const n = agentCount(m);
   const outputs = [];
   let wave = 0;
   for (let i = 0; i < n; i += WAVE_CAP) {
