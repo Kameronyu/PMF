@@ -126,12 +126,22 @@ function parsePipeline(file) {
 // ===========================================================================
 function preflight(m, space) {
   console.log(`PREFLIGHT [${m.id}] checking ${(m.reads || []).length} input contract(s)`);
-  const missing = (m.reads || [])
-    .map(r => r.replace('{space}', space))
-    .filter(p => !fs.existsSync(p));
+  const paths = (m.reads || []).map(r => r.replace('{space}', space));
+  const missing = paths.filter(p => !fs.existsSync(p));
   if (missing.length) {
     console.error(`REFUSE [${m.id}] preflight: missing input contract(s): ${missing.join(', ')}`);
     process.exit(PREFLIGHT_EXIT);   // distinct exit; NEVER continue past a missing input (P3)
+  }
+  // CTRL-03: existence is not enough — a DIRECTORY (or socket/fifo) at a reads[] path passes
+  // existsSync but then crashes LATE at assembleContext's readFileSync (generic FATAL EISDIR).
+  // Require each existing input be a REGULAR FILE here so the refusal is named + early (P3).
+  // (Non-empty CONTENT is NOT checked here — that is Phase 5 / VALID-02's job; preflight owns
+  // existence + is-a-file only.)
+  for (const p of paths) {
+    if (!fs.statSync(p).isFile()) {
+      console.error(`REFUSE [${m.id}] preflight: input is not a regular file: ${p}`);
+      process.exit(PREFLIGHT_EXIT);   // same named-refusal exit as the missing-input path
+    }
   }
 }
 
