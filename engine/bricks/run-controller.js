@@ -245,9 +245,12 @@ function storeAndReceipt(m, space, verdict, opts) {
     }
   }
 
-  // UNIQUE spawn-id per spawn — receipt-write.js is WRITE-ONCE, a colliding id is exit 1.
-  // Date.now()+rand guarantees the ≤2 re-spawn loop never collides (Pitfall 2).
-  const spawnId = m.id + '-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6);
+  // UNIQUE spawn-id per successful step — receipt-write.js is WRITE-ONCE, a colliding id is exit 1.
+  // Sanitize the id segment ONCE (reusing lib/fanout-path's sanitizePathSegment — no re-implemented
+  // regex) and reuse that value for BOTH the --spawn-id flag and the rebuilt receipt path, so the
+  // path the controller logs/returns can never diverge from the file receipt-write.js writes (WR-01).
+  const idSeg   = sanitizePathSegment(m.id);
+  const spawnId = idSeg + '-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6);
 
   const inputs  = (m.reads  || []).map(r => r.replace('{space}', space)).join(',');
   const outputs = (m.writes || []).map(w => w.replace('{space}', space)).join(',');
