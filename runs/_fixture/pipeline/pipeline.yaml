@@ -1,0 +1,8 @@
+# Fixture pipeline.yaml — the SHORT step list the controller-smoke harness drives
+# with `run all` (CTRL-02 order walk / CTRL-10 reorder-by-config).
+# fx-03-wave and fx-bad-emit are driven by single-step `run <id>` asserts (not this
+# walk), so they are intentionally NOT listed here — keeps `run all` fast and the
+# CTRL-02 order-assert clean.
+steps:
+  - fx-01-emit
+  - fx-02-gate

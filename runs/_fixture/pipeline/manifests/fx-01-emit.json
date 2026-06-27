@@ -1,0 +1,10 @@
+{
+  "id": "fx-01-emit",
+  "reads": ["runs/{space}/bet-brief.md"],
+  "writes": ["runs/{space}/fx-emit.json"],
+  "scripts": { "pre": [], "post": [] },
+  "prompt": "fixture/stub-emit.md",
+  "agents": 1,
+  "validator": null,
+  "gate": false
+}
