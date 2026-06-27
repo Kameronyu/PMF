@@ -100,6 +100,13 @@ function loadManifest(id, dir) {
     console.error(`REFUSE [${id}] manifest is not valid JSON: ${file} (${e.message})`);
     process.exit(1);
   }
+  // CTRL-11: the parsed value must be a non-null plain object before the `k in m` key loop.
+  // `null` / a bare string|number / an array are all valid JSON but NOT a §5 manifest shape —
+  // refuse them by name here, else the `in` operator throws a generic FATAL on null (WR-04).
+  if (m === null || typeof m !== 'object' || Array.isArray(m)) {
+    console.error(`REFUSE [${id}] manifest is not a JSON object: ${file} (got ${Array.isArray(m) ? 'array' : (m === null ? 'null' : typeof m)})`);
+    process.exit(1);
+  }
   // Named refusal on a missing §5 key — never improvise a manifest shape.
   for (const k of MANIFEST_KEYS) {
     if (!(k in m)) {
