@@ -54,6 +54,7 @@ const RECEIPT_WRITE = 'engine/bricks/receipt-write.js';
 const SPACE_VERSION = 'engine/bricks/space-version.js';
 const STORE_SCAFFOLD = 'engine/bricks/store-scaffold.js';
 const ROUTE = 'engine/hooks/route.js';
+const VALIDATE_SHAPE = 'engine/hooks/validate-shape.js';   // VALID-02 input-seam shape/hollow gate
 
 // The §5 manifest keys every loaded manifest must carry (CTRL-11).
 const MANIFEST_KEYS = ['id', 'reads', 'writes', 'scripts', 'prompt', 'agents', 'validator', 'gate'];
@@ -148,38 +149,35 @@ function preflight(m, space) {
       process.exit(PREFLIGHT_EXIT);   // same named-refusal exit as the missing-input path
     }
   }
-  // VALID-02 (Phase 5): a load-bearing INPUT that EXISTS but is EMPTY / null-content / hollow is
-  // NOT a usable contract — store-scaffold pre-seeds every .json slot with `{}\n`, so "file exists"
-  // ≠ "has content". A step whose required input is the bare seed/empty/{} must REFUSE with a named
-  // reason, never proceed on hollow data (P3 — never improvise a value the upstream step owed).
+  // VALID-02 (Phase 5): a load-bearing INPUT that EXISTS but is EMPTY / null-content / hollow /
+  // wrong-shaped is NOT a usable contract. A reads[] input IS some upstream step's OUTPUT, so it
+  // must satisfy the SAME engine/contracts/output-shapes.json contract validate-shape enforces on
+  // the output side. Reuse that validator here (no parallel hollow logic) so the input seam refuses
+  // exactly what the output seam refuses — symmetrically. A bare {} seed, [{}], {winner:null},
+  // {data:{}} (nested-empty / wrong-key), or a placeholder .md all fail the shape/hollow test and
+  // are refused by NAME with the VALID-02 preflight exit code (P3 — never proceed on hollow data,
+  // never improvise a value the upstream step owed).
   for (const p of paths) {
-    if (isHollowInput(p)) {
-      console.error(`REFUSE [${m.id}] preflight: load-bearing input is empty/hollow (bare {} seed, [], or null-content): ${p} — upstream step did not emit real content (VALID-02)`);
+    const why = inputShapeViolation(p);
+    if (why) {
+      console.error(`REFUSE [${m.id}] preflight: load-bearing input fails its OUTPUT-CONTRACT shape (hollow/wrong-shaped): ${p} — upstream step did not emit real content (VALID-02): ${why}`);
       process.exit(PREFLIGHT_EXIT);
     }
   }
 }
 
-// isHollowInput(p): true when an existing reads[] file carries no real content — empty/whitespace,
-// or a JSON value that is the scaffold seed {} / a bare [] / null (no top-level keys/elements).
-// A non-JSON (.md) file is hollow only when empty/whitespace. Mirrors validate-shape's hollow test
-// so the input side (preflight) and the output side (validate-shape) agree on "hollow" (VALID-02).
-function isHollowInput(p) {
-  let raw;
-  try { raw = fs.readFileSync(p, 'utf8'); } catch (_) { return true; }
-  if (raw.trim() === '') return true;
-  if (!p.endsWith('.json')) return false;     // non-empty .md/.txt is content enough at the seam
-  let v;
-  try { v = JSON.parse(raw); } catch (_) { return false; }  // malformed-but-present JSON is a shape problem, not a hollow one — let the producer's validator own it
-  if (v === null) return true;
-  if (Array.isArray(v)) return v.length === 0;
-  if (typeof v === 'object') {
-    const keys = Object.keys(v);
-    if (keys.length === 0) return true;                       // {} scaffold seed
-    if (keys.length === 1 && keys[0] === '_stub') return true; // generic placeholder
-    return false;
-  }
-  return false;
+// inputShapeViolation(p): null when the reads[] input satisfies its output-shapes.json contract;
+// otherwise the validate-shape REJECT line explaining why. Delegates to validate-shape.js as a
+// subprocess (REUSE, CTRL-12 — the validator is an IIFE-with-process.exit CLI, invoked never
+// required) so the INPUT seam refuses exactly what the OUTPUT seam refuses: empty/null/{}/[]/_stub,
+// a missing top-level OUTPUT-CONTRACT key (catches {winner:null}'s sibling cases, {data:{}}), a
+// bare array ([{}]), and the raw scaffold-placeholder .md. An input with NO contract entry is
+// drift — validate-shape refuses it too, surfacing the disagreement instead of proceeding blind.
+function inputShapeViolation(p) {
+  const r = spawnSync(process.execPath, [VALIDATE_SHAPE, p], { encoding: 'utf8' });
+  if (r.status === 0) return null;
+  const msg = ((r.stderr || '') + (r.stdout || '')).split('\n').find(l => /REJECT/.test(l));
+  return (msg || `validate-shape exit ${r.status}`).trim();
 }
 
 // ===========================================================================

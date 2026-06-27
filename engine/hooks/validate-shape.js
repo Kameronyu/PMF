@@ -17,7 +17,8 @@
 //   - file missing / unreadable                                  (VALID-01 presence)
 //   - JSON file is hollow: {} / [] / {"_stub":true} / seed-only  (VALID-02 hollow refusal)
 //   - JSON file missing a declared top-level key                 (VALID-01 shape)
-//   - __MD__ file empty / whitespace-only / scaffold-placeholder (VALID-01 presence + VALID-02 hollow)
+//   - __MD__ file empty / whitespace-only / scaffold-placeholder /
+//     single-trivial-line-no-body                                (VALID-01 presence + VALID-02 hollow)
 //   - a basename with NO entry in output-shapes.json             (refuse-by-name: never silent-pass
 //                                                                 an unmapped REAL output — drift guard)
 //
@@ -87,10 +88,27 @@ try {
   process.exit(2);
 }
 
-// --- __MD__: a non-empty markdown/text artifact ---
+// --- __MD__: a non-empty markdown/text artifact, and NOT the raw store-scaffold placeholder ---
 if (match.shape === '__MD__') {
-  if (raw.trim() === '') {
+  const trimmed = raw.trim();
+  if (trimmed === '') {
     console.error(`REJECT: ${match.key} markdown output is empty/whitespace-only "${filePath}" (hollow — VALID-02)`);
+    process.exit(2);
+  }
+  // VALID-01 scaffold-placeholder + trivial-body refusal: store-scaffold.js seeds each .md slot
+  // with the literal `# <basename>\n` (a lone lowercase-kebab slot heading, no body) — see
+  // store-scaffold.js L151. An emit that left that seed in place — or wrote only a trivial
+  // single-line body (e.g. a lone heading, or 1-char junk like "x") — is hollow load-bearing
+  // content, not a real artifact. A real markdown artifact has a heading AND a body: the three
+  // real stub emits carry 5–24 non-empty lines (179–691 chars). Refuse a .md whose entire content
+  // is a SINGLE non-empty line (no body beneath it), naming the scaffold-heading case explicitly.
+  const bodyLines = trimmed.split('\n').map(l => l.trim()).filter(l => l !== '');
+  if (bodyLines.length <= 1) {
+    const isScaffoldHeading = /^#\s+[a-z0-9._/-]+$/.test(trimmed);
+    const why = isScaffoldHeading
+      ? `is the raw store-scaffold placeholder heading "${trimmed}" with no body`
+      : `is a single trivial line "${trimmed.slice(0, 60)}" with no body`;
+    console.error(`REJECT: ${match.key} markdown output ${why} "${filePath}" (hollow — VALID-02: emit produced no content)`);
     process.exit(2);
   }
   process.exit(0);
