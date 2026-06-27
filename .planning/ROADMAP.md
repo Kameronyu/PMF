@@ -51,7 +51,7 @@ Plans:
   5. The run-controller is assembled from existing engine bricks / `hooks/` / `route.js` per `FIRING-MANIFEST.md` — the deterministic glue is reused, not re-authored.
 **Plans**: 2 plans
 Plans:
-- [ ] 02-01-PLAN.md — pipeline.yaml (R1) + fixture manifest set + controller-smoke.sh acceptance harness (authored RED)
+- [x] 02-01-PLAN.md — pipeline.yaml (R1) + fixture manifest set + controller-smoke.sh acceptance harness (authored RED)
 - [ ] 02-02-PLAN.md — run-controller.js (PART3 §8 7-phase loop assembled from bricks) + bin/run entrypoint (turns the harness GREEN)
 
 ### Phase 3: Step Manifests (the wiring)

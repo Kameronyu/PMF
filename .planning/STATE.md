@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-06-27T11:17:13.660Z"
-last_activity: 2026-06-27 -- Phase 2 planning complete
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-06-27T11:23:17.647Z"
+last_activity: 2026-06-27
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 4
-  completed_plans: 2
-  percent: 50
+  completed_plans: 3
+  percent: 75
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-26)
 
 **Core value:** A runnable shell of Steps 0–10 that completes end-to-end on stub prompts — every declared artifact produced and consumed, deterministic routing, gates logged, unbroken receipts, zero orphan outputs / dangling inputs.
-**Current focus:** Phase 2 — run-controller-&-pipeline-spine (Phase 1 complete)
+**Current focus:** Phase 2 — Run-Controller & Pipeline Spine
 
 ## Current Position
 
-Phase: 2 of 6 (Run-Controller & Pipeline Spine)
-Plan: Not started
+Phase: 2 (Run-Controller & Pipeline Spine) — EXECUTING
+Plan: 2 of 2
 Status: Ready to execute
-Last activity: 2026-06-27 -- Phase 2 planning complete
+Last activity: 2026-06-27
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01 P01 | 4 | 3 tasks | 20 files |
 | Phase 01 P02 | 3 | 2 tasks | 2 files |
+| Phase 02 P01 | 4 | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,9 @@ Recent decisions affecting current work:
 - [Phase 01]: STORE-02/03 smoke asserts authored RED ahead of Plan 02 bricks (Nyquist Wave-0); harness is complete
 - [Phase 01]: D-resolver-read-only: space-version.js is pure-stdout, names next free <base>-vN, mutates nothing under runs/ (byte-intact invariant)
 - [Phase 01]: D-receipt-shape: receipt-write ships shape+writer+sha256 helper; validator_verdicts[]+gate are Phase-5 slots (STORE-03 green)
+- [Phase 02]: D-manifest-availability: approach A — git-whitelisted fixture manifest set under runs/_fixture/pipeline/ drives the full 7-phase loop, NOT the real 11 manifests (Phase 3)
+- [Phase 02]: D-harness-RED-safe: controller-smoke.sh authored RED ahead of run-controller.js (Nyquist Wave-0); run_ctrl guard yields named FAIL not set -u crash; SPACE=_ctrlsmoke scratch rm -rf both ends
+- [Phase 02]: D-fixture-emit-split: fx-01-emit writes no-rule basename (route.js passes); fx-bad-emit writes space-map.json to prove CTRL-07 exit-2 propagation
 
 ### Pending Todos
 
@@ -95,6 +99,6 @@ Items acknowledged and carried forward (v2 — out of this milestone):
 
 ## Session Continuity
 
-Last session: 2026-06-26T14:39:37.071Z
-Stopped at: Completed 01-02-PLAN.md
+Last session: 2026-06-27T11:23:07.579Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None
