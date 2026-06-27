@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-06-27T11:23:17.647Z"
+status: verifying
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-06-27T11:31:53.041Z"
 last_activity: 2026-06-27
 progress:
   total_phases: 6
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 4
-  completed_plans: 3
-  percent: 75
+  completed_plans: 4
+  percent: 100
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 
 Phase: 2 (Run-Controller & Pipeline Spine) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-06-27
 
 Progress: [░░░░░░░░░░] 0%
@@ -55,6 +55,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P01 | 4 | 3 tasks | 20 files |
 | Phase 01 P02 | 3 | 2 tasks | 2 files |
 | Phase 02 P01 | 4 | 2 tasks | 7 files |
+| Phase 02 P02 | 5 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,10 @@ Recent decisions affecting current work:
 - [Phase 02]: D-manifest-availability: approach A — git-whitelisted fixture manifest set under runs/_fixture/pipeline/ drives the full 7-phase loop, NOT the real 11 manifests (Phase 3)
 - [Phase 02]: D-harness-RED-safe: controller-smoke.sh authored RED ahead of run-controller.js (Nyquist Wave-0); run_ctrl guard yields named FAIL not set -u crash; SPACE=_ctrlsmoke scratch rm -rf both ends
 - [Phase 02]: D-fixture-emit-split: fx-01-emit writes no-rule basename (route.js passes); fx-bad-emit writes space-map.json to prove CTRL-07 exit-2 propagation
+- [Phase 02]: [Phase 02]: D-stub-emit-payload: mockEmit reads optional manifest stub_emit field (default {_stub:true}); negative fixtures declare a reject-triggering payload — controller stays generic
+- [Phase 02]: [Phase 02]: D-gate-always-logs: operatorGate emits a GATE marker even for non-gated steps so the gate phase always reports (P9 logged-never-silent + 7-marker assert)
+- [Phase 02]: [Phase 02]: D-context-data-headers: assembleContext under --smoke prints per-read <<<DATA path>>> headers proving reads[] bytes embedded (CTRL-05)
+- [Phase 02]: [Phase 02]: D-space-version-dormant: no-overwrite naming wired but acts only on --rerun; smoke fixed space proves NAMING via space-version UNIT assert (Open Q2)
 
 ### Pending Todos
 
@@ -99,6 +104,6 @@ Items acknowledged and carried forward (v2 — out of this milestone):
 
 ## Session Continuity
 
-Last session: 2026-06-27T11:23:07.579Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-06-27T11:31:43.392Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None

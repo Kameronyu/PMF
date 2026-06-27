@@ -19,13 +19,13 @@ Requirements for the runnable shell. Each maps to exactly one roadmap phase.
 
 ### Run-Controller (CTRL)
 
-- [ ] **CTRL-01**: `run <step> --space=<s>` executes a single step through the PART3 §8 7-phase loop
+- [x] **CTRL-01**: `run <step> --space=<s>` executes a single step through the PART3 §8 7-phase loop
 - [x] **CTRL-02**: `run all --space=<s>` walks `pipeline.yaml` step ids in canonical R1 order end-to-end
 - [x] **CTRL-03**: Phase 1 Preflight checks the step's input contracts; a missing input produces a named refusal (never improvise)
-- [ ] **CTRL-04**: Phase 2 Plan-print declares the step's DAG before running
-- [ ] **CTRL-05**: Phase 3 Context-assembly script embeds the digest + corpus bytes so the agent never Reads shared state directly
+- [x] **CTRL-04**: Phase 2 Plan-print declares the step's DAG before running
+- [x] **CTRL-05**: Phase 3 Context-assembly script embeds the digest + corpus bytes so the agent never Reads shared state directly
 - [x] **CTRL-06**: Phase 4 Spawn runs agent waves capped at ≤5
-- [ ] **CTRL-07**: Phase 5 Validate runs the blocking validator; reject → bounded re-spawn (≤2) → escalate
+- [x] **CTRL-07**: Phase 5 Validate runs the blocking validator; reject → bounded re-spawn (≤2) → escalate
 - [x] **CTRL-08**: Phase 6 Store+receipt writes output with no-overwrite versioning and emits a receipt
 - [x] **CTRL-09**: Phase 7 Operator gates block on a sign-off artifact (auto-approve in smoke) and are logged, never silent
 - [x] **CTRL-10**: `pipeline.yaml` lists step ids in R1 order; reordering steps is a config edit, not a code change
@@ -106,13 +106,13 @@ Which phases cover which requirements. Populated during roadmap creation.
 | STORE-03 | Phase 1 | Complete |
 | STORE-04 | Phase 1 | Complete |
 | STORE-05 | Phase 1 | Complete |
-| CTRL-01 | Phase 2 | Pending |
+| CTRL-01 | Phase 2 | Complete |
 | CTRL-02 | Phase 2 | Complete |
 | CTRL-03 | Phase 2 | Complete |
-| CTRL-04 | Phase 2 | Pending |
-| CTRL-05 | Phase 2 | Pending |
+| CTRL-04 | Phase 2 | Complete |
+| CTRL-05 | Phase 2 | Complete |
 | CTRL-06 | Phase 2 | Complete |
-| CTRL-07 | Phase 2 | Pending |
+| CTRL-07 | Phase 2 | Complete |
 | CTRL-08 | Phase 2 | Complete |
 | CTRL-09 | Phase 2 | Complete |
 | CTRL-10 | Phase 2 | Complete |

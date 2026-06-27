@@ -52,7 +52,7 @@ Plans:
 **Plans**: 2 plans
 Plans:
 - [x] 02-01-PLAN.md — pipeline.yaml (R1) + fixture manifest set + controller-smoke.sh acceptance harness (authored RED)
-- [ ] 02-02-PLAN.md — run-controller.js (PART3 §8 7-phase loop assembled from bricks) + bin/run entrypoint (turns the harness GREEN)
+- [x] 02-02-PLAN.md — run-controller.js (PART3 §8 7-phase loop assembled from bricks) + bin/run entrypoint (turns the harness GREEN)
 
 ### Phase 3: Step Manifests (the wiring)
 **Goal**: Eleven declarative step manifests (0–10) exist whose `reads`/`writes` match PART0 + PART3 §5.2, closing the producer→consumer graph — no orphan outputs, no dangling inputs — with the locked CLAIM-LIST and architect-input decisions wired in.
