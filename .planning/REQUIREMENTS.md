@@ -34,10 +34,10 @@ Requirements for the runnable shell. Each maps to exactly one roadmap phase.
 
 ### Step Manifests (MANIFEST)
 
-- [ ] **MANIFEST-01**: One declarative manifest exists per step (0–10) with `reads`/`writes`/`scripts`/`prompt`/`agents`/`validator`/`gate`
-- [ ] **MANIFEST-02**: Each manifest's `reads`/`writes` match `PART0` + `PART3 §5.2` (the consumption matrix) — no orphan outputs, no dangling inputs
-- [ ] **MANIFEST-03**: Operator-gate steps are flagged `gate:true` (0, 1, 5, 7, 8, 10 per the §6 slot table); all others `gate:false`
-- [ ] **MANIFEST-04**: Pre/post `scripts` reference existing engine bricks where one exists (found via `engine/contracts/REGISTRY.json` + `REUSE-INDEX.md`)
+- [x] **MANIFEST-01**: One declarative manifest exists per step (0–10) with `reads`/`writes`/`scripts`/`prompt`/`agents`/`validator`/`gate`
+- [x] **MANIFEST-02**: Each manifest's `reads`/`writes` match `PART0` + `PART3 §5.2` (the consumption matrix) — no orphan outputs, no dangling inputs
+- [x] **MANIFEST-03**: Operator-gate steps are flagged `gate:true` (0, 1, 5, 7, 8, 10 per the §6 slot table); all others `gate:false`
+- [x] **MANIFEST-04**: Pre/post `scripts` reference existing engine bricks where one exists (found via `engine/contracts/REGISTRY.json` + `REUSE-INDEX.md`)
 
 ### Prompt Stubs (STUB)
 
@@ -64,8 +64,8 @@ Requirements for the runnable shell. Each maps to exactly one roadmap phase.
 
 ### Locked Operator Decisions Wired (WIRE)
 
-- [ ] **WIRE-01**: Step 0 emits `asset-classify/CLAIM-LIST.json` and the Step 9 manifest reads it (closes Step 9's dangling input)
-- [ ] **WIRE-02**: The Step 7 manifest reads `bet-brief.md` AND `product-intake.md` (both required inputs)
+- [x] **WIRE-01**: Step 0 emits `asset-classify/CLAIM-LIST.json` and the Step 9 manifest reads it (closes Step 9's dangling input)
+- [x] **WIRE-02**: The Step 7 manifest reads `bet-brief.md` AND `product-intake.md` (both required inputs)
 - [ ] **WIRE-03**: The Step 2 stub emits raw per-funnel angle/claim/transformation; the Step 3 stub canonicalizes them across funnels (two-tier classification)
 
 ## v2 Requirements
@@ -118,12 +118,12 @@ Which phases cover which requirements. Populated during roadmap creation.
 | CTRL-10 | Phase 2 | Complete |
 | CTRL-11 | Phase 2 | Complete |
 | CTRL-12 | Phase 2 | Complete |
-| MANIFEST-01 | Phase 3 | Pending |
-| MANIFEST-02 | Phase 3 | Pending |
-| MANIFEST-03 | Phase 3 | Pending |
-| MANIFEST-04 | Phase 3 | Pending |
-| WIRE-01 | Phase 3 | Pending |
-| WIRE-02 | Phase 3 | Pending |
+| MANIFEST-01 | Phase 3 | Complete |
+| MANIFEST-02 | Phase 3 | Complete |
+| MANIFEST-03 | Phase 3 | Complete |
+| MANIFEST-04 | Phase 3 | Complete |
+| WIRE-01 | Phase 3 | Complete |
+| WIRE-02 | Phase 3 | Complete |
 | STUB-01 | Phase 4 | Pending |
 | STUB-02 | Phase 4 | Pending |
 | STUB-03 | Phase 4 | Pending |
