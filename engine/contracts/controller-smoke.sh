@@ -53,6 +53,18 @@ run_ctrl() {
   return 0
 }
 
+# scaffold_space: store-scaffold the space, then OVERWRITE the load-bearing fixture input
+# (bet-brief.md, the reads[0] of fx-01-emit/fx-bad-emit) with REAL multi-line content. The bare
+# scaffold seeds bet-brief.md as the placeholder `# bet-brief\n`, which the Phase-5 strengthened
+# VALID-02 input preflight now correctly REFUSES as hollow (a lone scaffold heading, no body). The
+# fixture's intent is "a present, real load-bearing input" — not "the raw placeholder" — so seed a
+# real artifact here. (This pins the fixture to real content; it does NOT weaken the seam, which
+# still refuses the placeholder everywhere else.)
+scaffold_space() {
+  node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+  printf '# BET BRIEF — fixture\n\n## product\nA real multi-line fixture bet brief so the\nload-bearing input passes the VALID-02 preflight shape gate.\n\n## offer\nfixture offer line.\n' > "runs/${SPACE}/bet-brief.md"
+}
+
 rm -rf "runs/${SPACE}"                  # clean START (gitignore does NOT auto-ignore runs/_ctrlsmoke)
 
 # ==========================================================================
@@ -77,7 +89,7 @@ fi
 # ==========================================================================
 echo "── CTRL-01: single step runs all 7 phases ──"
 rm -rf "runs/${SPACE}"
-node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+scaffold_space
 if run_ctrl "CTRL-01" fx-01-emit --space="${SPACE}" --smoke --manifest-dir="$FIX_MAN"; then
   [ "$RC_STATUS" -eq 0 ] && ok "CTRL-01: single-step exit 0" || bad "CTRL-01: single-step exit ${RC_STATUS} (want 0)"
   MISS=0
@@ -94,7 +106,7 @@ fi
 # ==========================================================================
 echo "── CTRL-04: plan-print precedes execution ──"
 rm -rf "runs/${SPACE}"
-node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+scaffold_space
 if run_ctrl "CTRL-04" fx-01-emit --space="${SPACE}" --smoke --manifest-dir="$FIX_MAN"; then
   RC_OUT="$RC_OUT" node -e '
     let fail=0; const ok=m=>console.log("   PASS: "+m); const bad=m=>{console.log("   FAIL: "+m);fail=1;};
@@ -113,7 +125,7 @@ fi
 # ==========================================================================
 echo "── CTRL-05: context embeds reads[] bytes ──"
 rm -rf "runs/${SPACE}"
-node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+scaffold_space
 if run_ctrl "CTRL-05" fx-01-emit --space="${SPACE}" --smoke --manifest-dir="$FIX_MAN"; then
   echo "$RC_OUT" | grep -q "bet-brief.md" && echo "$RC_OUT" | grep -qE "<<<DATA|CONTEXT" \
     && ok "CTRL-05: assembled context embeds bet-brief.md bytes (DATA boundary)" \
@@ -125,7 +137,7 @@ fi
 # ==========================================================================
 echo "── CTRL-06: spawn waves capped ≤5 ──"
 rm -rf "runs/${SPACE}"
-node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+scaffold_space
 if run_ctrl "CTRL-06" fx-03-wave --space="${SPACE}" --smoke --manifest-dir="$FIX_MAN"; then
   RC_OUT="$RC_OUT" node -e '
     let fail=0; const ok=m=>console.log("   PASS: "+m); const bad=m=>{console.log("   FAIL: "+m);fail=1;};
@@ -149,7 +161,7 @@ fi
 # ==========================================================================
 echo "── CTRL-02: run all walks pipeline in order ──"
 rm -rf "runs/${SPACE}"
-node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+scaffold_space
 if run_ctrl "CTRL-02" all --pipeline="$FIX_PIPE" --manifest-dir="$FIX_MAN" --space="${SPACE}" --smoke; then
   [ "$RC_STATUS" -eq 0 ] && ok "CTRL-02: run all exit 0" || bad "CTRL-02: run all exit ${RC_STATUS} (want 0)"
   RC_OUT="$RC_OUT" node -e '
@@ -170,7 +182,7 @@ fi
 # ==========================================================================
 echo "── CTRL-10: reorder = config edit, no code ──"
 rm -rf "runs/${SPACE}"
-node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+scaffold_space
 TMP_PIPE="runs/${SPACE}/_rev-pipeline.yaml"
 printf 'steps:\n  - fx-02-gate\n  - fx-01-emit\n' > "$TMP_PIPE"
 if run_ctrl "CTRL-10" all --pipeline="$TMP_PIPE" --manifest-dir="$FIX_MAN" --space="${SPACE}" --smoke; then
@@ -194,7 +206,7 @@ fi
 # ==========================================================================
 echo "── CTRL-03: preflight named refusal ──"
 rm -rf "runs/${SPACE}"
-node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+scaffold_space
 rm -f "runs/${SPACE}/bet-brief.md"
 if run_ctrl "CTRL-03" fx-01-emit --space="${SPACE}" --smoke --manifest-dir="$FIX_MAN"; then
   [ "$RC_STATUS" -ne 0 ] && ok "CTRL-03: missing input → exit ${RC_STATUS} (non-zero)" || bad "CTRL-03: missing input did NOT refuse (exit 0)"
@@ -210,7 +222,7 @@ fi
 # ==========================================================================
 echo "── CTRL-07: validator explicit + reject→re-spawn≤2→escalate ──"
 rm -rf "runs/${SPACE}"
-node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+scaffold_space
 if run_ctrl "CTRL-07" fx-bad-emit --space="${SPACE}" --smoke --manifest-dir="$FIX_MAN"; then
   echo "$RC_OUT" | grep -qiE "classifier|reject|VALIDATE" \
     && ok "CTRL-07: a validator subprocess ran (explicit, not a silent pass)" \
@@ -229,7 +241,7 @@ fi
 echo "── CTRL-08: no-overwrite version + receipt write-once ──"
 # (a) receipt keys from a happy run
 rm -rf "runs/${SPACE}"
-node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+scaffold_space
 if run_ctrl "CTRL-08a" fx-01-emit --space="${SPACE}" --smoke --manifest-dir="$FIX_MAN"; then
   SPACE="$SPACE" node -e '
     const fs=require("fs");
@@ -246,7 +258,7 @@ if run_ctrl "CTRL-08a" fx-01-emit --space="${SPACE}" --smoke --manifest-dir="$FI
 fi
 # (b) UNIT: space-version.js NAMING (independent of the controller — always runnable)
 rm -rf "runs/${SPACE}"
-node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+scaffold_space
 NEXT=$(node engine/bricks/space-version.js --space="${SPACE}" 2>/dev/null)
 [ "$NEXT" = "${SPACE}-v2" ] && ok "CTRL-08(b): space-version names ${SPACE}-v2 (no-overwrite NAMING)" || bad "CTRL-08(b): space-version returned '$NEXT' (want ${SPACE}-v2)"
 # (c) UNIT: receipt-write.js write-once (same spawn-id twice → second exit 1)
@@ -260,7 +272,7 @@ node engine/bricks/receipt-write.js --space="${SPACE}" --spawn-id=dup-08 --step=
 # ==========================================================================
 echo "── CTRL-09: gate block-and-log ──"
 rm -rf "runs/${SPACE}"
-node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
+scaffold_space
 if run_ctrl "CTRL-09" fx-02-gate --space="${SPACE}" --smoke --manifest-dir="$FIX_MAN"; then
   echo "$RC_OUT" | grep -q "GATE \[fx-02-gate\]" && echo "$RC_OUT" | grep -qi "auto-approved" \
     && ok "CTRL-09: GATE [fx-02-gate] auto-approved logged (never silent)" \

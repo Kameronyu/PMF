@@ -103,14 +103,72 @@ rm -f /tmp/vs-man-$$.err
 
 # ==========================================================================
 # MUTATION (a) — a step output with wrong/missing top-level shape → validator REJECT.
+# Tightened: the assert REQUIRES validate-shape's OUTPUT-CONTRACT-key wording, so it can ONLY be
+# satisfied by validate-shape's L134 missing-key gate — NOT by validate-finder's dual coverage of
+# brands.json (which would reject on its own "missing brands array" wording). This pins the right
+# validator for the brands path; MUTATION (a2) below pins it for a GENERIC non-brands output.
 # ==========================================================================
-echo "── MUTATION (a): wrong top-level shape (brands.json -> {wrong}) → REJECT ──"
+echo "── MUTATION (a): wrong top-level shape (brands.json -> {wrong}) → validate-shape REJECT ──"
 MUT="runs/${VSP}_mut/brands.json"
 mkdir -p "$(dirname "$MUT")"
 printf '{"wrong":[]}\n' > "$MUT"
-expect_reject "MUTATION(a) wrong shape via route.js" 'REJECT.*(missing top-level OUTPUT-CONTRACT key|brands)' \
-  node "$ROUTE" "$MUT"
+expect_reject "MUTATION(a) brands wrong shape via validate-shape" 'REJECT: brands\.json output missing top-level OUTPUT-CONTRACT key' \
+  node "$SHAPE" "$MUT"
 rm -rf "runs/${VSP}_mut"
+
+# ==========================================================================
+# MUTATION (a2) — DEFINITIVE PIN of validate-shape's generic shape gate (regression-net hole).
+# validate-shape's L134 missing-top-level-key REJECT is the SOLE shape gate for the GENERIC outputs
+# of 7 of 11 steps (04-10) — basenames with NO sibling deep validator. MUTATION (a) drives
+# brands.json, which is ALSO covered by validate-finder, so gutting L134 would leave (a) green via
+# finder. Drive a GENERIC non-brands output (market-selection.json: a step-05 output with no deep
+# validator) with a renamed top-level key through validate-shape AND through route.js's else-branch,
+# asserting the OUTPUT-CONTRACT-key wording — which ONLY validate-shape's L134 can emit. Gutting
+# L134 RED-fails THIS assert (proven RED-first in 05-XVERIFY-FIX.md).
+# ==========================================================================
+echo "── MUTATION (a2): GENERIC non-brands output wrong key (market-selection.json) → validate-shape REJECT ──"
+GMUT="runs/${VSP}_gmut/market-selection.json"
+mkdir -p "$(dirname "$GMUT")"
+printf '{"renamed_ranked":[]}\n' > "$GMUT"            # contract requires top-level key "ranked"
+expect_reject "MUTATION(a2) generic missing-key via validate-shape direct" 'REJECT: market-selection\.json output missing top-level OUTPUT-CONTRACT key.*\[ranked\]' \
+  node "$SHAPE" "$GMUT"
+expect_reject "MUTATION(a2) generic missing-key via route.js else-branch" 'REJECT: market-selection\.json output missing top-level OUTPUT-CONTRACT key.*\[ranked\]' \
+  node "$ROUTE" "$GMUT"
+rm -rf "runs/${VSP}_gmut"
+
+# ==========================================================================
+# MUTATION (a3) — CONTROLLER-ESCALATION pin: drive a generic bad emit (step 05 emits
+# market-selection.json with a wrong top-level key) THROUGH the run-controller and assert the
+# Validate phase REJECTs → re-spawn → ESCALATE with NO receipt minted (mirrors CTRL-07 but for a
+# generic 04-10 output, proving validate-shape gates the REAL run — not just direct invocation).
+# Build a clean space up to step 04, then point the prompt's STUB-EMIT for step 05 at a wrong-key
+# payload via a temp manifest-dir copy whose 05 manifest declares stub_emit (Mode A single-write).
+# ==========================================================================
+echo "── MUTATION (a3): generic bad emit THROUGH controller → ESCALATE, no receipt ──"
+ESP="${VSP}_escal"
+EMD="runs/${ESP}_md"          # temp manifest dir
+rm -rf "runs/${ESP}" "$EMD"
+mkdir -p "$EMD"
+cp engine/manifests/*.json "$EMD/"
+# Rewrite the 05 manifest to Mode-A fixture emit of a WRONG-key market-selection.json (drop ntp-pick
+# write so the single stub_emit lands on writes[0]=market-selection.json), preserving reads/gate.
+node -e '
+  const fs=require("fs"); const f="'"$EMD"'/05-market-selection.json";
+  const m=JSON.parse(fs.readFileSync(f,"utf8"));
+  m.writes=["runs/{space}/market-selection.json"];
+  m.stub_emit={ renamed_ranked: [] };       // missing top-level OUTPUT-CONTRACT key "ranked"
+  fs.writeFileSync(f, JSON.stringify(m,null,2));
+'
+# Walk steps 00-04 cleanly into the space (real manifests), then run the MUTATED 05 from the temp dir.
+node "$CTRL" all --space="${ESP}" --smoke --pipeline=<(printf -- '- 00-bet-compiler\n- 01-collect\n- 02-funnel-analysis\n- 03-space-map\n- 04-voc-market-pass\n') >/dev/null 2>&1
+expect_reject "MUTATION(a3) controller ESCALATE on generic bad emit" 'ESCALATE \[05-market-selection\]|REJECT.*market-selection\.json output missing top-level OUTPUT-CONTRACT key' \
+  node "$CTRL" 05-market-selection --space="${ESP}" --smoke --manifest-dir="$EMD"
+# Prove NO receipt was minted for the escalated step (gate held — no false success).
+N05=$(ls "runs/${ESP}/_receipts/" 2>/dev/null | grep -c '^05-market-selection')
+[ "$N05" -eq 0 ] \
+  && ok "MUTATION(a3) no receipt minted for escalated step 05 (gate held)" \
+  || bad "MUTATION(a3) ${N05} receipt(s) minted for escalated step 05 (should be 0 — false success)"
+rm -rf "runs/${ESP}" "$EMD"
 
 # ==========================================================================
 # MUTATION (b) — a hollow {} seed as a load-bearing INPUT → VALID-02 preflight REFUSE.
