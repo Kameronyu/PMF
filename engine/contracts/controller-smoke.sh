@@ -141,22 +141,25 @@ fi
 
 # ==========================================================================
 # CTRL-02 — `run all` walks the fixture pipeline in R1 (file) order
-# fx-01-emit receipt must precede fx-02-gate receipt (step order follows the file).
+# fx-01-emit must be stored BEFORE fx-02-gate. Order is proven from the controller's
+# STORE emit SEQUENCE in stdout (a monotonic per-step index), NOT from millisecond ts:
+# two steps can mint receipts in the same ISO-ms, which would false-green a non-strict
+# `ts<=ts` compare for BOTH the forward (CTRL-02) and reversed (CTRL-10) assert. The
+# STORE-line index is strictly increasing per executed step, so it cannot collide.
 # ==========================================================================
 echo "── CTRL-02: run all walks pipeline in order ──"
 rm -rf "runs/${SPACE}"
 node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
 if run_ctrl "CTRL-02" all --pipeline="$FIX_PIPE" --manifest-dir="$FIX_MAN" --space="${SPACE}" --smoke; then
   [ "$RC_STATUS" -eq 0 ] && ok "CTRL-02: run all exit 0" || bad "CTRL-02: run all exit ${RC_STATUS} (want 0)"
-  SPACE="$SPACE" node -e '
-    const fs=require("fs");
+  RC_OUT="$RC_OUT" node -e '
     let fail=0; const ok=m=>console.log("   PASS: "+m); const bad=m=>{console.log("   FAIL: "+m);fail=1;};
-    const dir="runs/"+process.env.SPACE+"/_receipts";
-    let recs=[];
-    try{ recs=fs.readdirSync(dir).filter(f=>f.endsWith(".json")).map(f=>JSON.parse(fs.readFileSync(dir+"/"+f,"utf8"))); }catch(e){}
-    const emit=recs.filter(r=>r.step&&r.step.indexOf("fx-01-emit")>=0).map(r=>r.ts).sort()[0];
-    const gate=recs.filter(r=>r.step&&r.step.indexOf("fx-02-gate")>=0).map(r=>r.ts).sort()[0];
-    (emit && gate && emit<=gate) ? ok("CTRL-02: fx-01-emit receipt precedes fx-02-gate (file order)") : bad("CTRL-02: receipt order does not follow the pipeline file (emit="+emit+" gate="+gate+")");
+    // Derive step order from the monotonic STORE emit sequence in stdout (sequence, not wall-clock).
+    const stores=(process.env.RC_OUT||"").split("\n").filter(l=>/^STORE \[/.test(l));
+    const iEmit=stores.findIndex(l=>l.indexOf("[fx-01-emit]")>=0);
+    const iGate=stores.findIndex(l=>l.indexOf("[fx-02-gate]")>=0);
+    // STRICT < AND both present AND distinct lines → robust to a same-millisecond collision.
+    (iEmit>=0 && iGate>=0 && iEmit<iGate) ? ok("CTRL-02: fx-01-emit stored before fx-02-gate (STORE sequence, strict)") : bad("CTRL-02: STORE order does not follow the pipeline file (emit#"+iEmit+" gate#"+iGate+")");
     process.exit(fail);
   ' || FAIL=1
 fi
@@ -171,15 +174,15 @@ node engine/bricks/store-scaffold.js --space="${SPACE}" >/dev/null 2>&1
 TMP_PIPE="runs/${SPACE}/_rev-pipeline.yaml"
 printf 'steps:\n  - fx-02-gate\n  - fx-01-emit\n' > "$TMP_PIPE"
 if run_ctrl "CTRL-10" all --pipeline="$TMP_PIPE" --manifest-dir="$FIX_MAN" --space="${SPACE}" --smoke; then
-  SPACE="$SPACE" node -e '
-    const fs=require("fs");
+  RC_OUT="$RC_OUT" node -e '
     let fail=0; const ok=m=>console.log("   PASS: "+m); const bad=m=>{console.log("   FAIL: "+m);fail=1;};
-    const dir="runs/"+process.env.SPACE+"/_receipts";
-    let recs=[];
-    try{ recs=fs.readdirSync(dir).filter(f=>f.endsWith(".json")).map(f=>JSON.parse(fs.readFileSync(dir+"/"+f,"utf8"))); }catch(e){}
-    const emit=recs.filter(r=>r.step&&r.step.indexOf("fx-01-emit")>=0).map(r=>r.ts).sort()[0];
-    const gate=recs.filter(r=>r.step&&r.step.indexOf("fx-02-gate")>=0).map(r=>r.ts).sort()[0];
-    (emit && gate && gate<=emit) ? ok("CTRL-10: reversed file → fx-02-gate now precedes fx-01-emit (order follows config)") : bad("CTRL-10: receipt order did not follow the reversed pipeline file (emit="+emit+" gate="+gate+")");
+    // Same monotonic STORE-sequence proof as CTRL-02, but the reversed pipeline must flip it:
+    // fx-02-gate now stored BEFORE fx-01-emit. Strict < on the sequence index — a same-ms ts
+    // collision could satisfy BOTH directions under the old `ts<=ts`; the index cannot.
+    const stores=(process.env.RC_OUT||"").split("\n").filter(l=>/^STORE \[/.test(l));
+    const iEmit=stores.findIndex(l=>l.indexOf("[fx-01-emit]")>=0);
+    const iGate=stores.findIndex(l=>l.indexOf("[fx-02-gate]")>=0);
+    (iEmit>=0 && iGate>=0 && iGate<iEmit) ? ok("CTRL-10: reversed file → fx-02-gate stored before fx-01-emit (order follows config)") : bad("CTRL-10: STORE order did not follow the reversed pipeline file (emit#"+iEmit+" gate#"+iGate+")");
     process.exit(fail);
   ' || FAIL=1
 fi
