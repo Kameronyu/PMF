@@ -1,0 +1,18 @@
+{
+  "id": "03-space-map",
+  "name": "Space map (Space Classifier synthesizer)",
+  "reads": [
+    "runs/{space}/ad-volume-aggregate.json",
+    "runs/{space}/funnels/_tally.json",
+    "runs/{space}/bet-brief.md"
+  ],
+  "writes": [
+    "runs/{space}/space-map.json"
+  ],
+  "scripts": { "pre": [], "post": [] },
+  "prompt": "prompts/03-space-map.md",
+  "agents": 1,
+  "validator": null,
+  "gate": false,
+  "_source": "PART0 STEP 3; ONE-SHOT-SHELL §6 (no gate). Reads structured aggregates + tally (not raw copy) + bet-brief (Done line: refuses on invalid bet-brief)."
+}

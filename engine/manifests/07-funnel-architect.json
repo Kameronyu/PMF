@@ -1,0 +1,23 @@
+{
+  "id": "07-funnel-architect",
+  "name": "Funnel architect (+ Awareness Reconciler upstream, Funnel Auditor downstream)",
+  "reads": [
+    "runs/{space}/bet-brief.md",
+    "runs/{space}/product-intake.md",
+    "runs/{space}/funnels/_tally.json",
+    "runs/{space}/ad-volume-aggregate.json",
+    "runs/{space}/awareness-read.json",
+    "runs/{space}/voc-bank/_bank.json",
+    "runs/{space}/market-selection.json"
+  ],
+  "writes": [
+    "runs/{space}/funnel-brief.md",
+    "runs/{space}/audit-verdicts.json"
+  ],
+  "scripts": { "pre": [], "post": [] },
+  "prompt": "prompts/07-funnel-architect.md",
+  "agents": 1,
+  "validator": null,
+  "gate": true,
+  "_source": "PART0 STEP 7; ONE-SHOT-SHELL §6 (★ review). WIRE-02: reads BOTH bet-brief.md AND product-intake.md (both required). Also reads funnels store (via _tally.json) + ad-volume-aggregate + reconciled awareness-read + voc-bank view + market-selection."
+}

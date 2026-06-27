@@ -1,0 +1,18 @@
+{
+  "id": "01-collect",
+  "name": "Competition search / Collect (Finder + Slop + Coverage + Dumper)",
+  "reads": [
+    "runs/{space}/bet-brief.md"
+  ],
+  "writes": [
+    "runs/{space}/brands.json",
+    "runs/{space}/queries_run.json",
+    "runs/{space}/dumps/"
+  ],
+  "scripts": { "pre": ["fetch.js"], "post": ["clean.js", "dedupe.js"] },
+  "prompt": "prompts/01-collect.md",
+  "agents": 1,
+  "validator": null,
+  "gate": true,
+  "_source": "PART0 STEP 1; ONE-SHOT-SHELL §6 (★ apply-flags); scripts = engine bricks fetch.js/clean.js/dedupe.js (MANIFEST-04)"
+}

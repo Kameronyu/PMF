@@ -1,0 +1,20 @@
+{
+  "id": "04-voc-market-pass",
+  "name": "VOC market pass (pass-1: demand signal + gap candidates)",
+  "reads": [
+    "runs/{space}/space-map.json",
+    "runs/{space}/bet-brief.md",
+    "runs/{space}/product-intake.md"
+  ],
+  "writes": [
+    "runs/{space}/voc/market-signal/_index.json",
+    "runs/{space}/voc/gap_candidates.json",
+    "runs/{space}/voc/market-signal/"
+  ],
+  "scripts": { "pre": [], "post": [] },
+  "prompt": "prompts/04-voc-market-pass.md",
+  "agents": 1,
+  "validator": null,
+  "gate": false,
+  "_source": "PART0 STEP 4 (ingests candidate cells + bet-brief + product intake); ONE-SHOT-SHELL §6 (no gate). writes[0]=voc/market-signal/_index.json is the file-grained representative of the per-cell fan-out dir voc/market-signal/<cell>.json (consumed by Step 5)."
+}

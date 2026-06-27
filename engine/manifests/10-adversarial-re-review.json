@@ -1,0 +1,20 @@
+{
+  "id": "10-adversarial-re-review",
+  "name": "Adversarial re-review",
+  "reads": [
+    "runs/{space}/funnel-brief.md",
+    "runs/{space}/copy/_copy.json",
+    "runs/{space}/chief-verdicts.json",
+    "runs/{space}/asset-records.json"
+  ],
+  "writes": [
+    "runs/{space}/review/_review.json",
+    "runs/{space}/review/"
+  ],
+  "scripts": { "pre": ["audit-inject.js"], "post": ["audit-resolve.js"] },
+  "prompt": "prompts/10-adversarial-re-review.md",
+  "agents": 1,
+  "validator": null,
+  "gate": true,
+  "_source": "PART0 STEP 10 / PART3 §10; ONE-SHOT-SHELL §6 (★). Reads pipeline outputs (funnel-brief + copy + chief-verdicts + asset-records as the evidence manifest; PART0 STEP 8b: copy feeds the re-review); review/ is the terminal deliverable. audit-inject/audit-resolve = engine audit-tooling bricks (MANIFEST-04)."
+}

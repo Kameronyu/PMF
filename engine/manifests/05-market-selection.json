@@ -1,0 +1,20 @@
+{
+  "id": "05-market-selection",
+  "name": "Market selection -> NTP pick",
+  "reads": [
+    "runs/{space}/space-map.json",
+    "runs/{space}/voc/market-signal/_index.json",
+    "runs/{space}/voc/gap_candidates.json",
+    "runs/{space}/bet-brief.md"
+  ],
+  "writes": [
+    "runs/{space}/market-selection.json",
+    "runs/{space}/ntp-pick.json"
+  ],
+  "scripts": { "pre": [], "post": [] },
+  "prompt": "prompts/05-market-selection.md",
+  "agents": 1,
+  "validator": null,
+  "gate": true,
+  "_source": "PART0 STEP 5 (space-map supply-side + voc-market-signal §1 demand-side + gap_candidates + bet-brief); ONE-SHOT-SHELL §6 (★ NTP pick). Reads voc/market-signal/_index.json (the §1 demand consumer of Step 4's fan-out)."
+}

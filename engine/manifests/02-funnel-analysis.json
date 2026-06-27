@@ -1,0 +1,21 @@
+{
+  "id": "02-funnel-analysis",
+  "name": "Funnel analysis (Assemble + Router + Section Analyzer + quantify scripts)",
+  "reads": [
+    "runs/{space}/brands.json"
+  ],
+  "writes": [
+    "runs/{space}/ad-volume-aggregate.json",
+    "runs/{space}/funnels/_tally.json",
+    "runs/{space}/funnels/"
+  ],
+  "scripts": {
+    "pre": ["funnel-assemble.js"],
+    "post": ["funnel-claim-tally.js", "aggregate-mechanisms-in-play.js", "funnel-store.js"]
+  },
+  "prompt": "prompts/02-funnel-analysis.md",
+  "agents": 1,
+  "validator": null,
+  "gate": false,
+  "_source": "PART0 STEP 2; ONE-SHOT-SHELL §6 (no gate); scripts = engine bricks funnel-assemble/funnel-claim-tally/aggregate-mechanisms-in-play/funnel-store (MANIFEST-04). Reads brands.json (file-grained); dumps/ consumed via the funnel-assemble pre-script."
+}
