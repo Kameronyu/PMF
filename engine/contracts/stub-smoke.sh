@@ -145,29 +145,28 @@ node -e '
   let bad=[];
   // Step 2 raw tier: every funnel carries RAW transformation + angle + claims.
   if(!Array.isArray(t.funnels)||t.funnels.length===0) bad.push("Step2 _tally.funnels empty");
-  const rawT=new Set(), rawA=new Set();
+  const raw={transformation:new Set(),angle:new Set(),niche:new Set(),bet_type:new Set(),mechanism:new Set()};
   for(const f of (t.funnels||[])){
     if(!f.transformation) bad.push("Step2 funnel "+(f.funnel_id||"?")+" missing raw transformation");
     if(!f.angle) bad.push("Step2 funnel "+(f.funnel_id||"?")+" missing raw angle");
     if(!Array.isArray(f.claims)) bad.push("Step2 funnel "+(f.funnel_id||"?")+" missing raw claims[]");
-    if(f.transformation) rawT.add(f.transformation);
-    if(f.angle) rawA.add(f.angle);
+    for(const k of Object.keys(raw)){ if(f[k]) raw[k].add(f[k]); }
   }
-  // Step 3 canonical tier: transformations/angles carry canonical + raw_variants tracing to Step 2.
-  const tr=s.transformations||[]; const an=s.angles||[];
+  // Step 3 canonical tier: EVERY canonical axis carries raw_variants that trace to a Step-2 raw label.
+  const tr=s.transformations||[];
   if(tr.length===0) bad.push("Step3 transformations empty");
-  for(const x of tr){
-    const v=x.raw_claim_variants||x.raw_variants||[];
-    if(!x.canonical) bad.push("Step3 transformation missing canonical");
-    if(!Array.isArray(v)||v.length===0) bad.push("Step3 transformation "+(x.canonical||"?")+" has no raw_variants");
-    for(const rv of v){ if(!rawT.has(rv)) bad.push("Step3 raw_variant \""+rv+"\" does not trace to a Step-2 raw transformation"); }
-  }
-  for(const x of an){
-    const v=x.raw_variants||[];
-    for(const rv of v){ if(!rawA.has(rv)) bad.push("Step3 angle raw_variant \""+rv+"\" does not trace to a Step-2 raw angle"); }
+  // axis -> [space-map field, raw-tier key]; transformations use raw_claim_variants.
+  const axes=[["transformations","transformation"],["angles","angle"],["niches","niche"],["bet_types","bet_type"],["mechanisms_in_play","mechanism"]];
+  for(const [field,rawKey] of axes){
+    for(const x of (s[field]||[])){
+      const v=x.raw_claim_variants||x.raw_variants||[];
+      if(!x.canonical) bad.push("Step3 "+field+" entry missing canonical");
+      if(!Array.isArray(v)||v.length===0) bad.push("Step3 "+field+" \""+(x.canonical||"?")+"\" has no raw_variants");
+      for(const rv of v){ if(!raw[rawKey].has(rv)) bad.push("Step3 "+field+" raw_variant \""+rv+"\" does not trace to a Step-2 raw "+rawKey); }
+    }
   }
   // The two tiers must VISIBLY differ: >=2 distinct Step-2 raw transformations collapse into fewer canonicals.
-  if(!(rawT.size>=2 && tr.length<rawT.size)) bad.push("two tiers do not differ: rawT="+rawT.size+" canonical="+tr.length+" (need >=2 raw collapsing into fewer)");
+  if(!(raw.transformation.size>=2 && tr.length<raw.transformation.size)) bad.push("two tiers do not differ: rawT="+raw.transformation.size+" canonical="+tr.length+" (need >=2 raw collapsing into fewer)");
   if(bad.length){console.error(bad.join("; "));process.exit(1);}
   process.exit(0);
 ' "$SPACE" 2>/tmp/stub-wire-$$.err \

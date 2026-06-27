@@ -15,8 +15,11 @@ angle/claim/transformation (WIRE-03 tier 1). (Real Section-Analyzer judgment def
 
 # OUTPUT CONTRACT — WIRE-03 TIER 1 (raw, per individual funnel; NOT canonicalized)
 - `funnels/_tally.json` — `{ funnels: [ { funnel_id, brand_slug, transformation(raw), angle(raw),
-  awareness_basis, claims: [ { text, type } ] } ] }`. The `transformation`/`angle`/`claims[].text`
-  are **raw local labels** in each funnel's own words — Step 3 canonicalizes them across funnels.
+  niche(raw), bet_type(raw), mechanism(raw), awareness_basis, claims: [ { text, type } ] } ] }`.
+  The `transformation`/`angle`/`niche`/`bet_type`/`mechanism`/`claims[].text` are **raw local
+  labels** in each funnel's own words — Step 3 canonicalizes EVERY raw axis across funnels, and
+  each Step-3 canonical's raw_variants must trace back to these raw labels (the full WIRE-03 seam,
+  not just transformation/angle).
 - `ad-volume-aggregate.json` — `{ rows: [ { transformation(raw), angle(raw), funnel_count, ad_count,
   max_ad_longevity_days } ] }`. Rows keyed by RAW transformation × angle (not yet deduped).
 - `funnels/` — fan-out dir of per-funnel analyzed records.
@@ -43,6 +46,9 @@ Step 3 (space map) reads the raw labels from _tally.json + ad-volume-aggregate.j
         "brand_slug": "stub-brand-a",
         "transformation": "get organized fast",
         "angle": "beat the overwhelm",
+        "niche": "overwhelmed",
+        "bet_type": "organizer",
+        "mechanism": "one place for everything",
         "awareness_basis": "problem-aware",
         "claims": [ { "text": "clears your desk in a week", "type": "direct" } ]
       },
@@ -51,6 +57,9 @@ Step 3 (space map) reads the raw labels from _tally.json + ad-volume-aggregate.j
         "brand_slug": "stub-brand-b",
         "transformation": "finally feel in control",
         "angle": "stop the chaos",
+        "niche": "chaos sufferers",
+        "bet_type": "control system",
+        "mechanism": "central hub",
         "awareness_basis": "solution-aware",
         "claims": [ { "text": "control your whole day", "type": "enlarged" } ]
       }

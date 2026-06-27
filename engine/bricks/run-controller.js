@@ -206,18 +206,31 @@ function assembleContext(m, space, opts) {
 // ===========================================================================
 
 // readStubEmit(m): parse the `STUB-EMIT` fenced JSON block out of the manifest's prompt-stub
-// file. Returns the parsed object, or null when no prompt file / no block exists (fall back to
-// the generic stub). The block is delimited by a ```stub-emit … ``` fence so the surrounding
-// markdown envelope (ROLE / OUTPUT CONTRACT / …) is human-readable and the machine slice is exact.
+// file. The block is delimited by a ```stub-emit … ``` fence so the surrounding markdown envelope
+// (ROLE / OUTPUT CONTRACT / …) is human-readable and the machine slice is exact.
+//
+// Returns null ONLY when the prompt file is ABSENT (no prompt authored yet → the caller falls
+// back to the generic minimal stub so the controller still runs pre-Phase-4). When the prompt
+// file EXISTS, a missing / duplicated / malformed fence is a NAMED REFUSAL — never a silent
+// fall-through to hollow {_stub} artifacts, which would emit contract-violating mock data and
+// still report success (review F1/F2). "file present but no good block" ≠ "no prompt authored".
 function readStubEmit(m) {
-  if (typeof m.prompt !== 'string' || !m.prompt) return null;
-  if (!fs.existsSync(m.prompt) || !fs.statSync(m.prompt).isFile()) return null;
+  if (typeof m.prompt !== 'string' || !m.prompt) return null;        // manifest names no slot
+  if (!fs.existsSync(m.prompt) || !fs.statSync(m.prompt).isFile()) return null;  // slot not authored yet
   const src = fs.readFileSync(m.prompt, 'utf8');
-  const fence = src.match(/```stub-emit\s*\n([\s\S]*?)\n```/);
-  if (!fence) return null;
+  const fences = src.match(/```stub-emit\s*\n[\s\S]*?\n```/g) || [];
+  if (fences.length === 0) {
+    console.error(`REFUSE [${m.id}] spawn: prompt exists but carries no \`\`\`stub-emit block (${m.prompt}) — author the STUB-EMIT block or remove the prompt file`);
+    process.exit(1);
+  }
+  if (fences.length > 1) {
+    console.error(`REFUSE [${m.id}] spawn: prompt carries ${fences.length} \`\`\`stub-emit blocks (${m.prompt}) — exactly one is allowed (ambiguous which emits)`);
+    process.exit(1);
+  }
+  const body = fences[0].replace(/^```stub-emit\s*\n/, '').replace(/\n```$/, '');
   let obj;
   try {
-    obj = JSON.parse(fence[1]);
+    obj = JSON.parse(body);
   } catch (e) {
     console.error(`REFUSE [${m.id}] spawn: prompt STUB-EMIT block is not valid JSON (${m.prompt}: ${e.message})`);
     process.exit(1);
@@ -256,6 +269,22 @@ function mockEmit(m, space) {
     console.error(`REFUSE [${m.id}] spawn: manifest declares no writes[] to emit to`);
     process.exit(1);
   }
+  // Orphan-key guard (review F4): every stub-emit key must map to a declared writes[] FILE
+  // basename. A key that matches none is a typo/drift (e.g. prompt "gap-candidates.json" vs
+  // manifest "gap_candidates.json") that would silently never be written — refuse by name so
+  // the disagreement surfaces instead of hiding behind a present-but-wrong key.
+  if (emit) {
+    const fileBasenames = new Set(
+      writes.filter(w => !w.endsWith('/')).map(w => path.basename(w))
+    );
+    for (const key of Object.keys(emit)) {
+      if (!fileBasenames.has(key)) {
+        console.error(`REFUSE [${m.id}] spawn: prompt STUB-EMIT key "${key}" matches no writes[] file basename (${m.prompt}) — orphan/typo'd key`);
+        process.exit(1);
+      }
+    }
+  }
+
   const fileOutputs = [];
   for (const w of writes) {
     const out = w.replace('{space}', space);
