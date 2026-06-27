@@ -238,7 +238,16 @@ function storeAndReceipt(m, space, verdict, opts) {
   // scaffold decision. In smoke the space is fixed (--space=smoke), so this path is dormant
   // and the harness exercises space-version.js via its own UNIT assert (CTRL-08b).
   if (opts.rerun) {
-    const next = spawnSync(process.execPath, [SPACE_VERSION, '--space=' + space], { encoding: 'utf8' }).stdout.trim();
+    // Guard the subprocess result BEFORE dereferencing .stdout: a failed-to-start spawn
+    // (ENOENT/EACCES) or a signal-killed child returns { stdout: null, error } and a non-zero
+    // status means the resolve itself failed — both must surface a NAMED refusal, not a generic
+    // FATAL that masks the real cause or a silently-treated-as-"no bump" (WR-02).
+    const r = spawnSync(process.execPath, [SPACE_VERSION, '--space=' + space], { encoding: 'utf8' });
+    if (r.status !== 0 || typeof r.stdout !== 'string') {
+      console.error(`REFUSE [${m.id}] --rerun: space-version.js failed (status=${r.status})`);
+      process.exit(1);
+    }
+    const next = r.stdout.trim();
     if (next && next !== space) {
       spawnSync(process.execPath, [STORE_SCAFFOLD, '--space=' + next], { stdio: 'inherit' });
       space = next;   // subsequent writes land in the bumped space
