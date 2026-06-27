@@ -189,22 +189,98 @@ function assembleContext(m, space, opts) {
 }
 
 // ===========================================================================
-// Phase 4 — Spawn (CTRL-06): chunk agents into waves of ≤5; each agent mock-emits a
-// valid-shaped stub artifact to writes[0].
+// Phase 4 — Spawn (CTRL-06): chunk agents into waves of ≤5; each agent mock-emits the
+// step's declared contract-shaped stub artifact(s).
+//
+// Two emit modes, selected WITHOUT per-id special-casing in this glue:
+//   A. Fixture mode — the manifest itself DECLARES a `stub_emit` payload (controller-smoke
+//      negative/positive fixtures). Keep the original single-write-to-writes[0] behavior so
+//      the Phase-2 fixture asserts are unchanged.
+//   B. Prompt-stub mode (Phase 4 / real manifests) — the manifest's `prompt:` file carries a
+//      fenced STUB-EMIT block: a JSON object keyed by each writes[] basename → that artifact's
+//      contract-shaped mock payload (an object/array for .json; a string for .md). The
+//      controller writes EVERY writes[] entry from that block. A trailing-"/" writes[] entry is
+//      a fan-out DIRECTORY — satisfied by mkdir -p (its representative _index file is a sibling
+//      file write in the same block). This is the deferred-prompt drop-in seam: Phase 7 replaces
+//      the prompt BODY (and, when real, the spawn that produces these files) with no rewiring.
 // ===========================================================================
-function mockEmit(m, space) {
-  const out = (m.writes && m.writes[0] || '').replace('{space}', space);
-  if (!out) {
-    console.error(`REFUSE [${m.id}] spawn: manifest declares no writes[0] to emit to`);
+
+// readStubEmit(m): parse the `STUB-EMIT` fenced JSON block out of the manifest's prompt-stub
+// file. Returns the parsed object, or null when no prompt file / no block exists (fall back to
+// the generic stub). The block is delimited by a ```stub-emit … ``` fence so the surrounding
+// markdown envelope (ROLE / OUTPUT CONTRACT / …) is human-readable and the machine slice is exact.
+function readStubEmit(m) {
+  if (typeof m.prompt !== 'string' || !m.prompt) return null;
+  if (!fs.existsSync(m.prompt) || !fs.statSync(m.prompt).isFile()) return null;
+  const src = fs.readFileSync(m.prompt, 'utf8');
+  const fence = src.match(/```stub-emit\s*\n([\s\S]*?)\n```/);
+  if (!fence) return null;
+  let obj;
+  try {
+    obj = JSON.parse(fence[1]);
+  } catch (e) {
+    console.error(`REFUSE [${m.id}] spawn: prompt STUB-EMIT block is not valid JSON (${m.prompt}: ${e.message})`);
     process.exit(1);
   }
-  fs.mkdirSync(path.dirname(out), { recursive: true });
-  // The stub payload defaults to a minimal valid-shaped artifact. A fixture/manifest may
-  // DECLARE its own `stub_emit` payload (e.g. a negative fixture that the validator rejects)
-  // so the controller stays generic — no per-id special-casing in this glue.
-  const payload = ('stub_emit' in m) ? m.stub_emit : { _stub: true, step: m.id };
-  fs.writeFileSync(out, JSON.stringify(payload, null, 2) + '\n');
-  return out;
+  if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
+    console.error(`REFUSE [${m.id}] spawn: prompt STUB-EMIT block must be a JSON object keyed by writes[] basename (${m.prompt})`);
+    process.exit(1);
+  }
+  return obj;
+}
+
+// writeOne(p, payload): serialize ONE emit. A string payload → written verbatim (markdown slots);
+// any other payload → pretty JSON + trailing newline. Deterministic: no Date/random in payloads.
+function writeOne(p, payload) {
+  fs.mkdirSync(path.dirname(p), { recursive: true });
+  const body = (typeof payload === 'string') ? payload : (JSON.stringify(payload, null, 2) + '\n');
+  fs.writeFileSync(p, body);
+}
+
+function mockEmit(m, space) {
+  // --- Mode A: fixture-declared stub_emit (Phase-2 controller-smoke) — unchanged. ---
+  if ('stub_emit' in m) {
+    const out = (m.writes && m.writes[0] || '').replace('{space}', space);
+    if (!out) {
+      console.error(`REFUSE [${m.id}] spawn: manifest declares no writes[0] to emit to`);
+      process.exit(1);
+    }
+    writeOne(out, m.stub_emit);
+    return [out];
+  }
+
+  // --- Mode B: prompt-stub STUB-EMIT block emits EVERY writes[] (Phase 4). ---
+  const emit = readStubEmit(m);
+  const writes = (m.writes || []);
+  if (!writes.length) {
+    console.error(`REFUSE [${m.id}] spawn: manifest declares no writes[] to emit to`);
+    process.exit(1);
+  }
+  const fileOutputs = [];
+  for (const w of writes) {
+    const out = w.replace('{space}', space);
+    if (out.endsWith('/')) {
+      fs.mkdirSync(out, { recursive: true });   // fan-out dir slot — its _index file is a sibling write
+      continue;
+    }
+    const base = path.basename(out);
+    // The prompt stub MUST declare a payload for every file write; a missing key would emit a
+    // hollow artifact that silently mis-shapes the seam. Refuse by name (P3), never improvise —
+    // EXCEPT when no prompt-stub block exists at all (no prompt authored yet): fall back to the
+    // generic minimal stub so the controller still runs pre-Phase-4.
+    let payload;
+    if (emit && (base in emit)) {
+      payload = emit[base];
+    } else if (emit) {
+      console.error(`REFUSE [${m.id}] spawn: prompt STUB-EMIT block missing payload for writes[] "${base}" (${m.prompt})`);
+      process.exit(1);
+    } else {
+      payload = { _stub: true, step: m.id };
+    }
+    writeOne(out, payload);
+    fileOutputs.push(out);
+  }
+  return fileOutputs;
 }
 
 // agentCount(m): coerce + validate manifest.agents to a positive integer wave count (WR-04).
@@ -239,8 +315,11 @@ function spawnWaves(m, ctx, space) {
     // The fixture stub agents all write the same declared output slot; the last write wins.
     // (Phase 3+ swaps the stub for a real spawn; the wave-chunking seam is unchanged.)
     for (let k = 0; k < size; k++) {
-      const out = mockEmit(m, space);
-      if (!outputs.includes(out)) outputs.push(out);
+      // mockEmit returns the FILE outputs it wrote (fan-out dir slots are mkdir-only, not
+      // validatable, so they are not returned). The last wave's writes win (same slot paths).
+      for (const out of mockEmit(m, space)) {
+        if (!outputs.includes(out)) outputs.push(out);
+      }
     }
   }
   return outputs;
