@@ -40,6 +40,11 @@ const { spawnSync, execFileSync } = require('child_process');
 const { sanitizePathSegment } = require('./lib/fanout-path');
 
 const WAVE_CAP = 5;                       // PART3 §8.4 — spawn waves of ≤5 (the platform fact)
+const MAX_AGENTS = 100;                   // upper bound on wave COUNT (WR-04 DoS guard): the wave
+                                          // SIZE is capped at WAVE_CAP, but nothing bounds how MANY
+                                          // waves run — a manifest with agents:1e9 would loop ~200M
+                                          // times doing real fs writes and HANG. Refuse any
+                                          // agents > MAX_AGENTS by name (no real step needs >100).
 const PREFLIGHT_EXIT = 3;                 // distinct named-refusal exit for a missing input (CTRL-03)
 const DEFAULT_PIPELINE = 'pipeline.yaml';
 const DEFAULT_MANIFEST_DIR = 'engine/manifests';   // production default; harness overrides w/ fixture dir
@@ -194,6 +199,13 @@ function mockEmit(m, space) {
 function agentCount(m) {
   if (!Number.isInteger(m.agents) || m.agents < 1) {
     console.error(`REFUSE [${m.id}] manifest key agents must be a positive integer (got ${JSON.stringify(m.agents)})`);
+    process.exit(1);
+  }
+  // WR-04 DoS guard: bound the wave COUNT. agents passes the positive-integer check above but a
+  // huge value (e.g. 1e9) loops ~n/WAVE_CAP times doing real fs.writeFileSync → exit-124 HANG.
+  // Refuse anything over MAX_AGENTS by name, same idiom — fail fast (<1s) instead of hanging.
+  if (m.agents > MAX_AGENTS) {
+    console.error(`REFUSE [${m.id}] manifest: agents=${m.agents} exceeds MAX_AGENTS=${MAX_AGENTS}`);
     process.exit(1);
   }
   return m.agents;
