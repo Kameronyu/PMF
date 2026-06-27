@@ -48,11 +48,11 @@ Requirements for the runnable shell. Each maps to exactly one roadmap phase.
 
 ### Validators, Gates & Receipts (VALID)
 
-- [ ] **VALID-01**: A per-step validator checks the output artifact exists and carries its declared top-level keys (OUTPUT CONTRACT shape)
-- [ ] **VALID-02**: A validator refuses on a missing/empty load-bearing field (P3) — never improvise a value
-- [ ] **VALID-03**: Validators are loose now (presence/shape); field-continuity checks are deferred and addable to the same validators with no rewiring
-- [ ] **VALID-04**: Every spawn writes a receipt (inputs hash + validator verdicts + ledger entry); the `_receipts/` chain is unbroken
-- [ ] **VALID-05**: Operator gates block-and-log; a "deferred"/auto-approve decision is recorded, never silent
+- [x] **VALID-01**: A per-step validator checks the output artifact exists and carries its declared top-level keys (OUTPUT CONTRACT shape)
+- [x] **VALID-02**: A validator refuses on a missing/empty load-bearing field (P3) — never improvise a value
+- [x] **VALID-03**: Validators are loose now (presence/shape); field-continuity checks are deferred and addable to the same validators with no rewiring
+- [x] **VALID-04**: Every spawn writes a receipt (inputs hash + validator verdicts + ledger entry); the `_receipts/` chain is unbroken
+- [x] **VALID-05**: Operator gates block-and-log; a "deferred"/auto-approve decision is recorded, never silent
 
 ### Smoke Run & Definition of Done (SMOKE)
 
@@ -129,11 +129,11 @@ Which phases cover which requirements. Populated during roadmap creation.
 | STUB-03 | Phase 4 | Complete |
 | STUB-04 | Phase 4 | Complete |
 | WIRE-03 | Phase 4 | Complete |
-| VALID-01 | Phase 5 | Pending |
-| VALID-02 | Phase 5 | Pending |
-| VALID-03 | Phase 5 | Pending |
-| VALID-04 | Phase 5 | Pending |
-| VALID-05 | Phase 5 | Pending |
+| VALID-01 | Phase 5 | Complete |
+| VALID-02 | Phase 5 | Complete |
+| VALID-03 | Phase 5 | Complete |
+| VALID-04 | Phase 5 | Complete |
+| VALID-05 | Phase 5 | Complete |
 | SMOKE-01 | Phase 6 | Pending |
 | SMOKE-02 | Phase 6 | Pending |
 | SMOKE-03 | Phase 6 | Pending |

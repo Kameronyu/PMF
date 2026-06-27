@@ -34,7 +34,11 @@ cp "$F/brands-good.json" "$T/brands.json"
 node engine/hooks/route.js "$T/brands.json" >/dev/null 2>&1; rc_is $? 0 "route brands.json (good) -> finder+revenue pass -> 0"
 cp "$F/brands-bad-finder.json" "$T/brands.json"
 node engine/hooks/route.js "$T/brands.json" >/dev/null 2>&1; rc_is $? 2 "route brands.json (bad) -> finder rejects -> propagates 2"
-node engine/hooks/route.js "$T/unmatched.json" >/dev/null 2>&1; rc_is $? 0 "route unmatched basename -> pass 0"
+# Phase 5: route.js no longer "passes silently" on an unmatched basename. Every output now
+# reaches validate-shape.js, whose drift guard REJECTS an output basename with no OUTPUT-CONTRACT
+# entry (engine/contracts/output-shapes.json) — so a drifted/orphan output exits 2, never 0.
+# (VALID-01: zero real outputs pass unvalidated; the old silent-pass hole is closed.)
+node engine/hooks/route.js "$T/unmatched.json" >/dev/null 2>&1; rc_is $? 2 "route unmapped basename -> validate-shape drift REJECT (propagates 2)"
 
 echo ""
 echo "── H6.firing: DR-context injectors (bundle from --dr-dir fixture) ──"

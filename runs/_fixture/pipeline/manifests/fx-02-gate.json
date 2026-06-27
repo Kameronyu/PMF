@@ -5,6 +5,6 @@
   "scripts": { "pre": [], "post": [] },
   "prompt": "fixture/stub-emit.md",
   "agents": 1,
-  "validator": null,
+  "validator": "runs/_fixture/pipeline/validate-fixture-pass.js",
   "gate": true
 }
