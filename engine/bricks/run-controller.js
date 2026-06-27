@@ -22,8 +22,9 @@
 // CRITICAL CONSTRAINTS (verified — see 02-RESEARCH.md):
 //   - Hooks do NOT fire in subagents (FIRING-MANIFEST §4) → the Validate phase invokes the
 //     validator EXPLICITLY as an orchestrator subprocess; nothing relies on the PostToolUse hook.
-//   - receipt-write.js is WRITE-ONCE → a colliding spawn-id is exit 1. Mint a UNIQUE spawn-id
-//     per spawn so re-spawns (the ≤2 retry) never collide.
+//   - receipt-write.js is WRITE-ONCE → a colliding spawn-id is exit 1. The receipt is minted
+//     ONCE per successful step (after the ≤2 re-spawn loop, not per attempt); Date.now()+rand
+//     keeps spawn-ids distinct across steps/runs.
 //   - Zero hardcoded step order → order comes ONLY from pipeline.yaml (CTRL-10).
 //
 // Usage:
@@ -167,7 +168,7 @@ function assembleContext(m, space, opts) {
 
 // ===========================================================================
 // Phase 4 — Spawn (CTRL-06): chunk agents into waves of ≤5; each agent mock-emits a
-// valid-shaped stub artifact to writes[0]. The `attempt` arg feeds the unique spawn-id.
+// valid-shaped stub artifact to writes[0].
 // ===========================================================================
 function mockEmit(m, space) {
   const out = (m.writes && m.writes[0] || '').replace('{space}', space);
@@ -184,7 +185,7 @@ function mockEmit(m, space) {
   return out;
 }
 
-function spawnWaves(m, ctx, space, attempt) {
+function spawnWaves(m, ctx, space) {
   const n = m.agents || 1;
   const outputs = [];
   let wave = 0;
@@ -254,7 +255,10 @@ function storeAndReceipt(m, space, verdict, opts) {
     }
   }
 
-  // UNIQUE spawn-id per successful step — receipt-write.js is WRITE-ONCE, a colliding id is exit 1.
+  // ONE receipt per successful step — storeAndReceipt runs once, AFTER the bounded re-spawn loop
+  // succeeds (the loop re-runs spawnWaves+validate, NOT the receipt write), so there is no
+  // intra-step spawn-id collision to guard against. receipt-write.js is still WRITE-ONCE, so a
+  // colliding id across DISTINCT steps/runs is exit 1; Date.now()+rand keeps those distinct.
   // Sanitize the id segment ONCE (reusing lib/fanout-path's sanitizePathSegment — no re-implemented
   // regex) and reuse that value for BOTH the --spawn-id flag and the rebuilt receipt path, so the
   // path the controller logs/returns can never diverge from the file receipt-write.js writes (WR-01).
@@ -309,7 +313,7 @@ function runStep(stepId, space, opts) {
   const ctx = assembleContext(m, space, opts);        // P3 — CTRL-05
   let attempts = 0, verdict, outputs;
   do {
-    outputs = spawnWaves(m, ctx, space, attempts);    // P4 — CTRL-06 (unique id per attempt in P6)
+    outputs = spawnWaves(m, ctx, space);              // P4 — CTRL-06 (re-runs on reject; receipt minted once in P6)
     verdict = validate(m, outputs);                   // P5 — CTRL-07 (EXPLICIT validator)
     attempts++;
   } while (!verdict.ok && attempts <= 2);             // bounded re-spawn ≤2
