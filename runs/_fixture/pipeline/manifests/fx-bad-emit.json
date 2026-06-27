@@ -6,5 +6,6 @@
   "prompt": "fixture/stub-emit.md",
   "agents": 1,
   "validator": null,
-  "gate": false
+  "gate": false,
+  "stub_emit": { "_stub": true, "saturation": [{ "transformation": "x" }] }
 }

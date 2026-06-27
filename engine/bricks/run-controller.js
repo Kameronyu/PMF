@@ -156,6 +156,11 @@ function assembleContext(m, space, opts) {
   const block = parts.join('\n');
   if (opts && opts.smoke) {
     console.log(`CONTEXT [${m.id}] assembled ${Buffer.byteLength(block, 'utf8')} bytes from ${parts.length} read(s)`);
+    // Surface the DATA boundary headers so a receipts/log diff proves the bytes were embedded
+    // (the agent receives bytes, not a file to Read). Each header carries the source path.
+    for (const r of (m.reads || [])) {
+      console.log(`  <<<DATA ${r.replace('{space}', space)}>>>`);
+    }
   }
   return block;
 }
@@ -171,7 +176,11 @@ function mockEmit(m, space) {
     process.exit(1);
   }
   fs.mkdirSync(path.dirname(out), { recursive: true });
-  fs.writeFileSync(out, JSON.stringify({ _stub: true, step: m.id }, null, 2) + '\n');
+  // The stub payload defaults to a minimal valid-shaped artifact. A fixture/manifest may
+  // DECLARE its own `stub_emit` payload (e.g. a negative fixture that the validator rejects)
+  // so the controller stays generic — no per-id special-casing in this glue.
+  const payload = ('stub_emit' in m) ? m.stub_emit : { _stub: true, step: m.id };
+  fs.writeFileSync(out, JSON.stringify(payload, null, 2) + '\n');
   return out;
 }
 
@@ -219,19 +228,63 @@ function escalate(stepId, verdict) {
 }
 
 // ===========================================================================
-// Phase 6 — Store+receipt (CTRL-08). FILLED in Task 2 (storeAndReceipt body).
+// Phase 6 — Store+receipt (CTRL-08): mint a UNIQUE spawn-id, delegate the receipt write
+// to receipt-write.js (write-once, owns the sha256). The no-overwrite NAMING via
+// space-version.js is wired-but-dormant absent --rerun (Open Q2: smoke uses a fixed space).
 // ===========================================================================
 function storeAndReceipt(m, space, verdict, opts) {
-  // Task 2 fills this body (receipt-write.js subprocess + space-version.js no-overwrite naming).
-  throw new Error('storeAndReceipt not yet implemented (Task 2)');
+  // No-overwrite naming (CTRL-08): on an explicit --rerun, ask space-version.js to NAME the
+  // next free space and scaffold it; the resolver is read-only and the controller owns the
+  // scaffold decision. In smoke the space is fixed (--space=smoke), so this path is dormant
+  // and the harness exercises space-version.js via its own UNIT assert (CTRL-08b).
+  if (opts.rerun) {
+    const next = spawnSync(process.execPath, [SPACE_VERSION, '--space=' + space], { encoding: 'utf8' }).stdout.trim();
+    if (next && next !== space) {
+      spawnSync(process.execPath, [STORE_SCAFFOLD, '--space=' + next], { stdio: 'inherit' });
+      space = next;   // subsequent writes land in the bumped space
+    }
+  }
+
+  // UNIQUE spawn-id per spawn — receipt-write.js is WRITE-ONCE, a colliding id is exit 1.
+  // Date.now()+rand guarantees the ≤2 re-spawn loop never collides (Pitfall 2).
+  const spawnId = m.id + '-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6);
+
+  const inputs  = (m.reads  || []).map(r => r.replace('{space}', space)).join(',');
+  const outputs = (m.writes || []).map(w => w.replace('{space}', space)).join(',');
+
+  // Delegate the receipt write (sha256 inputs_hash + write-once) to the brick — never re-hash.
+  execFileSync(process.execPath, [
+    RECEIPT_WRITE,
+    '--space=' + space,
+    '--spawn-id=' + spawnId,
+    '--step=' + m.id,
+    '--inputs=' + inputs,
+    '--outputs=' + outputs,
+    '--gate=' + JSON.stringify({ step_gated: !!m.gate, decision: null }),
+  ], { stdio: 'inherit' });
+
+  const receiptPath = 'runs/' + space + '/_receipts/' + spawnId + '.json';
+  console.log(`STORE [${m.id}] receipt ${receiptPath}`);
+  return receiptPath;
 }
 
 // ===========================================================================
-// Phase 7 — Operator-gate (CTRL-09). FILLED in Task 2 (operatorGate body).
+// Phase 7 — Operator-gate (CTRL-09): a gated step blocks on a sign-off artifact; --smoke
+// auto-approves; a non-gate step passes silently. The decision is LOGGED, never a silent skip.
 // ===========================================================================
+function awaitSignoff(m, receiptPath) {
+  // Real operator sign-off UX is deferred (CONTEXT). Outside smoke a gated step blocks here.
+  console.error(`GATE [${m.id}] operator sign-off required (receipt ${receiptPath}) — run with --smoke to auto-approve in stub mode`);
+  process.exit(4);   // distinct exit: a gated step cannot proceed without a decision
+}
+
 function operatorGate(m, receipt, opts) {
-  // Task 2 fills this body (block / --smoke auto-approve; decision logged, never silent).
-  throw new Error('operatorGate not yet implemented (Task 2)');
+  if (!m.gate) {
+    console.log(`GATE [${m.id}] none (step not gated)`);   // logged pass — phase always reports
+    return;
+  }
+  const decision = opts.smoke ? 'auto-approved-smoke' : awaitSignoff(m, receipt);
+  console.log(`GATE [${m.id}] ${decision}`);            // logged, never silent (P9)
 }
 
 // ===========================================================================
@@ -297,9 +350,35 @@ Options:
     process.exit(0);
   }
 
-  // Full run wiring (sanitize --space, dispatch to runAll/runStep) lands in Task 2.
-  console.error('run-controller: run wiring not yet complete (Task 2)');
-  process.exit(1);
+  // --- a run requires a target (all | <step-id>) + a --space ---------------
+  if (!target) {
+    console.error('ERROR: a run requires a target: `all` or a <step-id> (see --help)');
+    process.exit(1);
+  }
+  if (typeof opts.space !== 'string' || opts.space === '') {
+    console.error('ERROR: --space=<market-space> is required for a run (did you forget the =value?)');
+    process.exit(1);
+  }
+  const SPACE = sanitizePathSegment(opts.space);
+  if (!SPACE) {
+    console.error('ERROR: --space value sanitized to empty string; use only the chars lib/fanout-path permits');
+    process.exit(1);
+  }
+
+  const o = runOpts();
+  try {
+    if (target === 'all') {
+      runAll(SPACE, o);
+      console.log(`run-controller: walked ${o.pipeline} in space=${SPACE} (smoke=${o.smoke})`);
+    } else {
+      runStep(sanitizePathSegment(target), SPACE, o);
+      console.log(`run-controller: completed ${target} in space=${SPACE} (smoke=${o.smoke})`);
+    }
+    process.exit(0);
+  } catch (e) {
+    console.error(`run-controller: FATAL ${e.message}`);
+    process.exit(1);
+  }
 }
 
 main();
