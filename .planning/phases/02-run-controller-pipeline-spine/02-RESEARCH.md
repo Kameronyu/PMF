@@ -495,14 +495,14 @@ if [ "$FAIL" -eq 0 ]; then echo "CONTROLLER-SMOKE: ALL ASSERTS PASS ✓"; exit 0
 
 **Note:** No assumptions touch correctness-critical behavior. The 7-phase order, the validator-must-be-explicit rule, the write-once/unique-spawn-id rule, and the no-overwrite naming are all VERIFIED against source, not assumed.
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Does the fixture's mock-emit need to satisfy a REAL validator, or is `validator:null` (route.js no-rule pass) enough to prove Pattern 7?**
+1. **RESOLVED — `validator:null` happy fixture + a deliberately-bad `space-map.json` fixture that asserts `route.js`/`validate-classifier.js` exit-2 propagation; do BOTH per Plan 01.** Does the fixture's mock-emit need to satisfy a REAL validator, or is `validator:null` (route.js no-rule pass) enough to prove Pattern 7?
    - What we know: `route.js` passes (exit 0) on any basename without a rule; it propagates a real validator's exit otherwise. A `space-map.json` write hits `validate-classifier.js`.
    - What's unclear: whether the planner wants the fixture to exercise a real validator (stronger proof, but the mock-emit must produce a `validate-classifier.js`-passing `space-map.json`, which has non-trivial required fields) or just prove the explicit-invocation wiring with a no-rule basename.
    - Recommendation: do BOTH — one fixture manifest with `validator:null` (proves explicit-call wiring + route.js pass-path) and, if cheap, one writing a basename `route.js` recognizes (proves real dispatch). If the real-validator artifact is expensive to mock, assert the wiring with `validator:null` + a unit assert that `route.js` propagates a known-bad fixture's exit 2. This is the planner's coverage call.
 
-2. **Where does the no-overwrite-versioning re-run decision actually trigger in Phase 2?**
+2. **RESOLVED — resolver is wired in but acts only on an explicit `--rerun` flag; smoke uses a fixed `smoke` space + a `space-version.js` unit assert (mirroring `store-smoke.sh` STORE-02), no versioned-re-run drive this phase, per Plan 02.** Where does the no-overwrite-versioning re-run decision actually trigger in Phase 2?
    - What we know: `space-version.js` NAMES the next free space; the controller decides whether to scaffold/run there.
    - What's unclear: SMOKE-01 (`run all --space=smoke`) implies a fixed `smoke` space, not a bumped one — so the bump path may only need a unit assert (resolver returns `<space>-v2` after a scaffold), not a full re-run drive, in Phase 2.
    - Recommendation: assert CTRL-08's no-overwrite NAMING with a `space-version.js` unit check in the harness (mirror `store-smoke.sh` STORE-02), and have the controller wire the resolver in but only ACT on it on an explicit re-run flag. Don't over-build a versioned-re-run drive this phase.

@@ -49,7 +49,10 @@ Plans:
   3. Preflight refuses by name on a missing input contract (never improvises); plan-print declares the step's DAG before running; context-assembly embeds the digest + corpus bytes so the agent never Reads shared state directly.
   4. Spawn runs agent waves capped at ≤5; validate runs the blocking validator with bounded re-spawn (≤2) then escalate; store+receipt writes output under no-overwrite versioning and emits a receipt; the gate phase blocks on a sign-off artifact (auto-approve in smoke).
   5. The run-controller is assembled from existing engine bricks / `hooks/` / `route.js` per `FIRING-MANIFEST.md` — the deterministic glue is reused, not re-authored.
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 02-01-PLAN.md — pipeline.yaml (R1) + fixture manifest set + controller-smoke.sh acceptance harness (authored RED)
+- [ ] 02-02-PLAN.md — run-controller.js (PART3 §8 7-phase loop assembled from bricks) + bin/run entrypoint (turns the harness GREEN)
 
 ### Phase 3: Step Manifests (the wiring)
 **Goal**: Eleven declarative step manifests (0–10) exist whose `reads`/`writes` match PART0 + PART3 §5.2, closing the producer→consumer graph — no orphan outputs, no dangling inputs — with the locked CLAIM-LIST and architect-input decisions wired in.
@@ -105,7 +108,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Artifact Store Scaffold | 2/2 | Complete | 2026-06-26 |
-| 2. Run-Controller & Pipeline Spine | 0/TBD | Not started | - |
+| 2. Run-Controller & Pipeline Spine | 0/2 | Planned | - |
 | 3. Step Manifests | 0/TBD | Not started | - |
 | 4. Prompt Stubs & Mock Emits | 0/TBD | Not started | - |
 | 5. Validators, Gates & Receipts | 0/TBD | Not started | - |
