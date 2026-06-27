@@ -10,6 +10,16 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1   # repo root (engine/contracts/ -> repo)
 
+# Determinism pin: this is a wiring-COHERENCE proof (every hop emits non-null shape),
+# not a live-API semantic test. The embed hops (H5.4 vectorize, H5.5 rag-query) call
+# lib/embed, which goes live to Voyage when VOYAGE_API_KEY is set — a network call that
+# intermittently fails and breaks the "deterministic" guarantee this header promises
+# (failure mode: rag exits non-zero with empty stdout -> "rag output not JSON").
+# Force the engine's own deterministic stub backend (lib/embed: isStub() == no key) so the
+# coherence gate is reproducible. Live-Voyage semantic quality is exercised in normal runs,
+# not in this regression gate.
+unset VOYAGE_API_KEY
+
 SPACE="_fixture-e2e"
 FX="engine/_fixture"
 SCRATCH="runs/${SPACE}"
