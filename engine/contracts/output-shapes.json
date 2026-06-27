@@ -1,0 +1,25 @@
+{
+  "_doc": "VALID-01 declarative OUTPUT-CONTRACT shape map. Per output-artifact BASENAME (or relpath for fan-out files), the top-level keys that MUST be present after a step emits, plus the container type. validate-shape.js consumes this: presence + correct top-level shape + non-hollow. '__MD__' = a non-empty markdown/text file (no JSON keys). Keys are the SHELL top-level contract (SHELL-BUILD-SPEC §7 'presence now, congruence later'); field-level seam schemas are deferred content (CONTENT-02). The 4 basenames with deep validators (brands.json, dump.json, space-map.json, *-beliefs.json) are ALSO shape-checked here as defense-in-depth, but their deep enum/trace rules live in validate-finder/revenue/classifier/analyzer + route.js dispatch.",
+  "shapes": {
+    "bet-brief.md":                  "__MD__",
+    "product-intake.md":             "__MD__",
+    "funnel-brief.md":               "__MD__",
+    "asset-classify/CLAIM-LIST.json": { "type": "object", "keys": ["claims"] },
+    "brands.json":                   { "type": "object", "keys": ["brands"] },
+    "queries_run.json":              { "type": "object", "keys": ["queries"] },
+    "ad-volume-aggregate.json":      { "type": "object", "keys": ["rows"] },
+    "_tally.json":                   { "type": "object", "keys": ["funnels"] },
+    "space-map.json":                { "type": "object", "keys": ["transformations", "niches", "angles", "bet_types", "mechanisms_in_play", "saturation", "combos", "per_brand"] },
+    "_index.json":                   { "type": "object", "keys": ["cells"] },
+    "gap_candidates.json":           { "type": "object", "keys": ["candidates"] },
+    "market-selection.json":         { "type": "object", "keys": ["ranked"] },
+    "ntp-pick.json":                 { "type": "object", "keys": ["pick"] },
+    "_bank.json":                    { "type": "object", "keys": ["entries"] },
+    "awareness-read.json":           { "type": "object", "keys": ["awareness_stage", "basis"] },
+    "audit-verdicts.json":           { "type": "object", "keys": ["verdicts"] },
+    "_copy.json":                    { "type": "object", "keys": ["sections"] },
+    "chief-verdicts.json":           { "type": "object", "keys": ["verdicts"] },
+    "asset-records.json":            { "type": "object", "keys": ["records"] },
+    "_review.json":                  { "type": "object", "keys": ["findings", "verdict"] }
+  }
+}

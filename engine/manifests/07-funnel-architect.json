@@ -17,7 +17,7 @@
   "scripts": { "pre": [], "post": [] },
   "prompt": "prompts/07-funnel-architect.md",
   "agents": 1,
-  "validator": null,
+  "validator": "engine/hooks/route.js",
   "gate": true,
   "_source": "PART0 STEP 7; ONE-SHOT-SHELL §6 (★ review). WIRE-02: reads BOTH bet-brief.md AND product-intake.md (both required). Also reads funnels store (via _tally.json) + ad-volume-aggregate + reconciled awareness-read + voc-bank view + market-selection."
 }

@@ -10,7 +10,7 @@
   "scripts": { "pre": ["asset-fetch.js"], "post": ["asset-emit.js"] },
   "prompt": "prompts/09-asset-classify.md",
   "agents": 1,
-  "validator": null,
+  "validator": "engine/hooks/route.js",
   "gate": false,
   "_source": "PART0 STEP 9 / PART3 §6.10; ONE-SHOT-SHELL §6 (no gate). WIRE-01: reads asset-classify/CLAIM-LIST.json (produced by Step 0) — closes the former dangling input. Operator-asset bytes are script-assembled (asset-fetch.js), never in context (P2/P4)."
 }

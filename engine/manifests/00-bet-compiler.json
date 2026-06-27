@@ -10,7 +10,7 @@
   "scripts": { "pre": [], "post": [] },
   "prompt": "prompts/00-bet-compiler.md",
   "agents": 1,
-  "validator": null,
+  "validator": "engine/hooks/route.js",
   "gate": true,
   "_entry_inputs": ["operator intake", "KB digest"],
   "_source": "PART0 STEP 0; ONE-SHOT-SHELL §6 (★); WIRE-01 (emits asset-classify/CLAIM-LIST.json consumed by Step 9)"

@@ -142,14 +142,44 @@ function preflight(m, space) {
   // CTRL-03: existence is not enough — a DIRECTORY (or socket/fifo) at a reads[] path passes
   // existsSync but then crashes LATE at assembleContext's readFileSync (generic FATAL EISDIR).
   // Require each existing input be a REGULAR FILE here so the refusal is named + early (P3).
-  // (Non-empty CONTENT is NOT checked here — that is Phase 5 / VALID-02's job; preflight owns
-  // existence + is-a-file only.)
   for (const p of paths) {
     if (!fs.statSync(p).isFile()) {
       console.error(`REFUSE [${m.id}] preflight: input is not a regular file: ${p}`);
       process.exit(PREFLIGHT_EXIT);   // same named-refusal exit as the missing-input path
     }
   }
+  // VALID-02 (Phase 5): a load-bearing INPUT that EXISTS but is EMPTY / null-content / hollow is
+  // NOT a usable contract — store-scaffold pre-seeds every .json slot with `{}\n`, so "file exists"
+  // ≠ "has content". A step whose required input is the bare seed/empty/{} must REFUSE with a named
+  // reason, never proceed on hollow data (P3 — never improvise a value the upstream step owed).
+  for (const p of paths) {
+    if (isHollowInput(p)) {
+      console.error(`REFUSE [${m.id}] preflight: load-bearing input is empty/hollow (bare {} seed, [], or null-content): ${p} — upstream step did not emit real content (VALID-02)`);
+      process.exit(PREFLIGHT_EXIT);
+    }
+  }
+}
+
+// isHollowInput(p): true when an existing reads[] file carries no real content — empty/whitespace,
+// or a JSON value that is the scaffold seed {} / a bare [] / null (no top-level keys/elements).
+// A non-JSON (.md) file is hollow only when empty/whitespace. Mirrors validate-shape's hollow test
+// so the input side (preflight) and the output side (validate-shape) agree on "hollow" (VALID-02).
+function isHollowInput(p) {
+  let raw;
+  try { raw = fs.readFileSync(p, 'utf8'); } catch (_) { return true; }
+  if (raw.trim() === '') return true;
+  if (!p.endsWith('.json')) return false;     // non-empty .md/.txt is content enough at the seam
+  let v;
+  try { v = JSON.parse(raw); } catch (_) { return false; }  // malformed-but-present JSON is a shape problem, not a hollow one — let the producer's validator own it
+  if (v === null) return true;
+  if (Array.isArray(v)) return v.length === 0;
+  if (typeof v === 'object') {
+    const keys = Object.keys(v);
+    if (keys.length === 0) return true;                       // {} scaffold seed
+    if (keys.length === 1 && keys[0] === '_stub') return true; // generic placeholder
+    return false;
+  }
+  return false;
 }
 
 // ===========================================================================
@@ -361,6 +391,19 @@ function spawnWaves(m, ctx, space) {
 // ===========================================================================
 function validate(m, outputs) {
   console.log(`VALIDATE [${m.id}] running explicit validator on ${outputs.length} output(s)`);
+  // No-vacuous-green guard (Phase 5): a step whose writes[] are ALL fan-out directories (no
+  // representative file) would reach the Validate phase with zero outputs and mint a success
+  // receipt having run 0 validators. Every R1 step declares ≥1 representative file alongside any
+  // dir slot (e.g. funnels/ + funnels/_tally.json); a manifest that declares only dir slots is a
+  // wiring defect — REFUSE it by name rather than report a meaningless pass.
+  if (outputs.length === 0) {
+    const hasDirWrites = (m.writes || []).some(w => w.endsWith('/'));
+    const why = hasDirWrites
+      ? 'all writes[] are fan-out directories with no representative file to validate'
+      : 'manifest declares no writes[]';
+    console.error(`REJECT [${m.id}] validate: zero validatable outputs (${why}) — every step must emit ≥1 shaped file (no vacuous green)`);
+    return { ok: false, output: '(none)', code: 2 };
+  }
   for (const out of outputs) {
     const argv = m.validator
       ? [m.validator, out]      // manifest-named validator (Phase 3 binds validate-*.js)
@@ -384,7 +427,7 @@ function escalate(stepId, verdict) {
 // to receipt-write.js (write-once, owns the sha256). The no-overwrite NAMING via
 // space-version.js is wired-but-dormant absent --rerun (Open Q2: smoke uses a fixed space).
 // ===========================================================================
-function storeAndReceipt(m, space, verdict, opts) {
+function storeAndReceipt(m, space, verdict, opts, gateDecisionValue) {
   // No-overwrite naming (CTRL-08): on an explicit --rerun, ask space-version.js to NAME the
   // next free space and scaffold it; the resolver is read-only and the controller owns the
   // scaffold decision. In smoke the space is fixed (--space=smoke), so this path is dormant
@@ -419,6 +462,12 @@ function storeAndReceipt(m, space, verdict, opts) {
   const inputs  = (m.reads  || []).map(r => r.replace('{space}', space)).join(',');
   const outputs = (m.writes || []).map(w => w.replace('{space}', space)).join(',');
 
+  // VALID-04: the real per-output validator verdicts (from the Validate phase) land in the receipt.
+  // VALID-05: the real operator-gate decision (computed in runStep BEFORE this write) lands in
+  // receipt.gate.decision — a downstream consumer reading receipt.gate.decision gets a real value
+  // ('auto-approved-smoke' for the 6 gated steps in smoke mode), never null.
+  const verdicts = (verdict && Array.isArray(verdict.verdicts)) ? verdict.verdicts : [];
+
   // Delegate the receipt write (sha256 inputs_hash + write-once) to the brick — never re-hash.
   execFileSync(process.execPath, [
     RECEIPT_WRITE,
@@ -427,7 +476,8 @@ function storeAndReceipt(m, space, verdict, opts) {
     '--step=' + m.id,
     '--inputs=' + inputs,
     '--outputs=' + outputs,
-    '--gate=' + JSON.stringify({ step_gated: !!m.gate, decision: null }),
+    '--gate=' + JSON.stringify({ step_gated: !!m.gate, decision: gateDecisionValue }),
+    '--verdicts=' + JSON.stringify(verdicts),
   ], { stdio: 'inherit' });
 
   const receiptPath = 'runs/' + space + '/_receipts/' + spawnId + '.json';
@@ -439,18 +489,28 @@ function storeAndReceipt(m, space, verdict, opts) {
 // Phase 7 — Operator-gate (CTRL-09): a gated step blocks on a sign-off artifact; --smoke
 // auto-approves; a non-gate step passes silently. The decision is LOGGED, never a silent skip.
 // ===========================================================================
-function awaitSignoff(m, receiptPath) {
+function awaitSignoff(m) {
   // Real operator sign-off UX is deferred (CONTEXT). Outside smoke a gated step blocks here.
-  console.error(`GATE [${m.id}] operator sign-off required (receipt ${receiptPath}) — run with --smoke to auto-approve in stub mode`);
+  console.error(`GATE [${m.id}] operator sign-off required — run with --smoke to auto-approve in stub mode`);
   process.exit(4);   // distinct exit: a gated step cannot proceed without a decision
 }
 
-function operatorGate(m, receipt, opts) {
+// gateDecision(m, opts) (VALID-03/04/05): the operator-gate OUTCOME, computed deterministically
+// BEFORE the receipt is written so the real decision lands in receipt.gate.decision (not null).
+//   - non-gated step → null (gate.step_gated=false, no decision owed)
+//   - gated + --smoke → 'auto-approved-smoke' (block-and-LOG, auto-approved in stub mode)
+//   - gated, no --smoke → awaitSignoff blocks the run (exit 4) — a gated step cannot proceed
+//     without an operator decision; the block IS the log (P9: logged, never silent).
+function gateDecision(m, opts) {
+  if (!m.gate) return null;
+  return opts.smoke ? 'auto-approved-smoke' : awaitSignoff(m);
+}
+
+function operatorGate(m, decision) {
   if (!m.gate) {
     console.log(`GATE [${m.id}] none (step not gated)`);   // logged pass — phase always reports
     return;
   }
-  const decision = opts.smoke ? 'auto-approved-smoke' : awaitSignoff(m, receipt);
   console.log(`GATE [${m.id}] ${decision}`);            // logged, never silent (P9)
 }
 
@@ -469,8 +529,12 @@ function runStep(stepId, space, opts) {
     attempts++;
   } while (!verdict.ok && attempts <= 2);             // bounded re-spawn ≤2
   if (!verdict.ok) escalate(stepId, verdict);         // → operator, exit≠0
-  const receipt = storeAndReceipt(m, space, verdict, opts); // P6 — CTRL-08
-  operatorGate(m, receipt, opts);                     // P7 — CTRL-09
+  // P7 decision computed BEFORE the P6 receipt write so the real gate.decision is recorded (VALID-05).
+  // A gated step in non-smoke mode blocks here (awaitSignoff exit 4) — the receipt is never minted
+  // for a step the operator hasn't decided, so a receipt always carries a real decision.
+  const decision = gateDecision(m, opts);             // P7 decision — CTRL-09 / VALID-05
+  const receipt = storeAndReceipt(m, space, verdict, opts, decision); // P6 — CTRL-08 (+VALID-04/05)
+  operatorGate(m, decision);                          // P7 log — CTRL-09 (never silent)
   return { ok: true, receipt };
 }
 

@@ -12,7 +12,7 @@
   "scripts": { "pre": [], "post": [] },
   "prompt": "prompts/03-space-map.md",
   "agents": 1,
-  "validator": null,
+  "validator": "engine/hooks/route.js",
   "gate": false,
   "_source": "PART0 STEP 3; ONE-SHOT-SHELL §6 (no gate). Reads structured aggregates + tally (not raw copy) + bet-brief (Done line: refuses on invalid bet-brief)."
 }

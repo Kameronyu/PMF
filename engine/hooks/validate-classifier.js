@@ -10,6 +10,13 @@
 //   7. amend-D-12: any canonical bet_types[] entry whose raw_variants do not trace to real per-brand bet_type reads.
 //   8. D-04: sophistication string is non-empty when combos exist for a brand.
 //   9. D-15: per_brand[] demand_trend missing, OR demand_trend.shape off DEMAND_TREND_SHAPE_ENUM (steady|rising|parabolic-spike|declining|unknown).
+//  10. WIRE-03 (Phase 5): AXIS-PRESENCE — each of the 5 canonical axes (transformations, angles,
+//      niches, bet_types, mechanisms_in_play) must be a non-empty array (no dropped/empty axis).
+//  11. WIRE-03 (Phase 5): RAW→CANONICAL TRACE-BACK — every canonical's raw_variants value must trace
+//      to a real Step-2 raw label on the SAME axis, read from the sibling funnels/_tally.json
+//      (the two-tier classification seam: Step 2 emits raw per-funnel labels; Step 3 canonicalizes
+//      them across funnels). A raw_variant that matches no Step-2 funnel label is an invented/dropped
+//      trace → REJECT. (Skipped only when _tally.json is absent — a single-file lint of space-map.json.)
 // Usage: node tools/hooks/validate-classifier.js <path-to-space-map.json>
 // Exit 0 = pass. Exit 2 + stderr = reject.
 'use strict';
@@ -51,6 +58,70 @@ try {
 }
 
 const violations = [];
+
+// ===========================================================================
+// Rules 10–11: WIRE-03 — axis-presence + raw→canonical trace-back (Phase 5).
+// The space-map's 5 canonical axes each carry raw_variants (or raw_claim_variants).
+// Each axis must be present + non-empty (no dropped axis), and every raw_variant must
+// trace to a real Step-2 raw label on the SAME axis (read from the sibling funnels/_tally.json).
+// ===========================================================================
+const AXES = [
+  { key: 'transformations',     variantField: 'raw_claim_variants', funnelField: 'transformation', label: 'transformations' },
+  { key: 'angles',              variantField: 'raw_variants',        funnelField: 'angle',          label: 'angles' },
+  { key: 'niches',              variantField: 'raw_variants',        funnelField: 'niche',          label: 'niches' },
+  { key: 'bet_types',           variantField: 'raw_variants',        funnelField: 'bet_type',       label: 'bet_types' },
+  { key: 'mechanisms_in_play',  variantField: 'raw_variants',        funnelField: 'mechanism',      label: 'mechanisms_in_play' },
+];
+
+// Axis-presence (Rule 10): a dropped/empty axis is a broken two-tier seam — REJECT by name.
+for (const ax of AXES) {
+  const arr = data[ax.key];
+  if (!Array.isArray(arr) || arr.length === 0) {
+    violations.push(`REJECT: WIRE-03 axis "${ax.label}" is missing/empty — every canonical axis must be present and non-empty (dropped axis breaks the two-tier Step2→Step3 seam)`);
+  }
+}
+
+// Load the sibling Step-2 raw labels for trace-back (Rule 11). The space-map lives at
+// runs/<space>/space-map.json; the Step-2 tally is runs/<space>/funnels/_tally.json.
+// If the tally is absent (e.g. a single-file lint), skip trace-back but keep axis-presence.
+const tallyPath = path.join(path.dirname(path.resolve(filePath)), 'funnels', '_tally.json');
+let rawLabelsByAxis = null;
+if (fs.existsSync(tallyPath)) {
+  try {
+    const tally = JSON.parse(fs.readFileSync(tallyPath, 'utf8'));
+    const funnels = Array.isArray(tally.funnels) ? tally.funnels : [];
+    rawLabelsByAxis = {};
+    for (const ax of AXES) {
+      const set = new Set();
+      for (const f of funnels) {
+        const v = f[ax.funnelField];
+        if (typeof v === 'string' && v.trim() !== '') set.add(v);
+      }
+      rawLabelsByAxis[ax.key] = set;
+    }
+  } catch (err) {
+    violations.push(`REJECT: WIRE-03 cannot parse sibling funnels/_tally.json for trace-back — ${err.message}`);
+  }
+}
+
+if (rawLabelsByAxis) {
+  for (const ax of AXES) {
+    const arr = Array.isArray(data[ax.key]) ? data[ax.key] : [];
+    const realLabels = rawLabelsByAxis[ax.key];
+    for (let i = 0; i < arr.length; i++) {
+      const canon = arr[i];
+      const cl = canon.canonical || `${ax.key}[${i}]`;
+      const variants = canon[ax.variantField] || canon.raw_variants || canon.raw_claim_variants || [];
+      if (!Array.isArray(variants)) continue;  // Rule 1 already rejects non-array/empty variants
+      for (const rv of variants) {
+        if (typeof rv !== 'string') continue;
+        if (!realLabels.has(rv)) {
+          violations.push(`REJECT: WIRE-03 axis "${ax.label}" canonical "${cl}" raw_variant "${rv}" traces to NO Step-2 funnel ${ax.funnelField} label in funnels/_tally.json — invented/dropped raw label (two-tier trace broken)`);
+        }
+      }
+    }
+  }
+}
 
 // --- Rule 1: canonical labels must have non-empty raw_variants / raw_claim_variants ---
 

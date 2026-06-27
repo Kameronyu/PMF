@@ -15,7 +15,7 @@
   },
   "prompt": "prompts/02-funnel-analysis.md",
   "agents": 1,
-  "validator": null,
+  "validator": "engine/hooks/route.js",
   "gate": false,
   "_source": "PART0 STEP 2; ONE-SHOT-SHELL §6 (no gate); scripts = engine bricks funnel-assemble/funnel-claim-tally/aggregate-mechanisms-in-play/funnel-store (MANIFEST-04). Reads brands.json (file-grained); dumps/ consumed via the funnel-assemble pre-script."
 }

@@ -22,7 +22,7 @@
 //
 // Usage:
 //   node engine/bricks/receipt-write.js --space=<s> --spawn-id=<id> \
-//     [--step=<s>] [--inputs=<csv>] [--outputs=<csv>] [--gate=<json>]
+//     [--step=<s>] [--inputs=<csv>] [--outputs=<csv>] [--gate=<json>] [--verdicts=<json>]
 //   node engine/bricks/receipt-write.js --help
 //
 // Output: runs/<space>/_receipts/<spawn_id>.json. Exit 0 ok / 1 on missing --space|--spawn-id
@@ -63,6 +63,7 @@ Options:
   --inputs=<csv>     Comma-separated input artifact paths; bytes are hashed (order-independent).
   --outputs=<csv>    Comma-separated output artifact paths.
   --gate=<json>      Gate object (optional). Default {"step_gated":false,"decision":null}.
+  --verdicts=<json>  validator_verdicts array (optional, Phase 5 / VALID-04). Default [].
   --help             Show this help.
 
 Behavior:
@@ -135,6 +136,23 @@ if (typeof opts.gate === 'string') {
   gateObj = parsed;
 }
 
+// validator_verdicts: default []; Phase 5 (VALID-04) passes the real per-output verdicts as JSON.
+let verdicts = [];
+if (typeof opts.verdicts === 'string') {
+  let parsed;
+  try {
+    parsed = JSON.parse(opts.verdicts);
+  } catch (e) {
+    console.error(`ERROR: --verdicts is not valid JSON: ${e.message}`);
+    process.exit(1);
+  }
+  if (!Array.isArray(parsed)) {
+    console.error('ERROR: --verdicts must be a JSON array, e.g. [{"output":"…","verdict":"pass"}]');
+    process.exit(1);
+  }
+  verdicts = parsed;
+}
+
 const receipt = {
   spawn_id: SPAWN_ID,
   step: (typeof opts.step === 'string') ? opts.step : null,
@@ -142,8 +160,8 @@ const receipt = {
   inputs_hash: hashInputs(inputs),
   inputs,                        // array
   outputs,                       // array
-  validator_verdicts: [],        // Phase 5 (VALID-04) populates
-  gate: gateObj,                 // Phase 5 (VALID-05) populates the real decision
+  validator_verdicts: verdicts,  // Phase 5 (VALID-04): real per-output verdicts via --verdicts
+  gate: gateObj,                 // Phase 5 (VALID-05): real decision via --gate
   ts: new Date().toISOString(),
 };
 

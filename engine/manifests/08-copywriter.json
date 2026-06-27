@@ -13,7 +13,7 @@
   "scripts": { "pre": ["funnel-rag-query.js"], "post": [] },
   "prompt": "prompts/08-copywriter.md",
   "agents": 1,
-  "validator": null,
+  "validator": "engine/hooks/route.js",
   "gate": true,
   "_source": "PART0 STEP 8b (locked funnel-brief + slot-scoped voc-bank RAG + funnel index); ONE-SHOT-SHELL §6 (★). writes[0]=copy/_copy.json represents the copy/ fan-out dir; funnel-rag-query.js = slot-scoped RAG brick (MANIFEST-04)."
 }
