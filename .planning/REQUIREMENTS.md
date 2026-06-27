@@ -41,10 +41,10 @@ Requirements for the runnable shell. Each maps to exactly one roadmap phase.
 
 ### Prompt Stubs (STUB)
 
-- [ ] **STUB-01**: One stub prompt exists per step on the bet-compiler envelope (frontmatter + ROLE + INPUTS-refuse + OUTPUT CONTRACT + COMPLETENESS + HOW-IT'S-CONSUMED + empty BODY)
-- [ ] **STUB-02**: Each stub's `reads`/`writes` match its step manifest
-- [ ] **STUB-03**: In STUB mode each step emits a minimal artifact whose top-level keys match its OUTPUT CONTRACT (mock emit; hardcoded sample values acceptable)
-- [ ] **STUB-04**: The envelope shape follows the soundness triad (`SPEC-marketing-soundness` / `marketing-rule-register` / `BUILDER-DIRECTIVE`) — shape now, marketing content deferred
+- [x] **STUB-01**: One stub prompt exists per step on the bet-compiler envelope (frontmatter + ROLE + INPUTS-refuse + OUTPUT CONTRACT + COMPLETENESS + HOW-IT'S-CONSUMED + empty BODY)
+- [x] **STUB-02**: Each stub's `reads`/`writes` match its step manifest
+- [x] **STUB-03**: In STUB mode each step emits a minimal artifact whose top-level keys match its OUTPUT CONTRACT (mock emit; hardcoded sample values acceptable)
+- [x] **STUB-04**: The envelope shape follows the soundness triad (`SPEC-marketing-soundness` / `marketing-rule-register` / `BUILDER-DIRECTIVE`) — shape now, marketing content deferred
 
 ### Validators, Gates & Receipts (VALID)
 
@@ -66,7 +66,7 @@ Requirements for the runnable shell. Each maps to exactly one roadmap phase.
 
 - [x] **WIRE-01**: Step 0 emits `asset-classify/CLAIM-LIST.json` and the Step 9 manifest reads it (closes Step 9's dangling input)
 - [x] **WIRE-02**: The Step 7 manifest reads `bet-brief.md` AND `product-intake.md` (both required inputs)
-- [ ] **WIRE-03**: The Step 2 stub emits raw per-funnel angle/claim/transformation; the Step 3 stub canonicalizes them across funnels (two-tier classification)
+- [x] **WIRE-03**: The Step 2 stub emits raw per-funnel angle/claim/transformation; the Step 3 stub canonicalizes them across funnels (two-tier classification)
 
 ## v2 Requirements
 
@@ -124,11 +124,11 @@ Which phases cover which requirements. Populated during roadmap creation.
 | MANIFEST-04 | Phase 3 | Complete |
 | WIRE-01 | Phase 3 | Complete |
 | WIRE-02 | Phase 3 | Complete |
-| STUB-01 | Phase 4 | Pending |
-| STUB-02 | Phase 4 | Pending |
-| STUB-03 | Phase 4 | Pending |
-| STUB-04 | Phase 4 | Pending |
-| WIRE-03 | Phase 4 | Pending |
+| STUB-01 | Phase 4 | Complete |
+| STUB-02 | Phase 4 | Complete |
+| STUB-03 | Phase 4 | Complete |
+| STUB-04 | Phase 4 | Complete |
+| WIRE-03 | Phase 4 | Complete |
 | VALID-01 | Phase 5 | Pending |
 | VALID-02 | Phase 5 | Pending |
 | VALID-03 | Phase 5 | Pending |
