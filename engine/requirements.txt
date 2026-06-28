@@ -1,0 +1,6 @@
+# PMF engine — Python deps (asset probe/video bricks). Provision into a venv:
+#   python3 -m venv .venv && .venv/bin/pip install -r engine/requirements.txt
+# Versions are the ones this bundle was proven against (P21-H6, 2026-06-26; Python 3.12.3).
+Pillow==12.2.0
+imagehash==4.3.2
+imageio-ffmpeg==0.6.0

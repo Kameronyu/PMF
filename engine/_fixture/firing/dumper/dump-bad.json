@@ -1,0 +1,4 @@
+{ "slug": "demo", "creatives": [
+  { "creative_id": "c1", "canonical_niche": "edc-collectors", "canonical_angle": null, "angle_basis": "x",
+    "pitches": [ { "transformation": null, "claims": ["Every part is a module."] } ] }
+] }

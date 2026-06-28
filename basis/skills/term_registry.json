@@ -1,0 +1,913 @@
+[
+  {
+    "term": "Niche",
+    "one_line": "A community or identity group that consumes content together, shares beliefs, and holds similar values, independent of any specific transformation.",
+    "membership_test": [
+      "If you remove the transformation, does this group still describe the same people? (yes -> niche)",
+      "Is there a place (subreddit, FB group, forum, hashtag) where this group gathers without your transformation being the reason? (yes -> niche)"
+    ],
+    "examples": [
+      "Menopausal women (r/menopause)",
+      "Gen Z",
+      "New dads",
+      "Crossfitters",
+      "Boyfriends",
+      "Men 35-40",
+      "ADHD-identified adults (r/ADHD)"
+    ],
+    "anti_examples": [
+      {
+        "value": "People who want better skin",
+        "fails_on": "question 1 — remove the desire for better skin and the group dissolves, so it is not a stable identity group",
+        "why": "definitions.md Niche 'Common confusion': '\"People who want better skin\" is not a niche — that's a transformation in disguise.'"
+      }
+    ]
+  },
+  {
+    "term": "Sub-niche (also called PMBD cluster)",
+    "one_line": "A high-signal co-occurring pattern of pains, beliefs, motifs, and desires inside a market, found via VOC research.",
+    "membership_test": [
+      "Is the co-occurrence of two or more PMBDs observed in single individuals (one comment, review, post, or thread), not assembled across separate people? (yes -> valid)",
+      "Have 5+ independent individuals each demonstrated the co-occurrence before declaring it? (yes -> validated)"
+    ],
+    "examples": [
+      "Within menopausal women: one buyer's review co-expressing P-T1 ('puffy in the morning') + M+B ('the wine before bed') + D-T2 ('want my old face back')",
+      "Adderall-crash cluster appearing in r/ADHD, r/nootropics, r/college"
+    ],
+    "anti_examples": [
+      {
+        "value": "A Frankenstein avatar assembled from traits each drawn from a different person",
+        "fails_on": "question 1 — the co-occurrence was assembled across separate people rather than observed in single individuals",
+        "why": "definitions.md Sub-niche 'Why strict': 'assembling traits across separate people produces a Frankenstein avatar — a profile that doesn't describe any actual buyer.'"
+      }
+    ]
+  },
+  {
+    "term": "Transformation",
+    "one_line": "The outcome your product is marketed to produce.",
+    "membership_test": [
+      "Can you state it as 'X happens to the buyer'? (yes -> transformation)",
+      "Is it a single outcome the product promises, rather than who the buyer is or a benefit list? (yes -> transformation)"
+    ],
+    "examples": [
+      "Facial debloat",
+      "Cleared acne",
+      "Better sleep",
+      "Stronger focus",
+      "Hair regrowth",
+      "Cramps relieved",
+      "Stronger erections"
+    ],
+    "anti_examples": [
+      {
+        "value": "Menopausal women (a niche)",
+        "fails_on": "question 1 — it cannot be stated as 'X happens to the buyer'; it names who the buyer is, not the outcome",
+        "why": "definitions.md Transformation 'Common confusion': 'Not a niche. Not a feature. Not a benefit list.'"
+      }
+    ]
+  },
+  {
+    "term": "Transformation category",
+    "one_line": "One layer up from a specific transformation, under which multiple specific transformations roll up.",
+    "membership_test": [
+      "Can you list 3+ transformations that roll up under this category? (yes -> transformation category)",
+      "Is it one layer up from a specific transformation rather than the specific transformation itself? (yes -> category)"
+    ],
+    "examples": [
+      "Beauty (acne, eye bags, bloat, hair, skin tone)",
+      "Wellness (sleep, energy, digestion, immunity)",
+      "Fitness (muscle, weight loss, mobility)",
+      "Optimization (focus, productivity, longevity, cognition)"
+    ],
+    "anti_examples": [
+      {
+        "value": "Facial debloat",
+        "fails_on": "question 1 — you cannot list 3+ transformations rolling up under it; it is a single specific transformation, not a category",
+        "why": "definitions.md Transformation category 'Test': 'Can you list 3+ transformations that roll up under this category?' Facial debloat is listed as a specific transformation under the Beauty category."
+      }
+    ]
+  },
+  {
+    "term": "Product category",
+    "one_line": "One layer up from a specific product, under which multiple specific products roll up, sharing format / mechanism family / regulatory profile.",
+    "membership_test": [
+      "Can you list 3+ specific products that share format or mechanism family rolling up under this category? (yes -> product category)",
+      "Does it group by what the product IS rather than by what it is sold for? (yes -> product category)"
+    ],
+    "examples": [
+      "Tech (red light panels, EMS devices, sauna blankets, wearables, ice baths)",
+      "Supplements (gummies, capsules, powders, tinctures)",
+      "Topicals (creams, serums, balms, oils)",
+      "Devices (vagal stimulators, posture correctors, massagers)",
+      "Consumables (drinks, bars, shots)"
+    ],
+    "anti_examples": [
+      {
+        "value": "Wellness products (grouping by what they are sold for)",
+        "fails_on": "question 2 — it groups by what the product is sold for, not by what the product is; tech, supplements, and topicals can all serve wellness",
+        "why": "definitions.md Product category 'Common confusion': 'Product category groups by what the product is, not by what it's sold for. Tech can serve wellness, beauty, fitness, or optimization.'"
+      }
+    ]
+  },
+  {
+    "term": "Market",
+    "one_line": "Niche x transformation; the unit of competition.",
+    "membership_test": [
+      "When the desire changes, does the customer evaluate against entirely different alternatives? (yes -> market change; no, same alternatives different emotional reason -> angle change)",
+      "Is it a specific pairing of one niche with one transformation? (yes -> market)"
+    ],
+    "examples": [
+      "Menopausal women x facial debloat",
+      "Boyfriends x showing care (Nusk period device)",
+      "Men 35-40 x fitted tees (True Classic)",
+      "Women's skincare x silk pillowcase (Blissy)"
+    ],
+    "anti_examples": [
+      {
+        "value": "Coconut Beauty switching from a pain-driven to a desire-driven frame for the same curly-hair transformation",
+        "fails_on": "question 1 — the customer evaluates against the same alternatives with a different emotional reason, so it is an angle change, not a market change",
+        "why": "differentiator-framework__2_.md Coconut Beauty: differentiator is Angle ('Tested desire driven, offer driven, pain driven'), same Women's curly hair products market — a different emotional reason, not different alternatives."
+      }
+    ]
+  },
+  {
+    "term": "PMBD",
+    "one_line": "Framework for the four kinds of customer-side data mined in VOC research: Pain, Belief, Motif, Desire.",
+    "membership_test": [
+      "Does the item describe the customer (their pain, belief, motif, or desire) rather than what you the seller do? (yes -> PMBD; if it describes seller action -> differentiator lever)",
+      "Is it an input mined from VOC research, rather than a selected output? (yes -> PMBD)"
+    ],
+    "examples": [
+      "Pain",
+      "Belief",
+      "Motif",
+      "Desire"
+    ],
+    "anti_examples": [
+      {
+        "value": "Choosing a UM / angle / value model to deploy",
+        "fails_on": "question 1 — these describe what the seller does (differentiator levers, the output), not customer-side data",
+        "why": "definitions.md PMBD 'Common confusion': 'PMBD describes the customer. The differentiator levers ... describe what you do. PMBD is input; differentiator selection is output.'"
+      }
+    ]
+  },
+  {
+    "term": "PMBD ladder (the 4-tier structure all PMBDs live on)",
+    "one_line": "Every PMBD letter (P, B, M, D) ladders through the same four tiers, and mining all four gives a complete map of the buyer.",
+    "membership_test": [
+      "Does the item sit at one of the four defined tiers (T1 transformation, T2 transformation category, T3 driver-level life frame, T4 core human driver)? (yes -> on the ladder)",
+      "Does the tier above predict the tier below (upstream predicts downstream) for this item? (yes -> consistent with the ladder)"
+    ],
+    "examples": [
+      "T1 Transformation: 'My face is puffy'",
+      "T2 Transformation category: 'I hate how I look'",
+      "T3 Driver-level frame: 'I feel less than everyone around me'",
+      "T4 Core driver: Status"
+    ],
+    "anti_examples": [
+      {
+        "value": "T1 mechanism education aimed at fixing a T3 self-belief",
+        "fails_on": "question 2 — it inverts the upstream->downstream direction (treating a downstream tier as if it could resolve an upstream tier), violating the ladder's predictive structure",
+        "why": "definitions.md PMBD ladder 'Copy implication': 'Write at the tier where the buyer's resistance lives. T1 mechanism education won't fix a T3 self-belief.'"
+      }
+    ]
+  },
+  {
+    "term": "Pain (P)",
+    "one_line": "The felt suffering, frustration, fear, or hurt the buyer experiences; inner-state, not observable from outside without the buyer reporting it.",
+    "membership_test": [
+      "Does this require the buyer to tell you how they feel? (yes -> pain; if observable from outside without inner-state report -> motif)",
+      "Is it an inner emotional state rather than an observable behavior or occurrence? (yes -> pain)"
+    ],
+    "examples": [
+      "'My face is puffy' (T1)",
+      "'I hate how I look' (T2 beauty)",
+      "'I feel less than everyone around me' (T3)",
+      "'Crashes and feels like a zombie'"
+    ],
+    "anti_examples": [
+      {
+        "value": "'Crashes on Adderall' stated neutrally",
+        "fails_on": "question 1 — it is observable as an event without the buyer reporting an inner feeling, so it is a motif, not a pain",
+        "why": "definitions.md Pain 'Common confusion': '\"Crashes on Adderall\" stated neutrally = motif. \"Crashes and feels like a zombie\" = pain.'"
+      }
+    ]
+  },
+  {
+    "term": "Belief (B)",
+    "one_line": "What the buyer holds true about themselves, their situation, the category, alternatives, and barriers, including correct beliefs and false ones.",
+    "membership_test": [
+      "Can you state it as 'they think X is true'? (yes -> belief)",
+      "Is it a held proposition about the world rather than a felt inner-state or an observable behavior? (yes -> belief; if it is how it hurts -> pain; if it is an observable occurrence -> motif)"
+    ],
+    "examples": [
+      "'Salt causes bloating' (T1)",
+      "'Natural ingredients work better than pharma' (T2 beauty)",
+      "'I have bad genetics for my looks' (T3)",
+      "'Adderall makes me crash'"
+    ],
+    "anti_examples": [
+      {
+        "value": "'I feel like a zombie every afternoon'",
+        "fails_on": "question 1 — it cannot be stated as 'they think X is true'; it reports a felt inner-state (pain), not a held proposition",
+        "why": "definitions.md Pain 4-tier ladder and Adderall canonical example mark 'I feel like a zombie every afternoon' as a Pain (T1), distinct from the belief 'Adderall makes me crash.'"
+      }
+    ]
+  },
+  {
+    "term": "Motif (M)",
+    "one_line": "Anything in the buyer's physical world, observable from the outside, related to their pain, desire, or context: behaviors, routines, traits, occurrences, environment.",
+    "membership_test": [
+      "Could you observe this without the buyer telling you what they feel or believe? (yes -> motif)",
+      "Does it capture what happens rather than how it hurts? (yes -> motif; if it captures how it hurts -> pain)"
+    ],
+    "examples": [
+      "'Freezes when approaching women he's attracted to' (T1)",
+      "'Bad with women. Hasn't dated in 2 years' (T2)",
+      "'Avoids social situations. Stays home' (T3)",
+      "'Crashes at 2pm'"
+    ],
+    "anti_examples": [
+      {
+        "value": "'Crashes and feels like a zombie'",
+        "fails_on": "question 2 — it captures how it hurts (an inner-state report), not just the observable occurrence, so it is a pain, not a motif",
+        "why": "definitions.md Motif 'Common confusion': 'Motif captures what happens. Pain captures how it hurts.' The 'feels like a zombie' framing is named as pain under Pain."
+      }
+    ]
+  },
+  {
+    "term": "Desire (D)",
+    "one_line": "What they want — the outcome they're seeking, in their own language.",
+    "membership_test": [
+      "Can you state it as 'they want X' and verify with Command+F that the words actually appear in research rather than being inferred? (yes -> desire)",
+      "Is it the buyer's verbatim want rather than what the seller markets the product to produce? (yes -> desire; if it is what the seller markets -> transformation)"
+    ],
+    "examples": [
+      "'Stop being puffy' (T1)",
+      "'Feel pretty' (T2 beauty)",
+      "'Feel like the version of me I want to be' (T3)",
+      "'Focus without the crash'"
+    ],
+    "anti_examples": [
+      {
+        "value": "Putting 'hydrated' in copy when the buyer actually said 'smoother and less dry'",
+        "fails_on": "question 1 — the word 'hydrated' fails the Command+F check because it does not appear in research; it was inferred, not stated",
+        "why": "definitions.md Desire 'Test': 'If \"hydrated\" doesn't appear in research, don't put it in copy. They probably said \"smoother and less dry.\"'"
+      }
+    ]
+  },
+  {
+    "term": "Claim",
+    "one_line": "The specific verbal promise the brand makes about what the product will do, often equivalent to the transformation stated as a promise.",
+    "membership_test": [
+      "When you strip everything but the core 'what will it do for me' statement, is this what remains? (yes -> claim)",
+      "Is it the literal promise of what the product does, rather than an emotional frame pointed at that promise? (yes -> claim; if it is an emotional frame -> angle)"
+    ],
+    "examples": [
+      "'Cleared skin'",
+      "'Facial debloat'",
+      "'Stronger focus'",
+      "'No more period cramps'"
+    ],
+    "anti_examples": [
+      {
+        "value": "'Stop hiding from the camera'",
+        "fails_on": "question 2 — it is an emotional frame pointed at the 'cleared skin' claim, not the literal promise itself, so it is an angle, not a claim",
+        "why": "definitions.md Claim 'Common confusion': '\"Cleared skin\" is a claim. \"Stop hiding from the camera\" is an angle pointed at the same claim.'"
+      }
+    ]
+  },
+  {
+    "term": "Enhanced claim",
+    "one_line": "Base claim plus a qualifier, where the qualifier adds specificity, speed, condition, mechanism reference, or comparative framing.",
+    "membership_test": [
+      "If you remove the qualifier, does the remaining statement work as a base claim on its own? (yes -> the original was an enhanced claim)",
+      "Does it state what is promised with more specificity, rather than explaining why the product works? (yes -> enhanced claim; if it explains why/mechanism -> UM)"
+    ],
+    "examples": [
+      "'Cleared skin in 30 days' (speed)",
+      "'Cleared skin without retinol' (condition)",
+      "'Cleared skin while you sleep' (mechanism)",
+      "'Snatched cheeks in 2 hours' (speed + specificity)"
+    ],
+    "anti_examples": [
+      {
+        "value": "A bare UM statement of why the product works (e.g. 'low T is what's making you tired')",
+        "fails_on": "question 2 — it explains why the product works (mechanism), not what is promised with more specificity, so it is a UM, not an enhanced claim",
+        "why": "definitions.md Enhanced claim 'Common confusion': 'Enhanced claim != UM. UM is why the product works (mechanism). Enhanced claim is what's promised with more specificity.'"
+      }
+    ]
+  },
+  {
+    "term": "Differentiator",
+    "one_line": "Umbrella term for the levers you can pull to distinguish your offering: market, UM, angle, value models, trust signals.",
+    "membership_test": [
+      "Is it one of the five named levers (market, UM, angle, value models, trust signals) that distinguishes your offering? (yes -> differentiator)",
+      "Is it a lever that creates distinction, rather than execution that every lever requires to land? (yes -> differentiator; if it is universal execution -> not a separate lever)"
+    ],
+    "examples": [
+      "Market",
+      "UM",
+      "Angle",
+      "Value models",
+      "Trust signals"
+    ],
+    "anti_examples": [
+      {
+        "value": "Copy/VOC execution",
+        "fails_on": "question 2 — it is universal execution that every lever requires to land, not a separate distinguishing lever",
+        "why": "definitions.md Differentiator: 'Copy execution is universal — every lever requires it to land. Not a separate lever.' Echoed in differentiator-framework__2_.md: 'Copy/VOC = constant. Not a differentiator.'"
+      }
+    ]
+  },
+  {
+    "term": "UM (Unique Mechanism)",
+    "one_line": "The unique way your product delivers the transformation, used to differentiate against alternatives.",
+    "membership_test": [
+      "Does it describe how the product is positioned to deliver the transformation, accompanied by educating the customer on novel information? (yes -> UM)",
+      "Is it the positioning around a mechanism, rather than the underlying biological or causal pathway itself? (yes -> UM; if it is the raw pathway -> mechanism)"
+    ],
+    "examples": [
+      "Problem UM: 'low T is what's making you tired/weak/low-drive'",
+      "Product UM: 'ashwagandha raises testosterone naturally'",
+      "Feature UM: 'ours uses KSM-66 ashwagandha extract, not generic'"
+    ],
+    "anti_examples": [
+      {
+        "value": "'Raised testosterone' (the bare biological pathway)",
+        "fails_on": "question 2 — it is the underlying biological/causal pathway (mechanism), not how a product is positioned around it",
+        "why": "definitions.md UM: 'Mechanism != UM. Mechanism is the underlying biological or causal pathway (raised testosterone, water retention, dopamine depletion). UM is how a product is positioned around that mechanism.'"
+      }
+    ]
+  },
+  {
+    "term": "Problem UM",
+    "one_line": "Differentiating on the cause of the problem — naming a cause the buyer didn't know about, used to disqualify alternatives that don't address that cause.",
+    "membership_test": [
+      "Are you naming WHY the problem exists in a way competitors aren't? (yes -> Problem UM)",
+      "Does it name what CAUSES the problem rather than what SOLVES it? (yes -> Problem UM; if it names the solution -> Product UM)"
+    ],
+    "examples": [
+      "'It's not your hormones, it's your cotton pillowcase' (Blissy)",
+      "'It's not fat, it's water held by sodium' (Snatch'd)",
+      "'Your towel traps dead skin and puts it back on your face' (Pureskin)",
+      "'Traditional non-stick coatings degrade' (Hexclad)"
+    ],
+    "anti_examples": [
+      {
+        "value": "'Hex grid pattern delivers permanent non-stick' (Hexclad's solution side)",
+        "fails_on": "question 2 — it names what solves the problem (the product/feature), not what causes it, so it is a Product/Solution UM, not a Problem UM",
+        "why": "differentiator-framework__2_.md Hexclad separates '[Problem UM] Traditional coatings degrade over time' from '[Solution UM] Hex grid pattern'; the hex grid is the solution side. definitions.md Product UM 'Common confusion' confirms 'Product UM names what solves the problem. Problem UM names what causes the problem.'"
+      }
+    ]
+  },
+  {
+    "term": "Product UM",
+    "one_line": "Differentiating on the solution — the specific product positioned around a mechanism that delivers the transformation, with a mechanism underneath it.",
+    "membership_test": [
+      "Does the buyer have to mentally move the product into a new category? (yes -> Product UM; if they already recognize the category and you're upgrading within it -> Feature UM)",
+      "Does it name what solves the problem rather than what causes it? (yes -> Product UM; if it names the cause -> Problem UM)"
+    ],
+    "examples": [
+      "Silk pillowcase as skincare (recategorization; mechanism = low friction reduces irritation)",
+      "Filtered showerhead for acne (recategorization; mechanism = removing water hardness reduces inflammation)",
+      "Greens powder for longevity (recategorization)",
+      "Ashwagandha for testosterone (mechanism-first)"
+    ],
+    "anti_examples": [
+      {
+        "value": "KSM-66 ashwagandha vs. generic ashwagandha",
+        "fails_on": "question 1 — the buyer keeps recognizing the product as ashwagandha and is only being upgraded within that category, so no mental recategorization occurs; it is a Feature UM",
+        "why": "definitions.md Feature UM lists 'KSM-66 ashwagandha (vs. generic ashwagandha)' as a Feature UM, and Product UM 'Test' distinguishes them by whether the buyer must move the product into a new category."
+      }
+    ]
+  },
+  {
+    "term": "Feature UM",
+    "one_line": "Upgrading a recognizable product category to deliver the same transformation better, via a specific feature, where the buyer's mental model of the category stays and the upgrade is what's new.",
+    "membership_test": [
+      "Does the buyer keep recognizing the product as what it is, with an upgrade? (yes -> Feature UM)",
+      "Does it upgrade within a familiar category rather than moving the product into a new category entirely? (yes -> Feature UM; if it moves to a new category -> Product UM)"
+    ],
+    "examples": [
+      "KSM-66 ashwagandha (vs. generic ashwagandha)",
+      "Hex-grid non-stick pan (vs. regular non-stick)",
+      "True Classic fit (vs. regular tee)",
+      "Military-grade cable (vs. regular cable)"
+    ],
+    "anti_examples": [
+      {
+        "value": "Silk pillowcase repositioned from sleep product to skincare",
+        "fails_on": "question 2 — it moves the product into a new category entirely (the buyer must recategorize it as skincare), so it is a Product UM, not a Feature UM",
+        "why": "definitions.md Feature UM 'Common confusion': 'Feature UM upgrades a familiar category; Product UM moves the product into a new category entirely.' The silk pillowcase is listed under Product UM as a recategorization."
+      }
+    ]
+  },
+  {
+    "term": "Angle",
+    "one_line": "The emotion you invoke in the customer to drive purchase, where the transformation, buyer, and alternatives stay the same and only the emotion changes.",
+    "membership_test": [
+      "Does the competitive set stay the same? (yes -> angle; if alternatives change -> market change)",
+      "Can you trace this back to a core human driver and a pole (pain or desire)? (yes -> real angle; if not -> a tactic or vehicle, not an angle)"
+    ],
+    "examples": [
+      "'Don't crash after stimming' (status / pain / category-level)",
+      "'Be sharper than every other guy in the room' (status / desire / driver-level)"
+    ],
+    "anti_examples": [
+      {
+        "value": "A doctor appearing on screen",
+        "fails_on": "question 2 — a doctor on screen is a vehicle that cannot itself be traced to a driver and pole; the angle is what the doctor is saying, not the doctor's presence",
+        "why": "definitions.md Angle 'Common confusion': 'A doctor on screen is a vehicle. The angle is what the doctor is saying ... \"Doctor saying you'll be healthy\" vs. \"doctor saying you'll die\" = same vehicle, different angles.'"
+      }
+    ]
+  },
+  {
+    "term": "Angle architecture (sequencing in long-form)",
+    "one_line": "Long-form formats (VSL, advertorial, quiz) can carry multiple angles, with the discipline of one driver per piece, flipping poles freely, and positioning the offer as the bridge between pain pole and desire pole.",
+    "membership_test": [
+      "Does every angle in the script trace back to a single core human driver? (yes -> coherent architecture; different drivers -> disjointed, fails the discipline)",
+      "Is the offer positioned as the bridge between the pain pole and the desire pole? (yes -> follows the standard pattern)"
+    ],
+    "examples": [
+      "Standard pattern: open pain pole -> educate on UM and disqualify alternatives -> close desire pole -> offer as the bridge"
+    ],
+    "anti_examples": [
+      {
+        "value": "A VSL that pulls the buyer with a status angle and a survival angle in the same piece",
+        "fails_on": "question 1 — the angles trace back to different drivers, so the script feels disjointed and violates the one-driver-per-piece discipline",
+        "why": "definitions.md Angle architecture 'Test': 'All same driver -> coherent. Different drivers -> script feels disjointed because the buyer is being pulled by unrelated psychological strings.'"
+      }
+    ]
+  },
+  {
+    "term": "Value models",
+    "one_line": "Differentiator category covering how the offer is framed commercially, whose levers are bundle, pricing, discount, guarantee, and subscription.",
+    "membership_test": [
+      "Is it one of the commercial mechanics (bundle, pricing, discount, guarantee, subscription)? (yes -> value model)",
+      "Is it specifically the commercial mechanics, rather than the entire value proposition in Hormozi's 'offer' sense? (yes -> value model)"
+    ],
+    "examples": [
+      "Bundle",
+      "Pricing",
+      "Discount",
+      "Guarantee",
+      "Subscription"
+    ],
+    "anti_examples": [
+      {
+        "value": "The entire value proposition ('offer' in Hormozi's sense)",
+        "fails_on": "question 2 — it is the whole value proposition, not specifically the commercial mechanics, so it is broader than a value model",
+        "why": "definitions.md Value models 'Note': 'This is distinct from \"offer\" in Hormozi's sense (the entire value proposition). Value models are the commercial mechanics specifically.'"
+      }
+    ]
+  },
+  {
+    "term": "Trust signals",
+    "one_line": "Persuasion mechanics that reduce perceived risk and substitute for in-person credibility, addressing the question 'can I believe these people will deliver?'",
+    "membership_test": [
+      "Does it address credibility (can I believe these people will deliver) rather than invoke an emotion? (yes -> trust signal; if it invokes emotion -> angle)",
+      "Does it reduce perceived risk / substitute for in-person credibility? (yes -> trust signal)"
+    ],
+    "examples": [
+      "Reviews",
+      "UGC volume",
+      "Press logos",
+      "Expert endorsement",
+      "Payment badges",
+      "Real-time visitor counts",
+      "Before/after",
+      "Named credentials"
+    ],
+    "anti_examples": [
+      {
+        "value": "What an authority figure on screen is saying to invoke emotion",
+        "fails_on": "question 1 — the message invokes emotion (an angle); the authority figure is the trust-signal vehicle, but what they say is the angle, not the trust signal",
+        "why": "definitions.md Trust signals 'Common confusion': 'An \"authority figure\" on screen is a trust signal vehicle; the angle is what the authority is saying.'"
+      }
+    ]
+  },
+  {
+    "term": "Objection handle",
+    "one_line": "A specific copy or structural element that neutralizes a known buyer objection, living throughout the funnel (ad -> LP -> checkout).",
+    "membership_test": [
+      "Does it remove friction that would block conversion regardless of which angle leads? (yes -> objection handle)",
+      "Is it neutralizing a known objection rather than serving as the leading emotional reason to buy? (yes -> objection handle; if it is the leading emotional reason -> angle)"
+    ],
+    "examples": [
+      "'If it doesn't work in 30 days we refund you' (handles risk)",
+      "'Used by 12,000 women' (handles social validation)",
+      "'Made in the USA' (handles supply-chain skepticism)"
+    ],
+    "anti_examples": [
+      {
+        "value": "'Be sharper than every other guy in the room' (the leading emotional reason to buy)",
+        "fails_on": "question 2 — it is the leading emotional reason (an angle), not an element that removes conversion friction independent of the angle",
+        "why": "definitions.md Objection handle 'Distinct from angle': 'Angle is the leading emotional reason. Objection handle removes friction that would block conversion regardless of angle.'"
+      }
+    ]
+  },
+  {
+    "term": "Hook",
+    "one_line": "A scroll-stopping strategy — what catches attention and creates a reason to stay.",
+    "membership_test": [
+      "Is it the packaging that buys the buyer's attention long enough to receive the message, rather than the message itself? (yes -> hook)",
+      "Does it operate as a delivery vehicle (trimodal for video, bimodal for images) for an angle, claim, motif, or trust signal? (yes -> hook)"
+    ],
+    "examples": [],
+    "anti_examples": [
+      {
+        "value": "The angle being led with (the emotional message itself)",
+        "fails_on": "question 1 — the angle is the message, not the attention-buying packaging, so it is not a hook",
+        "why": "definitions.md Hook: 'The hook isn't the message — it's the packaging that buys the buyer's attention long enough to receive the message.'"
+      }
+    ]
+  },
+  {
+    "term": "Market sophistication",
+    "one_line": "What's required to differentiate in a market (niche x transformation), mapping roughly to where competitors already are.",
+    "membership_test": [
+      "Is the stage set by the most-saturated differentiation layer competitors have already taken (claim -> Product UM -> Feature UM -> saturated)? (yes -> a sophistication assessment)",
+      "Does it describe how much differentiation work is required, rather than how much education the buyer needs? (yes -> sophistication; if it is about buyer readiness/education -> awareness level)"
+    ],
+    "examples": [
+      "Stage 1 — new transformation entirely (max awareness: unaware)",
+      "Stage 2 — claim taken (max awareness: problem-aware)",
+      "Stage 3 — a Product UM exists (max awareness: solution-aware)",
+      "Stage 4 — Product UM + Feature UM exist (max awareness: product-aware)",
+      "Stage 5 — saturated (needs extraordinary-tier trust signals)"
+    ],
+    "anti_examples": [
+      {
+        "value": "How much education the customer needs before they can buy",
+        "fails_on": "question 2 — that describes buyer readiness (awareness), a separate axis, not the amount of differentiation work required",
+        "why": "differentiator-framework__2_.md 'Concepts Still Being Defined': 'Market Awareness: Separate axis — how much education the customer needs. Not about differentiation, about readiness.'"
+      }
+    ]
+  },
+  {
+    "term": "Awareness level",
+    "one_line": "Where the buyer is on the chain from 'doesn't recognize anything is wrong' to 'ready to buy your specific product', determining what your copy must establish before it can persuade.",
+    "membership_test": [
+      "When you ask 'what does the buyer already recognize without me having to teach them?', does the answer locate them at one of the five stages (unaware, problem-aware, solution-aware, product-aware, most-aware)? (yes -> an awareness level)",
+      "Does it describe the buyer's readiness/education state, rather than how much differentiation work the market requires? (yes -> awareness; if it is about differentiation requirements -> market sophistication)"
+    ],
+    "examples": [
+      "Unaware ('I don't like what I see in the mirror but I don't know why')",
+      "Problem-aware ('I look puffy' or 'I'm bloated')",
+      "Solution-aware (knows solutions exist as a category)",
+      "Product-aware (knows your specific product, holding objections)",
+      "Most-aware (decided, needs a reason to act now)"
+    ],
+    "anti_examples": [
+      {
+        "value": "Stage 3 of market sophistication (a Product UM exists among competitors)",
+        "fails_on": "question 2 — it describes the differentiation work the market requires (sophistication), not what the individual buyer already recognizes",
+        "why": "definitions.md Awareness level and Market sophistication are defined as distinct; differentiator-framework__2_.md confirms awareness is 'a separate axis ... about readiness,' not differentiation."
+      }
+    ]
+  },
+  {
+    "term": "Awareness × angle tier (cross-reference)",
+    "one_line": "A mapping of which angle tier (T1/T2/T3) can lead at each awareness level.",
+    "membership_test": [
+      "Does it pair an awareness level with the angle tier(s) that can lead at that level (e.g. unaware -> T2-T3, problem-aware -> T1)? (yes -> a valid cross-reference cell)",
+      "Is the recommended leading tier consistent with the buyer's awareness (not leading with T1 transformation when the buyer is unaware)? (yes -> consistent)"
+    ],
+    "examples": [
+      "Unaware: lead with T2-T3 to create problem awareness first",
+      "Problem-aware: lead with T1 in their language",
+      "Solution-aware: lead with disqualifying alternatives + UM education",
+      "Product-aware: lead with objection handles, social proof, guarantees",
+      "Most-aware: value model is the lever"
+    ],
+    "anti_examples": [
+      {
+        "value": "Leading with a T1 transformation angle to an unaware buyer",
+        "fails_on": "question 2 — an unaware buyer cannot be led with T1; T2-T3 must first create problem awareness, so this pairing is inconsistent",
+        "why": "definitions.md Awareness x angle tier: 'Unaware: can't lead with T1 (transformation). Lead with T2-T3 to create problem awareness first.'"
+      }
+    ]
+  },
+  {
+    "term": "Extraordinary identifier",
+    "one_line": "The saturated upper bound of trust signals — an identity-level signal competitors can't replicate at the message level.",
+    "membership_test": [
+      "Could a competitor copy this signal with copy alone? (no -> extraordinary identifier; yes -> ordinary trust signal)",
+      "Is it an identity-level signal (named celebrity, major press, credentialed authority, proprietary cultural positioning) rather than a replicable message-level claim? (yes -> extraordinary identifier)"
+    ],
+    "examples": [
+      "Named celebrity endorsement (recognizable to mass audience)",
+      "Major press logos (Vogue, Glamour, Forbes, NYT)",
+      "Credentialed authority (MD/PhD with named institution + 500k+ following)",
+      "Proprietary cultural positioning"
+    ],
+    "anti_examples": [
+      {
+        "value": "A 'Made in the USA' badge",
+        "fails_on": "question 1 — a competitor can replicate it with copy alone, so it is an ordinary trust signal, not an identity-level extraordinary identifier",
+        "why": "definitions.md Extraordinary identifier 'Test': 'Could a competitor copy this signal with copy alone? If no -> extraordinary identifier.' 'Made in the USA' is listed as an ordinary objection handle / trust claim under Objection handle."
+      }
+    ]
+  },
+  {
+    "term": "Four core human drivers",
+    "one_line": "The universal motivations underneath all PMBDs — survival, reproduction, status, belonging — to which every angle ultimately maps.",
+    "membership_test": [
+      "Is it one of the four universal drivers (survival, reproduction, status, belonging)? (yes -> core human driver)",
+      "Is it a root universal motivation rather than a specific life-frame or surface tactic that merely maps to a driver? (yes -> core driver)"
+    ],
+    "examples": [
+      "Survival (staying alive, avoiding death, health, safety)",
+      "Reproduction (sex, mating, attractiveness, partnership)",
+      "Status (hierarchy, respect, being seen as worthy, not being 'less than')",
+      "Belonging (community, acceptance, being part of a group)"
+    ],
+    "anti_examples": [
+      {
+        "value": "'I feel less than everyone around me' (a T3 driver-level life frame)",
+        "fails_on": "question 2 — it is a buyer's specific life-frame verbalization (T3) that maps to a driver, not the root driver itself (Status, T4)",
+        "why": "definitions.md PMBD ladder: 'T3 — Driver-level frame ... how the buyer verbalizes the relevant core human driver in their own life. T4 — Core human driver.' T3 maps to T4 but is not itself a core driver."
+      }
+    ]
+  },
+  {
+    "term": "Hidden transformation",
+    "one_line": "A benefit a product credibly produces that the current seller isn't marketing, but for which evidence of off-label purchase exists in reviews/VOC.",
+    "membership_test": [
+      "Is there evidence in reviews/VOC of buyers purchasing the product for a transformation other than the one being marketed? (yes -> hidden transformation)",
+      "Is it a discovery method surfacing an unmarketed-but-real benefit, rather than a standalone differentiator you deploy directly? (yes -> hidden transformation)"
+    ],
+    "examples": [
+      "Barefoot shoes -> neuropathy relief (discovered in competitor reviews)",
+      "Blissy -> women's skincare (started in sleep market, reviews surfaced skincare use case)"
+    ],
+    "anti_examples": [
+      {
+        "value": "Treating 'hidden transformation' as a standalone lever you pull on its own",
+        "fails_on": "question 2 — it is a discovery method whose execution always lands as market change + UM differentiator, not a standalone differentiator",
+        "why": "definitions.md Hidden transformation 'Common confusion': 'Hidden transformation is a discovery method, not a standalone differentiator. The execution always lands as some combination of market change + UM differentiator.'"
+      }
+    ]
+  },
+  {
+    "term": "Macro test",
+    "one_line": "Testing whether a product x market combination has product-market fit at all, testing the foundational hypothesis: does this transformation, sold to this niche, with this product, work?",
+    "membership_test": [
+      "Is it testing the foundational product x market fit hypothesis (does this transformation, sold to this niche, with this product, work)? (yes -> macro test)",
+      "Does changing the niche or transformation make it a fresh test rather than a variation? (yes -> macro test; if it is refinement within a working product x market -> micro test)"
+    ],
+    "examples": [
+      "Testing the same product against a different niche or different transformation (each is a fresh macro test)"
+    ],
+    "anti_examples": [
+      {
+        "value": "Angle testing or value-model testing within a working product x market",
+        "fails_on": "question 2 — it is refinement within an already-working product x market, not a test of the foundational fit hypothesis, so it is a micro test",
+        "why": "definitions.md Micro test: 'Testing what resonates within a working product x market. Includes angle testing, value model testing ...' explicitly contrasted with Macro test as first-stage validation."
+      }
+    ]
+  },
+  {
+    "term": "Micro test",
+    "one_line": "Testing what resonates within a working product x market, including angle testing, value model testing, funnel-size testing, awareness-level targeting, and hook variations.",
+    "membership_test": [
+      "Is the product x market already validated, so you are refining what resonates within it? (yes -> micro test)",
+      "Does it hold the product, niche, and transformation fixed while varying angle / value model / funnel / hook? (yes -> micro test; if it changes niche or transformation -> macro test)"
+    ],
+    "examples": [
+      "Angle testing",
+      "Value model testing",
+      "Funnel-size testing",
+      "Awareness-level targeting",
+      "Hook variations"
+    ],
+    "anti_examples": [
+      {
+        "value": "Testing the same product against a different niche (Posture Corrector: back pain vs. posture)",
+        "fails_on": "question 2 — it changes the transformation/niche, which is a fresh macro test, not refinement within a fixed working market",
+        "why": "definitions.md Macro test: 'Different markets = different macro tests.' differentiator-framework__2_.md Posture Corrector: 'Transformation is the variable. Testing 2 different markets' — a macro-level, not micro-level, test."
+      }
+    ]
+  },
+  {
+    "term": "Hierarchical containment",
+    "one_line": "A map of which terms contain which: market = niche x transformation, sub-niche inside a market, UM sub-types inside UM, value-model levers inside value models, extraordinary identifier as the upper bound of trust signals.",
+    "membership_test": [
+      "Does the relationship place a narrower object strictly inside a broader one named in the map (e.g. sub-niche inside market, Feature UM inside UM)? (yes -> a containment relation)",
+      "Is it a containment (is-inside / is-composed-of) relation rather than a peer/sequencing relation? (yes -> hierarchical containment; if it orders peers in time -> a sequencing relation like angle architecture)"
+    ],
+    "examples": [
+      "Market = niche x transformation",
+      "Sub-niche / PMBD cluster lives inside a market",
+      "UM sub-types (Problem / Product / Feature) all live inside UM",
+      "Value models (bundle / pricing / discount / guarantee / subscription) all live inside the value-model category",
+      "Extraordinary identifier is the saturated upper bound of trust signals"
+    ],
+    "anti_examples": [
+      {
+        "value": "'Open pain pole -> educate -> close desire pole -> offer as bridge' (angle architecture sequencing)",
+        "fails_on": "question 2 — it orders peer elements in time (a sequencing relation), not a containment of a narrower object inside a broader one",
+        "why": "definitions.md Angle architecture defines a 'Standard pattern' sequence, whereas Hierarchical containment lists is-inside relations; the two are distinct relation types."
+      }
+    ]
+  },
+  {
+    "term": "PMBD ladder anchors",
+    "one_line": "The 4-tier ladder applies to all four PMBD letters (P, B, M, D), anchored by T1 = transformation, T2 = transformation category, T3 = driver-level life frame, T4 = core human driver.",
+    "membership_test": [
+      "Is the item one of the four fixed anchors (T1 transformation, T2 transformation category, T3 driver-level life frame, T4 core human driver)? (yes -> an anchor)",
+      "Does mining all four tiers, with upstream predicting downstream manifestation, hold for it? (yes -> consistent with the anchors)"
+    ],
+    "examples": [
+      "T1 = transformation",
+      "T2 = transformation category",
+      "T3 = driver-level life frame",
+      "T4 = core human driver"
+    ],
+    "anti_examples": [
+      {
+        "value": "An awareness level (e.g. 'problem-aware') used as a ladder tier",
+        "fails_on": "question 1 — it is not one of the four fixed PMBD-ladder anchors (T1-T4); awareness levels run on a parallel chain, not the PMBD ladder",
+        "why": "definitions.md Pain: 'Pain runs parallel to the awareness chain, not on it,' establishing awareness levels as a separate axis from the T1-T4 ladder anchors."
+      }
+    ]
+  },
+  {
+    "term": "Stage → required levers matrix",
+    "one_line": "A matrix mapping each market-sophistication stage to the required differentiation work for that stage.",
+    "membership_test": [
+      "Does the row pair a sophistication stage (1-5) with the differentiation work required at that stage? (yes -> a valid matrix row)",
+      "Does the required-levers set match the stage's definition (e.g. Stage 1 = transformation itself; Stage 5 = angle, value model + extraordinary-tier trust signals)? (yes -> consistent)"
+    ],
+    "examples": [
+      "Stage 1: Transformation itself",
+      "Stage 2: Claim, UM, angle, trust signals, value model",
+      "Stage 3: Alternative Product UM or Feature UM, angle, trust signals, value model",
+      "Stage 4: Alternative Feature UM, angle, trust signals, value model",
+      "Stage 5: Angle, value model + extraordinary-tier trust signals"
+    ],
+    "anti_examples": [
+      {
+        "value": "Requiring only a basic claim with no UM to compete at Stage 3",
+        "fails_on": "question 2 — at Stage 3 a Product UM already exists in the market, so an alternative Product UM or Feature UM (plus angle, trust signals, value model) is required; a bare claim is insufficient",
+        "why": "definitions.md Market sophistication Stage 3 and the Stage -> required levers matrix: Stage 3 requires 'Alternative Product UM or Feature UM, angle, trust signals, value model.'"
+      }
+    ]
+  },
+  {
+    "term": "Awareness × angle tier matrix",
+    "one_line": "A matrix mapping each awareness level to the angle tier that leads and accompanying notes.",
+    "membership_test": [
+      "Does the row pair an awareness level with the angle tier that leads (e.g. unaware -> T2-T3, problem-aware -> T1, most-aware -> value model)? (yes -> a valid matrix row)",
+      "Is the leading tier consistent with what the buyer already recognizes (T1 does not lead for unaware buyers)? (yes -> consistent)"
+    ],
+    "examples": [
+      "Unaware -> T2-T3 (must create problem awareness before T1 lands)",
+      "Problem-aware -> T1 in their language (T2/T3 reinforce)",
+      "Solution-aware -> T1 + disqualify alternatives + UM",
+      "Product-aware -> objection handles + trust signals",
+      "Most-aware -> value model (urgency/scarcity/discount)"
+    ],
+    "anti_examples": [
+      {
+        "value": "A row stating angle is the primary lever for a most-aware buyer",
+        "fails_on": "question 2 — for most-aware buyers the value model (urgency/scarcity/discount) leads and 'angle barely matters,' so an angle-led row is inconsistent",
+        "why": "definitions.md Awareness x angle tier matrix: 'Most-aware | Value model (urgency/scarcity/discount) | Angle barely matters.'"
+      }
+    ]
+  },
+  {
+    "term": "Adderall canonical example (system thread)",
+    "one_line": "One example threading the whole framework, from niche (Adderall users / focus seekers) through transformation, PMBD, angle, driver, and the three UM sub-types.",
+    "membership_test": [
+      "Is the element one of the threaded slots for this single example (niche, transformation, transformation category, motif, belief, pain, desire, angle, core driver, Problem UM, Product UM, Feature UM)? (yes -> part of the thread)",
+      "Does it stay within the one coherent Adderall/focus market (community-anchored to r/Adderall, r/nootropics), rather than belonging to an unrelated market? (yes -> consistent with the thread)"
+    ],
+    "examples": [
+      "Niche: Adderall users / focus seekers (r/Adderall, r/nootropics)",
+      "Transformation: Sustained focus",
+      "Angle: 'Don't crash after stimming' (status / pain / category-level)",
+      "Problem UM: 'Stimulants deplete X neurotransmitter, causing the crash'",
+      "Product UM: 'Nootropic stack designed to sustain rather than spike'",
+      "Feature UM: 'Includes [specific compound] that prevents the dopamine drop'"
+    ],
+    "anti_examples": [
+      {
+        "value": "'Show her you care' (Nusk boyfriend gifting frame) inserted as the Adderall thread's angle",
+        "fails_on": "question 2 — it belongs to a different market (Boyfriends x show care), not the Adderall/focus market the thread coherently follows",
+        "why": "differentiator-framework__2_.md Nusk: 'Market: Boyfriends. Transformation: show her you care' — a separate market from definitions.md's Adderall thread (focus seekers x sustained focus)."
+      }
+    ]
+  },
+  {
+    "term": "Hidden transformation process chain",
+    "one_line": "Discovery in reviews -> Feature UM or market change -> resets sophistication for new combination -> potentially new market opens.",
+    "membership_test": [
+      "Does the step originate from discovery in reviews (off-label use surfaced in VOC) rather than from top-down seller planning? (yes -> on the chain)",
+      "Does the step lead toward a Feature UM / market change that resets sophistication for the new combination? (yes -> on the chain)"
+    ],
+    "examples": [
+      "Discovery in reviews -> Feature UM or market change -> resets sophistication for new combination -> potentially new market opens"
+    ],
+    "anti_examples": [
+      {
+        "value": "Planning a brand-new transformation top-down with no review evidence of off-label use (a Stage 1 sophistication play)",
+        "fails_on": "question 1 — it does not originate from discovery in reviews; the hidden-transformation chain requires off-label evidence surfaced in VOC",
+        "why": "definitions.md Hidden transformation 'Discovery method': 'mine reviews of existing products for unexpected use cases,' which the process chain begins with ('Discovery in reviews ->')."
+      }
+    ]
+  },
+  {
+    "term": "PMBD ladder mining",
+    "one_line": "Mine every PMBD at every tier, because upstream tiers (T3/T4) predict how downstream tiers (T1/T2) will manifest.",
+    "membership_test": [
+      "Does the practice mine every PMBD letter at every one of the four tiers? (yes -> complete PMBD ladder mining)",
+      "Does it treat upstream driver-level beliefs (T3/T4) as leading indicators of downstream transformation-level objections (T1/T2)? (yes -> consistent with the rule)"
+    ],
+    "examples": [
+      "Driver-level life beliefs are leading indicators of transformation-level objections"
+    ],
+    "anti_examples": [
+      {
+        "value": "Mining only T1 transformation-level language and skipping upstream T3/T4 driver mining",
+        "fails_on": "question 1 — it does not mine every tier; skipping upstream mining produces transformation-specific copy that is worldview-incoherent for the niche",
+        "why": "definitions.md PMBD ladder mining: 'Skipping upstream mining produces transformation-specific copy that's worldview-incoherent for the niche.'"
+      }
+    ]
+  },
+  {
+    "term": "Source venues by tier",
+    "one_line": "A mapping of which venues to mine for each PMBD ladder tier, from transformation-anchored venues at T1 up to niche-anchored and broad life-discussion venues at T3-T4.",
+    "membership_test": [
+      "Does the venue match the tier being mined (transformation-anchored/competitor reviews for T1, category-anchored for T2, niche-anchored/broad life-discussion/long-form interviews for T3-T4)? (yes -> a correct venue-tier pairing)",
+      "Is the venue aligned to the tier's altitude rather than to a different tier? (yes -> consistent)"
+    ],
+    "examples": [
+      "T1 (transformation): transformation-anchored venues, reviews of competitor products in this transformation",
+      "T2 (transformation category): category-anchored venues, niche venues filtered for category language",
+      "T3-T4 (driver-level / core driver): niche-anchored venues, broad life-discussion subreddits, long-form interviews"
+    ],
+    "anti_examples": [
+      {
+        "value": "Mining transformation-specific competitor product reviews to source T4 core-driver data",
+        "fails_on": "question 1 — T4 core-driver data comes from niche-anchored venues, broad life-discussion subreddits, and long-form interviews, not transformation-anchored competitor reviews (which serve T1)",
+        "why": "definitions.md Source venues by tier: 'T1 (transformation): ... reviews of competitor products' vs. 'T3-T4 ... niche-anchored venues, broad life-discussion subreddits, long-form interviews.'"
+      }
+    ]
+  },
+  {
+    "term": "Command+F verbatim rule (for desire)",
+    "one_line": "Before publishing copy, run Command+F on research documents for every assumed customer word, and if a word doesn't appear in research, remove it from copy.",
+    "membership_test": [
+      "Before publishing, has every assumed customer word been Command+F-checked against the research documents? (yes -> rule applied)",
+      "Does every customer word kept in copy actually appear in research (inferred words removed)? (yes -> compliant)"
+    ],
+    "examples": [
+      "Replaces 'hydrated' with 'smoother and less dry' when that's what the buyer actually says"
+    ],
+    "anti_examples": [
+      {
+        "value": "Keeping 'hydrated' in copy on the assumption it captures the buyer's want, without Command+F confirmation",
+        "fails_on": "question 2 — 'hydrated' does not appear in research and was inferred, so the verbatim rule requires removing it",
+        "why": "definitions.md Command+F verbatim rule: 'Replaces \"hydrated\" with \"smoother and less dry\" when that's what the buyer actually says.'"
+      }
+    ]
+  },
+  {
+    "term": "5+ saturation rule (for sophistication)",
+    "one_line": "If 5+ competitors are making the same base claim, that claim is discounted regardless of copy quality.",
+    "membership_test": [
+      "Are 5 or more competitors making the same base claim? (yes -> the claim is discounted under the rule)",
+      "Is the claim discounted on the basis of competitor count regardless of copy quality? (yes -> rule applied correctly)"
+    ],
+    "examples": [
+      "Enhanced claim counts give a sharper signal — when enhancements proliferate, sophistication is rising"
+    ],
+    "anti_examples": [
+      {
+        "value": "The Hair Dryer attempt where 7 brands all claimed 'fast dry no heat damage'",
+        "fails_on": "question 1 — with 7 (>=5) competitors making the identical base claim, the claim is discounted and the launch fails regardless of copy quality",
+        "why": "differentiator-framework__2_.md Hair Dryer (FAILED): '7 competitors, same mech, same market. Failed regardless of copy quality,' the canonical instance the 5+ rule discounts."
+      }
+    ]
+  },
+  {
+    "term": "Angle architecture rule (for long-form)",
+    "one_line": "One driver per piece; flip poles freely; position the offer as the bridge between pain pole and desire pole.",
+    "membership_test": [
+      "Does the long-form piece keep to a single core human driver throughout? (yes -> compliant)",
+      "Does it position the offer as the bridge between the pain pole and the desire pole while flipping poles freely within that one driver? (yes -> compliant)"
+    ],
+    "examples": [
+      "Crossing drivers within one VSL feels disjointed because the buyer is being pulled by unrelated psychological strings"
+    ],
+    "anti_examples": [
+      {
+        "value": "A single VSL that crosses from a status driver to a survival driver",
+        "fails_on": "question 1 — it crosses drivers within one piece, violating one-driver-per-piece and feeling disjointed",
+        "why": "definitions.md Angle architecture rule: 'Crossing drivers within one VSL feels disjointed because the buyer is being pulled by unrelated psychological strings.'"
+      }
+    ]
+  }
+]

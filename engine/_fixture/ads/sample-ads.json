@@ -1,0 +1,11 @@
+{
+  "_note": "Engine smoke fixture for funnel-assemble.js — ads/<slug>.json shape (adlib-one output). Destination URLs are loopback so the SSRF guard rejects them FAST (no network), exercising the deterministic spine: normalize -> cluster -> funnel_id -> bound_ads -> package shape.",
+  "slug": "sampleco",
+  "resolved_advertiser": { "name": "SampleCo" },
+  "ads": [
+    { "library_id": "ad-1", "destination_url": "http://127.0.0.1/lp-a", "text": "Ad one text", "headline": "Headline A", "cta_text": "Shop Now", "start_date": "2026-01-01", "impression_bucket": "10k-50k", "platforms": ["facebook", "instagram"] },
+    { "library_id": "ad-2", "destination_url": "http://127.0.0.1/lp-a?utm_source=fb&variant=3", "text": "Ad two text", "headline": "Headline A2", "cta_text": "Learn More", "start_date": "2026-01-05", "impression_bucket": "1k-5k", "platforms": ["facebook"] },
+    { "library_id": "ad-3", "destination_url": "http://127.0.0.1/lp-b", "text": "Ad three text", "headline": "Headline B", "cta_text": "Buy", "start_date": "2026-02-01", "impression_bucket": "5k-10k", "platforms": ["instagram"] },
+    { "library_id": "ad-4", "destination_url": null, "text": "Ad four no destination", "headline": "Headline D", "cta_text": "Go" }
+  ]
+}

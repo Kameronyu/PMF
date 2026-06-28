@@ -1,0 +1,56 @@
+{
+  "funnel_fields": {
+    "funnel_id": "gameshell-kickstarter",
+    "primary_claim": "An Open Source Portable Game Console",
+    "claim_type": "mechanism",
+    "awareness_entry": "product-aware",
+    "funnel_sequence": [
+      "Hero",
+      "Mechanism",
+      "Proof",
+      "Offer"
+    ],
+    "offer_mechanic": "Kickstarter early-bird tiers",
+    "urgency_construction": "none"
+  },
+  "belief_records": [
+    {
+      "funnel_id": "gameshell-kickstarter",
+      "position": 1,
+      "belief_id": "mechanism-is-the-reason",
+      "belief_confidence": "high",
+      "belief_kind": "general-dr",
+      "execution_type": "mechanism-explanation",
+      "execution_detail": "Modular swap mechanism framed as the reason the device stays future-proof.",
+      "proof_tier": "Tier2",
+      "moves": [
+        "um-mechanism-reveal"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "Every part is a module. Swap it, upgrade it, or print your own.",
+          "source": "competitor-marketing"
+        }
+      ]
+    },
+    {
+      "funnel_id": "gameshell-kickstarter",
+      "position": 2,
+      "belief_id": "it-will-ship",
+      "belief_confidence": "high",
+      "belief_kind": "crowdfunding-specific",
+      "execution_type": "founder-credibility",
+      "execution_detail": "Founder cites factory payment to install the belief the unit will ship.",
+      "proof_tier": "Tier1",
+      "moves": [
+        "offer-guarantee"
+      ],
+      "verbatim_refs": [
+        {
+          "text": "The units are being built right now.",
+          "source": "competitor-marketing"
+        }
+      ]
+    }
+  ]
+}

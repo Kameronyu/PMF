@@ -1,0 +1,9 @@
+{
+  "id": "img-002",
+  "shot_type": "in_hand_scale",
+  "demonstrates": [
+    { "claim": "pocket_scale", "strength": "partial", "evidence": "Device held in one hand against a desk for scale." }
+  ],
+  "disqualifiers": ["low_res"],
+  "technical": { "w": 900, "h": 600, "min_safe_use": "thumb" }
+}

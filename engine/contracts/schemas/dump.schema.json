@@ -1,0 +1,40 @@
+{
+  "_record": "corpus/<slug>/dump.json",
+  "_produced_by": "s1-dumper (agent, PROVISIONAL — one per brand)",
+  "_enforced_by": ["validate-dumper.js"],
+  "_enum_refs": [],
+  "_source": "extracted verbatim from prompts/step1-light-pass.md §SCHEMA (2026-06-24)",
+  "_note": "Dumper does NOT classify. transformation/canonical_niche/canonical_angle are ALWAYS null here — the classifier fills them. claims[] strings must be verbatim substrings of clean copy (validator-enforced).",
+  "shape": {
+    "slug": "string",
+    "creatives": [
+      {
+        "creative_id": "library_id for ads | canonical-URL for pages",
+        "type": "ad | landing_page | product_page",
+        "url": "string",
+        "ad_id": "string|null",
+        "page_id": "string|null",
+        "start_date": "YYYY-MM-DD|null (copied from ads/<slug>.json, never estimated)",
+        "run_length_days": "int|null (script-extracted; never fabricated)",
+        "format": "image|carousel|video|page|null",
+        "niche_raw": "verbatim signal | null",
+        "angle_raw": "emotional frame in copy's own terms — OPEN, not an enum",
+        "canonical_angle": null,
+        "angle_basis": "observed | inferred",
+        "pitches": [
+          {
+            "claims": ["verbatim outcome-promise string"],
+            "mechanism": ["how/why THIS outcome is achieved, verbatim Feature-UM; may be empty; per-pitch"],
+            "problem_um_raw": ["causal story for WHY the buyer has THIS problem; verbatim; may be empty"],
+            "transformation": null
+          }
+        ],
+        "canonical_niche": null,
+        "linked_funnel_id": "creative_id of the page this ad's CTA points to | null",
+        "link_basis": "cta_url | inferred | unresolved",
+        "multi": false
+      }
+    ],
+    "notes": "gaps, blocked pages, unresolved links"
+  }
+}

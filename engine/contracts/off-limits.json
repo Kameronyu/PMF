@@ -1,0 +1,41 @@
+{
+  "_meta": {
+    "schema_version": 1,
+    "purpose": "Marketing firewall deny-list. The path prefixes the OPERATOR owns and rewrites. The engine never edits these.",
+    "enforcement": "WIRED 2026-06-26 (Phase-21 closeout). engine/hooks/guard-marketing.js is registered as a PreToolUse Write|Edit|MultiEdit hook in .claude/settings.json and reads this file to block any Write/Edit/MultiEdit whose target matches off_limits[]. The guard resolves the target path from argv → $CLAUDE_TOOL_INPUT_PATH → stdin tool_input.file_path, and fails OPEN if no path or deny-list is readable (engine work is never bricked). Note: a Claude Code session loads hook config at startup, so the physical block takes effect on the next session reload; the executing agent honors the deny-list directly in the meantime.",
+    "to_unwire": "Remove the PreToolUse guard-marketing.js entry from .claude/settings.json hooks and flip _meta.enforcement back to STAGED (operator's 'let holes show on first run' mode)."
+  },
+
+  "off_limits": [
+    "definitions.md",
+    "workflow.md",
+    "marketing-lens/prompts/",
+    "marketing-lens/MAP.md",
+    "runs/*/_marketing-decisions/"
+  ],
+
+  "off_limits_after_split": {
+    "_note": "These become off-limits once the A1/A3 extractions land. Path-level guards can't sub-target line ranges, so the WHOLE file flips to marketing-owned only after its wiring is extracted out.",
+    "pending": [
+      "prompts/step1-light-pass.md (marketing half — after line-223 split + retire to _quarantine)",
+      ".claude/skills/*/AGENT-*.md (the judgment prompts produced by the A3 SKILL split)"
+    ]
+  },
+
+  "coordinate": {
+    "_note": "Still MIXED — contain wiring not yet extracted. Edit only to perform the approved extraction; never to change marketing content.",
+    "files": [
+      "prompts/step1-light-pass.md",
+      "prompts/funnel-deep-pass.md",
+      ".claude/skills/market-selection/SKILL market selection.md",
+      ".claude/skills/funnel-architect/SKILL-funnel-architect.md"
+    ]
+  },
+
+  "not_off_limits": [
+    "engine/",
+    "prompts/_generated/",
+    "engine/contracts/schemas/",
+    "tools/"
+  ]
+}

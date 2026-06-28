@@ -1,0 +1,19 @@
+{
+  "id": "08-copywriter",
+  "name": "Copywriter + Copy Chief",
+  "reads": [
+    "runs/{space}/funnel-brief.md",
+    "runs/{space}/voc-bank/_bank.json"
+  ],
+  "writes": [
+    "runs/{space}/copy/_copy.json",
+    "runs/{space}/chief-verdicts.json",
+    "runs/{space}/copy/"
+  ],
+  "scripts": { "pre": ["funnel-rag-query.js"], "post": [] },
+  "prompt": "prompts/08-copywriter.md",
+  "agents": 1,
+  "validator": "engine/hooks/route.js",
+  "gate": true,
+  "_source": "PART0 STEP 8b (locked funnel-brief + slot-scoped voc-bank RAG + funnel index); ONE-SHOT-SHELL §6 (★). writes[0]=copy/_copy.json represents the copy/ fan-out dir; funnel-rag-query.js = slot-scoped RAG brick (MANIFEST-04)."
+}

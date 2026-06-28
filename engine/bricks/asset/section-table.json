@@ -1,0 +1,10 @@
+{
+  "see_through_display_on": { "primary": ["hero"], "also": ["feature_transparency"], "requires": { "display_state": "on_legible" } },
+  "transparency_internals_visible": { "primary": ["feature_transparency"], "also": ["hero", "specs"] },
+  "pocket_scale": { "primary": ["feature_scale"], "also": ["lifestyle", "hero"] },
+  "retro_gaming": { "primary": ["feature_games"], "also": ["lifestyle", "social_proof"] },
+  "collectible_object": { "primary": ["lifestyle", "final_cta"], "also": ["hero"] },
+  "hackable_maker": { "primary": ["feature_maker"], "also": ["specs"] },
+  "build_material_quality": { "primary": ["feature_transparency"], "also": ["specs"] },
+  "whats_in_box": { "primary": ["offer"], "also": ["final_cta"] }
+}

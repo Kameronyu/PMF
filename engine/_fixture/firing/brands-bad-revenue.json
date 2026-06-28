@@ -1,0 +1,2 @@
+{ "brands": [ { "slug": "x", "url": "https://x.com", "sells_observed": "thing", "channel": "dtc",
+  "revenue_est": { "value_usd_monthly": "PENDING" } } ] }

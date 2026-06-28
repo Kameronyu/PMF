@@ -1,7 +1,0 @@
-URL: https://www.indiegogo.com/projects/dasung/not-ereader
-TITLE: 404: Page Not Found - Indiegogo
-FETCHED: 2026-05-24T19:39:03.992Z
-
-404: Page Not Found
-The resource you requested does not exist. Make sure you typed the correct address.
-GO BACK HOME

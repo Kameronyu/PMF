@@ -1,0 +1,26 @@
+{
+  "skill_name": "durable-design",
+  "evals": [
+    {
+      "id": 0,
+      "name": "author-design-from-working-task",
+      "prompt": "I finally got a session to figure out how to pull my Stripe payouts for the week, reconcile them against my bank statement CSV in Downloads, and drop a summary into a Google Sheet. It works now and I run it every Monday. Write me a durable design so next Monday a fresh session can just run it without figuring everything out again from scratch.",
+      "expected_output": "A durable design using the declarative template: intent + golden output, declared assumptions feeding a preflight that refuses on drift, a FROZEN skeleton bound to stable interfaces (Stripe API, file, Sheets API) with idempotent Precondition->Action->Verify->Rollback steps, explicitly-marked adaptive JOINTS carrying rationale, golden-output diff + canary, a 3-tier fallback ladder ending in human escalation, and maintenance metadata. Should NOT be a verbatim click-by-click recording.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "harden-or-not-gate-says-no",
+      "prompt": "Can you make this a permanent automation? Once, I had a session scrape a competitor's pricing by clicking through their website and reading the numbers off the page. It worked great. I might want those numbers again at some point, not sure when. Pre-write all the steps so it just runs next time.",
+      "expected_output": "Should apply the harden-or-not gate and push back rather than blindly hardening: low/unknown frequency fails the cost inequality and Rule of Three; clicking-through-a-website is presentation-layer binding that rots; an external site is an unstable, hostile surface. Recommend staying agentic (re-explore on demand) and/or binding to a stable interface instead of freezing UI clicks. This tests the skill's core 'full hardening isn't always good' judgment.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "execute-and-repair-broken-design",
+      "prompt": "Here's the situation: I have a durable design for my monthly invoice-export workflow, and a fresh session ran it today but it silently produced an empty PDF instead of throwing an error, and nobody noticed until a client complained. What was missing from the design, and how should a fresh session run it safely so this can't happen again?",
+      "expected_output": "Should diagnose the silent-failure as missing verification: a golden-output diff (row count / checksum) and outcome assertions would have caught the empty file; preflight should assert the source data exists; trajectory verification beats final-output-only. Should give the execution protocol (preflight -> skeleton -> verify against golden -> canary) and the 3-tier fallback (don't deliver on a failed verify, escalate with the diff). Maps the fix to specific durable-design sections.",
+      "files": []
+    }
+  ]
+}

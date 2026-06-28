@@ -1,69 +1,113 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: completed
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-06-28T04:50:05.979Z"
+last_activity: 2026-06-28
+progress:
+  total_phases: 6
+  completed_phases: 3
+  total_plans: 5
+  completed_plans: 8
+  percent: 100
+---
+
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md · Roadmap: .planning/ROADMAP.md (rewritten 2026-06-03)
+See: .planning/PROJECT.md (updated 2026-06-26)
 
-**Core value:** A reusable research engine that converts a T/P/N seed into a validated market bet plus a
-queryable bank of real, attributed customer language (verbatim, live permalinks).
-**Current focus:** Milestone 1 (Research Engine), two parallel tracks — **Track A: Competitive analysis**
-(Phase 0/1/2, closest to running) and **Track B: VOC** (Phase 3a/3b, specced).
+**Core value:** A runnable shell of Steps 0–10 that completes end-to-end on stub prompts — every declared artifact produced and consumed, deterministic routing, gates logged, unbroken receipts, zero orphan outputs / dangling inputs.
+**Current focus:** SHELL BUILD COMPLETE — milestone lifecycle (audit → complete) pending operator confirm.
 
 ## Current Position
 
-Milestone: M1 of 2 (Research Engine; M2 launch engine deferred / rolling-wave)
-Build model: brick model locked (`capability_inventory.md`) — scripts for deterministic jobs, agents for judgment, hooks to gate.
+Phase: 6 (Smoke Run & Definition-of-Done) — BUILD COMPLETE + xhigh-verified CLEAN
+Plan: 1 of 1
+Status: All 6 phases built; all 38 v1 requirements Complete; all 7 acceptance gates green.
+Last activity: 2026-06-28
 
-**Track A — Competitive analysis:**
-- M1-S1 Light pass — **BUILT** (`prompts/phase1-light-pass.md`, enriched with revenue_est + claim_type). Remaining: layer-3 scripts to run automated.
-- M1-S2 Market-selection gate — **DRAFTED** (`.claude/skills/market-selection/SKILL.md` + verbatim spec). Remaining: wire the S1 data contract.
-- M1-S3 Deep competitive analysis + messaging strategy — **SPECCED** (`prompts/_specs/deep-market-analysis-framework.md`).
+Progress: [██████████] 100% (build) — milestone audit/complete-milestone remaining
 
-**Track B — VOC (Phase 3a/3b):** all SPECCED in `handoff-phase3-voc-build.md`; starts at the **M1-S4 codebook keystone** (everything keys off it). Not yet built.
-
-Status: **Ready to build** (rolling-wave, one stage at a time).
-Next action: pick a track. Track A → finish S1 scripts + S2 wiring to pick a market now. Track B → build the S4 codebook keystone. Run via `/gsd-plan-phase <n> --skip-research` (the specs ARE the research) → `/gsd-execute-phase <n>`. Parallel tracks → use `git worktree` per session.
-Last activity: 2026-06-03 — workspace reconciled; InkLeaf retired to `_quarantine/`; framework specs persisted to `prompts/_specs/`; ROADMAP rewritten to the two-track build-state-aware structure.
-
-Progress: [░░░░░░░░░░] 0% built (S1 light pass built but not yet run end-to-end through the new pipeline)
+**Phases:** 1 Artifact Store ✓ · 2 Run-Controller ✓ · 3 Step Manifests ×11 ✓ · 4 Prompt Stubs + mock emits ✓ · 5 Validators/Gates/Receipts ✓ · 6 Smoke Run & DoD ✓
+**7 gates green:** store-smoke · controller-smoke · h6-all · manifest-smoke · stub-smoke · validate-smoke · smoke-dod
+**Each phase xhigh adversarially verified** (Phases 3/4/5 had harness/validator hardening fixes applied; Phase 6 clean).
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
+
+- Total plans completed: 2
 - Average duration: — min
+- Total execution time: 0.0 hours
+
+**By Phase:**
+
+| Phase | Plans | Total | Avg/Plan |
+|-------|-------|-------|----------|
+| 01 | 2 | - | - |
+
+**Recent Trend:**
+
+- Last 5 plans: —
+- Trend: —
+
+*Updated after each plan completion*
+| Phase 01 P01 | 4 | 3 tasks | 20 files |
+| Phase 01 P02 | 3 | 2 tasks | 2 files |
+| Phase 02 P01 | 4 | 2 tasks | 7 files |
+| Phase 02 P02 | 5 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
 ### Decisions
 
-- InkLeaf RETIRED — `runs/eink-tablets/` quarantined; not canon, not a UAT rebuild target. Learnings live in `run-retrospective.md` + `agents/implementation-notes.md`; fetch tooling rescued to `tools/`.
-- Brick model is the build law: one job per brick, deterministic → script/hook, judgment → agent, gates → agent-prep + human Decide.
-- Schema authority for the per-brand/per-market record = `prompts/_specs/` frameworks + `phase1-light-pass.md` (the older `map/data_inventory.md` base/enhanced claim_type is superseded by direct/enlarged/mechanism/enhanced).
-- GSD used lightweight: roadmap tracking + `/gsd-plan-phase --skip-research` → `/gsd-execute-phase`; heavy ceremony stays off.
-- Verification is UAT, not unit tests — run on a reference space and Kam reads the output.
+Decisions are logged in PROJECT.md Key Decisions table.
+Recent decisions affecting current work:
+
+- [Roadmap]: Phases derived from SHELL-BUILD-SPEC §3 six components + §9 build sequence (NOT PART2 content jobs).
+- [Roadmap]: WIRE-01/02 land in Phase 3 (manifest reads/writes); WIRE-03 lands in Phase 4 (stub-emit behavior).
+- [Roadmap]: Reuse root `/engine` bricks — assemble + order per PART3 §8, never rewrite the fetch/glue.
+- [Roadmap]: Final phase DoD = ONE-SHOT §7 / SHELL-BUILD-SPEC §11 (smoke green, zero orphans/dangling, unbroken receipts).
+- [Phase 01]: D-Q1: scaffold both corpus/ and flat dumps/ parents; Phase 3 manifests lock final dump path
+- [Phase 01]: D-Q3: follow §6 lowercase slot names verbatim; NAMING.md §5 UPPERCASE governs engine deliverables not pipeline slots
+- [Phase 01]: D-version-grain: whole-SPACE versioning <base>-vN, not per-artifact v2/ (resolver lands Plan 02)
+- [Phase 01]: STORE-02/03 smoke asserts authored RED ahead of Plan 02 bricks (Nyquist Wave-0); harness is complete
+- [Phase 01]: D-resolver-read-only: space-version.js is pure-stdout, names next free <base>-vN, mutates nothing under runs/ (byte-intact invariant)
+- [Phase 01]: D-receipt-shape: receipt-write ships shape+writer+sha256 helper; validator_verdicts[]+gate are Phase-5 slots (STORE-03 green)
+- [Phase 02]: D-manifest-availability: approach A — git-whitelisted fixture manifest set under runs/_fixture/pipeline/ drives the full 7-phase loop, NOT the real 11 manifests (Phase 3)
+- [Phase 02]: D-harness-RED-safe: controller-smoke.sh authored RED ahead of run-controller.js (Nyquist Wave-0); run_ctrl guard yields named FAIL not set -u crash; SPACE=_ctrlsmoke scratch rm -rf both ends
+- [Phase 02]: D-fixture-emit-split: fx-01-emit writes no-rule basename (route.js passes); fx-bad-emit writes space-map.json to prove CTRL-07 exit-2 propagation
+- [Phase 02]: [Phase 02]: D-stub-emit-payload: mockEmit reads optional manifest stub_emit field (default {_stub:true}); negative fixtures declare a reject-triggering payload — controller stays generic
+- [Phase 02]: [Phase 02]: D-gate-always-logs: operatorGate emits a GATE marker even for non-gated steps so the gate phase always reports (P9 logged-never-silent + 7-marker assert)
+- [Phase 02]: [Phase 02]: D-context-data-headers: assembleContext under --smoke prints per-read <<<DATA path>>> headers proving reads[] bytes embedded (CTRL-05)
+- [Phase 02]: [Phase 02]: D-space-version-dormant: no-overwrite naming wired but acts only on --rerun; smoke fixed space proves NAMING via space-version UNIT assert (Open Q2)
 
 ### Pending Todos
 
-None tracked here.
+None yet.
 
 ### Blockers/Concerns
 
-- Track B M1-S5: the open "no-clean-niche-venue" design problem (behavior-defined niches have no anchor subreddit) — flagged for the Query Planner stage.
-- Track B M1-S6: Reddit ingestion must run on the official commercial API (GummySearch died Nov 2025 over API licensing).
-- Track A M1-S1 revenue signal: monthly-visits source is manual-paste / review-proxy (no paid SimilarWeb API) — `revenue_est.method/confidence` keeps it swappable.
+- REQUIREMENTS.md header originally stated "33 v1 requirements" but the enumerated list contains 38 distinct REQ-IDs (STORE 5 + CTRL 12 + MANIFEST 4 + STUB 4 + VALID 5 + SMOKE 5 + WIRE 3). Roadmap maps all 38; traceability/coverage block corrected to 38.
 
 ## Deferred Items
 
+Items acknowledged and carried forward (v2 — out of this milestone):
+
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| Milestone | M2 — launch engine (Phases 4–8 + the `launch/` Shopify/Klaviyo fold) | Deferred (rolling-wave) | 2026-06-03 |
-| Capability | Vectorization / RAG vector DB | Deferred (JIT for Phase 4) | 2026-06-02 |
-| Capability | Persistence / substrate layer | Deferred (.md files suffice) | 2026-06-02 |
-| Capability | `space-sketcher` (partial-seed expander) | Deferred (no case yet) | 2026-06-02 |
+| CONTENT | Real prompt bodies (PART2 Job 7) | Deferred | Milestone scope |
+| CONTENT | Field-level seam schemas + congruence checker (Job 5 / A2) | Deferred | Milestone scope |
+| CONTENT | Prompt-division 1-vs-N agents per step (Job 6) | Deferred | Milestone scope |
+| CONTENT | Marketing truth & thresholds (Jobs 2–4) | Deferred | Milestone scope |
+| PHASEB | Production & launch extension (PART5) | Deferred | Milestone scope |
 
 ## Session Continuity
 
-Last session: 2026-06-03
-Stopped at: Workspace reconciled + ROADMAP rewritten (two-track, InkLeaf retired). Ready to build — pick Track A (finish S1 scripts + S2 wiring) or Track B (S4 codebook).
+Last session: 2026-06-27T11:31:43.392Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None

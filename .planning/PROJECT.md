@@ -1,94 +1,75 @@
-# PMF
+# PMF Marketing Pipeline
 
 ## What This Is
 
-PMF is a research-to-launch system for direct-response e-commerce. You feed it a product, a transformation, or a niche, and it works that input down a fixed flow — map a space, pick a market worth entering, study the competition and the customer, design and run a creative test, then launch or kill. What comes out is a validated market, the exact customer language to sell with, and a funnel ready to take money. InkLeaf (a foldable programmable e-ink tablet) was the first product run through it — a bare-minimum shakedown, now **retired to `_quarantine/`**; the machinery is built to work for the next product without being rewritten.
+A multi-step agentic marketing pipeline that turns a product *bet* into a written, audited sales funnel across eleven steps: **0 Bet → 1 Collect → 2 Funnel analysis → 3 Space map → 4 VOC market pass → 5 Market selection → 6 VOC deep pass → 7 Funnel architect → 8 Copywriter → 9 Asset classify → 10 Adversarial re-review** (canonical R1 order). The system separates **mechanism** (the deterministic *shell* — orchestrator, artifact store, per-step I/O contracts, validation, operator gates) from **content** (the marketing judgment inside each prompt and the field-level schemas at each seam). **This milestone builds the shell.**
 
 ## Core Value
 
-A reusable research engine that converts a T/P/N seed into a queryable bank of **real, attributed customer language** (verbatim, with live permalinks) plus a validated market bet — the asset Phase 4 copywriting and the launch funnel are built from. If the verbatim copy bank is trustworthy and reusable, everything downstream works.
+A runnable shell of Steps 0–10 that completes **end-to-end on stub prompts** — every declared artifact produced and consumed, deterministic routing, operator gates logged, unbroken receipts chain, **zero orphan outputs / dangling inputs** — so real prompts and field schemas become pure drop-in slots and the only thing not-yet-good is marketing judgment.
 
 ## Requirements
 
 ### Validated
 
-<!-- Durable assets that survive the InkLeaf retirement (2026-06-03). The InkLeaf RUN itself is quarantined; what's validated below is the reusable machinery + locked canon, not the run's artifacts. -->
+<!-- Existing, proven assets this milestone assembles on top of. -->
 
-- ✓ **Light pass (built)** — `prompts/phase1-light-pass.md`: Finder + Roster Verifier + Dumper + Space Classifier, enriched with `revenue_est` + `claim_type`. The one durable, reusable competitor-research prompt + the format template for all future prompts.
-- ✓ **Brick model (locked)** — `capability_inventory.md`: one job per brick, scripts for deterministic work, agents for judgment, hooks to gate, human Decide for the gates. The build law.
-- ✓ **Strategy frameworks (locked, verbatim)** — `prompts/_specs/market-selection-framework.md` (4-gate market selection) + `prompts/_specs/deep-market-analysis-framework.md` (two-lens deep analysis). Kam's source-of-truth sauce.
-- ✓ **Deterministic fetch tooling** — `tools/adlib-one.js` (Meta Ad Library + `days_running`), `tools/crowdfund-fetch.js` (SPA/Cloudflare bypass), Playwright-based — rescued from the InkLeaf run.
-- ✓ **Locked canon** — `definitions.md` (vocabulary), `workflow.md` (Phase spine + PMBD battery, now tagged reservoir), `capability_inventory.md`, `README.md` (the clickable flow), `CLAUDE.md` (agent-design rules).
-- ✓ **Launch machinery imported** — `launch/` (Shopify + Klaviyo + LP build/deploy), to generalize into the reusable new-store module (M2). InkLeaf-specific; not yet reconciled.
-- ⌫ **InkLeaf run — RETIRED** — `_quarantine/runs/eink-tablets/`: misclassified definitions, throwaway deep-comp brief. Learnings already mined into `run-retrospective.md` + `agents/implementation-notes.md`.
+- ✓ Engine glue layer exists and is proven — `fetch`/`clean`/`funnel`/`asset`/`aggregate` bricks, `hooks/` (validators + DR-injectors), `integrations/` (Shopify/Cloudflare/Klaviyo/CDP), `contracts/schemas/`; `bash engine/contracts/h6-all.sh` → 14/14 green — existing (root `/engine`)
+- ✓ Step 0 Bet Compiler built as the envelope yardstick — explicit OUTPUT CONTRACT + machine-checkable COMPLETENESS + HOW-IT'S-CONSUMED map — existing (`basis/build-base/skills/bet-compiler/SKILL.md`)
+- ✓ Authoritative design/spec layer complete — `PART0` flow, `PART3` architecture (§8 orchestration, §9 seams, §5.2 consumption matrix), the 11 per-step `briefs/`, the soundness standards triad — existing (`basis/build-base/`)
+- ✓ **Artifact store** — `runs/<space>/` slot tree (10 dirs + 16 stub slots), idempotent `store-scaffold.js`, whole-space no-overwrite-v1 resolver (`space-version.js`), `_receipts/` ledger writer with sha256 inputs_hash (`receipt-write.js`), `__`-join fan-out namer (`fanout-path.js`), usable `smoke` space, `store-smoke.sh` acceptance harness green (STORE-01..05) — Validated in Phase 1: Artifact Store Scaffold (`engine/bricks/`, `engine/contracts/store-smoke.sh`)
+- ✓ **Run-controller** — `bin/run` + `run-controller.js`, the PART3 §8 7-phase loop (preflight → plan-print → context → spawn → validate → store+receipt → gate), `pipeline.yaml` R1 ordering, manifest loader, run-all completeness preflight — v1.0 (CTRL-01..12, SMOKE-05; `controller-smoke.sh` green)
+- ✓ **11 step manifests** — `engine/manifests/00..10-*.json` reads/writes/scripts/prompt/validator/gate; producer→consumer graph closed (orphans=0/dangling=0); gates {0,1,5,7,8,10} — v1.0 (MANIFEST-01..04, WIRE-01/02; `manifest-smoke.sh` green)
+- ✓ **11 prompt stubs + mock emits** — `prompts/00..10-*.md` bet-compiler envelope w/ marked BODY slots + STUB-mode multi-write emits; WIRE-03 two-tier classification — v1.0 (STUB-01..04, WIRE-03; `stub-smoke.sh` green)
+- ✓ **Validators + gates + receipts** — `validate-shape.js` + `output-shapes.json` (all outputs), preflight hollow-input refusal, gate block-and-log, receipt `validator_verdicts` + `gate.decision`, unbroken chain — v1.0 (VALID-01..05; `validate-smoke.sh` green)
+- ✓ **Smoke run / Definition of Done** — `run all --space=smoke --smoke` completes clean end-to-end; zero orphan/dangling over the real run; deterministic; `smoke-dod.sh` the 7th gate — v1.0 (SMOKE-01..05)
+- ✓ **Locked operator decisions wired** — Step0 → `CLAIM-LIST.json` → Step9 (WIRE-01); Step7 reads bet-brief AND product-intake (WIRE-02); Step2 raw → Step3 canonical, all 5 axes traced (WIRE-03) — v1.0
 
 ### Active
 
-<!-- M1 — the research engine. The VOC pipeline is the critical path. All hypotheses until shipped + UAT'd. -->
-
-**VOC engine (Phase 3a/3b) — critical path:**
-- [ ] Classifier codebook — the keystone machine contract (`definitions.md` PMBD×tier ladder + `workflow.md` battery, compiled); built first, everything keys off it
-- [ ] Per-quote record schema + two materialized views (frequency brief + copy bank)
-- [ ] Query Planner agent — three search lanes + no-clean-venue handling
-- [ ] Reddit scraper (official commercial API) + cleaner + verbatim-gate hook (raw-immutable-copy discipline)
-- [ ] Bucketer agent (pass 1) — letter + raw theme + counter-signal + vocab flag, whole corpus, cheap
-- [ ] Intensity scorer (VADER + engagement + length) — deterministic, rank-not-delete
-- [ ] Frequency + co-occurrence clustering — unique-user counts; user×theme incidence matrix → sub-niche clusters (the novel piece, no prior art)
-- [ ] Ladderer agent (pass 2) — T1–T4 tier + verbatim spans on hot clusters only
-- [ ] Language Analyzer agent (pass 3) + copy-bank store — organize verbatim, light-clean only, never reword
-- [ ] End-to-end UAT — run on a reference subreddit; Kam reads the copy bank
-
-**Reusable research tooling:**
-- [ ] Templatize `phase1-light-pass.md` (finder/verifier/dumper/classifier) into parameterized slots
-- [ ] Extract `deliverable-templates.md` (10+ output schemas) + standalone agent-brief template
-
-**Bet selection + downstream research:**
-- [ ] Gate 1 three-way comparison — cross-score faith/students/dumb-device, select the InkLeaf bet
-- [ ] Phase 3c mechanism research on the winning market
-- [ ] Phase 3d loop-back — revise Phase 0/1 hypothesis given Phase 3 learnings
+<!-- Next milestone — not yet scoped. Candidates are the deferred CONTENT/PHASEB jobs in Out of Scope. Run /gsd-new-milestone. -->
+- (none — v1.0 Shell shipped 2026-06-28; next milestone undefined)
 
 ### Out of Scope
 
-<!-- Explicit boundaries. M2 is deferred (next milestone), not rejected. -->
+<!-- This milestone only. Deferred items are real future work, not exclusions forever. -->
 
-- **M2 — launch/execution engine (Phase 4–8 + InkLeaf fold)** — deferred to the next milestone; rolling-wave, don't plan before M1 shakes out. Includes test design, hook test, deposit-funnel build, creatives, eval, iterate.
-- **Phase 3c as an agent / Phase 4 copywriting** — out of M1's VOC scope; VOC ends at a stored queryable copy bank. Writing copy *from* it is Phase 4.
-- **Vectorization / RAG vector DB** — JIT only; build the structured attributed store now, add embeddings when Phase 4 needs semantic retrieval.
-- **Persistence / substrate layer** — DEFERRED (2026-05-21); `.md` files are de-facto persistence; build JIT when manual friction demands it.
-- **`space-sketcher` (partial-seed expander)** — DEFERRED; no partial-seed case has appeared.
-- **InkLeaf research run** — RETIRED, quarantined to `_quarantine/`. Not regenerated, not a UAT corpus. Learnings mined into `run-retrospective.md` + `agents/implementation-notes.md`.
-- **LLM-generated customer copy** — hard prohibition; the moat is real attributed verbatim. No agent ever authors a customer sentence into the bank.
+- Prompt bodies / marketing judgment — deferred drop-in slots (`PART2 Job 7`)
+- Field-level seam schemas / contract-congruence checker — deferred (`PART2 Job 5` / `OPEN-DECISIONS A2`); tightens validators later with no rewiring
+- Prompt-division (1 vs N agents per step) — deferred (`PART2 Job 6`); internal to a step, no inter-step rewiring
+- Marketing truth & thresholds — determination tests, currency model, whitespace-vs-scary, claim taxonomy, pricing-anchor slot (`PART2 Jobs 2–4` / `OPEN-DECISIONS`)
+- Phase B (production & launch) — Asset-Describe hub, Visual-Branding, Video Strategist/Builder, HTML + Shopify implementers — append-only future extension (`PART5`)
+- Rewriting engine glue — assemble + order existing bricks; never rewrite the fetch/glue
 
 ## Context
 
-- **Brownfield, doc-and-prompt codebase.** Not a software product: markdown specs + agent briefs + a handful of Playwright fetch scripts + a directory tree as persistence. No package.json, build, server, or test suite. Node v20, Playwright 1.59 installed globally.
-- **Source-of-truth hierarchy (authority order):** `definitions.md` → `workflow.md` → `capability_inventory.md` → `handoff.md` / `BUILD-STATE.md` → agent briefs / run artifacts (beta, not locked).
-- **The build brief for M1's critical path is ready:** `handoff-phase3-voc-build.md` (architecture settled 2026-06-01, all strategy decisions locked). The 3-pass pipeline (Bucketer → frequency/clustering → Ladderer → Language Analyzer) and the one-job-per-agent split are locked there.
-- **Prior art researched:** DeTAILS, LLMCode (verbatim-grounding gate), Reddit_Scrapper, PainOnSocial (where commercial twins stop — no per-user clustering), Xiao CHI'23 / CollabCoder (deductive coding vs frozen codebook). Co-occurrence clustering *within individuals* is the genuine white space.
-- **Manual precedent:** Vindicta PMBD prompts (`~/Documents/Vindicta/`) — the mature manual method; its good parts (frequency-table architecture, output-check rules) survive as scripts + hooks, its bloat (three jobs in one prompt) is split into the micro-agents.
-- **GSD ceremony was abandoned for the InkLeaf run** as too heavy for learn-by-building. This initialization is the transition from ad-hoc exploration to systematic build — kept deliberately lightweight.
+- **Source of truth handed to GSD:** `basis/build-base/ONE-SHOT-SHELL.md` (read with `architecture/PART0`, `PART3`, `SHELL-BUILD-SPEC.md`, `STATE-OF-PROJECT.md`).
+- **Engine location:** reuse root `/engine` (byte-identical to the former `build-base/engine/` — see `basis/build-base/ENGINE-AT-ROOT.md`); it is wired into `.claude/settings.json` (`route.js` PostToolUse, `guard-marketing.js` PreToolUse) and referenced by `engine/contracts/`. Find bricks via `engine/contracts/REGISTRY.json` (+ `REGISTRY.md` human view) and `REUSE-INDEX.md`.
+- **Staleness:** `capability_inventory.md` and most pre-import top-level docs are stale; the recently-imported `basis/` (the pmf3 workspace) is current.
+- **Shipped state (v1.0, 2026-06-28):** artifact-grain wiring is 100% — `run all --space=smoke --smoke` completes end-to-end on stubs, zero orphan/dangling over the real run, 7 acceptance gates green (`store-/controller-/manifest-/stub-/validate-/smoke-dod` + engine `h6-all`). Field-grain continuity remains the deferred gap (CONTENT-02 / `OPEN-DECISIONS A2`) — addable to the existing validators with no rewiring. Build artifacts: `engine/manifests/*.json`, `prompts/*.md`, `engine/contracts/*-smoke.sh`, `engine/hooks/validate-shape.js`. Branch `pmf-shell-build` (not yet merged/pushed).
+- A prior `/gsd-new-project` run was reverted ("started over") — this init derives strictly from `basis/`, not generic domain research.
 
 ## Constraints
 
-- **Naming (locked):** **Phase** = PMF research step 0–8 (`workflow.md`), immutable. **Stage** = GSD build unit. **Milestone** = a grouping of stages (M1 = research engine, M2 = launch engine). Never reuse Phase numbers for build units. *(Note: the auto-generated `.planning/codebase/*.md` maps invert this — they are wrong on naming; the canon above governs.)*
-- **Agent design (locked):** One job per agent, split to the smallest part, route to the right executor. Deterministic jobs (fetch, clean, dedupe, count/score, store, validate) are scripts/hooks; only judgment jobs (query design, classify, extract, synthesize) are agents.
-- **Verbatim grounding (locked, hook-enforced):** agents return `(author_id, source, char-offsets)` and never emit quote text; a script slices from the raw immutable copy and string-verifies; reject on mismatch.
-- **Source-metadata pass-through (locked):** every VOC record preserves platform/venue/author_id/url/timestamp/engagement — required for the 5+ single-individual co-occurrence sub-niche rule.
-- **Reddit ingestion:** must run on Reddit's official commercial API (GummySearch died Nov 2025 over API licensing — same shutdown risk otherwise).
-- **Tech:** markdown + thin Node/Playwright scripts; build tooling JIT; dumb-modular-first (30-line cleaner, not an NLP pipeline).
-- **Verification:** UAT, not unit tests — prompt/research quality isn't test-passable. Run on a reference subreddit + Kam reads the output.
-- **Collaboration:** Kam owns strategy (codebook content, search lanes, intensity definition, how the brief reads); Claude builds plumbing (scrapers, hooks, matrix math, storage, JSON contracts). Surface only genuine strategy forks; default and proceed on everything mechanical.
+- **Precedence (rule #1):** `standards/` → build-base architecture (`PART0`/`PART3`/`PART1`) → built bet-compiler SKILL → as-ran repo (reference only). Where as-ran/old prompts disagree with the architecture, **the architecture wins.** (ONE-SHOT §3)
+- **Wire at the artifact grain, not the prompt grain** — only inter-step artifact flow must be deterministic; step internals are black boxes. (ONE-SHOT §5.1)
+- **Reuse engine bricks, don't rewrite** — assemble + order per the blueprint. (ONE-SHOT §5.4)
+- **Scope guard** — target Steps 0–10 only; do not thread Phase B into the wiring now.
+- **No-overwrite-v1 versioning** — committed run outputs / emitted bricks are never mutated in place on a re-run (project convention, `CLAUDE.md`).
+- **Build strategy = shell-first** — wire now, drop prompts + field schemas in later.
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Initialize GSD now, at the ad-hoc→systematic transition | Heavy GSD ceremony was abandoned mid-InkLeaf as too heavy; lightweight structure fits learn-by-building | — Pending |
-| M1 = research engine, M2 = launch engine (deferred) | VOC pipeline is the critical path; rolling-wave avoids over-planning M2 before M1 teaches us | — Pending |
-| Build the classifier codebook first | It is simultaneously classifier instructions, record schema, and copy-retrieval index — everything keys off it | — Pending |
-| Models: Opus for planning/research/roadmap, Sonnet for executor | Opus where context+reasoning+orchestration matter; Sonnet for worker-bee implementation | — Pending |
-| InkLeaf run RETIRED / quarantined | Bare-minimum first run; misclassified definitions + throwaway deep-comp; learnings mined to reservoir docs | ✓ Done (2026-06-03) |
-| Co-occurrence clustering within individuals is the differentiator | No prior art; commercial twins (PainOnSocial) stop short of per-user clustering | — Pending |
+| Shell-first build (mechanism before content) | Prove wiring independent of marketing quality; prompts/schemas drop into slots later with no rewiring | ✓ Good — v1.0 ships with every real prompt body a marked drop-in slot; validators tighten in place via CONTENT-02 with no rewiring |
+| Skip generic domain research at init | Domain fully specified in `basis/`; web research drifts off-target (prior run reverted) | ✓ Good — build derived strictly from `basis/`, no drift |
+| Step 0 produces `CLAIM-LIST.json`, consumed by Step 9 | Closes Step 9's dangling input | ✓ Good — WIRE-01 wired + gated (manifest-smoke green) |
+| Step 7 Funnel Architect consumes bet-brief AND product-intake | Both required inputs, not optional | ✓ Good — WIRE-02 wired (manifest-smoke green) |
+| Two-tier classification (Step 2 raw → Step 3 canonical) | Section Analyzer emits per-funnel; Space Classifier canonicalizes across all funnels | ✓ Good — WIRE-03, all 5 axes traced (stub-smoke green) |
+| Quality model profile + autonomous build (GSD) + Claude Workflows (xhigh) for heavy orchestration | Operator wants exhaustive correctness over speed/cost | ✓ Good — per-phase xhigh adversarial verify caught real harness/validator false-greens every phase; all fixed |
+| Per-phase xhigh adversarial verification as a hard gate | Catch false-greens the GSD verify/review passes miss | ✓ Good — caught a high-sev receipt overwrite (P1), DoS + harness false-greens (P2–5); Phase 6 came back clean |
+| Engine flake fixed at root (h5-e2e pinned to deterministic stub backend) | A live-Voyage network call made the regression gate nondeterministic | ✓ Good — operator granted full control over pre-existing engine; gates now deterministic |
 
 ## Evolution
 
@@ -104,8 +85,8 @@ This document evolves at phase transitions and milestone boundaries.
 **After each milestone** (via `/gsd-complete-milestone`):
 1. Full review of all sections
 2. Core Value check — still the right priority?
-3. Audit Out of Scope — reasons still valid?
+3. Audit Out of Scope — reasons still valid? (the deferred content jobs `PART2 Jobs 2–8` and Phase B `PART5` become candidate next milestones)
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-02 after initialization*
+*Last updated: 2026-06-28 — after v1.0 Shell milestone (all 6 phases, 38/38 requirements, 7 gates green)*

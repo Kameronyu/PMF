@@ -1,0 +1,11 @@
+{
+  "id": "vid-001",
+  "segments": [ { "t": "0:00-0:05", "beat": "in-hand demo" } ],
+  "demonstrates": [
+    { "claim": "pocket_scale", "at": "0:00-0:05", "strength": "strong", "motion_value": "Hand rotates the device showing it fits the palm." }
+  ],
+  "best_use": "feature_demo",
+  "loop_safe": true,
+  "needs_audio": false,
+  "disqualifiers": []
+}

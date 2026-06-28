@@ -1,0 +1,7 @@
+{
+  "_note": "Engine smoke fixture for aggregate-mechanisms-in-play.js — the scoped-clustering agent sidecar (the JUDGMENT input).",
+  "canonical_mechanisms": [
+    { "canonical": "modular-swappable", "raw_variants": ["modular", "swappable parts"], "brands": ["alpha", "beta", "gamma"] },
+    { "canonical": "open-source", "raw_variants": ["open source"], "brands": ["alpha", "beta"] }
+  ]
+}

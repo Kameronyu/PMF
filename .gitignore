@@ -1,0 +1,29 @@
+# Raw HTML corpus (large, reproducible from fetch.js)
+corpus/*/raw/
+
+# Ad library screenshots (binary, large)
+ads/*_adv.png
+
+# Python virtual environment (PEP 668 — use .venv/bin/python explicitly)
+.venv/
+
+# Asset classifier runtime output (copied media + downscaled work copies — not committed)
+assets/
+
+# Regenerable emitter side-outputs (D-10) — scratch, never committed
+_index.json
+_*-log.txt
+_*.agent.json
+_caption_*
+
+# Preserve tracked test fixtures from the patterns above (D-12)
+!runs/_fixture/
+!runs/_fixture/**
+
+# Shopify Admin API creds (secret)
+runs/arduview/_tooling/.shopify-creds.json
+runs/arduview/_tooling/.klaviyo-creds.json
+runs/arduview/_tooling/.cloudflare-creds.json
+runs/arduview/_tooling/.klaviyo-inkleaf-creds.json
+
+_legacy/

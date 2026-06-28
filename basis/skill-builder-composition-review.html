@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eval Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" integrity="sha384-EnyY0/GSHQGSxSgMwaIPzSESbqoOLSexfnSMN2AP+39Ckmn92stwABZynq1JyzdT" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #faf9f5;
+      --surface: #ffffff;
+      --border: #e8e6dc;
+      --text: #141413;
+      --text-muted: #b0aea5;
+      --accent: #d97757;
+      --accent-hover: #c4613f;
+      --green: #788c5d;
+      --green-bg: #eef2e8;
+      --red: #c44;
+      --red-bg: #fceaea;
+      --header-bg: #141413;
+      --header-text: #faf9f5;
+      --radius: 6px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lora', Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---- Header ---- */
+    .header {
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .header .instructions {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      margin-top: 0.25rem;
+    }
+    .header .progress {
+      font-size: 0.875rem;
+      opacity: 0.8;
+      text-align: right;
+    }
+
+    /* ---- Main content ---- */
+    .main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* ---- Sections ---- */
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      flex-shrink: 0;
+    }
+    .section-header {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.75rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .section-body {
+      padding: 1rem;
+    }
+
+    /* ---- Config badge ---- */
+    .config-badge {
+      display: inline-block;
+      padding: 0.2rem 0.625rem;
+      border-radius: 9999px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-left: 0.75rem;
+      vertical-align: middle;
+    }
+    .config-badge.config-primary {
+      background: rgba(33, 150, 243, 0.12);
+      color: #1976d2;
+    }
+    .config-badge.config-baseline {
+      background: rgba(255, 193, 7, 0.15);
+      color: #f57f17;
+    }
+
+    /* ---- Prompt ---- */
+    .prompt-text {
+      white-space: pre-wrap;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+
+    /* ---- Outputs ---- */
+    .output-file {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .output-file + .output-file {
+      margin-top: 1rem;
+    }
+    .output-file-header {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .output-file-header .dl-btn {
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-weight: 500;
+      opacity: 0.8;
+    }
+    .output-file-header .dl-btn:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+    .output-file-content {
+      padding: 0.75rem;
+      overflow-x: auto;
+    }
+    .output-file-content pre {
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+    }
+    .output-file-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    .output-file-content iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+    .output-file-content table {
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+      width: 100%;
+    }
+    .output-file-content table td,
+    .output-file-content table th {
+      border: 1px solid var(--border);
+      padding: 0.375rem 0.5rem;
+      text-align: left;
+    }
+    .output-file-content table th {
+      background: var(--bg);
+      font-weight: 600;
+    }
+    .output-file-content .download-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+    .output-file-content .download-link:hover {
+      background: var(--border);
+    }
+    .empty-state {
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    /* ---- Feedback ---- */
+    .prev-feedback {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.625rem 0.75rem;
+      margin-top: 0.75rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .prev-feedback-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+      color: var(--text-muted);
+    }
+    .feedback-textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      resize: vertical;
+      color: var(--text);
+    }
+    .feedback-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    .feedback-status {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      min-height: 1.1em;
+    }
+
+    /* ---- Grades (collapsible) ---- */
+    .grades-toggle {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .grades-toggle:hover {
+      color: var(--accent);
+    }
+    .grades-toggle .arrow {
+      margin-right: 0.5rem;
+      transition: transform 0.15s;
+      font-size: 0.75rem;
+    }
+    .grades-toggle .arrow.open {
+      transform: rotate(90deg);
+    }
+    .grades-content {
+      display: none;
+      margin-top: 0.75rem;
+    }
+    .grades-content.open {
+      display: block;
+    }
+    .grades-summary {
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .grade-badge {
+      display: inline-block;
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .grade-pass { background: var(--green-bg); color: var(--green); }
+    .grade-fail { background: var(--red-bg); color: var(--red); }
+    .assertion-list {
+      list-style: none;
+    }
+    .assertion-item {
+      padding: 0.625rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8125rem;
+    }
+    .assertion-item:last-child { border-bottom: none; }
+    .assertion-status {
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+    .assertion-status.pass { color: var(--green); }
+    .assertion-status.fail { color: var(--red); }
+    .assertion-evidence {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      padding-left: 1.5rem;
+    }
+
+    /* ---- View tabs ---- */
+    .view-tabs {
+      display: flex;
+      gap: 0;
+      padding: 0 2rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .view-tab {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.625rem 1.25rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .view-tab:hover { color: var(--text); }
+    .view-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .view-panel { display: none; }
+    .view-panel.active { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+
+    /* ---- Benchmark view ---- */
+    .benchmark-view {
+      padding: 1.5rem 2rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .benchmark-table {
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.8125rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    .benchmark-table th, .benchmark-table td {
+      padding: 0.625rem 0.75rem;
+      text-align: left;
+      border: 1px solid var(--border);
+    }
+    .benchmark-table th {
+      font-family: 'Poppins', sans-serif;
+      background: var(--header-bg);
+      color: var(--header-text);
+      font-weight: 500;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .benchmark-table tr:hover { background: var(--bg); }
+    .benchmark-table tr.benchmark-row-with { background: rgba(33, 150, 243, 0.06); }
+    .benchmark-table tr.benchmark-row-without { background: rgba(255, 193, 7, 0.06); }
+    .benchmark-table tr.benchmark-row-with:hover { background: rgba(33, 150, 243, 0.12); }
+    .benchmark-table tr.benchmark-row-without:hover { background: rgba(255, 193, 7, 0.12); }
+    .benchmark-table tr.benchmark-row-avg { font-weight: 600; border-top: 2px solid var(--border); }
+    .benchmark-table tr.benchmark-row-avg.benchmark-row-with { background: rgba(33, 150, 243, 0.12); }
+    .benchmark-table tr.benchmark-row-avg.benchmark-row-without { background: rgba(255, 193, 7, 0.12); }
+    .benchmark-delta-positive { color: var(--green); font-weight: 600; }
+    .benchmark-delta-negative { color: var(--red); font-weight: 600; }
+    .benchmark-notes {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+    .benchmark-notes h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+    }
+    .benchmark-notes ul {
+      list-style: disc;
+      padding-left: 1.25rem;
+    }
+    .benchmark-notes li {
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      margin-bottom: 0.375rem;
+    }
+    .benchmark-empty {
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: center;
+      padding: 3rem;
+    }
+
+    /* ---- Navigation ---- */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+    .nav-btn {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      transition: all 0.15s;
+    }
+    .nav-btn:hover:not(:disabled) {
+      background: var(--bg);
+      border-color: var(--text-muted);
+    }
+    .nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .done-btn {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.5rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .done-btn:hover {
+      background: var(--bg);
+      border-color: var(--text-muted);
+    }
+    .done-btn.ready {
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+    }
+    .done-btn.ready:hover {
+      background: var(--accent-hover);
+    }
+    /* ---- Done overlay ---- */
+    .done-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    .done-overlay.visible {
+      display: flex;
+    }
+    .done-card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 2rem 3rem;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+    }
+    .done-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .done-card p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .done-card .btn-row {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    .done-card button {
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+    .done-card button:hover {
+      background: var(--bg);
+    }
+    /* ---- Toast ---- */
+    .toast {
+      position: fixed;
+      bottom: 5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 200;
+    }
+    .toast.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" style="height:100vh; display:flex; flex-direction:column;">
+    <div class="header">
+      <div>
+        <h1>Eval Review: <span id="skill-name"></span></h1>
+        <div class="instructions">Review each output and leave feedback below. Navigate with arrow keys or buttons. When done, copy feedback and paste into Claude Code.</div>
+      </div>
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <!-- View tabs (only shown when benchmark data exists) -->
+    <div class="view-tabs" id="view-tabs" style="display:none;">
+      <button class="view-tab active" onclick="switchView('outputs')">Outputs</button>
+      <button class="view-tab" onclick="switchView('benchmark')">Benchmark</button>
+    </div>
+
+    <!-- Outputs panel (qualitative review) -->
+    <div class="view-panel active" id="panel-outputs">
+    <div class="main">
+      <!-- Prompt -->
+      <div class="section">
+        <div class="section-header">Prompt <span class="config-badge" id="config-badge" style="display:none;"></span></div>
+        <div class="section-body">
+          <div class="prompt-text" id="prompt-text"></div>
+        </div>
+      </div>
+
+      <!-- Outputs -->
+      <div class="section">
+        <div class="section-header">Output</div>
+        <div class="section-body" id="outputs-body">
+          <div class="empty-state">No output files found</div>
+        </div>
+      </div>
+
+      <!-- Previous Output (collapsible) -->
+      <div class="section" id="prev-outputs-section" style="display:none;">
+        <div class="section-header">
+          <div class="grades-toggle" onclick="togglePrevOutputs()">
+            <span class="arrow" id="prev-outputs-arrow">&#9654;</span>
+            Previous Output
+          </div>
+        </div>
+        <div class="grades-content" id="prev-outputs-content"></div>
+      </div>
+
+      <!-- Grades (collapsible) -->
+      <div class="section" id="grades-section" style="display:none;">
+        <div class="section-header">
+          <div class="grades-toggle" onclick="toggleGrades()">
+            <span class="arrow" id="grades-arrow">&#9654;</span>
+            Formal Grades
+          </div>
+        </div>
+        <div class="grades-content" id="grades-content"></div>
+      </div>
+
+      <!-- Feedback -->
+      <div class="section">
+        <div class="section-header">Your Feedback</div>
+        <div class="section-body">
+          <textarea
+            class="feedback-textarea"
+            id="feedback"
+            placeholder="What do you think of this output? Any issues, suggestions, or things that look great?"
+          ></textarea>
+          <div class="feedback-status" id="feedback-status"></div>
+          <div class="prev-feedback" id="prev-feedback" style="display:none;">
+            <div class="prev-feedback-label">Previous feedback</div>
+            <div id="prev-feedback-text"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav" id="outputs-nav">
+      <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">&#8592; Previous</button>
+      <button class="done-btn" id="done-btn" onclick="showDoneDialog()">Submit All Reviews</button>
+      <button class="nav-btn" id="next-btn" onclick="navigate(1)">Next &#8594;</button>
+    </div>
+    </div><!-- end panel-outputs -->
+
+    <!-- Benchmark panel (quantitative stats) -->
+    <div class="view-panel" id="panel-benchmark">
+      <div class="benchmark-view" id="benchmark-content">
+        <div class="benchmark-empty">No benchmark data available. Run a benchmark to see quantitative results here.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Done overlay -->
+  <div class="done-overlay" id="done-overlay">
+    <div class="done-card">
+      <h2>Review Complete</h2>
+      <p>Your feedback has been saved. Go back to your Claude Code session and tell Claude you're done reviewing.</p>
+      <div class="btn-row">
+        <button onclick="closeDoneDialog()">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ---- Embedded data (injected by generate_review.py) ----
+    const EMBEDDED_DATA = {"skill_name": "skill-builder-composition", "runs": [{"id": "eval-0-old_skill", "prompt": "see evals.json", "eval_id": 0, "outputs": [{"name": "NOTES.md", "type": "text", "content": "# NOTES \u2014 support-email-triage\n\nApplied skill-builder hardening? YES. This is a textbook skill-builder case: the\noutput is two JUDGED fields (the agent decides them), and both are exactly the\nfailure mode skill-builder targets \u2014 a label that may not fit its category and an\nextracted value that can be plausibly hallucinated. Neither is a COPIED field, so\nthe procedure applies in full.\n\nMechanisms added, by field:\n- priority: positive target as a RUBRIC over named signals (not a vague\n  definition); ENUM with verbatim echo of [urgent|high|normal|low] (A1 strongest\n  form); a 4-question MEMBERSHIP TEST that can return FALSE (Q2/Q3 force a tier\n  drop when only tone is present); per-field source + evidence_quote that must be\n  a verbatim substring of the email (A2); reasoning-before-verdict ordering.\n- product_name: MUST-FILL template + 3-question membership test; source +\n  verbatim evidence_quote (A2); explicit \"unspecified\" fallback so the slot is\n  never filled with a guessed product.\n- COMPLETENESS split into PRESENCE vs. SOUNDNESS (B2), each SOUNDNESS line naming\n  the rule (A1/A2/rubric) it enforces; emit_ready only if all SOUNDNESS pass, else\n  BLOCKED:<field>.\n- One worked example that passes its own gates, plus a FAILING case proving the\n  gate can return false (A3).\n- One negative, one line, at the end (the tone-is-weak-signal boundary) \u2014 the\n  single known attractor for over-rating priority.\n- One-job-per-prompt: verification (substring + enum checks are mechanical)\n  pushed to a separate script, not self-graded.\n"}, {"name": "SKILL.md", "type": "text", "content": "---\nname: support-email-triage\ndescription: >-\n  Use when an incoming customer-support email needs to be triaged into a routable\n  record: a priority label (one of urgent | high | normal | low) and the\n  product_name the customer is writing about. Triggers: classifying or routing a\n  support inbox; assigning a severity/priority to a ticket; extracting which product\n  a complaint or question concerns; turning a raw email into a structured triage\n  object for a queue, dashboard, or escalation rule. Use this even when the user\n  only says \"tag this ticket\", \"how urgent is this\", or \"what product is this\n  about\" \u2014 anytime an email must become a priority + product decision that another\n  system will act on. Outputs are mechanically verifiable: priority is a closed\n  enum and product_name must quote the email verbatim, so a wrong value fails by\n  shape rather than being trusted on sight.\n---\n\n# Support Email Triage \u2014 priority + product, with proof\n\nTurn one customer-support email into a structured triage object with two JUDGED\nfields \u2014 `priority` and `product_name` \u2014 each carrying the evidence that earned\nit. Both fields are *decided* by you, so neither is trusted on sight: each gets a\npositive target, a membership test that can return FALSE, and a verbatim quote\nfrom the email. \"Done\" means the fields PASSED their gates, never \"the slots are\nfilled in.\"\n\n## INPUTS / OUTPUT / CONSUMERS\n```\nINPUTS: one customer-support email (subject + body; sender/timestamp optional)\nOUTPUT:\n  priority:      enum value + evidence   CONSUMED-BY: ticket router / escalation rule\n  product_name:  string value + evidence CONSUMED-BY: ticket router / product-team queue\n  completeness:  PRESENCE + SOUNDNESS    CONSUMED-BY: the system that ingests the record\n```\nEmit nothing else. If a field can't pass its gate, emit `BLOCKED:<field>` instead\nof guessing \u2014 a routed-wrong ticket is worse than a held one.\n\n## Read the email first, decide last\nBefore you write either value, read the whole email. For each field, write the\nreasoning and the supporting quote BEFORE the verdict, so the verdict is earned\nand inspectable \u2014 not stamped from the subject line.\n\n---\n\n## FIELD 1 \u2014 priority  (a closed enum)\n\n```\nFIELD: priority\nALLOWED VALUES (echo one verbatim \u2014 reject anything not character-for-character on this list):\n  urgent | high | normal | low\nDECIDE FROM these named signals (not vibes):\n  - business impact stated in the email (outage, data loss, money blocked, can't work)\n  - scope (one user vs. whole team/site down)\n  - explicit deadline or time pressure the customer states\n  - emotional/escalation language is a WEAK signal \u2014 it adjusts at most one level,\n    it does not by itself create \"urgent\"\nRUBRIC (pick the highest tier whose condition the email actually meets):\n  urgent  \u2014 production down, data loss, security/billing breach, or a hard\n            imminent deadline the email states; work is fully blocked NOW.\n  high    \u2014 major feature broken or blocking an important workflow, but a\n            workaround exists or it is not yet total; customer needs it soon.\n  normal  \u2014 standard question, single non-blocking bug, config help, how-to.\n  low     \u2014 feature request, feedback, cosmetic nit, or \"no rush\" stated.\nMEMBERSHIP TEST (all YES, or the tier is wrong \u2014 drop a level and recheck):\n  - Q1: Is the value exactly one of [urgent, high, normal, low]?\n  - Q2: Does the email contain a concrete cue for THIS tier (per the rubric),\n        not just an alarmed tone?\n  - Q3: If you chose 'urgent', is work actually BLOCKED now (not \"might be soon\")?\n        If not blocked now, this is at most 'high'.\n  - Q4: Would a colleague reading only your evidence_quote agree this tier fits?\n```\n\n`priority` output shape:\n```\npriority:\n  reasoning: <one or two sentences: which signals you used and why this tier>\n  value: <urgent | high | normal | low>     # echoed verbatim from the allowed list\n  source: traces_to:email_body              # or traces_to:email_subject\n  evidence_quote: \"<verbatim substring of the email that triggers this tier>\"\n  checks:\n    - {text: \"value is one of [urgent,high,normal,low]\", passed: <bool>, evidence: \"<which>\"}\n    - {text: \"evidence_quote is a verbatim substring of the email\", passed: <bool>, evidence: \"<char span or 'found'>\"}\n    - {text: \"the quote is a concrete cue for THIS tier, not just tone\", passed: <bool>, evidence: \"<why>\"}\n```\nNo verbatim cue for the tier \u2192 you may not assign it. Fall to the tier the\nevidence actually supports; if even `low` has no cue and the email is unreadable\nor empty, emit `BLOCKED:priority`.\n\n---\n\n## FIELD 2 \u2014 product_name  (extracted, must quote the email)\n\n`product_name` is the product the customer is writing about. It is NOT inferred\nfrom your own product knowledge and NOT your paraphrase \u2014 it is lifted from what\nthe email actually says.\n\n```\nFIELD: product_name\nMUST FILL: the product/service the email is about, as named or unambiguously\n           referred to in the email text.\nMEMBERSHIP TEST (all YES, or set value to \"unspecified\"):\n  - Q1: Does the email name or unambiguously refer to a specific product?\n  - Q2: Can you quote a verbatim substring of the email that names/refers to it?\n  - Q3: Is the value the product the customer is ASKING ABOUT (not, e.g., a\n        competitor mentioned in passing, or a generic word like \"the app\" with\n        no product behind it)?\n```\n\n`product_name` output shape:\n```\nproduct_name:\n  reasoning: <how the email identifies this product>\n  value: \"<the product name>\"               # or exactly \"unspecified\"\n  source: traces_to:email_body              # or traces_to:email_subject\n  evidence_quote: \"<verbatim substring of the email naming the product>\"\n  checks:\n    - {text: \"evidence_quote is a verbatim substring of the email\", passed: <bool>, evidence: \"<found / char span>\"}\n    - {text: \"the quote names the product the customer is asking about\", passed: <bool>, evidence: \"<why>\"}\n    - {text: \"if no product is named, value is exactly 'unspecified'\", passed: <bool>, evidence: \"<n/a or reason>\"}\n```\nIf the email names no product (or only says \"your app\", \"the tool\", \"it\"), set\n`value: \"unspecified\"` with `source: agent_inference` and an empty\n`evidence_quote` \u2014 do NOT guess a product to fill the slot. \"unspecified\" that is\nhonest beats a confident wrong product that routes the ticket to the wrong team.\n\n---\n\n## COMPLETENESS\n\n### PRESENCE  (the field exists / has a value)\n- [ ] priority present with a value\n- [ ] product_name present with a value (a real name OR exactly \"unspecified\")\n\n### SOUNDNESS  (the field passed its membership test \u2014 names the rule it enforces)\n- [ ] priority.value is one of [urgent, high, normal, low] (A1 enum echo)\n- [ ] priority.evidence_quote is a verbatim substring of the email (A2)\n- [ ] priority's quote is a concrete cue for the chosen tier, not just tone (rubric gate)\n- [ ] product_name.evidence_quote is a verbatim substring of the email, OR value is exactly \"unspecified\" with an empty quote (A2)\n- [ ] product_name is the product the customer is asking about, not a passing mention (A1 Q3)\n- [ ] neither judged field is a placeholder\n\nSTATUS: emit_ready ONLY if every SOUNDNESS box is checked; else emit\n`BLOCKED:<field>` naming the exact field and the concrete fix.\n\n---\n\n## Worked example (every value passes its own gate)\n\nInput email:\n> Subject: Production checkout is down\n> Body: \"Our entire store on ShopFlow has been throwing 500 errors at checkout\n> since this morning \u2014 no customer can pay. We're losing sales every minute.\"\n\n```\npriority:\n  reasoning: Whole store's checkout is down now and revenue is blocked \u2014 production\n             outage, work fully blocked, so urgent (not just alarmed tone).\n  value: urgent\n  source: traces_to:email_body\n  evidence_quote: \"throwing 500 errors at checkout since this morning \u2014 no customer can pay\"\n  checks:\n    - {text: \"value is one of [urgent,high,normal,low]\", passed: true, evidence: \"urgent is in the list\"}\n    - {text: \"evidence_quote is a verbatim substring of the email\", passed: true, evidence: \"found in body\"}\n    - {text: \"the quote is a concrete cue for THIS tier, not just tone\", passed: true, evidence: \"checkout down + no one can pay = blocked now\"}\nproduct_name:\n  reasoning: The email names the product as ShopFlow.\n  value: \"ShopFlow\"\n  source: traces_to:email_body\n  evidence_quote: \"Our entire store on ShopFlow\"\n  checks:\n    - {text: \"evidence_quote is a verbatim substring of the email\", passed: true, evidence: \"found in body\"}\n    - {text: \"the quote names the product the customer is asking about\", passed: true, evidence: \"ShopFlow is the failing store platform\"}\n    - {text: \"if no product is named, value is exactly 'unspecified'\", passed: true, evidence: \"n/a \u2014 product is named\"}\nSTATUS: emit_ready\n```\n\nA FAILING case the gate catches (proof the test can return false): an email that\nsays \"this is SO frustrating, fix it!!!\" with no stated impact and no product \u2014\n`priority` has only tone (Q2 fails \u2192 not urgent/high; falls to `normal`), and\n`product_name` finds no nameable product \u2192 `value: \"unspecified\"`. If a draft had\nstamped `urgent` + a guessed product, both SOUNDNESS lines fail \u2192 `BLOCKED`.\n\n---\n\n## One job per prompt\nThis prompt PRODUCES the triage object; it does not certify itself. The SOUNDNESS\nchecks above are the contract a SEPARATE pass should enforce \u2014 the\n`evidence_quote`-is-a-substring and `value`-in-enum checks are mechanical and\nshould be confirmed by a script, not self-graded. Keep judgment here; push\nverification to that script or a separate validator.\n\n> Tone and urgency words are a weak signal: they may nudge priority by at most one\n> level and never, by themselves, justify \"urgent.\"\n"}], "grading": {"expectations": [{"text": "Judged fields hardened: closed enum present", "passed": true, "evidence": "enum markers=5"}, {"text": "Membership test that can return FALSE present", "passed": true, "evidence": "membership markers=6"}, {"text": "Per-field evidence/provenance present", "passed": true, "evidence": "evidence markers=22"}, {"text": "PRESENCE/SOUNDNESS completeness block present", "passed": true, "evidence": "presence/soundness markers=7"}]}}, {"id": "eval-0-with_skill", "prompt": "see evals.json", "eval_id": 0, "outputs": [{"name": "NOTES.md", "type": "text", "content": "# NOTES \u2014 triage-support-email\n\nYes, I applied skill-builder hardening. skill-creator's branch says: harden when the\noutput is a STRUCTURED / JUDGED contract consumed downstream. Both outputs here qualify \u2014\n`priority` is a label the agent decides and SLA automation consumes; `product_name` is a\nvalue the agent extracts and routing automation consumes. The skill-builder membership\ntest (\"could a separate checker mark this field wrong by its SHAPE, without taste?\") is\nYES for both, so the procedure applies. (A subjective output, e.g. \"write a nice reply,\"\nwould have skipped it.)\n\nMechanisms added, per field:\n- ENUM (priority): closed list [urgent|high|normal|low], echoed verbatim; validator\n  rejects anything off-list.\n- MEMBERSHIP TEST: per-tier all-YES yes/no gates for priority (can return FALSE -> drop a\n  tier); for product_name, a 3-question test that returns UNKNOWN instead of guessing.\n- EVIDENCE / SOURCE: each field carries `source` + `evidence_quote` that must be a\n  verbatim substring of email_text (mechanical, script-checkable); product_name also\n  enum-checks against an optional catalog. No quote -> no label.\n- PRESENCE vs SOUNDNESS: split completeness block; emit_ready only if SOUNDNESS passes,\n  else BLOCKED:<field>.\n- One-job-per-prompt: produce the value here, push the mechanical checks to a bundled\n  validator script / separate pass (don't self-grade in the same breath).\n- Positive-over-negative: spec is positive targets + tests; the one tone/impact attractor\n  is handled by a single descriptive line at the end, not a list of DO-NOTs.\n"}, {"name": "SKILL.md", "type": "text", "content": "---\nname: triage-support-email\ndescription: >-\n  Use when an incoming customer support email needs to be triaged into a routable\n  ticket \u2014 assign a priority label (urgent | high | normal | low) and identify the\n  product_name the customer is writing about. Triggers: a pasted or forwarded support\n  email; \"triage this ticket\", \"what priority is this\", \"which product is this about\",\n  \"route this support request\"; any inbound message from a customer reporting a problem,\n  asking for help, or complaining that needs a priority and a product before it can be\n  queued. Both outputs are consumed downstream (priority drives SLA/queue order;\n  product_name routes to the owning team), so they must be mechanically verifiable \u2014 a\n  label that fits the rubric, a product that actually appears in the email \u2014 not guessed\n  on sight.\n---\n\n# Triage Support Email \u2014 priority + product, mechanically verifiable\n\nYou take ONE incoming customer support email and emit exactly two judged fields:\n`priority` (a closed enum) and `product_name` (a value that traces to the email text).\nBoth are consumed by automation downstream, so a plausible-but-wrong value is worse\nthan a flagged \"unsure\": a mislabeled priority breaks the SLA queue, a hallucinated\nproduct routes the ticket to the wrong team. Your job is to JUDGE these two fields and\nemit the proof each one passed its gate \u2014 not to also self-certify them as correct.\n\n## INPUTS / OUTPUT / CONSUMERS\n```\nINPUTS:\n  email_text: the full body (and subject, if present) of one customer support email.\n              This is the ONLY source of truth. Do not invent product names, account\n              details, or severity not grounded in this text.\n  product_catalog (optional): a closed list of the company's product names. If provided,\n              product_name MUST be one of these (treat as an enum). If absent, product_name\n              is an extracted span from email_text.\n\nOUTPUT:\n  priority:      enum            CONSUMED-BY: SLA/queue-ordering automation\n  product_name:  string | UNKNOWN  CONSUMED-BY: team-routing automation\n  # No other fields are emitted \u2014 no consumer reads a summary, sentiment, or reply draft.\n```\n\n## Output shape\nEmit one JSON object. Each judged field co-locates its value with its provenance and\nits checks, so a separate validator (or `adversarial-reviewer`) can confirm it without\nre-reading your reasoning:\n\n```json\n{\n  \"email_text\": \"<the email you were given, verbatim \u2014 so the checker can substring-match>\",\n  \"priority\": {\n    \"value\": \"high\",\n    \"source\": \"traces_to:email_text\",\n    \"evidence_quote\": \"we can't process any orders and customers are calling\",\n    \"checks\": [\n      {\"text\": \"value is one of [urgent, high, normal, low]\", \"passed\": true, \"evidence\": \"high is in the enum\"},\n      {\"text\": \"evidence_quote is a verbatim substring of email_text\", \"passed\": true, \"evidence\": \"found in body\"},\n      {\"text\": \"the quote matches the chosen tier's membership test\", \"passed\": true, \"evidence\": \"broad business impact, not yet full outage -> high\"}\n    ]\n  },\n  \"product_name\": {\n    \"value\": \"Checkout API\",\n    \"source\": \"traces_to:email_text\",\n    \"evidence_quote\": \"the Checkout API keeps returning 500s\",\n    \"checks\": [\n      {\"text\": \"value appears verbatim in email_text OR (if a catalog was given) is one of the catalog entries\", \"passed\": true, \"evidence\": \"'Checkout API' is a substring of the email\"},\n      {\"text\": \"evidence_quote is a verbatim substring of email_text\", \"passed\": true, \"evidence\": \"found in body\"}\n    ]\n  }\n}\n```\n\nOrder each field so the reasoning (evidence + checks) is what JUSTIFIES the value \u2014\nwrite the quote and run the membership test, then commit to the value. A value with no\npassing quote is not a value; emit `UNKNOWN` (see below) rather than a guess.\n\n---\n\n## Field 1 \u2014 priority (closed enum)\n\nALLOWED VALUES (echo your choice verbatim from this list \u2014 anything not character-for-character\non it is invalid):  `urgent` \u00b7 `high` \u00b7 `normal` \u00b7 `low`\n\nChoose the tier by what the email actually evidences about IMPACT and URGENCY, not by how\nloud the tone is. An ALL-CAPS rant about a cosmetic typo is still `low`; a calm, polite\nnote that says \"our production checkout has been down for two hours\" is `urgent`. Tone is\nnot severity \u2014 anchor on the impact described.\n\n```\nMEMBERSHIP TEST (pick the HIGHEST tier whose test is all-YES; the evidence_quote must\nsupport that tier):\n\nurgent \u2014 all YES:\n  - Does the email describe a current, active breakage or blocker (down / outage /\n    can't access / data loss / security or payment exposure), not a future risk or a question?\n  - Is the impact broad or business-critical (production down, many users, money/data at risk)?\n  - Is it time-sensitive RIGHT NOW (happening, not \"might happen later\")?\n\nhigh \u2014 all YES:\n  - Is something materially broken or seriously degraded for this customer?\n  - Is there real business impact OR an explicit hard deadline (\"we go live Monday\")?\n  - Is it NOT a full critical outage (else it's urgent)?\n\nnormal \u2014 all YES:\n  - Is this a standard problem, question, \"how do I\", or non-blocking bug?\n  - Is the customer able to keep working (a workaround exists or it's not blocking)?\n  - Is there no explicit urgent deadline or broad outage?\n\nlow \u2014 all YES:\n  - Is this cosmetic, a minor inconvenience, feature request, feedback, or general FYI?\n  - Would nothing bad happen to the customer if it waited?\n\nIf the email shows NO impact signal at all and you cannot quote a phrase that supports any\ntier, default to `normal` and set the priority check \"evidence supports the chosen tier\"\nto passed:false with evidence \"no impact signal found\" \u2014 this surfaces the weak case to\nthe queue rather than silently inventing severity.\n```\n\n`evidence_quote` for priority MUST be a verbatim substring of `email_text` that contains\nthe impact/urgency signal you classified on. No quote that supports the tier \u2192 drop to the\nnext-lower tier whose test you CAN evidence.\n\n**Worked examples (each passes its own gate):**\n\n- Input contains: \"Our entire production site has been down for 90 minutes and we're losing sales.\"\n  \u2192 `urgent`. evidence_quote = \"production site has been down for 90 minutes\". Gate: active breakage YES, broad/business-critical YES, now YES.\n- Input contains: \"The export button is broken and we need reports for our board meeting Friday.\"\n  \u2192 `high`. evidence_quote = \"we need reports for our board meeting Friday\". Gate: materially broken YES, hard deadline YES, not full outage YES.\n- Input contains: \"How do I change the email address on my account?\"\n  \u2192 `normal`. evidence_quote = \"How do I change the email address on my account\". Gate: standard question YES, customer not blocked YES, no urgent deadline YES.\n- Input contains: \"Just wanted to say the new dashboard color is a bit hard to read.\"\n  \u2192 `low`. evidence_quote = \"the new dashboard color is a bit hard to read\". Gate: cosmetic YES, no harm if it waits YES.\n\n---\n\n## Field 2 \u2014 product_name (extracted value or catalog enum)\n\n```\nMUST FILL: the name of the ONE product/service the customer's request is about.\n\nALLOWED VALUES:\n  - If product_catalog was provided: exactly one entry from that catalog (echo verbatim).\n  - If no catalog: a span lifted verbatim from email_text (or a trivial casing/whitespace\n    normalization of such a span).\n\nMEMBERSHIP TEST (all YES, else emit UNKNOWN \u2014 do not guess):\n  - Can you point to a verbatim substring of email_text naming this product/feature?\n  - (If a catalog exists) Is the value an entry in product_catalog?\n  - Is this the product the REQUEST is about, not merely a product mentioned in passing\n    (e.g., \"unlike your Billing tool, the Checkout API fails\" -> product_name = Checkout API)?\n```\n\nIf the email names no product, or you cannot quote it verbatim, set\n`value: \"UNKNOWN\"`, `source: \"agent_inference\"`, `evidence_quote: \"\"`, and mark the\n\"appears verbatim / in catalog\" check passed:false. Routing automation treats UNKNOWN as\n\"needs a human to route\" \u2014 that is the correct, safe outcome, far better than a confident\nwrong team assignment.\n\nIf a catalog is provided and the customer's wording doesn't match an entry exactly, map to\nthe closest catalog entry ONLY if a verbatim email phrase clearly denotes it; otherwise\nUNKNOWN. Never coin a product name that is neither in the email nor in the catalog.\n\n**Worked examples (each passes its own gate):**\n\n- Email: \"the Checkout API keeps returning 500s\". No catalog. \u2192 value \"Checkout API\", quote \"the Checkout API keeps returning 500s\". Gate: verbatim YES, request-is-about-it YES.\n- Email: \"your billing thing double-charged me\", catalog = [\"Payments Suite\", \"Checkout API\"].\n  \u2192 If \"billing thing\" can't be tied verbatim to a catalog entry, value \"UNKNOWN\". Gate: appears-in-catalog NO -> UNKNOWN, not a guess.\n- Email: \"I love your company but the mobile app crashes on launch\". No catalog. \u2192 value \"mobile app\", quote \"the mobile app crashes on launch\". Gate: verbatim YES.\n\n---\n\n## COMPLETENESS\n### PRESENCE (the field exists / has a value)\n- [ ] `priority.value` present\n- [ ] `product_name.value` present (a catalog/extracted name OR the literal `UNKNOWN`)\n- [ ] `email_text` echoed so the checker can substring-match\n\n### SOUNDNESS (the field passed its membership test \u2014 names the rule it enforces)\n- [ ] `priority.value` is one of [urgent, high, normal, low], echoed verbatim from the enum\n- [ ] `priority.evidence_quote` is a verbatim substring of `email_text` (or priority is `normal` with the \"no impact signal\" check explicitly passed:false)\n- [ ] the priority evidence_quote supports the chosen tier's membership test (highest all-YES tier)\n- [ ] `product_name.value` is either a verbatim substring of `email_text`, a `product_catalog` entry, or the literal `UNKNOWN`\n- [ ] if `product_name.value` is not UNKNOWN, its `evidence_quote` is a verbatim substring of `email_text`\n- [ ] no judged field is a placeholder\n\nSTATUS: emit_ready ONLY if every SOUNDNESS box is checked; else emit `BLOCKED: <field>`\n(e.g., `BLOCKED: product_name.evidence_quote`) so the weak field is fixed or escalated\nrather than shipped.\n\n---\n\n## Verify in a separate pass (don't self-certify)\nProducing a value and grading it are two jobs. The mechanical SOUNDNESS checks \u2014\n\"is this value in the enum\", \"is the quote a real substring\", \"is product_name in the\ncatalog\" \u2014 should be confirmed by a SCRIPT or a separate checker, not graded in the same\nbreath you generated them. A minimal validator:\n\n```python\n# check_triage.py \u2014 enforces the contract on one output object; the model never self-grades the mechanical parts\nimport json, sys\no = json.load(open(sys.argv[1])); src = o.get(\"email_text\", \"\"); problems = []\n\np = o[\"priority\"]\nif p[\"value\"] not in {\"urgent\", \"high\", \"normal\", \"low\"}:\n    problems.append(\"priority.value not in enum\")\nq = p.get(\"evidence_quote\", \"\")\nnormal_no_signal = p[\"value\"] == \"normal\" and any(\n    c[\"text\"].startswith(\"the quote matches\") and not c[\"passed\"] for c in p.get(\"checks\", []))\nif (not q or q not in src) and not normal_no_signal:\n    problems.append(\"priority.evidence_quote not a verbatim substring of email_text\")\n\npn = o[\"product_name\"]; catalog = o.get(\"product_catalog\")\nif pn[\"value\"] != \"UNKNOWN\":\n    in_catalog = catalog is not None and pn[\"value\"] in catalog\n    in_email = pn[\"value\"] in src\n    if not (in_catalog or in_email):\n        problems.append(\"product_name.value neither in catalog nor a substring of email_text\")\n    pq = pn.get(\"evidence_quote\", \"\")\n    if not pq or pq not in src:\n        problems.append(\"product_name.evidence_quote not a verbatim substring of email_text\")\n\nprint(\"emit_ready\" if not problems else \"BLOCKED:\\n- \" + \"\\n- \".join(problems))\n```\n\nRun the membership tests with the email in view but WITHOUT your original tier-justification\nin view \u2014 if you grade in the same breath you chose, you'll defend the draft. The whole point\nof the evidence_quote is that someone (a script, a reviewer, future-you) can falsify a wrong\nlabel without trusting your word for it.\n\nTone is loud; impact is what routes. When the two disagree, classify on the impact you can quote.\n"}], "grading": {"expectations": [{"text": "Judged fields hardened: closed enum present", "passed": true, "evidence": "enum markers=10"}, {"text": "Membership test that can return FALSE present", "passed": true, "evidence": "membership markers=7"}, {"text": "Per-field evidence/provenance present", "passed": true, "evidence": "evidence markers=30"}, {"text": "PRESENCE/SOUNDNESS completeness block present", "passed": true, "evidence": "presence/soundness markers=4"}]}}, {"id": "eval-1-old_skill", "prompt": "see evals.json", "eval_id": 1, "outputs": [{"name": "NOTES.md", "type": "text", "content": "# NOTES \u2014 vendor-contract-extractor\n\nYes, I applied skill-builder hardening. The skill emits a JSON output contract with\nboth COPIED fields (lifted from the PDF) and a JUDGED field, which is exactly the case\nthe skill-builder procedure targets \u2014 plausible-but-wrong values (a name that isn't a\nreal party, an invented date, a risk label stamped because the slot existed) are the\nfailure mode here, so the output warrants it.\n\nTriage: risk_level = JUDGED. party_names + effective_date = COPIED (must trace verbatim\nto the PDF). Mechanisms added:\n- Enum: risk_level is a closed list [\"low\",\"medium\",\"high\"], echoed verbatim; an off-list\n  value is invalid. A scoring rubric maps cited signals to the enum (reasoning before verdict).\n- Membership test: every field has yes/no questions that can return FALSE (party must be a real\n  signatory AND a substring; date must be labeled effective, not termination/renewal).\n- Evidence/source: every value carries a verbatim evidence_quote; judged risk_level carries\n  source + per-factor evidence. No quote -> no value.\n- PRESENCE vs SOUNDNESS: completeness block split in two; extraction_status is \"emit_ready\"\n  only if SOUNDNESS passes, else BLOCKED:<field>.\n- One negative attractor, at the end: effective_date must not default to today's date.\n- Noted that mechanical checks (substring, enum membership) can be delegated to a script.\n"}, {"name": "SKILL.md", "type": "text", "content": "---\nname: vendor-contract-extractor\ndescription: >-\n  Extract a small, mechanically-checkable JSON record from a vendor contract PDF:\n  the contracting party names, the effective date, and a risk_level of low/medium/high.\n  Use this whenever the user hands you a vendor contract, MSA, SOW, NDA, or supplier\n  agreement (as a PDF or a path to one) and wants the parties, the effective date, or\n  a risk rating pulled out as structured data \u2014 even if they just say \"summarize this\n  contract's key terms as JSON\" or \"who are the parties and when does this start.\"\n  Do NOT use for non-contract PDFs (invoices, reports) or for full legal review.\n---\n\n# Vendor Contract Extractor\n\nRead one vendor contract PDF and emit a single JSON object with exactly four fields:\n`party_names`, `effective_date`, `risk_level`, and `extraction_status`. Every field is\neither COPIED verbatim from the contract or JUDGED against a closed rule set, and every\nvalue carries the proof it passed its gate. The whole point is that a reader can re-check\neach field against the PDF \u2014 \"is this actually the effective date?\" \u2014 instead of trusting it\non sight.\n\n## Inputs / Output / Consumers\n\n```\nINPUTS: one vendor-contract PDF (path or attachment). The minimal slice is the\n        contract text \u2014 extract it first (use the pdf skill if the PDF is scanned/needs OCR).\nOUTPUT: one JSON object (schema below)        CONSUMED-BY: the user / a downstream\n        contract-register or risk dashboard that ingests the JSON.\n```\n\nDrop any field a consumer does not read. These four are the contract.\n\n## Step 1 \u2014 Get the contract text\n\nExtract the full text of the PDF before judging anything. If the PDF is a scanned image,\nOCR it first (the `pdf` skill handles this). Keep the extracted text available as `source_text` \u2014\nevery COPIED value and every `evidence_quote` below must be a **verbatim substring** of it.\nIf you cannot extract readable text, stop and emit `BLOCKED: source_text` (see Completeness).\n\n## Step 2 \u2014 Fill each field with its gate\n\n### `party_names` \u2014 COPIED\nThe legal names of the contracting parties, lifted verbatim from the preamble/signature block.\n\n```\nMUST FILL: a list of >= 2 strings, each a verbatim substring of source_text\nMEMBERSHIP TEST (all YES, or do not emit the name):\n  - Is each name a character-for-character substring of source_text?\n  - Is each name an actual contracting party (a signatory / defined party),\n    not a mentioned third party, address, or product name?\n  - Are there at least two distinct parties?\n```\nEach entry carries `value` + `evidence_quote` (the verbatim span, e.g. the \"by and between \u2026\"\nclause where the name appears).\n\n### `effective_date` \u2014 COPIED, then normalized\nThe date the contract takes effect (the \"Effective Date\", or the execution date if the\ncontract states it governs from signing).\n\n```\nMUST FILL: value in ISO 8601 \"YYYY-MM-DD\"; evidence_quote = the verbatim date text from source_text\nMEMBERSHIP TEST (all YES, or emit BLOCKED: effective_date):\n  - Does evidence_quote appear verbatim in source_text?\n  - Does the surrounding text label this as the effective/commencement date\n    (not a termination date, a renewal date, or an unrelated date)?\n  - Does value correctly normalize evidence_quote to YYYY-MM-DD?\n```\nIf the contract names no effective date, emit `BLOCKED: effective_date` \u2014 do NOT invent one\nor substitute today's date.\n\n### `risk_level` \u2014 JUDGED (enum)\nA single rating of the contract's risk to the customer, chosen from a CLOSED list. Echo the\nchosen value **verbatim** from the enum; a value not character-for-character on the list is invalid.\n\n```\nALLOWED VALUES (enum): \"low\" | \"medium\" | \"high\"\nRUBRIC \u2014 score each named dimension, then map (reasoning BEFORE verdict):\n  Scan source_text for these risk signals and cite each one you find:\n    - liability:     uncapped / unlimited liability or indemnity            (high signal)\n    - termination:   no termination-for-convenience, or long lock-in/auto-renew (medium signal)\n    - payment:       penalties, large pre-payment, or unilateral price changes  (medium signal)\n    - data/security: broad data rights, no security/breach obligations          (medium signal)\n    - governing law: foreign/unfavorable jurisdiction or mandatory arbitration   (low/medium signal)\n  MAP TO ENUM:\n    - \"high\"   if any HIGH signal is present (cited), OR >= 3 medium signals.\n    - \"medium\" if 1-2 medium signals and no high signal.\n    - \"low\"    if no medium or high signal is found.\nMEMBERSHIP TEST (all YES, or re-derive \u2014 do not emit):\n  - Is value exactly one of [\"low\",\"medium\",\"high\"]?\n  - Does every risk_factor cited carry a verbatim evidence_quote from source_text?\n  - Does the count/severity of cited factors actually map to value per the rule above?\n  - If value != \"low\", is there at least one cited risk_factor? (a non-low rating needs evidence)\n```\n\n## Output schema\n\n```json\n{\n  \"source_text_chars\": 18432,\n  \"party_names\": [\n    {\"value\": \"Acme Robotics, Inc.\", \"evidence_quote\": \"by and between Acme Robotics, Inc.\"},\n    {\"value\": \"Globex Supply LLC\",   \"evidence_quote\": \"and Globex Supply LLC (\\\"Supplier\\\")\"}\n  ],\n  \"effective_date\": {\n    \"value\": \"2025-03-01\",\n    \"evidence_quote\": \"effective as of March 1, 2025\",\n    \"source\": \"traces_to:source_text\"\n  },\n  \"risk_level\": {\n    \"value\": \"high\",\n    \"source\": \"agent_inference\",\n    \"risk_factors\": [\n      {\"dimension\": \"liability\", \"severity\": \"high\",\n       \"evidence_quote\": \"Supplier's liability shall be unlimited\"},\n      {\"dimension\": \"termination\", \"severity\": \"medium\",\n       \"evidence_quote\": \"term of five (5) years with automatic renewal\"}\n    ],\n    \"checks\": [\n      {\"text\": \"value is one of [low,medium,high]\", \"passed\": true, \"evidence\": \"high is in enum\"},\n      {\"text\": \"a high signal is cited\", \"passed\": true, \"evidence\": \"unlimited liability quoted\"},\n      {\"text\": \"every risk_factor evidence_quote is a verbatim substring of source_text\",\n       \"passed\": true, \"evidence\": \"both spans found\"}\n    ]\n  },\n  \"extraction_status\": \"emit_ready\"\n}\n```\n\nThe example above PASSES every gate: two real parties each with a verbatim span; an\neffective_date whose quote appears in the text and normalizes correctly; a `risk_level` of\n`\"high\"` justified by a cited uncapped-liability span (a HIGH signal), with the enum and\nsubstring checks both true.\n\n## Completeness \u2014 check before emitting\n\n```\n## PRESENCE  (the field exists)\n- [ ] party_names has >= 2 entries\n- [ ] effective_date.value present\n- [ ] risk_level.value present\n- [ ] source_text was extracted\n\n## SOUNDNESS  (the field passed its membership test \u2014 names the rule it enforces)\n- [ ] every party_names[].evidence_quote is a verbatim substring of source_text   (COPIED test)\n- [ ] effective_date.evidence_quote is a verbatim substring of source_text, and value is YYYY-MM-DD\n- [ ] risk_level.value is exactly one of [\"low\",\"medium\",\"high\"]                   (enum)\n- [ ] every cited risk_factor carries a verbatim evidence_quote                    (evidence)\n- [ ] cited factors map to risk_level.value per the rubric                         (soundness)\n- [ ] no judged field is a placeholder / guessed value\n\nSTATUS: set extraction_status = \"emit_ready\" ONLY if every SOUNDNESS box is checked.\n        Otherwise emit  extraction_status = \"BLOCKED: <field>\"  and name the failing field.\n```\n\nA mechanical re-check (every `evidence_quote` is literally a substring of `source_text`; every\n`risk_level.value` is in the enum) can be run by a separate script rather than self-graded \u2014 keep\njudgment here, push verification to code if one is available.\n\nThe effective_date is the date the contract takes effect; it does not default to the current date.\n"}], "grading": {"expectations": [{"text": "Judged fields hardened: closed enum present", "passed": true, "evidence": "enum markers=9"}, {"text": "Membership test that can return FALSE present", "passed": true, "evidence": "membership markers=4"}, {"text": "Per-field evidence/provenance present", "passed": true, "evidence": "evidence markers=21"}, {"text": "PRESENCE/SOUNDNESS completeness block present", "passed": true, "evidence": "presence/soundness markers=4"}]}}, {"id": "eval-1-with_skill", "prompt": "see evals.json", "eval_id": 1, "outputs": [{"name": "NOTES.md", "type": "text", "content": "# Notes on hardening decision\n\nYes \u2014 applied skill-builder hardening. The output is a JUDGED, STRUCTURED contract,\nnot subjective prose: a separate checker could mark any field wrong by its shape\n(quote not in the PDF, value off-enum, date that isn't the effective date). That is\nexactly the case the skill-builder \"could a checker mark this wrong without taste?\"\ntest selects for, so the procedure earns its cost.\n\nMechanisms added, per field:\n- risk_level: closed ENUM (low|medium|high) with verbatim echo; a positive\n  band-anchor target plus named risk signals (liability/termination/price/data/law)\n  instead of a bare definition; a MEMBERSHIP TEST that can return FALSE; rationale\n  ordered BEFORE the verdict; >=1 evidence_quote that must verbatim-support the band.\n- parties: source + evidence_quote (verbatim substring of the contract) + membership\n  test rejecting non-entity quotes; >=2-party presence check.\n- effective_date: source/evidence_quote + membership test distinguishing the\n  effective date from signature/renewal dates; null-with-source:not_found instead of\n  a guessed date.\n- Completeness split into PRESENCE vs SOUNDNESS, each SOUNDNESS box naming the rule\n  it enforces; status is emit_ready only if all SOUNDNESS passes, else BLOCKED:<field>.\n- Added verify-in-a-separate-pass (don't self-grade in the same breath) and a note to\n  use a script for the mechanical verbatim-substring checks. The worked example\n  visibly passes its own gates.\n"}, {"name": "SKILL.md", "type": "text", "content": "---\nname: contract-risk-extractor\ndescription: >-\n  Use to read a vendor/commercial contract PDF and emit a structured JSON record of\n  its parties, effective date, and an overall risk_level (low | medium | high).\n  Trigger whenever a user hands over a contract, agreement, MSA, SOW, NDA, or vendor\n  PDF and wants the key terms pulled out, a risk rating, or a machine-readable\n  summary \u2014 even if they don't say the word \"extract\" or \"JSON\". Use it for prompts\n  like \"rate the risk on this vendor agreement\", \"pull the parties and start date\n  out of this contract\", or \"give me a structured summary of this MSA\". Do NOT use\n  it for drafting or redlining contract language, for non-contract PDFs (invoices,\n  reports, slides), or for legal advice \u2014 it extracts and rates, it does not counsel.\n---\n\n# Contract Risk Extractor\n\nRead one vendor/commercial contract PDF and emit a single JSON object with the\nparties, the effective date, and an overall risk level. The value of this skill is\nthat downstream systems (a tracker, a triage queue, a reviewer) consume the JSON, so\nevery field has to be the thing it claims to be \u2014 not a plausible-looking guess. A\nwrong `risk_level` or a hallucinated party name is worse than a blank, because it\ngets trusted on sight. So the contract here is: **only emit a field you can point at\nin the document.** If the text doesn't support it, mark it absent and say why, rather\nthan inventing something that parses cleanly.\n\n## Inputs / Output / Consumers\n\n```\nINPUTS: one contract PDF (path provided by the user). Extract its text first.\nOUTPUT: one JSON object (schema below).\nCONSUMED-BY: downstream tracker / triage queue / human reviewer. Every emitted\n             field maps to one of these; nothing decorative.\n```\n\n## How to read the PDF\n\nExtract the document's text before judging anything. If a `pdf` skill or a text\nextractor is available, use it; otherwise read the PDF directly. Contracts are often\nscanned \u2014 if the extracted text is empty or garbled, OCR it. Work from the actual\nextracted text, never from the filename or your prior expectations about \"what a\nvendor contract usually says.\" Every field below must trace to a span you can quote.\n\n## Output schema\n\nEmit exactly this shape (one object, no prose around it):\n\n```json\n{\n  \"parties\": [\n    {\n      \"name\": \"<legal entity name, verbatim from the contract>\",\n      \"role\": \"<vendor | customer | other, as the contract frames it>\",\n      \"source\": \"traces_to:contract_text\",\n      \"evidence_quote\": \"<verbatim substring of the contract naming this party>\"\n    }\n  ],\n  \"effective_date\": {\n    \"value\": \"<YYYY-MM-DD, or null>\",\n    \"source\": \"traces_to:contract_text | agent_inference | not_found\",\n    \"evidence_quote\": \"<verbatim substring stating the date, or empty if null>\"\n  },\n  \"risk_level\": {\n    \"value\": \"<low | medium | high>\",\n    \"source\": \"traces_to:contract_text\",\n    \"rationale\": \"<which signals drove this, before the verdict>\",\n    \"evidence_quotes\": [\"<verbatim substring 1>\", \"<verbatim substring 2>\"]\n  },\n  \"completeness\": {\n    \"status\": \"<emit_ready | BLOCKED:<field>>\",\n    \"presence\": { \"...\": \"see COMPLETENESS block\" },\n    \"soundness\": { \"...\": \"see COMPLETENESS block\" }\n  }\n}\n```\n\n## Field rules\n\nThese are the judged/extracted fields. Each one has a positive target and a\nmembership test that can return FALSE \u2014 so a wrong value fails by shape, not by taste.\n\n### parties (extracted \u2014 must quote)\n\n- MUST FILL: the legal entity names as the contract writes them (e.g. \"Acme\n  Logistics, Inc.\"), not paraphrased or normalized.\n- A contract has at least two parties; if you found fewer than two, that's a signal\n  the extraction failed \u2014 re-read before emitting.\n- MEMBERSHIP TEST (all YES or the party is wrong \u2014 fix, don't emit):\n  - Does `evidence_quote` appear **verbatim** in the contract text?\n  - Does that quote actually name this entity (not a city, a product, or a defined\n    term like \"the Services\")?\n  - Is `role` justified by how the contract frames the entity (who supplies vs. who\n    pays), and `other` only when genuinely unclear?\n\n### effective_date (extracted \u2014 must quote or be null)\n\n- MUST FILL: the date the agreement takes effect, normalized to `YYYY-MM-DD`.\n- The effective date is the date the contract states it becomes effective \u2014 which is\n  NOT always the signature date, and NOT the date a term renews or expires. If the\n  contract gives an explicit \"Effective Date\", use it; if it only says \"effective as\n  of the date of last signature\", use `agent_inference` and quote that clause.\n- If no effective date is stated, set `value: null`, `source: \"not_found\"`, empty\n  quote. A null you can defend beats a guessed date that parses.\n- MEMBERSHIP TEST (all YES or set to null):\n  - Does `evidence_quote` appear verbatim in the contract and contain the date (or\n    the clause that derives it)?\n  - Is the normalized `value` the same calendar date as that quote?\n  - Is this the *effective* date, not the renewal/termination/invoice date?\n\n### risk_level (judged \u2014 closed enum, reasoning before verdict)\n\n- ALLOWED VALUES (echo one verbatim): `low` | `high` | `medium`.\n- This is the field most likely to be stamped just because the slot exists, so it\n  carries the most discipline: write `rationale` (the signals you saw) **before**\n  you commit `value`, so the verdict is earned and inspectable, not asserted.\n- Rate the contract's risk to the party adopting this skill's user (typically the\n  customer) using these named signals \u2014 do not rate on vibes:\n  - **Liability**: is the counterparty's liability capped, uncapped, or is there a\n    broad indemnity running against the user?\n  - **Termination**: can the user exit (for convenience / for cause), or are they\n    locked in with auto-renewal and steep early-termination fees?\n  - **Payment & price**: fixed and bounded, or open-ended / unilateral price\n    increases / large penalties?\n  - **Data & IP**: clear ownership and data-protection terms, or broad rights granted\n    to the counterparty / silent on data?\n  - **Governing law & dispute**: neutral and reasonable, or a hostile forum /\n    mandatory arbitration heavily favoring the counterparty?\n- ANCHORS (pick the band the contract best matches; cite the clauses that put it\n  there):\n  - `low`: liability capped, mutual termination rights, fixed price, clear data/IP,\n    no unusual one-sided clauses. Standard, balanced terms.\n  - `medium`: one or two of the signals above are unfavorable or missing (e.g.\n    auto-renewal with notice burden, or silent on data), but no severe exposure.\n  - `high`: any of \u2014 uncapped liability or broad indemnity against the user, no exit\n    right / punitive lock-in, unilateral price changes, or counterparty takes broad\n    rights to the user's data/IP. A single severe clause is enough for `high`.\n- MEMBERSHIP TEST (all YES or re-rate):\n  - Is `value` character-for-character one of `low` / `medium` / `high`?\n  - Does `rationale` reference at least one of the named signals above (not generic\n    \"seems risky\")?\n  - Does every quote in `evidence_quotes` appear **verbatim** in the contract, and\n    does it actually support the band chosen? (A `high` with no clause showing severe\n    exposure is unsupported \u2014 drop to the band the evidence supports.)\n  - Does the rationale come before the verdict in your reasoning?\n\n## COMPLETENESS\n\nCheck before emitting. \"Complete\" means PASSED THESE GATES, not \"the fields are\nnon-empty.\"\n\n### PRESENCE (the field exists)\n- [ ] `parties` has >= 2 entries\n- [ ] `effective_date.value` is a date or explicit `null`\n- [ ] `risk_level.value` is present\n\n### SOUNDNESS (the field passed its membership test \u2014 names the rule it enforces)\n- [ ] every party's `evidence_quote` is a verbatim substring of the contract text\n- [ ] every party's `role` is justified by the contract framing\n- [ ] `effective_date` either has a verbatim quote containing the date, or is `null`\n      with `source: not_found` (no guessed dates)\n- [ ] `risk_level.value` is exactly one of `low` / `medium` / `high`\n- [ ] `risk_level` has >= 1 verbatim `evidence_quote` that supports the chosen band\n- [ ] `risk_level.rationale` cites at least one named signal and precedes the verdict\n- [ ] no judged field is a placeholder\n\nSTATUS: set `completeness.status` to `emit_ready` ONLY if every SOUNDNESS box is\nchecked. Otherwise emit `BLOCKED:<field>` (e.g. `BLOCKED:risk_level.evidence_quotes`)\nand fix that field before returning. When blocked, name the exact field and the\nconcrete fix, never a global \"looks fine.\"\n\n## Verify in a separate pass\n\nYou are an unreliable grader of your own work in the same breath that produced it.\nAfter you've drafted the JSON, re-check each membership test as a fresh step \u2014 read\nthe `evidence_quote`, search for it in the contract text, and confirm it is really\nthere and really supports the field \u2014 rather than defending the value you just wrote.\nThe `evidence_quote` substring checks are mechanical: if a quick script or string\nsearch is available, use it to confirm each quote literally appears in the source\nrather than eyeballing it.\n\n## Worked example (each value passes its own gate)\n\nFor a contract reading \"This Master Services Agreement is entered into as of March 3,\n2025 (the 'Effective Date') by and between Northwind Traders LLC ('Vendor') and Acme\nCorp ('Customer') ... Vendor's aggregate liability shall in no event be limited ...\nCustomer may not terminate prior to the end of the 36-month term\":\n\n```json\n{\n  \"parties\": [\n    {\"name\": \"Northwind Traders LLC\", \"role\": \"vendor\", \"source\": \"traces_to:contract_text\", \"evidence_quote\": \"Northwind Traders LLC ('Vendor')\"},\n    {\"name\": \"Acme Corp\", \"role\": \"customer\", \"source\": \"traces_to:contract_text\", \"evidence_quote\": \"Acme Corp ('Customer')\"}\n  ],\n  \"effective_date\": {\n    \"value\": \"2025-03-03\",\n    \"source\": \"traces_to:contract_text\",\n    \"evidence_quote\": \"as of March 3, 2025 (the 'Effective Date')\"\n  },\n  \"risk_level\": {\n    \"value\": \"high\",\n    \"source\": \"traces_to:contract_text\",\n    \"rationale\": \"Liability signal: vendor liability is NOT capped ('in no event be limited'). Termination signal: customer is locked into a 36-month term with no exit. Two severe one-sided clauses -> high.\",\n    \"evidence_quotes\": [\n      \"Vendor's aggregate liability shall in no event be limited\",\n      \"Customer may not terminate prior to the end of the 36-month term\"\n    ]\n  },\n  \"completeness\": {\n    \"status\": \"emit_ready\",\n    \"presence\": {\"parties>=2\": true, \"effective_date\": true, \"risk_level\": true},\n    \"soundness\": {\"quotes_verbatim\": true, \"enum_ok\": true, \"rationale_before_verdict\": true}\n  }\n}\n```\nHere `high` passes its gate: the value is on the enum, the rationale names the\nliability and termination signals before the verdict, and each `evidence_quote` is a\nverbatim substring that actually shows the severe exposure.\n\nA contract uncertain on its date emits `{\"value\": null, \"source\": \"not_found\",\n\"evidence_quote\": \"\"}` rather than a guessed date \u2014 that absence is correct, not a\nfailure.\n\n---\nRisk ratings here describe the document's terms from the named signals; they are not\nlegal advice.\n"}], "grading": {"expectations": [{"text": "Judged fields hardened: closed enum present", "passed": true, "evidence": "enum markers=3"}, {"text": "Membership test that can return FALSE present", "passed": true, "evidence": "membership markers=7"}, {"text": "Per-field evidence/provenance present", "passed": true, "evidence": "evidence markers=23"}, {"text": "PRESENCE/SOUNDNESS completeness block present", "passed": true, "evidence": "presence/soundness markers=7"}]}}, {"id": "eval-2-old_skill", "prompt": "see evals.json", "eval_id": 2, "outputs": [{"name": "NOTES.md", "type": "text", "content": "# Notes \u2014 did I apply skill-builder hardening?\n\n- Decision: I did NOT apply the full skill-builder hardening procedure (membership\n  tests, enums, per-field source/evidence_quote, PRESENCE/SOUNDNESS field gates,\n  validator script). I applied ONE mechanism it offers for subjective output: the\n  rubric-with-a-hard-gate.\n- Why abstain: skill-builder targets output that is \"mechanically verifiable\" \u2014\n  discrete JUDGED/COPIED fields you check as \"is this the named category?\" This\n  skill emits prose. There are no categorical fields, no provenance to trace, no\n  count gates. Forcing {value, source, evidence_quote, enum} onto a voice rewriter\n  would be exactly the overfitting both guides warn against.\n- What told me to abstain: skill-creator says skills \"with subjective outputs\n  (writing style, art) often don't need [test cases]\"; skill-builder/reference.md\n  B2 says for \"fuzzy quality that resists a yes/no, use a rubric with a hard gate...\n  REQUIRE a revise+rescore if any dimension is below your threshold\" \u2014 and reserves\n  the full membership-test apparatus for genuinely categorical fields.\n- What I borrowed anyway: the rubric gate (Fidelity/Concreteness/Leanness/\n  Readability/Voice, scored 0\u20135, revise-if-below-4), reasoning-before-verdict, and\n  examples that visibly pass their own gate \u2014 the parts of skill-builder that DO fit\n  subjective prose. Fidelity is the one near-mechanical check (every fact must trace\n  to the input), so it is gated hardest (must be 5).\n"}, {"name": "SKILL.md", "type": "text", "content": "---\nname: hemingway-rewrite\ndescription: >-\n  Rewrite a rambling, over-written, or hedge-heavy blog draft into a punchy,\n  Hemingway-ish voice \u2014 short declarative sentences, concrete nouns, strong\n  verbs, and no filler. Use this whenever the user pastes a draft, a section,\n  or a paragraph and asks to \"tighten,\" \"make it punchier,\" \"cut the fluff,\"\n  \"Hemingway it,\" \"make it less rambly,\" \"trim the adverbs,\" or otherwise\n  sharpen the prose without changing what it says. Trigger even when they don't\n  name Hemingway \u2014 any request to make wordy prose lean, direct, and concrete\n  is this skill. Do NOT use it to lengthen, pad, or add new arguments, and do\n  not use it for code, data, or non-prose formats.\n---\n\n# Hemingway Rewrite\n\nTurn a rambling draft into lean prose. Keep the writer's meaning and facts. Cut\neverything that does not earn its place.\n\n## What \"Hemingway-ish\" means here\n\nThe goal is a voice, not a parody. Aim for prose that a reader moves through\nwithout friction. The marks of the voice:\n\n- **Short, declarative sentences.** Most sentences carry one idea. Vary length so\n  it reads like speech, not a telegram \u2014 a longer sentence now and then is good,\n  but it should be doing real work, not stalling.\n- **Concrete nouns and strong verbs.** Prefer \"the rent rose\" to \"there was an\n  increase in the cost of housing.\" Name the thing. Let the verb do the lifting\n  instead of an adverb propping up a weak one (\"ran\" beats \"moved quickly\").\n- **No filler.** Cut throat-clearing (\"It is worth noting that,\" \"In today's\n  world,\" \"At the end of the day\"), hedges that add nothing (\"sort of,\" \"I think\n  that maybe\"), and intensifiers that weaken rather than strengthen (\"very,\"\n  \"really,\" \"quite,\" \"actually\").\n- **Plain words over showy ones.** \"use\" not \"utilize,\" \"buy\" not \"purchase,\"\n  \"about\" not \"with regard to.\" If a simpler word means the same thing, use it.\n- **Active voice by default.** Passive is allowed when the actor truly doesn't\n  matter, but most rambling drafts hide behind it. Name who does what.\n\n## The rule that outranks all the others\n\n**Preserve meaning. Do not invent.** You are tightening prose, not rewriting the\nargument. Every claim, fact, name, number, and quote in the output must already\nbe present in the input. You may cut a point the writer made, but you may not\nadd a point they didn't. If the draft is ambiguous, keep the ambiguity rather\nthan resolving it with a fact you made up. When you cut something load-bearing\n(a caveat, a concession, a key example), that is a judgment call worth flagging \u2014\nsee the change note below.\n\n## How to work\n\n1. **Read the whole draft first.** Find the spine \u2014 the actual point the writer is\n   making. Everything you keep should serve it.\n2. **Rewrite sentence by sentence, then read it aloud in your head.** If a\n   sentence makes you stumble or run out of breath, it is too long or too\n   tangled. Break it. If two sentences say the same thing, keep the better one.\n3. **Match the register to the source.** A personal essay keeps its warmth; a\n   technical post keeps its precision. Hemingway-ish is lean, not cold. Do not\n   strip the writer's personality \u2014 strip the padding around it. Keep their\n   jokes, their voice, their point of view. Cut their hedging and their windup.\n4. **Keep structure unless it's the problem.** Preserve the writer's headings,\n   list order, and paragraph breaks where they work. Tighten within them.\n\n## Self-check before you hand it back (rubric gate)\n\nRambling prose is subjective to fix, so don't trust the rewrite on sight. Score\nyour own draft 0\u20135 on each dimension below, in this order, BEFORE you present it.\nIf ANY dimension scores below 4, revise and rescore \u2014 do not hand back a draft\nthat fails the gate.\n\n- **Fidelity (0\u20135):** Does every fact, name, number, and claim in the output\n  appear in the input, with nothing invented and no point silently reversed?\n  This one is non-negotiable: if Fidelity is below 5, you have a bug, not a style\n  choice \u2014 fix it before anything else.\n- **Concreteness (0\u20135):** Are the nouns specific and the verbs strong? Few\n  abstractions standing in for things you could name.\n- **Leanness (0\u20135):** Is the filler gone \u2014 throat-clearing, hedges, dead\n  intensifiers, redundant sentences? Could you cut more without losing meaning?\n- **Readability (0\u20135):** Does it move? Short sentences carrying the load, length\n  varied enough to feel like a voice and not a list.\n- **Voice preserved (0\u20135):** Is the writer still recognizably in here \u2014 their\n  warmth, humor, and point of view intact, only the padding removed?\n\nState the five scores in one line when you hand back the rewrite, so the writer\ncan see where you judged it strong and where you traded off.\n\n## What to hand back\n\n1. **The rewritten draft**, ready to paste back into their post.\n2. **A one-line score line** from the rubric above (e.g. `Fidelity 5 \u00b7\n   Concreteness 4 \u00b7 Leanness 5 \u00b7 Readability 4 \u00b7 Voice 5`).\n3. **A short change note (2\u20134 bullets)** naming the biggest moves \u2014 e.g. \"cut the\n   three-sentence intro that restated the title,\" \"merged the two paragraphs on\n   pricing,\" \"kept your aside about your landlord; it's the best line.\" If you cut\n   anything load-bearing, say so here so the writer can put it back if they want.\n\nKeep the change note short. The writer wants their tighter draft, not an essay\nabout it.\n\n## Examples\n\nThese show the move, and each one obeys the fidelity rule \u2014 nothing in the\n\"after\" that wasn't in the \"before.\"\n\n**Example 1 \u2014 throat-clearing and hedging**\nBefore: \"It's worth noting that, at the end of the day, I think the thing that\nreally matters most when you're trying to build a habit is probably just, like,\nconsistency over a long period of time.\"\nAfter: \"Habits are built on consistency. That's the whole thing.\"\n(Gate: Fidelity 5 \u2014 the claim \"consistency matters most for habits\" survives\nintact. Leanness 5 \u2014 36 words to 9.)\n\n**Example 2 \u2014 abstraction to concrete**\nBefore: \"There was a significant negative financial impact on our household\nbudget as a result of the increase in housing-related expenditures.\"\nAfter: \"Our rent went up. Money got tight.\"\n(Gate: Concreteness 5 \u2014 \"rent\" and \"money\" replace \"housing-related\nexpenditures\" and \"financial impact.\" Fidelity 5 \u2014 no number was invented;\nthe vague \"significant\" became the equally vague \"tight,\" not a made-up figure.)\n\n**Example 3 \u2014 keep the voice, cut the padding**\nBefore: \"Now, I'm not necessarily an expert or anything, but it does seem to me,\nat least in my own personal experience, that the coffee at that particular place\nis, for lack of a better word, genuinely quite terrible.\"\nAfter: \"I'm no expert. But the coffee there is terrible.\"\n(Gate: Voice 5 \u2014 the self-deprecating \"I'm no expert\" stays; it's the writer's\npersonality. Leanness 5 \u2014 the doubled hedges and \"for lack of a better word\"\nare gone.)\n\n---\n\nPreserve meaning above all else. A punchy sentence that says something the writer\nnever said is a failure, not a win.\n"}], "grading": {"expectations": [{"text": "Correctly ABSTAINED: no enum forced on prose", "passed": true, "evidence": "enum markers=0"}, {"text": "Correctly ABSTAINED: no membership test on prose", "passed": true, "evidence": "membership markers=0"}, {"text": "Correctly ABSTAINED: no PRESENCE/SOUNDNESS on prose", "passed": true, "evidence": "presence/soundness markers=0"}]}}, {"id": "eval-2-with_skill", "prompt": "see evals.json", "eval_id": 2, "outputs": [{"name": "NOTES.md", "type": "text", "content": "# Notes\n\nI did NOT apply the skill-builder hardening procedure. This was a deliberate\nabstention, not an oversight.\n\nBoth source skills tell me to skip it for this kind of output:\n\n- skill-creator (\"Harden judged outputs before the first eval\" branch): \"If the\n  skill's output is SUBJECTIVE or unstructured (writing voice, design, creative\n  rewrite, open-ended summary), skip `skill-builder` \u2014 there is no field\n  contract to gate, and forcing one wastes effort.\"\n- skill-builder (\"When this applies\"): \"If the output is SUBJECTIVE or\n  unstructured \u2014 prose voice, design taste, a creative rewrite ... this\n  procedure does not apply. Do not bolt membership tests onto taste.\"\n\nI ran skill-builder's own gating test: \"Could a separate checker mark this field\nwrong by its SHAPE, without taste?\" A Hemingway-ish blog rewrite is pure prose\nvoice \u2014 no judged/labeled field, no enum, no extracted value, nothing a\nmechanical validator could fail without exercising taste. So membership tests,\nevidence quotes, and PRESENCE/SOUNDNESS blocks would add cost and rigidity for\nzero gain. This skill belongs to the human-review / eval-loop path instead, per\nskill-creator. I drafted it normally and leaned on positive specification of the\nvoice plus guardrails against the obvious failure mode (parody-terse).\n"}, {"name": "SKILL.md", "type": "text", "content": "---\nname: punchy-rewrite\ndescription: >-\n  Rewrite rambling, overwritten, or bloated prose into a tight, concrete,\n  Hemingway-ish voice \u2014 short declarative sentences, plain words, strong nouns\n  and verbs, no filler. Use whenever the user wants a draft made punchier,\n  tighter, leaner, or \"less rambly,\" asks to cut the fluff, wants their blog\n  post / essay / newsletter / landing-page copy edited for impact, mentions\n  Hemingway or a \"punchy\" / \"muscular\" / \"no-nonsense\" voice, or pastes a\n  long-winded draft and asks you to sharpen it. Trigger even when they don't\n  name a style \u2014 if they hand you woolly prose and want it better, this is it.\n---\n\n# Punchy Rewrite\n\nTurn a rambling draft into prose that hits. The model already knows what good\ntight writing reads like \u2014 your job here is to commit to it hard, because the\ndefault failure mode is timidity: trimming a few words, keeping the author's\nhedges, and calling it edited. Don't. Rewrite with conviction.\n\n## The voice you're aiming for\n\nThink Hemingway, plain-style essayists, the best newsletter writers. The feel:\n\n- **Short sentences carry the weight.** Most sentences are one clause. A long\n  one earns its length and is followed by a short one. Rhythm comes from the\n  contrast, not from piling on commas.\n- **Concrete nouns, strong verbs.** \"The deal collapsed\" beats \"the situation\n  deteriorated into a non-viable state.\" Name the actual thing. Prefer a verb\n  over a noun-plus-helper (\"decide,\" not \"make a decision\").\n- **No fluff.** Cut throat-clearing (\"It's worth noting that,\" \"In today's\n  world,\" \"At the end of the day\"), intensifiers that intensify nothing\n  (\"very,\" \"really,\" \"actually,\" \"quite\"), and hedges that signal nothing but\n  fear (\"I think maybe,\" \"sort of,\" \"in some sense\").\n- **Plain words.** \"Use,\" not \"utilize.\" \"Buy,\" not \"purchase.\" \"Help,\" not\n  \"facilitate.\" Latinate bureaucratic vocabulary is the enemy.\n- **Active voice, almost always.** Someone does something. Passive voice hides\n  the actor; reach for it only when the actor genuinely doesn't matter.\n- **Show, don't editorialize.** Replace \"this was incredibly important\" with the\n  detail that makes the reader feel it. Trust the reader.\n\n## How to do the rewrite\n\n1. **Read the whole draft first.** Find the actual argument or story under the\n   padding. Keep that. Everything else is negotiable.\n2. **Preserve the author's meaning and claims \u2014 not their word count.** You are\n   editing voice and density, not inventing new content or changing what they\n   said. Don't add facts. Don't soften or strengthen their actual position. If\n   the draft makes a claim, the rewrite makes the same claim, harder.\n3. **Cut, then sharpen.** First delete what doesn't pull weight \u2014 whole\n   sentences, not just words. Then rebuild what's left into short, concrete,\n   active lines.\n4. **Break the long ones.** A sentence with three \"and\"s or two semicolons is\n   usually three sentences hiding. Split them.\n5. **Keep the author's voice recognizable.** Hemingway-ish is a target, not a\n   costume. If the author is funny, stay funny. If they use \"I,\" keep \"I.\" Don't\n   flatten a person into a robot reciting facts. Tight is not cold.\n6. **Read it back for rhythm.** Vary sentence length so it doesn't read like a\n   list. Two-word punch after a long line lands hard. Use that.\n\n## What to watch out for\n\n- **Don't overshoot into a parody of terse.** A page of identical five-word\n  sentences is its own kind of bad \u2014 monotonous and choppy. The goal is force,\n  not a telegram. Let rhythm breathe.\n- **Don't strip nuance the author needs.** Sometimes a qualifier is doing real\n  work (\"this works for B2B, not B2C\"). Cut empty hedges, keep meaningful ones.\n- **Don't lose specifics.** Numbers, names, concrete examples \u2014 these make prose\n  vivid. Keep them. Vagueness is the thing you're fighting, so never trade a\n  concrete detail for a smooth-sounding generality.\n- **Length is a side effect, not the goal.** Tighter usually means shorter, but\n  the target is impact. If a kept detail costs words, keep it.\n\n## How to deliver it\n\nDefault to giving the **rewritten draft, clean, ready to use** \u2014 that's what the\nuser wants most of the time. Don't bury it under commentary.\n\nIf the rewrite is heavy or the user seems to be learning the craft, you can add\na short **\"What I changed and why\"** note after the draft \u2014 a few bullets naming\nthe moves you made (cut the intro throat-clearing, split the run-ons, swapped\nthe bureaucratic verbs). Keep it brief. The rewrite is the product; the notes\nare a bonus.\n\nIf the user gives you only a fragment or asks for options, offer one tight\nversion rather than three timid ones. Commit.\n\n## Example\n\n**Input (rambling):**\n> It's worth noting that one of the things I've really come to realize over the\n> course of my career is that, more often than not, the projects that tend to\n> succeed are not necessarily the ones that have the most resources or the\n> biggest budgets, but rather they are the ones where the team has a really\n> clear and shared understanding of what they're actually trying to accomplish\n> at the end of the day.\n\n**Output (punchy):**\n> Money doesn't decide which projects win. Clarity does. The teams that succeed\n> know exactly what they're building. The ones that fail never agreed.\n\nNotice: the intro throat-clearing is gone. One woolly 70-word sentence becomes\nfour short ones. \"At the end of the day\" \u2014 cut. The claim survives intact, but\nnow it lands.\n"}], "grading": {"expectations": [{"text": "Correctly ABSTAINED: no enum forced on prose", "passed": true, "evidence": "enum markers=0"}, {"text": "Correctly ABSTAINED: no membership test on prose", "passed": true, "evidence": "membership markers=0"}, {"text": "Correctly ABSTAINED: no PRESENCE/SOUNDNESS on prose", "passed": true, "evidence": "presence/soundness markers=0"}]}}], "previous_feedback": {}, "previous_outputs": {}, "benchmark": {"metadata": {"skill_name": "skill-builder-composition", "skill_path": "<path/to/skill>", "executor_model": "<model-name>", "analyzer_model": "<model-name>", "timestamp": "2026-06-25T03:48:35Z", "evals_run": [], "runs_per_configuration": 3}, "runs": [], "run_summary": {"delta": {"pass_rate": "+0.00", "time_seconds": "+0.0", "tokens": "+0"}}, "notes": []}};
+
+    // ---- State ----
+    let feedbackMap = {};  // run_id -> feedback text
+    let currentIndex = 0;
+    let visitedRuns = new Set();
+
+    // ---- Init ----
+    async function init() {
+      // Load saved feedback from server — but only if this isn't a fresh
+      // iteration (indicated by previous_feedback being present). When
+      // previous feedback exists, the feedback.json on disk is stale from
+      // the prior iteration and should not pre-fill the textareas.
+      const hasPrevious = Object.keys(EMBEDDED_DATA.previous_feedback || {}).length > 0
+        || Object.keys(EMBEDDED_DATA.previous_outputs || {}).length > 0;
+      if (!hasPrevious) {
+        try {
+          const resp = await fetch("/api/feedback");
+          const data = await resp.json();
+          if (data.reviews) {
+            for (const r of data.reviews) feedbackMap[r.run_id] = r.feedback;
+          }
+        } catch { /* first run, no feedback yet */ }
+      }
+
+      document.getElementById("skill-name").textContent = EMBEDDED_DATA.skill_name;
+      showRun(0);
+
+      // Wire up feedback auto-save
+      const textarea = document.getElementById("feedback");
+      let saveTimeout = null;
+      textarea.addEventListener("input", () => {
+        clearTimeout(saveTimeout);
+        document.getElementById("feedback-status").textContent = "";
+        saveTimeout = setTimeout(() => saveCurrentFeedback(), 800);
+      });
+    }
+
+    // ---- Navigation ----
+    function navigate(delta) {
+      const newIndex = currentIndex + delta;
+      if (newIndex >= 0 && newIndex < EMBEDDED_DATA.runs.length) {
+        saveCurrentFeedback();
+        showRun(newIndex);
+      }
+    }
+
+    function updateNavButtons() {
+      document.getElementById("prev-btn").disabled = currentIndex === 0;
+      document.getElementById("next-btn").disabled =
+        currentIndex === EMBEDDED_DATA.runs.length - 1;
+    }
+
+    // ---- Show a run ----
+    function showRun(index) {
+      currentIndex = index;
+      const run = EMBEDDED_DATA.runs[index];
+
+      // Progress
+      document.getElementById("progress").textContent =
+        `${index + 1} of ${EMBEDDED_DATA.runs.length}`;
+
+      // Prompt
+      document.getElementById("prompt-text").textContent = run.prompt;
+
+      // Config badge
+      const badge = document.getElementById("config-badge");
+      const configMatch = run.id.match(/(with_skill|without_skill|new_skill|old_skill)/);
+      if (configMatch) {
+        const config = configMatch[1];
+        const isBaseline = config === "without_skill" || config === "old_skill";
+        badge.textContent = config.replace(/_/g, " ");
+        badge.className = "config-badge " + (isBaseline ? "config-baseline" : "config-primary");
+        badge.style.display = "inline-block";
+      } else {
+        badge.style.display = "none";
+      }
+
+      // Outputs
+      renderOutputs(run);
+
+      // Previous outputs
+      renderPrevOutputs(run);
+
+      // Grades
+      renderGrades(run);
+
+      // Previous feedback
+      const prevFb = (EMBEDDED_DATA.previous_feedback || {})[run.id];
+      const prevEl = document.getElementById("prev-feedback");
+      if (prevFb) {
+        document.getElementById("prev-feedback-text").textContent = prevFb;
+        prevEl.style.display = "block";
+      } else {
+        prevEl.style.display = "none";
+      }
+
+      // Feedback
+      document.getElementById("feedback").value = feedbackMap[run.id] || "";
+      document.getElementById("feedback-status").textContent = "";
+
+      updateNavButtons();
+
+      // Track visited runs and promote done button when all visited
+      visitedRuns.add(index);
+      const doneBtn = document.getElementById("done-btn");
+      if (visitedRuns.size >= EMBEDDED_DATA.runs.length) {
+        doneBtn.classList.add("ready");
+      }
+
+      // Scroll main content to top
+      document.querySelector(".main").scrollTop = 0;
+    }
+
+    // ---- Render outputs ----
+    function renderOutputs(run) {
+      const container = document.getElementById("outputs-body");
+      container.innerHTML = "";
+
+      const outputs = run.outputs || [];
+      if (outputs.length === 0) {
+        container.innerHTML = '<div class="empty-state">No output files</div>';
+        return;
+      }
+
+      for (const file of outputs) {
+        const fileDiv = document.createElement("div");
+        fileDiv.className = "output-file";
+
+        // Always show file header with download link
+        const header = document.createElement("div");
+        header.className = "output-file-header";
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = file.name;
+        header.appendChild(nameSpan);
+        const dlBtn = document.createElement("a");
+        dlBtn.className = "dl-btn";
+        dlBtn.textContent = "Download";
+        dlBtn.download = file.name;
+        dlBtn.href = getDownloadUri(file);
+        header.appendChild(dlBtn);
+        fileDiv.appendChild(header);
+
+        const content = document.createElement("div");
+        content.className = "output-file-content";
+
+        if (file.type === "text") {
+          const pre = document.createElement("pre");
+          pre.textContent = file.content;
+          content.appendChild(pre);
+        } else if (file.type === "image") {
+          const img = document.createElement("img");
+          img.src = file.data_uri;
+          img.alt = file.name;
+          content.appendChild(img);
+        } else if (file.type === "pdf") {
+          const iframe = document.createElement("iframe");
+          iframe.src = file.data_uri;
+          content.appendChild(iframe);
+        } else if (file.type === "xlsx") {
+          renderXlsx(content, file.data_b64);
+        } else if (file.type === "binary") {
+          const a = document.createElement("a");
+          a.className = "download-link";
+          a.href = file.data_uri;
+          a.download = file.name;
+          a.textContent = "Download " + file.name;
+          content.appendChild(a);
+        } else if (file.type === "error") {
+          const pre = document.createElement("pre");
+          pre.textContent = file.content;
+          pre.style.color = "var(--red)";
+          content.appendChild(pre);
+        }
+
+        fileDiv.appendChild(content);
+        container.appendChild(fileDiv);
+      }
+    }
+
+    // ---- XLSX rendering via SheetJS ----
+    function renderXlsx(container, b64Data) {
+      try {
+        const raw = Uint8Array.from(atob(b64Data), c => c.charCodeAt(0));
+        const wb = XLSX.read(raw, { type: "array" });
+
+        for (let i = 0; i < wb.SheetNames.length; i++) {
+          const sheetName = wb.SheetNames[i];
+          const ws = wb.Sheets[sheetName];
+
+          if (wb.SheetNames.length > 1) {
+            const sheetLabel = document.createElement("div");
+            sheetLabel.style.cssText =
+              "font-weight:600; font-size:0.8rem; color:#b0aea5; margin-top:0.5rem; margin-bottom:0.25rem;";
+            sheetLabel.textContent = "Sheet: " + sheetName;
+            container.appendChild(sheetLabel);
+          }
+
+          const htmlStr = XLSX.utils.sheet_to_html(ws, { editable: false });
+          const wrapper = document.createElement("div");
+          wrapper.innerHTML = htmlStr;
+          container.appendChild(wrapper);
+        }
+      } catch (err) {
+        container.textContent = "Error rendering spreadsheet: " + err.message;
+      }
+    }
+
+    // ---- Grades ----
+    function renderGrades(run) {
+      const section = document.getElementById("grades-section");
+      const content = document.getElementById("grades-content");
+
+      if (!run.grading) {
+        section.style.display = "none";
+        return;
+      }
+
+      const grading = run.grading;
+      section.style.display = "block";
+      // Reset to collapsed
+      content.classList.remove("open");
+      document.getElementById("grades-arrow").classList.remove("open");
+
+      const summary = grading.summary || {};
+      const expectations = grading.expectations || [];
+
+      let html = '<div style="padding: 1rem;">';
+
+      // Summary line
+      const passRate = summary.pass_rate != null
+        ? Math.round(summary.pass_rate * 100) + "%"
+        : "?";
+      const badgeClass = summary.pass_rate >= 0.8 ? "grade-pass" : summary.pass_rate >= 0.5 ? "" : "grade-fail";
+      html += '<div class="grades-summary">';
+      html += '<span class="grade-badge ' + badgeClass + '">' + passRate + '</span>';
+      html += '<span>' + (summary.passed || 0) + ' passed, ' + (summary.failed || 0) + ' failed of ' + (summary.total || 0) + '</span>';
+      html += '</div>';
+
+      // Assertions list
+      html += '<ul class="assertion-list">';
+      for (const exp of expectations) {
+        const statusClass = exp.passed ? "pass" : "fail";
+        const statusIcon = exp.passed ? "\u2713" : "\u2717";
+        html += '<li class="assertion-item">';
+        html += '<span class="assertion-status ' + statusClass + '">' + statusIcon + '</span>';
+        html += '<span>' + escapeHtml(exp.text) + '</span>';
+        if (exp.evidence) {
+          html += '<div class="assertion-evidence">' + escapeHtml(exp.evidence) + '</div>';
+        }
+        html += '</li>';
+      }
+      html += '</ul>';
+
+      html += '</div>';
+      content.innerHTML = html;
+    }
+
+    function toggleGrades() {
+      const content = document.getElementById("grades-content");
+      const arrow = document.getElementById("grades-arrow");
+      content.classList.toggle("open");
+      arrow.classList.toggle("open");
+    }
+
+    // ---- Previous outputs (collapsible) ----
+    function renderPrevOutputs(run) {
+      const section = document.getElementById("prev-outputs-section");
+      const content = document.getElementById("prev-outputs-content");
+      const prevOutputs = (EMBEDDED_DATA.previous_outputs || {})[run.id];
+
+      if (!prevOutputs || prevOutputs.length === 0) {
+        section.style.display = "none";
+        return;
+      }
+
+      section.style.display = "block";
+      // Reset to collapsed
+      content.classList.remove("open");
+      document.getElementById("prev-outputs-arrow").classList.remove("open");
+
+      // Render the files into the content area
+      content.innerHTML = "";
+      const wrapper = document.createElement("div");
+      wrapper.style.padding = "1rem";
+
+      for (const file of prevOutputs) {
+        const fileDiv = document.createElement("div");
+        fileDiv.className = "output-file";
+
+        const header = document.createElement("div");
+        header.className = "output-file-header";
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = file.name;
+        header.appendChild(nameSpan);
+        const dlBtn = document.createElement("a");
+        dlBtn.className = "dl-btn";
+        dlBtn.textContent = "Download";
+        dlBtn.download = file.name;
+        dlBtn.href = getDownloadUri(file);
+        header.appendChild(dlBtn);
+        fileDiv.appendChild(header);
+
+        const fc = document.createElement("div");
+        fc.className = "output-file-content";
+
+        if (file.type === "text") {
+          const pre = document.createElement("pre");
+          pre.textContent = file.content;
+          fc.appendChild(pre);
+        } else if (file.type === "image") {
+          const img = document.createElement("img");
+          img.src = file.data_uri;
+          img.alt = file.name;
+          fc.appendChild(img);
+        } else if (file.type === "pdf") {
+          const iframe = document.createElement("iframe");
+          iframe.src = file.data_uri;
+          fc.appendChild(iframe);
+        } else if (file.type === "xlsx") {
+          renderXlsx(fc, file.data_b64);
+        } else if (file.type === "binary") {
+          const a = document.createElement("a");
+          a.className = "download-link";
+          a.href = file.data_uri;
+          a.download = file.name;
+          a.textContent = "Download " + file.name;
+          fc.appendChild(a);
+        }
+
+        fileDiv.appendChild(fc);
+        wrapper.appendChild(fileDiv);
+      }
+
+      content.appendChild(wrapper);
+    }
+
+    function togglePrevOutputs() {
+      const content = document.getElementById("prev-outputs-content");
+      const arrow = document.getElementById("prev-outputs-arrow");
+      content.classList.toggle("open");
+      arrow.classList.toggle("open");
+    }
+
+    // ---- Feedback (saved to server -> feedback.json) ----
+    function saveCurrentFeedback() {
+      const run = EMBEDDED_DATA.runs[currentIndex];
+      const text = document.getElementById("feedback").value;
+
+      if (text.trim() === "") {
+        delete feedbackMap[run.id];
+      } else {
+        feedbackMap[run.id] = text;
+      }
+
+      // Build reviews array from map
+      const reviews = [];
+      for (const [run_id, feedback] of Object.entries(feedbackMap)) {
+        if (feedback.trim()) {
+          reviews.push({ run_id, feedback, timestamp: new Date().toISOString() });
+        }
+      }
+
+      fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reviews, status: "in_progress" }),
+      }).then(() => {
+        document.getElementById("feedback-status").textContent = "Saved";
+      }).catch(() => {
+        // Static mode or server unavailable — no-op on auto-save,
+        // feedback will be downloaded on final submit
+        document.getElementById("feedback-status").textContent = "Will download on submit";
+      });
+    }
+
+    // ---- Done ----
+    function showDoneDialog() {
+      // Save current textarea to feedbackMap (but don't POST yet)
+      const run = EMBEDDED_DATA.runs[currentIndex];
+      const text = document.getElementById("feedback").value;
+      if (text.trim() === "") {
+        delete feedbackMap[run.id];
+      } else {
+        feedbackMap[run.id] = text;
+      }
+
+      // POST once with status: complete — include ALL runs so the model
+      // can distinguish "no feedback" (looks good) from "not reviewed"
+      const reviews = [];
+      const ts = new Date().toISOString();
+      for (const r of EMBEDDED_DATA.runs) {
+        reviews.push({ run_id: r.id, feedback: feedbackMap[r.id] || "", timestamp: ts });
+      }
+      const payload = JSON.stringify({ reviews, status: "complete" }, null, 2);
+      fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: payload,
+      }).then(() => {
+        document.getElementById("done-overlay").classList.add("visible");
+      }).catch(() => {
+        // Server not available (static mode) — download as file
+        const blob = new Blob([payload], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "feedback.json";
+        a.click();
+        URL.revokeObjectURL(url);
+        document.getElementById("done-overlay").classList.add("visible");
+      });
+    }
+
+    function closeDoneDialog() {
+      // Reset status back to in_progress
+      saveCurrentFeedback();
+      document.getElementById("done-overlay").classList.remove("visible");
+    }
+
+    // ---- Toast ----
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      setTimeout(() => toast.classList.remove("visible"), 2000);
+    }
+
+    // ---- Keyboard nav ----
+    document.addEventListener("keydown", (e) => {
+      // Don't capture when typing in textarea
+      if (e.target.tagName === "TEXTAREA") return;
+
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        navigate(-1);
+      } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault();
+        navigate(1);
+      }
+    });
+
+    // ---- Util ----
+    function getDownloadUri(file) {
+      if (file.data_uri) return file.data_uri;
+      if (file.data_b64) return "data:application/octet-stream;base64," + file.data_b64;
+      if (file.type === "text") return "data:text/plain;charset=utf-8," + encodeURIComponent(file.content);
+      return "#";
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // ---- View switching ----
+    function switchView(view) {
+      document.querySelectorAll(".view-tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".view-panel").forEach(p => p.classList.remove("active"));
+      document.querySelector(`[onclick="switchView('${view}')"]`).classList.add("active");
+      document.getElementById("panel-" + view).classList.add("active");
+    }
+
+    // ---- Benchmark rendering ----
+    function renderBenchmark() {
+      const data = EMBEDDED_DATA.benchmark;
+      if (!data) return;
+
+      // Show the tabs
+      document.getElementById("view-tabs").style.display = "flex";
+
+      const container = document.getElementById("benchmark-content");
+      const summary = data.run_summary || {};
+      const metadata = data.metadata || {};
+      const notes = data.notes || [];
+
+      let html = "";
+
+      // Header
+      html += "<h2 style='font-family: Poppins, sans-serif; margin-bottom: 0.5rem;'>Benchmark Results</h2>";
+      html += "<p style='color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.25rem;'>";
+      if (metadata.skill_name) html += "<strong>" + escapeHtml(metadata.skill_name) + "</strong> &mdash; ";
+      if (metadata.timestamp) html += metadata.timestamp + " &mdash; ";
+      if (metadata.evals_run) html += "Evals: " + metadata.evals_run.join(", ") + " &mdash; ";
+      html += (metadata.runs_per_configuration || "?") + " runs per configuration";
+      html += "</p>";
+
+      // Summary table
+      html += '<table class="benchmark-table">';
+
+      function fmtStat(stat, pct) {
+        if (!stat) return "—";
+        const suffix = pct ? "%" : "";
+        const m = pct ? (stat.mean * 100).toFixed(0) : stat.mean.toFixed(1);
+        const s = pct ? (stat.stddev * 100).toFixed(0) : stat.stddev.toFixed(1);
+        return m + suffix + " ± " + s + suffix;
+      }
+
+      function deltaClass(val) {
+        if (!val) return "";
+        const n = parseFloat(val);
+        if (n > 0) return "benchmark-delta-positive";
+        if (n < 0) return "benchmark-delta-negative";
+        return "";
+      }
+
+      // Discover config names dynamically (everything except "delta")
+      const configs = Object.keys(summary).filter(k => k !== "delta");
+      const configA = configs[0] || "config_a";
+      const configB = configs[1] || "config_b";
+      const labelA = configA.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+      const labelB = configB.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+      const a = summary[configA] || {};
+      const b = summary[configB] || {};
+      const delta = summary.delta || {};
+
+      html += "<thead><tr><th>Metric</th><th>" + escapeHtml(labelA) + "</th><th>" + escapeHtml(labelB) + "</th><th>Delta</th></tr></thead>";
+      html += "<tbody>";
+
+      html += "<tr><td><strong>Pass Rate</strong></td>";
+      html += "<td>" + fmtStat(a.pass_rate, true) + "</td>";
+      html += "<td>" + fmtStat(b.pass_rate, true) + "</td>";
+      html += '<td class="' + deltaClass(delta.pass_rate) + '">' + (delta.pass_rate || "—") + "</td></tr>";
+
+      // Time (only show row if data exists)
+      if (a.time_seconds || b.time_seconds) {
+        html += "<tr><td><strong>Time (s)</strong></td>";
+        html += "<td>" + fmtStat(a.time_seconds, false) + "</td>";
+        html += "<td>" + fmtStat(b.time_seconds, false) + "</td>";
+        html += '<td class="' + deltaClass(delta.time_seconds) + '">' + (delta.time_seconds ? delta.time_seconds + "s" : "—") + "</td></tr>";
+      }
+
+      // Tokens (only show row if data exists)
+      if (a.tokens || b.tokens) {
+        html += "<tr><td><strong>Tokens</strong></td>";
+        html += "<td>" + fmtStat(a.tokens, false) + "</td>";
+        html += "<td>" + fmtStat(b.tokens, false) + "</td>";
+        html += '<td class="' + deltaClass(delta.tokens) + '">' + (delta.tokens || "—") + "</td></tr>";
+      }
+
+      html += "</tbody></table>";
+
+      // Per-eval breakdown (if runs data available)
+      const runs = data.runs || [];
+      if (runs.length > 0) {
+        const evalIds = [...new Set(runs.map(r => r.eval_id))].sort((a, b) => a - b);
+
+        html += "<h3 style='font-family: Poppins, sans-serif; margin-bottom: 0.75rem;'>Per-Eval Breakdown</h3>";
+
+        const hasTime = runs.some(r => r.result && r.result.time_seconds != null);
+        const hasErrors = runs.some(r => r.result && r.result.errors > 0);
+
+        for (const evalId of evalIds) {
+          const evalRuns = runs.filter(r => r.eval_id === evalId);
+          const evalName = evalRuns[0] && evalRuns[0].eval_name ? evalRuns[0].eval_name : "Eval " + evalId;
+
+          html += "<h4 style='font-family: Poppins, sans-serif; margin: 1rem 0 0.5rem; color: var(--text);'>" + escapeHtml(evalName) + "</h4>";
+          html += '<table class="benchmark-table">';
+          html += "<thead><tr><th>Config</th><th>Run</th><th>Pass Rate</th>";
+          if (hasTime) html += "<th>Time (s)</th>";
+          if (hasErrors) html += "<th>Crashes During Execution</th>";
+          html += "</tr></thead>";
+          html += "<tbody>";
+
+          // Group by config and render with average rows
+          const configGroups = [...new Set(evalRuns.map(r => r.configuration))];
+          for (let ci = 0; ci < configGroups.length; ci++) {
+            const config = configGroups[ci];
+            const configRuns = evalRuns.filter(r => r.configuration === config);
+            if (configRuns.length === 0) continue;
+
+            const rowClass = ci === 0 ? "benchmark-row-with" : "benchmark-row-without";
+            const configLabel = config.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+            for (const run of configRuns) {
+              const r = run.result || {};
+              const prClass = r.pass_rate >= 0.8 ? "benchmark-delta-positive" : r.pass_rate < 0.5 ? "benchmark-delta-negative" : "";
+              html += '<tr class="' + rowClass + '">';
+              html += "<td>" + configLabel + "</td>";
+              html += "<td>" + run.run_number + "</td>";
+              html += '<td class="' + prClass + '">' + ((r.pass_rate || 0) * 100).toFixed(0) + "% (" + (r.passed || 0) + "/" + (r.total || 0) + ")</td>";
+              if (hasTime) html += "<td>" + (r.time_seconds != null ? r.time_seconds.toFixed(1) : "—") + "</td>";
+              if (hasErrors) html += "<td>" + (r.errors || 0) + "</td>";
+              html += "</tr>";
+            }
+
+            // Average row
+            const rates = configRuns.map(r => (r.result || {}).pass_rate || 0);
+            const avgRate = rates.reduce((a, b) => a + b, 0) / rates.length;
+            const avgPrClass = avgRate >= 0.8 ? "benchmark-delta-positive" : avgRate < 0.5 ? "benchmark-delta-negative" : "";
+            html += '<tr class="benchmark-row-avg ' + rowClass + '">';
+            html += "<td>" + configLabel + "</td>";
+            html += "<td>Avg</td>";
+            html += '<td class="' + avgPrClass + '">' + (avgRate * 100).toFixed(0) + "%</td>";
+            if (hasTime) {
+              const times = configRuns.map(r => (r.result || {}).time_seconds).filter(t => t != null);
+              html += "<td>" + (times.length ? (times.reduce((a, b) => a + b, 0) / times.length).toFixed(1) : "—") + "</td>";
+            }
+            if (hasErrors) html += "<td></td>";
+            html += "</tr>";
+          }
+          html += "</tbody></table>";
+
+          // Per-assertion detail for this eval
+          const runsWithExpectations = {};
+          for (const config of configGroups) {
+            runsWithExpectations[config] = evalRuns.filter(r => r.configuration === config && r.expectations && r.expectations.length > 0);
+          }
+          const hasAnyExpectations = Object.values(runsWithExpectations).some(runs => runs.length > 0);
+          if (hasAnyExpectations) {
+            // Collect all unique assertion texts across all configs
+            const allAssertions = [];
+            const seen = new Set();
+            for (const config of configGroups) {
+              for (const run of runsWithExpectations[config]) {
+                for (const exp of (run.expectations || [])) {
+                  if (!seen.has(exp.text)) {
+                    seen.add(exp.text);
+                    allAssertions.push(exp.text);
+                  }
+                }
+              }
+            }
+
+            html += '<table class="benchmark-table" style="margin-top: 0.5rem;">';
+            html += "<thead><tr><th>Assertion</th>";
+            for (const config of configGroups) {
+              const label = config.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+              html += "<th>" + escapeHtml(label) + "</th>";
+            }
+            html += "</tr></thead><tbody>";
+
+            for (const assertionText of allAssertions) {
+              html += "<tr><td>" + escapeHtml(assertionText) + "</td>";
+
+              for (const config of configGroups) {
+                html += "<td>";
+                for (const run of runsWithExpectations[config]) {
+                  const exp = (run.expectations || []).find(e => e.text === assertionText);
+                  if (exp) {
+                    const cls = exp.passed ? "benchmark-delta-positive" : "benchmark-delta-negative";
+                    const icon = exp.passed ? "\u2713" : "\u2717";
+                    html += '<span class="' + cls + '" title="Run ' + run.run_number + ': ' + escapeHtml(exp.evidence || "") + '">' + icon + "</span> ";
+                  } else {
+                    html += "— ";
+                  }
+                }
+                html += "</td>";
+              }
+              html += "</tr>";
+            }
+            html += "</tbody></table>";
+          }
+        }
+      }
+
+      // Notes
+      if (notes.length > 0) {
+        html += '<div class="benchmark-notes">';
+        html += "<h3>Analysis Notes</h3>";
+        html += "<ul>";
+        for (const note of notes) {
+          html += "<li>" + escapeHtml(note) + "</li>";
+        }
+        html += "</ul></div>";
+      }
+
+      container.innerHTML = html;
+    }
+
+    // ---- Start ----
+    init();
+    renderBenchmark();
+  </script>
+</body>
+</html>

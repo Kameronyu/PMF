@@ -1,0 +1,16 @@
+# pipeline.yaml — the canonical R1 step order (Steps 0..10).
+# A flat ordered list of step ids; `run all` walks it top-to-bottom.
+# Reordering the pipeline = editing THIS list only (CTRL-10) — zero controller change.
+# Source of order: PART3 §1.5/§1.6 (R1 map, supersedes §4.1 through the NTP pick).
+steps:
+  - 00-bet-compiler
+  - 01-collect
+  - 02-funnel-analysis
+  - 03-space-map
+  - 04-voc-market-pass
+  - 05-market-selection
+  - 06-voc-deep-pass
+  - 07-funnel-architect
+  - 08-copywriter
+  - 09-asset-classify
+  - 10-adversarial-re-review

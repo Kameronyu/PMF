@@ -1,0 +1,18 @@
+{
+  "id": "06-voc-deep-pass",
+  "name": "VOC deep pass (pass-2/3: PMBDE frequency + copy bank + awareness)",
+  "reads": [
+    "runs/{space}/ntp-pick.json"
+  ],
+  "writes": [
+    "runs/{space}/voc-bank/_bank.json",
+    "runs/{space}/awareness-read.json",
+    "runs/{space}/voc-bank/"
+  ],
+  "scripts": { "pre": [], "post": ["funnel-vectorize.js"] },
+  "prompt": "prompts/06-voc-deep-pass.md",
+  "agents": 1,
+  "validator": "engine/hooks/route.js",
+  "gate": false,
+  "_source": "PART0 STEP 6 (ingests the winner cell from the NTP pick); ONE-SHOT-SHELL §6 (no gate). writes[0]=voc-bank/_bank.json is the file-grained representative of the voc-bank/ store (consumed by Steps 7 & 8); funnel-vectorize.js = embeddings brick for the slot-scoped bank (MANIFEST-04)."
+}

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# run — thin entrypoint shim for the PART3 §8 run-controller.
+# Passes argv straight through to engine/bricks/run-controller.js (the 7-phase loop).
+#   bin/run <step-id> --space=<s> [--smoke]
+#   bin/run all --space=<s> [--smoke] [--pipeline=<f>] [--manifest-dir=<d>]
+exec node "$(dirname "$0")/../engine/bricks/run-controller.js" "$@"
