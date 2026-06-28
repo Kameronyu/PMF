@@ -540,8 +540,57 @@ function runStep(stepId, space, opts) {
 // runAll(space, opts) (CTRL-02/CTRL-10). FILLED in Task 2.
 // ===========================================================================
 function runAll(space, opts) {
-  for (const id of parsePipeline(opts.pipeline)) {
-    runStep(sanitizePathSegment(id), space, opts);
+  // SMOKE-05 — pipeline-completeness / canonical-order PREFLIGHT (the run-grain analog of
+  // manifest-smoke.sh MANIFEST-02). Before spawning ANY step, prove the ACTIVE pipeline is
+  // graph-closed: every step's reads[] has a strictly-EARLIER producer within the active list
+  // (step 00's empty reads[] is the only pipeline-entry). A DROPPED or REORDERED producer leaves
+  // a downstream input with no earlier producer → a NAMED refusal + exit 1, BEFORE any runStep.
+  // This is a pure front-guard: runStep/loadManifest/parsePipeline/preflight are unchanged.
+  const ids = parsePipeline(opts.pipeline).map(sanitizePathSegment);
+  const norm = p => String(p).replace('{space}', space);
+  const producedBy = {};                       // normPath -> [position,...] in active-walk order
+  const readsByPos = [];                        // { id, pos, reads:[normPath,...] }
+  ids.forEach((id, i) => {
+    const m = loadManifest(id, opts.manifestDir);             // reuses CTRL-11 named refusals
+    for (const w of (m.writes || [])) { const p = norm(w); (producedBy[p] = producedBy[p] || []).push(i); }
+    readsByPos.push({ id, pos: i, reads: (m.reads || []).map(norm) });
+  });
+  const hasEarlierProducer = (r, rp) => {
+    if ((producedBy[r] || []).some(q => q < rp)) return true;                          // direct file producer
+    for (const w of Object.keys(producedBy)) {                                          // dir-parent producer
+      if (w.endsWith('/') && r !== w && r.startsWith(w) && (producedBy[w] || []).some(q => q < rp)) return true;
+    }
+    return false;
+  };
+  // The canonical "internally-sourced" set: any path produced by ANY manifest in manifestDir
+  // (NOT just the active pipeline). Dropping a step from the pipeline FILE does not delete its
+  // manifest — so a read that some manifest produces, yet the ACTIVE pipeline lacks an earlier
+  // producer for, is a dropped/reordered producer (REFUSE). A read that NO manifest in the dir
+  // produces is a legitimate EXTERNAL pipeline-entry input (e.g. a seeded bet-brief.md) — ALLOW.
+  const internallyProduced = new Set();
+  let manFiles = [];
+  try { manFiles = fs.readdirSync(opts.manifestDir).filter(f => f.endsWith('.json')); } catch (e) {}
+  for (const f of manFiles) {
+    let mm; try { mm = JSON.parse(fs.readFileSync(path.join(opts.manifestDir, f), 'utf8')); } catch (e) { continue; }
+    if (mm && typeof mm === 'object' && !Array.isArray(mm)) for (const w of (mm.writes || [])) internallyProduced.add(norm(w));
+  }
+  const isInternallySourced = (r) => {
+    if (internallyProduced.has(r)) return true;
+    for (const w of internallyProduced) { if (w.endsWith('/') && r !== w && r.startsWith(w)) return true; }
+    return false;
+  };
+  const bad = [];
+  for (const { id, pos, reads } of readsByPos) {
+    for (const r of reads) {
+      if (hasEarlierProducer(r, pos)) continue;        // satisfied within the active pipeline
+      if (!isInternallySourced(r)) continue;           // genuine external pipeline-entry input — allowed
+      bad.push(`REFUSE [run all] pipeline incomplete/misordered: step ${id} reads ${r} with no strictly-earlier producer in the active pipeline`);
+    }
+  }
+  if (bad.length) { for (const b of bad) console.error(b); process.exit(1); }
+  // Active pipeline is graph-closed — walk it in order.
+  for (const id of ids) {
+    runStep(id, space, opts);
   }
 }
 
