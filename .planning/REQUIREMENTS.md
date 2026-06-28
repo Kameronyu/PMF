@@ -56,11 +56,11 @@ Requirements for the runnable shell. Each maps to exactly one roadmap phase.
 
 ### Smoke Run & Definition of Done (SMOKE)
 
-- [ ] **SMOKE-01**: `run all --space=smoke` completes end-to-end on stub prompts
-- [ ] **SMOKE-02**: All preflights green; all validators green on declared top-level shapes
-- [ ] **SMOKE-03**: Every artifact slot is written under `runs/smoke/`
-- [ ] **SMOKE-04**: Every operator gate is logged; the `_receipts/` chain is unbroken across the run
-- [ ] **SMOKE-05**: Zero orphan outputs / dangling inputs across the manifests (the producer→consumer graph closes)
+- [x] **SMOKE-01**: `run all --space=smoke` completes end-to-end on stub prompts
+- [x] **SMOKE-02**: All preflights green; all validators green on declared top-level shapes
+- [x] **SMOKE-03**: Every artifact slot is written under `runs/smoke/`
+- [x] **SMOKE-04**: Every operator gate is logged; the `_receipts/` chain is unbroken across the run
+- [x] **SMOKE-05**: Zero orphan outputs / dangling inputs across the manifests (the producer→consumer graph closes)
 
 ### Locked Operator Decisions Wired (WIRE)
 
@@ -134,11 +134,11 @@ Which phases cover which requirements. Populated during roadmap creation.
 | VALID-03 | Phase 5 | Complete |
 | VALID-04 | Phase 5 | Complete |
 | VALID-05 | Phase 5 | Complete |
-| SMOKE-01 | Phase 6 | Pending |
-| SMOKE-02 | Phase 6 | Pending |
-| SMOKE-03 | Phase 6 | Pending |
-| SMOKE-04 | Phase 6 | Pending |
-| SMOKE-05 | Phase 6 | Pending |
+| SMOKE-01 | Phase 6 | Complete |
+| SMOKE-02 | Phase 6 | Complete |
+| SMOKE-03 | Phase 6 | Complete |
+| SMOKE-04 | Phase 6 | Complete |
+| SMOKE-05 | Phase 6 | Complete |
 
 **Coverage:**
 - v1 requirements: 38 total *(the original header said 33; the enumerated list actually contains 38 distinct REQ-IDs — STORE 5 + CTRL 12 + MANIFEST 4 + STUB 4 + VALID 5 + SMOKE 5 + WIRE 3. Corrected during roadmap creation.)*
