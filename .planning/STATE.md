@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-06-27T11:31:53.041Z"
-last_activity: 2026-06-27
+status: build-complete
+stopped_at: Phase 6 build done (smoke-dod + completeness preflight); xhigh verify CLEAN; milestone lifecycle pending
+last_updated: "2026-06-28T00:00:00.000Z"
+last_activity: 2026-06-28
 progress:
   total_phases: 6
-  completed_phases: 2
+  completed_phases: 6
   total_plans: 4
   completed_plans: 4
   percent: 100
@@ -21,16 +21,20 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-26)
 
 **Core value:** A runnable shell of Steps 0–10 that completes end-to-end on stub prompts — every declared artifact produced and consumed, deterministic routing, gates logged, unbroken receipts, zero orphan outputs / dangling inputs.
-**Current focus:** Phase 2 — Run-Controller & Pipeline Spine
+**Current focus:** SHELL BUILD COMPLETE — milestone lifecycle (audit → complete) pending operator confirm.
 
 ## Current Position
 
-Phase: 2 (Run-Controller & Pipeline Spine) — EXECUTING
-Plan: 2 of 2
-Status: Phase complete — ready for verification
-Last activity: 2026-06-27
+Phase: 6 (Smoke Run & Definition-of-Done) — BUILD COMPLETE + xhigh-verified CLEAN
+Plan: 1 of 1
+Status: All 6 phases built; all 38 v1 requirements Complete; all 7 acceptance gates green.
+Last activity: 2026-06-28
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██████████] 100% (build) — milestone audit/complete-milestone remaining
+
+**Phases:** 1 Artifact Store ✓ · 2 Run-Controller ✓ · 3 Step Manifests ×11 ✓ · 4 Prompt Stubs + mock emits ✓ · 5 Validators/Gates/Receipts ✓ · 6 Smoke Run & DoD ✓
+**7 gates green:** store-smoke · controller-smoke · h6-all · manifest-smoke · stub-smoke · validate-smoke · smoke-dod
+**Each phase xhigh adversarially verified** (Phases 3/4/5 had harness/validator hardening fixes applied; Phase 6 clean).
 
 ## Performance Metrics
 
