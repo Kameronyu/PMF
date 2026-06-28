@@ -98,7 +98,9 @@ Plans:
   3. Every artifact slot is written under `runs/smoke/`.
   4. Every operator gate is logged and the `_receipts/` chain is unbroken across the run.
   5. Zero orphan outputs / dangling inputs across the manifests — the producer→consumer graph closes.
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 06-01-PLAN.md — smoke-dod.sh DoD harness (SMOKE-01..05 + determinism, RED-first) + run-all pipeline-completeness preflight (SMOKE-05 mechanism, GREEN)
 
 ## Progress
 
