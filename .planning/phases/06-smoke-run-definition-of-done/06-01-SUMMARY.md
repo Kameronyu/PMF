@@ -3,6 +3,7 @@ phase: 06-smoke-run-definition-of-done
 plan: 01
 status: complete
 requirements: [SMOKE-01, SMOKE-02, SMOKE-03, SMOKE-04, SMOKE-05]
+requirements-completed: [SMOKE-01, SMOKE-02, SMOKE-03, SMOKE-04, SMOKE-05]
 gates_green: 7
 built_by: inline (main session) — after two background build agents died on API transport drops
 ---
